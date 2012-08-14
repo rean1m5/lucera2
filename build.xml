@@ -1,0 +1,188 @@
+<project default="all">
+    <property name="dist" location="build" />
+    <property name="commons" location="commons/src/main/java" />
+    <property name="game" location="gameserver" />
+    <property name="login" location="login" />
+    <property name="data" location="datapack" />
+
+    <path id="libs">
+        <fileset dir="libs">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${dist}" />
+    </target>
+
+    <target name="init">
+        <mkdir dir="${dist}" />
+        <mkdir dir="${dist}/sql" />
+        <mkdir dir="${dist}/libs" />
+        <mkdir dir="${dist}/login" />
+        <mkdir dir="${dist}/login/config" />
+        <mkdir dir="${dist}/login/log"/>
+        <mkdir dir="${dist}/game" />
+        <mkdir dir="${dist}/game/extensions" />
+        <mkdir dir="${dist}/game/log"/>
+        <mkdir dir="${dist}/game/data" />
+        <mkdir dir="${dist}/game/data/html" />
+        <mkdir dir="${dist}/game/config" />
+        <mkdir dir="${dist}/game/data/scripts/" />
+        <copy todir="${dist}/libs">
+            <fileset dir="libs">
+                <include name="*.jar" />
+            </fileset>
+        </copy>
+        <copy todir="${dist}/sql">
+            <fileset dir="${game}/sql">
+            </fileset>
+        </copy>
+
+    </target>
+
+    <target name="commons" depends="init">
+        <delete dir="${dist}/classes" />
+        <mkdir dir="${dist}/classes" />
+
+        <javac destdir="${dist}/classes" optimize="off" debug="on" source="1.6" target="1.6" encoding="utf-8" >
+            <src path="${commons}"/>
+            <classpath>
+                <path refid="libs"/>
+            </classpath>
+        </javac>
+
+        <antcall target="crypting"/>
+
+        <jar destfile="${dist}/libs/lucera-commons.jar">
+            <fileset dir="${dist}/classes"/>
+        </jar>
+
+        <delete dir="${dist}/classes" />
+    </target>
+
+    <target name="login" depends="commons">
+        <delete dir="${dist}/classes" />
+        <mkdir dir="${dist}/classes" />
+
+        <javac destdir="${dist}/classes" optimize="off" debug="on" source="1.6" target="1.6" encoding="utf-8" >
+            <src path="${login}/main/java"/>
+            <classpath>
+                <path refid="libs"/>
+                <path location="${dist}/libs/lucera-commons.jar"/>
+            </classpath>
+        </javac>
+
+        <antcall target="crypting"/>
+
+        <jar destfile="${dist}/login/login.jar">
+            <fileset dir="${dist}/classes"/>
+        </jar>
+
+        <mkdir dir="${dist}/login/libs" />
+        <copy todir="${dist}/login/libs">
+            <fileset dir="libs/catsbyguard"/>
+        </copy>
+
+        <copy todir="${dist}/login/">
+            <fileset dir="${login}/dist" />
+        </copy>
+        <delete dir="${dist}/classes" />
+
+    </target>
+
+    <target name="game" depends="commons">
+        <delete dir="${dist}/classes" />
+        <mkdir dir="${dist}/classes" />
+        <javac destdir="${dist}/classes" source="1.6" target="1.6" encoding="utf-8" >
+            <src path="${game}/loader/ru/catssoftware/info"/>
+        </javac>
+
+        <javac destdir="${dist}/classes" optimize="off" debug="on" source="1.6" target="1.6" encoding="utf-8" >
+            <src path="${game}/src"/>
+            <classpath>
+                <path refid="libs"/>
+                <path location="${dist}/libs/lucera-commons.jar"/>
+            </classpath>
+        </javac>
+
+        <antcall target="crypting"/>
+
+        <delete file="${dist}/classes/ru/catssoftware/info/Version.class" />
+
+        <jar destfile="${dist}/game/gameserver.jar">
+            <fileset dir="${dist}/classes"/>
+        </jar>
+
+        <delete dir="${dist}/classes" />
+        <mkdir dir="${dist}/classes" />
+
+        <javac destdir="${dist}/classes" optimize="off" debug="on" source="1.5"	target="1.5" encoding="utf-8" >
+            <src path="${game}/loader"/>
+            <classpath>
+                <path refid="libs"/>
+                <path location="${dist}/libs/lucera-commons.jar"/>
+                <path location="${dist}/game/gameserver.jar" />
+            </classpath>
+        </javac>
+
+        <antcall target="crypting"/>
+
+        <jar destfile="${dist}/game/lucera.jar">
+            <fileset dir="${dist}/classes"/>
+            <manifest>
+                <attribute name="Main-Class" value="ru.catssoftware.gameserver.util.BootManager"/>
+            </manifest>
+        </jar>
+
+
+        <delete dir="${dist}/classes" />
+        <copy todir="${dist}/game">
+            <fileset dir="${game}/dist"/>
+        </copy>
+
+        <mkdir dir="${dist}/game/libs" />
+        <copy todir="${dist}/game/libs">
+            <fileset dir="libs/catsbyguard"/>
+            <fileset dir="libs/licman"/>
+        </copy>
+    </target>
+
+    <target name="dp">
+        <delete dir="${dist}/classes" />
+        <mkdir dir="${dist}/classes" />
+        <javac destdir="${dist}/classes" optimize="off" debug="on" source="1.6" target="1.6" encoding="utf-8" >
+            <src path="${data}/quests"/>
+            <classpath>
+                <path refid="libs"/>
+                <path location="${dist}/libs/lucera-commons.jar"/>
+                <path location="${dist}/game/gameserver.jar" />
+            </classpath>
+        </javac>
+        <antcall target="crypting"/>
+
+        <jar destfile="${dist}/game/data/scripts/corequests.jar">
+            <fileset dir="${dist}/classes"/>
+            <fileset dir="${data}/quests/html"/>
+        </jar>
+        <delete dir="${dist}/classes" />
+        <copy todir="${dist}/game/data">
+            <fileset dir="${data}/data">
+                <include name="**/*"/>
+                <exclude name="**/*.cs" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="all" depends="login,game,dp" />
+
+    <target name="crypting">
+        <java classname="ru.catssoftware.CatsByteGuard">
+            <arg value="${dist}/classes" />
+            <classpath>
+                <path location="./pp/CatsByteGuard.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+</project>

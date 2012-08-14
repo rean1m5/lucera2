@@ -1,0 +1,101 @@
+INFO [07:56:48] L2DatabaseFactory: Connected to database server
+INFO [07:56:48] ..................................................
+INFO [07:56:48] System Time: 24-08-2010 07:56:48 AM
+INFO [07:56:48] ..................................................
+INFO [07:56:48] OS: Windows XP Build: 5.1
+INFO [07:56:48] OS Arch: x86
+INFO [07:56:48] ..................................................
+INFO [07:56:48] ..................................................
+INFO [07:56:48] Avaible CPU(s): 2
+INFO [07:56:48] Processor(s) Identifier: x86 Family 15 Model 104 Stepping 2, AuthenticAMD
+INFO [07:56:48] ..................................................
+INFO [07:56:48] ..................................................
+INFO [07:56:48] Runtime Information
+INFO [07:56:48] Current Free Heap Size: 12 mb
+INFO [07:56:48] Current Heap Size: 15 mb
+INFO [07:56:48] Maximum Heap Size: 123 mb
+INFO [07:56:48] ..................................................
+INFO [07:56:48] ..................................................
+INFO [07:56:48] Java Platform Information
+INFO [07:56:48] Java Runtime  Name: Java(TM) SE Runtime Environment
+INFO [07:56:48] Java Version: 1.6.0_21
+INFO [07:56:48] Java Class Version: 50.0
+INFO [07:56:48] ..................................................
+INFO [07:56:48] ..................................................
+INFO [07:56:48] Virtual Machine Information (JVM)
+INFO [07:56:48] JVM Name: Java HotSpot(TM) Client VM
+INFO [07:56:48] JVM installation directory: C:\Program Files\JRE
+INFO [07:56:48] JVM version: 17.0-b17
+INFO [07:56:48] JVM Vendor: Sun Microsystems Inc.
+INFO [07:56:48] JVM Info: mixed mode, sharing
+INFO [07:56:48] ..................................................
+INFO [07:56:48] ..................................................
+INFO [07:56:48] GameServerManager: Loaded 127 server name(s)
+INFO [07:56:48] GameServerManager: Loaded 2 server(s)
+INFO [07:56:48] DDoS-Proof: Started client manager for 100 sessions
+INFO [07:56:48] DDoS-Proof: Session time set to 15 seconds
+INFO [07:56:48] LoginManager initiating
+INFO [07:56:54] Cached 10 KeyPairs for RSA communication
+INFO [07:56:54] Stored 20 keys for Blowfish communication
+INFO [07:56:54] BanManager: Loaded 3 banned ip/subnet(s).
+INFO [07:56:54] ExtensionManager: Loaded 0 extension(s)
+INFO [07:56:54] Listening for GameServers on 127.0.0.1:9014
+INFO [07:56:54] Free memory: 118 Mb of 123 Mb
+INFO [07:56:54] Ready on IP: 192.168.1.110:2106.
+INFO [07:56:54] Load time: 6 Seconds.
+INFO [07:56:54] Login Server successfully started.
+INFO [07:56:55] Updated Gameserver [2] Sieghardt IP's:
+INFO [07:56:55] 192.168.1.110
+INFO [07:56:55] 192.168.1.110
+INFO [08:04:32] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [08:04:32] Server [2] Sieghardt is now set as disconnected
+INFO [08:05:30] Updated Gameserver [2] Sieghardt IP's:
+INFO [08:05:30] 192.168.1.110
+INFO [08:05:30] 192.168.1.110
+INFO [08:10:31] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [08:10:31] Server [2] Sieghardt is now set as disconnected
+INFO [08:11:17] Updated Gameserver [2] Sieghardt IP's:
+INFO [08:11:17] 192.168.1.110
+INFO [08:11:17] 192.168.1.110
+INFO [08:12:11] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [08:12:11] Server [2] Sieghardt is now set as disconnected
+INFO [08:13:04] Updated Gameserver [2] Sieghardt IP's:
+INFO [08:13:04] 192.168.1.110
+INFO [08:13:04] 192.168.1.110
+INFO [08:14:01] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [08:14:01] Server [2] Sieghardt is now set as disconnected
+INFO [08:16:49] Updated Gameserver [2] Sieghardt IP's:
+INFO [08:16:49] 192.168.1.110
+INFO [08:16:49] 192.168.1.110
+INFO [08:23:55] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [08:23:55] Server [2] Sieghardt is now set as disconnected
+INFO [08:24:49] Updated Gameserver [2] Sieghardt IP's:
+INFO [08:24:49] 192.168.1.110
+INFO [08:24:49] 192.168.1.110
+INFO [08:29:18] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [08:29:18] Server [2] Sieghardt is now set as disconnected
+INFO [08:30:07] Updated Gameserver [2] Sieghardt IP's:
+INFO [08:30:07] 192.168.1.110
+INFO [08:30:07] 192.168.1.110
+INFO [08:32:54] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [08:32:54] Server [2] Sieghardt is now set as disconnected
+INFO [08:36:57] Updated Gameserver [2] Sieghardt IP's:
+INFO [08:36:57] 192.168.1.110
+INFO [08:36:57] 192.168.1.110
+INFO [08:37:28] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [08:37:28] Server [2] Sieghardt is now set as disconnected
+INFO [08:54:35] Updated Gameserver [2] Sieghardt IP's:
+INFO [08:54:35] 192.168.1.110
+INFO [08:54:35] 192.168.1.110
+INFO [08:58:23] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [08:58:23] Server [2] Sieghardt is now set as disconnected
+INFO [08:59:22] Updated Gameserver [2] Sieghardt IP's:
+INFO [08:59:22] 192.168.1.110
+INFO [08:59:22] 192.168.1.110
+INFO [09:08:16] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [09:08:16] Server [2] Sieghardt is now set as disconnected
+INFO [09:09:08] Updated Gameserver [2] Sieghardt IP's:
+INFO [09:09:08] 192.168.1.110
+INFO [09:09:08] 192.168.1.110
+INFO [09:12:16] GameServer [2] Sieghardt: Connection lost: Connection reset
+INFO [09:12:16] Server [2] Sieghardt is now set as disconnected

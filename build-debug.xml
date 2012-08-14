@@ -1,0 +1,99 @@
+<project default="gameserver.jar">
+	<property name="dist" location="../server" />
+
+	<property name="src-commons" location="commons/src/main/java" />
+    <property name="src-gameserver" location="gameserver/src" />
+    <property name="src-gameserver-loader" location="gameserver/loader" />
+    <property name="src-loginserver" location="login/main/java" />
+
+	<property name="game" location="gameserver" />
+	<property name="login" location="login" />
+	<property name="data" location="datapack" />
+
+	<path id="libs">
+		<fileset dir="${dist}\libs">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${dist}\game">
+			<include name="lucera.jar"/>
+		</fileset>
+	</path>
+
+	<target name="gameserver.jar">
+
+        <delete dir="${dist}/classes" />
+		<mkdir dir="${dist}/classes" />
+
+		<javac srcdir="${src-gameserver}" destdir="${dist}/classes" encoding="UTF-8" nowarn="off" optimize="off" debug="on" source="1.6" target="1.6" >
+			<classpath>
+				<path refid="libs"/>
+			</classpath>
+		</javac>
+
+		<jar destfile="${dist}/game/gameserver.jar">
+			<fileset dir="${dist}/classes"/>
+		</jar>
+
+	</target>
+
+    <target name="lucera-commons.jar">
+
+        <delete dir="${dist}/classes" />
+        <mkdir dir="${dist}/classes" />
+
+        <javac destdir="${dist}/classes" optimize="off" debug="on" source="1.6" target="1.6" encoding="utf-8" >
+            <src path="${src-commons}"/>
+            <classpath>
+                <path refid="libs"/>
+            </classpath>
+        </javac>
+
+        <jar destfile="${dist}/libs/lucera-commons.jar">
+            <fileset dir="${dist}/classes"/>
+        </jar>
+
+    </target>
+
+    <target name="login.jar">
+
+        <delete dir="${dist}/classes" />
+        <mkdir dir="${dist}/classes" />
+
+        <javac destdir="${dist}/classes" optimize="off" debug="on" source="1.6" target="1.6" encoding="utf-8" >
+            <src path="${src-loginserver}"/>
+            <classpath>
+                <path refid="libs"/>
+            </classpath>
+        </javac>
+
+        <jar destfile="${dist}/login/login.jar">
+            <fileset dir="${dist}/classes"/>
+        </jar>
+
+    </target>
+
+    <target name="lucera.jar">
+
+        <delete dir="${dist}/classes" />
+        <mkdir dir="${dist}/classes" />
+
+        <javac destdir="${dist}/classes" optimize="off" debug="on" source="1.6" target="1.6" encoding="utf-8" >
+            <src path="${src-gameserver-loader}"/>
+            <classpath>
+                <path refid="libs"/>
+            </classpath>
+        </javac>
+
+        <jar destfile="${dist}/game/lucera.jar">
+            <fileset dir="${dist}/classes"/>
+        </jar>
+
+    </target>
+
+	<target name="clear">
+
+		<delete dir="${dist}/classes" />
+		<mkdir dir="${dist}/classes" />
+
+	</target>
+</project>
