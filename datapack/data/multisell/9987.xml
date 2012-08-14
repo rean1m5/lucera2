@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Blacksmith of Mammon AA Exchange -->
+	<list>
+	<!-- Green Stone*3 AA -->
+	<item id="1">
+		<ingredient id="6360" count="1"/>
+		<production id="5575" count="3"/>
+	</item>
+	<!-- Blue Stone*5 AA -->
+	<item id="2">
+		<ingredient id="6361" count="1"/>
+		<production id="5575" count="5"/>
+	</item>
+	<!-- Red Stone*10 AA -->
+	<item id="3">
+		<ingredient id="6362" count="1"/>
+		<production id="5575" count="10"/>
+	</item>
+</list>

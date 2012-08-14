@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Tattoos GM Shop -->
+
+<list>
+
+  <!-- [Tattoo Of Power Nongrade] for [D Crystals] -->
+  <item id="1">
+    <ingredient id="1458" count="181"/>
+    <production id="485" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Fire D] for [D Crystals] -->
+  <item id="2">
+    <ingredient id="1458" count="276"/>
+    <production id="486" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Resolve D] for [D Crystals] -->
+  <item id="3">
+    <ingredient id="1458" count="276"/>
+    <production id="487" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Flame B] for [B Crystals] -->
+  <item id="4">
+    <ingredient id="1460" count="462"/>
+    <production id="488" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Bravery C] for [C Crystals] -->
+  <item id="5">
+    <ingredient id="1459" count="428"/>
+    <production id="489" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Blood A] for [A Crystals] -->
+  <item id="6">
+    <ingredient id="1461" count="462"/>
+    <production id="490" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Absolute A] for [A Crystals] -->
+  <item id="7">
+    <ingredient id="1461" count="422"/>
+    <production id="491" count="1"/>
+  </item>
+
+  <!-- [Tattoo of Soul D] for [D Crystals] -->
+  <item id="8">
+    <ingredient id="1458" count="181"/>
+    <production id="492" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Avadon B] for [B Crystals] -->
+  <item id="9">
+    <ingredient id="1460" count="208"/>
+    <production id="493" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Doom B] for [B Crystals] -->
+  <item id="10">
+    <ingredient id="1460" count="321"/>
+    <production id="494" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Pledge B] for [B Crystals] -->
+  <item id="11">
+    <ingredient id="1460" count="208"/>
+    <production id="495" count="1"/>
+  </item>
+
+  <!-- [Tattoo Of Divine B] for [B Crystals] -->
+  <item id="12">
+    <ingredient id="1460" count="321"/>
+    <production id="496" count="1"/>
+  </item>
+
+  <!-- [Nightmarish Tattoo A] for [A Crystals] -->
+  <item id="13">
+    <ingredient id="1461" count="422"/>
+    <production id="2410" count="1"/>
+  </item>
+
+</list>

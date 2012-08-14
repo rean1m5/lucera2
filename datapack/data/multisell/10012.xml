@@ -1,0 +1,323 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<list maintainEnchantment="true">
+
+  <!-- Tallum Tunic -->
+  <item id="1">
+    <ingredient id="57" count="10000000"/>
+    <production id="2400" count="1"/>
+  </item>
+
+  <!-- Tallum Stockings -->
+  <item id="2">
+    <ingredient id="57" count="10000000"/>
+    <production id="2405" count="1"/>
+  </item>
+
+  <!-- Tallum Helm -->
+  <item id="3">
+    <ingredient id="57" count="10000000"/>
+    <production id="547" count="1"/>
+  </item>
+
+  <!-- Tallum Boots - Robe -->
+  <item id="4">
+    <ingredient id="57" count="10000000"/>
+    <production id="5782" count="1"/>
+  </item>
+
+  <!-- Tallum Gloves - Robe -->
+  <item id="5">
+    <ingredient id="57" count="10000000"/>
+    <production id="5770" count="1"/>
+  </item>
+
+  <!-- Majestic Robe -->
+  <item id="6">
+    <ingredient id="57" count="10000000"/>
+    <production id="2409" count="1"/>
+  </item>
+
+  <!-- Majestic Circlet -->
+  <item id="7">
+    <ingredient id="57" count="10000000"/>
+    <production id="2419" count="1"/>
+  </item>
+
+  <!-- Majestic Boots - Robe -->
+  <item id="8">
+    <ingredient id="57" count="10000000"/>
+    <production id="5788" count="1"/>
+  </item>
+
+  <!-- Majestic Gauntlets - Robe -->
+  <item id="9">
+    <ingredient id="57" count="10000000"/>
+    <production id="5776" count="1"/>
+  </item>
+
+  <!-- Nightmare Robe -->
+  <item id="10">
+    <ingredient id="57" count="10000000"/>
+    <production id="2408" count="1"/>
+  </item>
+
+  <!-- Helm of Nightmare -->
+  <item id="11">
+    <ingredient id="57" count="10000000"/>
+    <production id="2418" count="1"/>
+  </item>
+
+  <!-- Boots of Nightmare - Robe -->
+  <item id="12">
+    <ingredient id="57" count="10000000"/>
+    <production id="5785" count="1"/>
+  </item>
+
+  <!-- Gauntlets of Nightmare - Robe -->
+  <item id="13">
+    <ingredient id="57" count="10000000"/>
+    <production id="5773" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Robe -->
+  <item id="14">
+    <ingredient id="57" count="10000000"/>
+    <production id="2407" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Helmet -->
+  <item id="15">
+    <ingredient id="57" count="10000000"/>
+    <production id="512" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Boots - Robe -->
+  <item id="16">
+    <ingredient id="57" count="10000000"/>
+    <production id="5779" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Gloves - Robe -->
+  <item id="17">
+    <ingredient id="57" count="10000000"/>
+    <production id="5767" count="1"/>
+  </item>
+
+  <!-- Tallum Leather Armor -->
+  <item id="18">
+    <ingredient id="57" count="10000000"/>
+    <production id="2393" count="1"/>
+  </item>
+
+  <!-- Tallum Helm -->
+  <item id="19">
+    <ingredient id="57" count="10000000"/>
+    <production id="547" count="1"/>
+  </item>
+
+  <!-- Tallum Boots - Light Armor -->
+  <item id="20">
+    <ingredient id="57" count="10000000"/>
+    <production id="5781" count="1"/>
+  </item>
+
+  <!-- Tallum Gloves - Light Armor -->
+  <item id="21">
+    <ingredient id="57" count="10000000"/>
+    <production id="5769" count="1"/>
+  </item>
+
+  <!-- Majestic Leather Armor -->
+  <item id="22">
+    <ingredient id="57" count="10000000"/>
+    <production id="2395" count="1"/>
+  </item>
+
+  <!-- Majestic Circlet -->
+  <item id="23">
+    <ingredient id="57" count="10000000"/>
+    <production id="2419" count="1"/>
+  </item>
+
+  <!-- Majestic Boots - Light Armor -->
+  <item id="24">
+    <ingredient id="57" count="10000000"/>
+    <production id="5787" count="1"/>
+  </item>
+
+  <!-- Majestic Gauntlets - Light Armor -->
+  <item id="25">
+    <ingredient id="57" count="10000000"/>
+    <production id="5775" count="1"/>
+  </item>
+
+  <!-- Nightmarish Leather Armor -->
+  <item id="26">
+    <ingredient id="57" count="10000000"/>
+    <production id="2394" count="1"/>
+  </item>
+
+  <!-- Helm of Nightmare -->
+  <item id="27">
+    <ingredient id="57" count="10000000"/>
+    <production id="2418" count="1"/>
+  </item>
+
+  <!-- Boots of Nightmare - Light Armor -->
+  <item id="28">
+    <ingredient id="57" count="10000000"/>
+    <production id="5784" count="1"/>
+  </item>
+
+  <!-- Gauntlets of Nightmare - Light Armor -->
+  <item id="29">
+    <ingredient id="57" count="10000000"/>
+    <production id="5772" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Leather Armor -->
+  <item id="30">
+    <ingredient id="57" count="10000000"/>
+    <production id="2385" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Leggings -->
+  <item id="31">
+    <ingredient id="57" count="10000000"/>
+    <production id="2389" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Helmet -->
+  <item id="32">
+    <ingredient id="57" count="10000000"/>
+    <production id="512" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Boots - Light Armor -->
+  <item id="33">
+    <ingredient id="57" count="10000000"/>
+    <production id="5778" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Gloves - Light Armor -->
+  <item id="34">
+    <ingredient id="57" count="10000000"/>
+    <production id="5766" count="1"/>
+  </item>
+
+  <!-- Armor of Nightmare -->
+  <item id="35">
+    <ingredient id="57" count="10000000"/>
+    <production id="374" count="1"/>
+  </item>
+
+  <!-- Shield of Nightmare -->
+  <item id="36">
+    <ingredient id="57" count="10000000"/>
+    <production id="2498" count="1"/>
+  </item>
+
+  <!-- Helm of Nightmare -->
+  <item id="37">
+    <ingredient id="57" count="10000000"/>
+    <production id="2418" count="1"/>
+  </item>
+
+  <!-- Gauntlets of Nightmare - Heavy Armor -->
+  <item id="38">
+    <ingredient id="57" count="10000000"/>
+    <production id="5771" count="1"/>
+  </item>
+
+  <!-- Boots of Nightmare - Heavy Armor -->
+  <item id="39">
+    <ingredient id="57" count="10000000"/>
+    <production id="5783" count="1"/>
+  </item>
+
+  <!-- Majestic Plate Armor -->
+  <item id="40">
+    <ingredient id="57" count="10000000"/>
+    <production id="2383" count="1"/>
+  </item>
+
+  <!-- Majestic Circlet -->
+  <item id="41">
+    <ingredient id="57" count="10000000"/>
+    <production id="2419" count="1"/>
+  </item>
+
+  <!-- Majestic Gauntlets - Heavy Armor -->
+  <item id="42">
+    <ingredient id="57" count="10000000"/>
+    <production id="5774" count="1"/>
+  </item>
+
+  <!-- Majestic Boots - Heavy Armor -->
+  <item id="43">
+    <ingredient id="57" count="10000000"/>
+    <production id="5786" count="1"/>
+  </item>
+
+  <!-- Tallum Plate Armor -->
+  <item id="44">
+    <ingredient id="57" count="10000000"/>
+    <production id="2382" count="1"/>
+  </item>
+
+  <!-- Tallum Helm -->
+  <item id="45">
+    <ingredient id="57" count="10000000"/>
+    <production id="547" count="1"/>
+  </item>
+
+  <!-- Tallum Gloves - Heavy Armor -->
+  <item id="46">
+    <ingredient id="57" count="10000000"/>
+    <production id="5768" count="1"/>
+  </item>
+
+  <!-- Tallum Boots - Heavy Armor -->
+  <item id="47">
+    <ingredient id="57" count="10000000"/>
+    <production id="5780" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Breastplate -->
+  <item id="48">
+    <ingredient id="57" count="10000000"/>
+    <production id="365" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Gaiters -->
+  <item id="49">
+    <ingredient id="57" count="10000000"/>
+    <production id="388" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Helmet -->
+  <item id="50">
+    <ingredient id="57" count="10000000"/>
+    <production id="512" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Gloves - Heavy Armor -->
+  <item id="51">
+    <ingredient id="57" count="10000000"/>
+    <production id="5765" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Boots - Heavy Armor -->
+  <item id="52">
+    <ingredient id="57" count="10000000"/>
+    <production id="5777" count="1"/>
+  </item>
+
+  <!-- Dark Crystal Shield -->
+  <item id="53">
+    <ingredient id="57" count="10000000"/>
+    <production id="641" count="1"/>
+  </item>
+
+</list>

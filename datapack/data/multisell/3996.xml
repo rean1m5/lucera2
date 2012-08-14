@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>  <!-- L2Emu Project -->
+<!--  Christmas Echo Crystals -->
+
+<list>
+
+	<!-- 1st Carol -->
+	<item id="1">
+		<ingredient id="57" count="10000"/>
+		<production id="5562" count="1"/>
+	</item>
+
+	<!-- 2nd Carol -->
+	<item id="2">
+		<ingredient id="57" count="10000"/>
+		<production id="5563" count="1"/>
+	</item>
+
+	<!-- 3rd Carol -->
+	<item id="3">
+		<ingredient id="57" count="10000"/>
+		<production id="5564" count="1"/>
+	</item>
+
+	<!-- 4th Carol -->
+	<item id="4">
+		<ingredient id="57" count="10000"/>
+		<production id="5565" count="1"/>
+	</item>
+
+	<!-- 5th Carol -->
+	<item id="5">
+		<ingredient id="57" count="10000"/>
+		<production id="5566" count="1"/>
+	</item>
+
+	<!-- 6th Carol -->
+	<item id="6">
+		<ingredient id="57" count="10000"/>
+		<production id="5583" count="1"/>
+	</item>
+
+	<!-- 7th Carol -->
+	<item id="7">
+		<ingredient id="57" count="10000"/>
+		<production id="5584" count="1"/>
+	</item>
+
+	<!-- 8th Carol -->
+	<item id="8">
+		<ingredient id="57" count="10000"/>
+		<production id="5585" count="1"/>
+	</item>
+
+	<!-- 9th Carol -->
+	<item id="9">
+		<ingredient id="57" count="10000"/>
+		<production id="5586" count="1"/>
+	</item>
+
+	<!-- 10th Carol -->
+	<item id="10">
+		<ingredient id="57" count="10000"/>
+		<production id="5587" count="1"/>
+	</item>
+
+</list>

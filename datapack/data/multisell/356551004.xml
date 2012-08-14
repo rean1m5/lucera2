@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Castle Merchant - Exchange Shirts -->
+<list maintainEnchantment="true" maintainEnchantmentMinLvl="4">
+<!-- Silk Shirt - C Grade -->
+<item id="1"> <!-- Silk Shirt - HP -->
+  <production id="10491" count="1"/>
+  <ingredient id="9579" count="1"/>
+  <ingredient id="9912" count="50"/>
+</item>
+<item id="2"> <!-- Silk Shirt - MP -->
+  <production id="10492" count="1"/>
+  <ingredient id="9579" count="1"/>
+  <ingredient id="9912" count="50"/>
+</item>
+<item id="3"> <!-- Silk Shirt - CP -->
+  <production id="10493" count="1"/>
+  <ingredient id="9579" count="1"/>
+  <ingredient id="9912" count="50"/>
+</item>
+<!-- Striped Silk Shirt - C Grade -->
+<item id="4"> <!-- Striped Silk Shirt - HP -->
+  <production id="10503" count="1"/>
+  <ingredient id="9585" count="1"/>
+  <ingredient id="9912" count="90"/>
+</item>
+<item id="5"> <!-- Striped Silk Shirt - MP -->
+  <production id="10504" count="1"/>
+  <ingredient id="9585" count="1"/>
+  <ingredient id="9912" count="90"/>
+</item>
+<item id="6"> <!-- Striped Silk Shirt - CP -->
+  <production id="10505" count="1"/>
+  <ingredient id="9585" count="1"/>
+  <ingredient id="9912" count="90"/>
+</item>
+<!-- Leather Shirt - B Grade -->
+<item id="7"> <!-- Thin Leather Shirt - HP -->
+  <production id="10494" count="1"/>
+  <ingredient id="9580" count="1"/>
+  <ingredient id="9912" count="130"/>
+</item>
+<item id="8"> <!-- Thin Leather Shirt - MP -->
+  <production id="10494" count="1"/>
+  <ingredient id="9580" count="1"/>
+  <ingredient id="9912" count="130"/>
+</item>
+<item id="9"> <!-- Thin Leather Shirt - CP -->
+  <production id="10494" count="1"/>
+  <ingredient id="9580" count="1"/>
+  <ingredient id="9912" count="130"/>
+</item>
+<!-- Striped Leather Shirt - B Grade -->
+<item id="10"> <!-- Thin Striped Leather Shirt - HP -->
+  <production id="10506" count="1"/>
+  <ingredient id="9586" count="1"/>
+  <ingredient id="9912" count="150"/>
+</item>
+<item id="11"> <!-- Thin Striped Leather Shirt - MP -->
+  <production id="10507" count="1"/>
+  <ingredient id="9586" count="1"/>
+  <ingredient id="9912" count="150"/>
+</item>
+<item id="12"> <!-- Thin Striped Leather Shirt - CP -->
+  <production id="10508" count="1"/>
+  <ingredient id="9586" count="1"/>
+  <ingredient id="9912" count="150"/>
+</item>
+<!-- Scale Shirt - A Grade -->
+<item id="13"> <!-- Scale Shirt - HP -->
+  <production id="10497" count="1"/>
+  <ingredient id="9581" count="1"/>
+  <ingredient id="9912" count="170"/>
+</item>
+<item id="14"> <!-- Scale Shirt - MP -->
+  <production id="10498" count="1"/>
+  <ingredient id="9581" count="1"/>
+  <ingredient id="9912" count="170"/>
+</item>
+<item id="15"> <!-- Scale Shirt - CP -->
+  <production id="10499" count="1"/>
+  <ingredient id="9581" count="1"/>
+  <ingredient id="9912" count="170"/>
+</item>
+<!-- Striped Scale Shirt - A Grade -->
+<item id="16"> <!-- Striped Scale Shirt - HP -->
+  <production id="10509" count="1"/>
+  <ingredient id="9587" count="1"/>
+  <ingredient id="9912" count="200"/>
+</item>
+<item id="17"> <!-- Striped Scale Shirt - MP -->
+  <production id="10510" count="1"/>
+  <ingredient id="9587" count="1"/>
+  <ingredient id="9912" count="200"/>
+</item>
+<item id="18"> <!-- Striped Scale Shirt - CP -->
+  <production id="10511" count="1"/>
+  <ingredient id="9587" count="1"/>
+  <ingredient id="9912" count="200"/>
+</item>
+</list>

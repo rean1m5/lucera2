@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Gold Bank Multisell -->
+
+<list maintainEnchantment="true">
+
+  <!-- Gold Bar To Adena-->
+  <item id="1">
+    <ingredient id="3470" count="1"/>
+    <production id="57" count="500000000"/>
+  </item>
+  
+  <!-- Adena To Gold Bar -->
+  <item id="2">
+    <ingredient id="57" count="500000000"/>
+    <production id="3470" count="1"/>
+  </item>
+</list>

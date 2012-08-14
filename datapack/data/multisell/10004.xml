@@ -1,0 +1,116 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Stick of Faith -->
+  <item id="1">
+    <ingredient id="57" count="2500000"/>
+    <production id="193" count="1"/>
+  </item>
+
+  <!-- Battle Axe -->
+  <item id="2">
+    <ingredient id="57" count="2500000"/>
+    <production id="160" count="1"/>
+  </item>
+
+  <!-- Big Hammer -->
+  <item id="3">
+    <ingredient id="57" count="2500000"/>
+    <production id="1301" count="1"/>
+  </item>
+
+  <!-- Silver Axe -->
+  <item id="4">
+    <ingredient id="57" count="2500000"/>
+    <production id="161" count="1"/>
+  </item>
+
+  <!-- Skull Graver -->
+  <item id="5">
+    <ingredient id="57" count="2500000"/>
+    <production id="173" count="1"/>
+  </item>
+
+  <!-- Dwarven War Hammer -->
+  <item id="6">
+    <ingredient id="57" count="3000000"/>
+    <production id="2502" count="1"/>
+  </item>
+
+  <!-- Club of Nature -->
+  <item id="7">
+    <ingredient id="57" count="4500000"/>
+    <production id="201" count="1"/>
+  </item>
+
+  <!-- Mace of The Underworld -->
+  <item id="8">
+    <ingredient id="57" count="4500000"/>
+    <production id="202" count="1"/>
+  </item>
+
+  <!-- Nirvana Axe -->
+  <item id="9">
+    <ingredient id="57" count="4500000"/>
+    <production id="174" count="1"/>
+  </item>
+
+  <!-- Stick of Eternity -->
+  <item id="10">
+    <ingredient id="57" count="4500000"/>
+    <production id="196" count="1"/>
+  </item>
+
+  <!-- War Axe -->
+  <item id="11">
+    <ingredient id="57" count="4500000"/>
+    <production id="162" count="1"/>
+  </item>
+
+  <!-- Ecliptic Axe -->
+  <item id="12">
+    <ingredient id="57" count="6000000"/>
+    <production id="7891" count="1"/>
+  </item>
+
+  <!-- Yaksa Mace -->
+  <item id="13">
+    <ingredient id="57" count="6000000"/>
+    <production id="2503" count="1"/>
+  </item>
+
+  <!-- Heavy War Axe -->
+  <item id="14">
+    <ingredient id="57" count="9000000"/>
+    <production id="91" count="1"/>
+  </item>
+
+  <!-- Spell Breaker -->
+  <item id="15">
+    <ingredient id="57" count="9000000"/>
+    <production id="7892" count="1"/>
+  </item>
+
+  <!-- Kaim Vanul's Bones -->
+  <item id="16">
+    <ingredient id="57" count="13000000"/>
+    <production id="7893" count="1"/>
+  </item>
+
+  <!-- Deadman's Glory -->
+  <item id="17">
+    <ingredient id="57" count="13000000"/>
+    <production id="171" count="1"/>
+  </item>
+
+  <!-- Art of Battle Axe -->
+  <item id="18">
+    <ingredient id="57" count="13000000"/>
+    <production id="175" count="1"/>
+  </item>
+
+</list>

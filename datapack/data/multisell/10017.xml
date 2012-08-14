@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Tateossian Ring -->
+  <item id="1">
+    <ingredient id="57" count="10000000"/>
+    <production id="889" count="1"/>
+  </item>
+
+  <!-- Tateossian Earring -->
+  <item id="2">
+    <ingredient id="57" count="10000000"/>
+    <production id="858" count="1"/>
+  </item>
+
+  <!-- Tateossian Necklace -->
+  <item id="3">
+    <ingredient id="57" count="10000000"/>
+    <production id="920" count="1"/>
+  </item>
+
+
+</list>

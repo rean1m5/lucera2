@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+    <item id="1">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="9967" count="1"/>
+    </item>
+    <item id="2">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="9968" count="1"/>
+    </item>
+    <item id="3">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="9969" count="1"/>
+    </item>
+    <item id="4">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="9970" count="1"/>
+    </item>
+    <item id="5">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="9971" count="1"/>
+    </item>
+    <item id="6">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="9972" count="1"/>
+    </item>
+    <item id="7">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="9973" count="1"/>
+    </item>
+    <item id="8">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="9974" count="1"/>
+    </item>
+    <item id="9">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="9975" count="1"/>
+    </item>
+    <item id="10">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="10544" count="1"/>
+    </item>
+    <item id="11">
+        <ingredient id="9600" count="612"/>
+        <ingredient id="9601" count="1530"/>
+        <ingredient id="9602" count="153"/>
+        <production id="10545" count="1"/>
+    </item>
+    <item id="12">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="9616" count="1"/>
+    </item>
+    <item id="13">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="9617" count="1"/>
+    </item>
+    <item id="14">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="9618" count="1"/>
+    </item>
+    <item id="15">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="9619" count="1"/>
+    </item>
+    <item id="16">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="9620" count="1"/>
+    </item>
+    <item id="17">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="9621" count="1"/>
+    </item>
+    <item id="18">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="9622" count="1"/>
+    </item>
+    <item id="19">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="9623" count="1"/>
+    </item>
+    <item id="20">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="9624" count="1"/>
+    </item>
+    <item id="21">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="10546" count="1"/>
+    </item>
+    <item id="22">
+        <ingredient id="9600" count="114"/>
+        <ingredient id="9601" count="280"/>
+        <ingredient id="9602" count="28"/>
+        <production id="10547" count="1"/>
+    </item>
+</list>

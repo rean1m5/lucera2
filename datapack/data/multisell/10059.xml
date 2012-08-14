@@ -1,0 +1,135 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Blue Soul Crystal - Stage 7 -->
+  <item id="1">
+    <ingredient id="4037" count="1"/>
+    <production id="4658" count="1"/>
+  </item>
+
+  <!-- Blue Soul Crystal - Stage 8 -->
+  <item id="2">
+    <ingredient id="4037" count="2"/>
+    <production id="4659" count="1"/>
+  </item>
+
+  <!-- Blue Soul Crystal - Stage 9 -->
+  <item id="3">
+    <ingredient id="4037" count="5"/>
+    <production id="4660" count="1"/>
+  </item>
+
+  <!-- Blue Soul Crystal - Stage 10 -->
+  <item id="4">
+    <ingredient id="4037" count="8"/>
+    <production id="4661" count="1"/>
+  </item>
+
+  <!-- Blue Soul Crystal - Stage 11 -->
+  <item id="5">
+    <ingredient id="4037" count="13"/>
+    <production id="5579" count="1"/>
+  </item>
+
+  <!-- Blue Soul Crystal - Stage 12 -->
+  <item id="6">
+    <ingredient id="4037" count="17"/>
+    <production id="5582" count="1"/>
+  </item>
+
+  <!-- Blue Soul Crystal: Grade 13 -->
+  <item id="7">
+    <ingredient id="4037" count="20"/>
+    <production id="5914" count="1"/>
+  </item>
+
+  <!-- Green Soul Crystal - Stage 7 -->
+  <item id="8">
+    <ingredient id="4037" count="1"/>
+    <production id="4647" count="1"/>
+  </item>
+
+  <!-- Green Soul Crystal - Stage 8 -->
+  <item id="9">
+    <ingredient id="4037" count="2"/>
+    <production id="4648" count="1"/>
+  </item>
+
+  <!-- Green Soul Crystal - Stage 9 -->
+  <item id="10">
+    <ingredient id="4037" count="5"/>
+    <production id="4649" count="1"/>
+  </item>
+
+  <!-- Green Soul Crystal - Stage 10 -->
+  <item id="11">
+    <ingredient id="4037" count="8"/>
+    <production id="4650" count="1"/>
+  </item>
+
+  <!-- Green Soul Crystal - Stage 11 -->
+  <item id="12">
+    <ingredient id="4037" count="13"/>
+    <production id="5578" count="1"/>
+  </item>
+
+  <!-- Green Soul Crystal - Stage 12 -->
+  <item id="13">
+    <ingredient id="4037" count="17"/>
+    <production id="5581" count="1"/>
+  </item>
+
+  <!-- Green Soul Crystal: Grade 13 -->
+  <item id="14">
+    <ingredient id="4037" count="20"/>
+    <production id="5911" count="1"/>
+  </item>
+
+  <!-- Red Soul Crystal - Stage 7 -->
+  <item id="15">
+    <ingredient id="4037" count="1"/>
+    <production id="4636" count="1"/>
+  </item>
+
+  <!-- Red Soul Crystal - Stage 8 -->
+  <item id="16">
+    <ingredient id="4037" count="2"/>
+    <production id="4637" count="1"/>
+  </item>
+
+  <!-- Red Soul Crystal - Stage 9 -->
+  <item id="17">
+    <ingredient id="4037" count="5"/>
+    <production id="4638" count="1"/>
+  </item>
+
+  <!-- Red Soul Crystal - Stage 10 -->
+  <item id="18">
+    <ingredient id="4037" count="8"/>
+    <production id="4639" count="1"/>
+  </item>
+
+  <!-- Red Soul Crystal - Stage 11 -->
+  <item id="19">
+    <ingredient id="4037" count="13"/>
+    <production id="5577" count="1"/>
+  </item>
+
+  <!-- Red Soul Crystal - Stage 12 -->
+  <item id="20">
+    <ingredient id="4037" count="17"/>
+    <production id="5580" count="1"/>
+  </item>
+
+  <!-- Red Soul Crystal: Grade 13 -->
+  <item id="21">
+    <ingredient id="4037" count="20"/>
+    <production id="5908" count="1"/>
+  </item>
+
+
+</list>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Event - Medals! 6392, No Level Collecor-->
+
+<list>
+
+  <!-- Greater Haste Potion -->
+  <item id="1">
+    <ingredient id="6392" count="5" enchant="0"/>
+    <production id="1374" count="1" enchant="0"/>
+  </item>
+
+  <!-- Greater Swift Attack Potion -->
+  <item id="2">
+    <ingredient id="6392" count="10" enchant="0"/>
+    <production id="1375" count="1" enchant="0"/>
+  </item>
+
+  <!-- Greater Magic Haste Potion -->
+  <item id="3">
+    <ingredient id="6392" count="10" enchant="0"/>
+    <production id="6036" count="1" enchant="0"/>
+  </item>
+
+  <!-- Quick Healing Potion -->
+  <item id="4">
+    <ingredient id="6392" count="17" enchant="0"/>
+    <production id="1540" count="1" enchant="0"/>
+  </item>
+
+</list>

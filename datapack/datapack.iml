@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="file:///libs/javolution-5.2.6.jar" />
+    <libelement value="file:///commons/bin" />
+    <libelement value="file:///gameserver/bin" />
+    <libelement value="file:///libs/log4j-1.2.16.jar" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/data/scripts" expected_position="0" />
+      <src_folder value="file://$MODULE_DIR$/quests" expected_position="1" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/data/scripts" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/quests" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="module-library">
+      <library name="javolution-5.2.6.jar">
+        <CLASSES>
+          <root url="file:///libs/javolution-5.2.6.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="bin">
+        <CLASSES>
+          <root url="file:///commons/bin" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="bin">
+        <CLASSES>
+          <root url="file:///gameserver/bin" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="log4j-1.2.16.jar">
+        <CLASSES>
+          <root url="file:///libs/log4j-1.2.16.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
+

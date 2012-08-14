@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Blessed Necklace -->
+  <item id="1">
+    <ingredient id="57" count="2500000"/>
+    <production id="919" count="1"/>
+    <production id="857" count="1"/>
+    <production id="857" count="1"/>
+    <production id="888" count="1"/>
+    <production id="888" count="1"/>
+  </item>
+
+  <!-- Necklace of Binding -->
+  <item id="2">
+    <ingredient id="57" count="2500000"/>
+    <production id="119" count="1"/>
+    <production id="854" count="1"/>
+    <production id="854" count="1"/>
+    <production id="886" count="1"/>
+    <production id="886" count="1"/>
+  </item>
+
+  <!-- Necklace of Protection -->
+  <item id="3">
+    <ingredient id="57" count="2500000"/>
+    <production id="916" count="1"/>
+    <production id="853" count="1"/>
+    <production id="853" count="1"/>
+    <production id="884" count="1"/>
+    <production id="884" count="1"/>
+  </item>
+
+
+</list>

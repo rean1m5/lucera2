@@ -1,0 +1,11 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<!-- L2EmuRT -->
+<!-- NPC: Shadai, Dynastic Essence -->
+
+<list>
+  <!-- Dynastic Essence I -->
+  <item id="1">
+    <ingredient id="9599" count="432"/>
+    <production id="9451" count="1"/>
+  </item>
+</list>

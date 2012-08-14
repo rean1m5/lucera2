@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<!-- L2EmuRT -->
+<!-- NPC: Shadai, Soul Crystall -->
+
+<list>
+  <item id="1">
+    <ingredient id="2134" count="1150"/>
+    <ingredient id="10160" count="1"/>
+    <production id="9570" count="1"/>
+  </item>
+  <item id="2">
+    <ingredient id="2134" count="1150"/>
+    <ingredient id="10161" count="1"/>
+    <production id="9571" count="1"/>
+  </item>
+  <item id="3">
+    <ingredient id="2134" count="1150"/>
+    <ingredient id="10162" count="1"/>
+    <production id="9572" count="1"/>
+  </item>
+</list>

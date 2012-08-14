@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fortress Support Unit Captain - Shirt -->
+<list>
+<!-- Silk Shirt - C Grade -->
+<item id="1">
+  <production id="9579" count="1"/>
+  <ingredient id="9912" count="80"/>
+</item>
+<!-- Striped Silk Shirt - C Grade -->
+<item id="2">
+  <production id="9585" count="1"/>
+  <ingredient id="9912" count="180"/>
+</item>
+<!-- Leather Shirt - B Grade -->
+<item id="3">
+  <production id="9580" count="1"/>
+  <ingredient id="9912" count="260"/>
+</item>
+<!-- Striped Leather Shirt - B Grade -->
+<item id="4">
+  <production id="9586" count="1"/>
+  <ingredient id="9912" count="400"/>
+</item>
+<!-- Barbed Shirt - A Grade -->
+<item id="5">
+  <production id="9581" count="1"/>
+  <ingredient id="9912" count="588"/>
+</item>
+<!-- Striped Scale Shirt - A Grade -->
+<item id="6">
+  <production id="9587" count="1"/>
+  <ingredient id="9912" count="880"/>
+</item>
+</list>
