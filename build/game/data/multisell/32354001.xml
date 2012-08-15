@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kief merchant for Seven stage of HB -->
+<list>
+<!-- Magic Bottle -->
+<item id="1">
+  <ingredient id="10012" count="20"/>
+  <production id="9672" count="1"/>
+</item>
+</list>

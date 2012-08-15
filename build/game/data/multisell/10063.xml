@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Blessed Scroll: Enchant Armor (Grade D) -->
+  <item id="11">
+    <ingredient id="4037" count="16"/>
+    <production id="6576" count="1"/>
+  </item>
+
+  <!-- Blessed Scroll: Enchant Armor (Grade C) -->
+  <item id="12">
+    <ingredient id="4037" count="17"/>
+    <production id="6574" count="1"/>
+  </item>
+
+  <!-- Blessed Scroll: Enchant Armor (Grade B) -->
+  <item id="13">
+    <ingredient id="4037" count="18"/>
+    <production id="6572" count="1"/>
+  </item>
+
+  <!-- Blessed Scroll: Enchant Armor (Grade A) -->
+  <item id="14">
+    <ingredient id="4037" count="19"/>
+    <production id="6570" count="1"/>
+  </item>
+
+  <!-- Blessed Scroll: Enchant Armor (Grade S) -->
+  <item id="15">
+    <ingredient id="4037" count="20"/>
+    <production id="6578" count="1"/>
+  </item>
+
+  <!-- Blessed Scroll: Enchant Weapon (Grade D) -->
+  <item id="16">
+    <ingredient id="4037" count="16"/>
+    <production id="6575" count="1"/>
+  </item>
+
+  <!-- Blessed Scroll: Enchant Weapon (Grade C) -->
+  <item id="17">
+    <ingredient id="4037" count="17"/>
+    <production id="6573" count="1"/>
+  </item>
+
+  <!-- Blessed Scroll: Enchant Weapon (Grade B) -->
+  <item id="18">
+    <ingredient id="4037" count="18"/>
+    <production id="6571" count="1"/>
+  </item>
+
+  <!-- Blessed Scroll: Enchant Weapon (Grade A) -->
+  <item id="19">
+    <ingredient id="4037" count="19"/>
+    <production id="6569" count="1"/>
+  </item>
+
+  <!-- Blessed Scroll: Enchant Weapon (Grade S) -->
+  <item id="20">
+    <ingredient id="4037" count="20"/>
+    <production id="6577" count="1"/>
+  </item>
+
+</list>

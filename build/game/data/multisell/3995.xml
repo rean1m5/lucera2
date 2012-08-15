@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Melody Maestro -->
+<list>
+
+	<!-- Theme of Travel -->
+	<item id="1">
+		<ingredient id="57" count="200"/>
+		<ingredient id="4410" count="1"/>
+		<production id="4411" count="1"/>
+		<production id="4410" count="1"/>
+	</item>
+
+	<!-- Theme of Festival -->
+	<item id="2">
+		<ingredient id="57" count="200"/>
+		<ingredient id="4421" count="1"/>
+		<production id="4415" count="1"/>
+		<production id="4421" count="1"/>
+	</item>
+
+	<!-- Theme of Lonely -->
+	<item id="3">
+		<ingredient id="57" count="200"/>
+		<ingredient id="4420" count="1"/>
+		<production id="4414" count="1"/>
+		<production id="4420" count="1"/>
+	</item>
+
+	<!-- Theme of Love -->
+	<item id="4">
+		<ingredient id="57" count="200"/>
+		<ingredient id="4408" count="1"/>
+		<production id="4413" count="1"/>
+		<production id="4408" count="1"/>
+	</item>
+
+	<!-- Theme of Battle -->
+	<item id="5">
+		<ingredient id="57" count="200"/>
+		<ingredient id="4409" count="1"/>
+		<production id="4412" count="1"/>
+		<production id="4409" count="1"/>
+	</item>
+
+	<!-- Theme of Comedy -->
+	<item id="6">
+		<ingredient id="57" count="200"/>
+		<ingredient id="4419" count="1"/>
+		<production id="4417" count="1"/>
+		<production id="4419" count="1"/>
+	</item>
+
+	<!-- Theme of Celebration -->
+	<item id="7">
+		<ingredient id="57" count="200"/>
+		<ingredient id="4418" count="1"/>
+		<production id="4416" count="1"/>
+		<production id="4418" count="1"/>
+	</item>
+</list>

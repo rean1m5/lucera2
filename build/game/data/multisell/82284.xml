@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Event - Medals! 6392, Level 4 Collector -->
+
+<list>
+
+  <!-- Noob -->
+  <!-- Greater Haste Potion -->
+  <item id="1">
+    <ingredient id="6392" count="5" enchant="0"/>
+    <production id="1374" count="1" enchant="0"/>
+  </item>
+
+  <!-- Greater Swift Attack Potion -->
+  <item id="2">
+    <ingredient id="6392" count="10" enchant="0"/>
+    <production id="1375" count="1" enchant="0"/>
+  </item>
+
+  <!-- Greater Magic Haste Potion -->
+  <item id="3">
+    <ingredient id="6392" count="10" enchant="0"/>
+    <production id="6036" count="1" enchant="0"/>
+  </item>
+
+  <!-- Quick Healing Potion -->
+  <item id="4">
+    <ingredient id="6392" count="17" enchant="0"/>
+    <production id="1540" count="1" enchant="0"/>
+  </item>
+  
+  <!--Rabbit 6399-->
+  <!-- Blessed Scroll of Escape -->
+  <item id="5">
+    <ingredient id="6392" count="250" enchant="0"/>
+    <production id="1538" count="1" enchant="0"/>
+  </item>
+
+  <!-- Blessed Scroll of Resurrection -->
+  <item id="6">
+    <ingredient id="6392" count="667" enchant="0"/>
+    <production id="6387" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Scroll: Enchant Armor (D Grade) 956-->
+  <item id="7">
+    <ingredient id="6392" count="25" enchant="0"/>
+    <production id="956" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Scroll: Enchant Weapon (D Grade) 955-->
+  <item id="8">
+    <ingredient id="6392" count="83" enchant="0"/>
+    <production id="955" count="1" enchant="0"/>
+  </item>
+  
+  <!--Hyena 6400-->
+  <!-- Scroll: Enchant Armor (C Grade) 952-->
+  <item id="9">
+    <ingredient id="6392" count="67" enchant="0"/>
+    <production id="952" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Scroll: Enchant Weapon (C Grade) 951-->
+  <item id="10">
+    <ingredient id="6392" count="183" enchant="0"/>
+    <production id="951" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Scroll: Enchant Armor (B Grade) 948-->
+  <item id="11">
+    <ingredient id="6392" count="267" enchant="0"/>
+    <production id="948" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Scroll: Enchant Weapon (B Grade)	 947-->
+  <item id="12">
+    <ingredient id="6392" count="833" enchant="0"/>
+    <production id="947" count="1" enchant="0"/>
+  </item>
+  
+  <!--Fox 6401-->
+  <!-- Scroll: Enchant Armor (A Grade) 730-->
+  <item id="13">
+    <ingredient id="6392" count="833" enchant="0"/>
+    <production id="730" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Scroll: Enchant Weapon (A Grade) 729-->
+  <item id="14">
+    <ingredient id="6392" count="3000" enchant="0"/>
+    <production id="729" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Red Party Mask 6394(armor)-->
+  <item id="15">
+    <ingredient id="6392" count="833" enchant="0"/>
+    <production id="6394" count="1" enchant="0"/>
+  </item>
+  
+  <!--Wolf 6402-->
+  <!-- Red Soul Crystal - Stage 11 5577-->
+  <item id="16">
+    <ingredient id="6392" count="5000" enchant="0"/>
+    <production id="5577" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Green Soul Crystal - Stage 11 5578-->
+  <item id="17">
+    <ingredient id="6392" count="5000" enchant="0"/>
+    <production id="5578" count="1" enchant="0"/>
+  </item>
+
+  <!-- Blue Soul Crystal - Stage 11 5579-->
+  <item id="18">
+    <ingredient id="6392" count="5000" enchant="0"/>
+    <production id="5579" count="1" enchant="0"/>
+  </item>
+
+  <!-- Red Soul Crystal - Stage 12 5580-->
+  <item id="19">
+    <ingredient id="6392" count="10000" enchant="0"/>
+    <production id="5580" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Green Soul Crystal - Stage 12 5581-->
+  <item id="20">
+    <ingredient id="6392" count="10000" enchant="0"/>
+    <production id="5581" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Blue Soul Crystal - Stage 12 5582-->
+  <item id="21">
+    <ingredient id="6392" count="10000" enchant="0"/>
+    <production id="5582" count="1" enchant="0"/>
+  </item>
+
+  <!-- Sealed Majestic Necklace 6326(armor)-->
+  <item id="22">
+    <ingredient id="6392" count="6240" enchant="0"/>
+    <production id="6326" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Sealed Majestic Earring 6327(armor)-->
+  <item id="23">
+    <ingredient id="6392" count="4680" enchant="0"/>
+    <production id="6327" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Sealed Majestic Ring 6328(armor)-->
+  <item id="24">
+    <ingredient id="6392" count="3120" enchant="0"/>
+    <production id="6328" count="1" enchant="0"/>
+  </item>
+
+  <!-- All here are accesories -->
+  <item id="25">
+    <ingredient id="6392" count="500" enchant="0"/>
+    <production id="6843" count="1" enchant="0"/>
+  </item> 
+  
+  <item id="26">
+    <ingredient id="6392" count="550" enchant="0"/>
+    <production id="6844" count="1" enchant="0"/>
+  </item> 
+  
+  <item id="27">
+    <ingredient id="6392" count="590" enchant="0"/>
+    <production id="7680" count="1" enchant="0"/>
+  </item> 
+  
+ <item id="28">
+    <ingredient id="6392" count="610" enchant="0"/>
+    <production id="4202" count="1" enchant="0"/>
+  </item> 
+  
+  <item id="29">
+    <ingredient id="6392" count="650" enchant="0"/>
+    <production id="5133" count="1" enchant="0"/>
+  </item> 
+  
+  <item id="30">
+    <ingredient id="6392" count="690" enchant="0"/>
+    <production id="5817" count="1" enchant="0"/>
+  </item> 
+  
+  <item id="31">
+    <ingredient id="6392" count="710" enchant="0"/>
+    <production id="7058" count="1" enchant="0"/>
+  </item> 
+	
+  <item id="32">
+    <ingredient id="6392" count="512" enchant="0"/>
+    <production id="8189" count="1" enchant="0"/>
+  </item> 
+  
+  <item id="33">
+    <ingredient id="6392" count="534" enchant="0"/>
+    <production id="8188" count="1" enchant="0"/>
+  </item> 
+
+  <item id="34">
+    <ingredient id="6392" count="721" enchant="0"/>
+    <production id="8559" count="1" enchant="0"/>
+  </item>
+
+  <item id="35">
+    <ingredient id="6392" count="721" enchant="0"/>
+    <production id="8560" count="1" enchant="0"/>
+  </item>
+ <item id="36">
+    <ingredient id="6392" count="721" enchant="0"/>
+    <production id="8561" count="1" enchant="0"/>
+  </item>
+</list>

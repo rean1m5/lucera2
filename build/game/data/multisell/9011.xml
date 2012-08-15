@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Consumables -->
+
+<list>
+
+<!-- Mana Potion -->
+<item id="11">
+<ingredient id="57" count="100000" enchant="0"/>
+<production id="728" count="100" enchant="0"/>
+</item>
+
+<!-- Greater Healing Potion -->
+<item id="12">
+<ingredient id="57" count="100000" enchant="0"/>
+<production id="1539" count="100" enchant="0"/>
+</item>
+
+<!-- Soul Ore -->
+<item id="15">
+<ingredient id="57" count="1000000" enchant="0"/>
+<production id="3031" count="500" enchant="0"/>
+</item>
+
+<!-- Cursed Bone -->
+<item id="16">
+<ingredient id="57" count="1000000" enchant="0"/>
+<production id="2508" count="1000" enchant="0"/>
+</item>
+
+<!-- Soul Ore -->
+<item id="14">
+<ingredient id="57" count="1000000" enchant="0"/>
+<production id="1785" count="500" enchant="0"/>
+</item>
+
+<!-- Crystal D -->
+<item id="17">
+<ingredient id="57" count="8000" enchant="0"/>
+<production id="1458" count="1" enchant="0"/>
+</item>
+
+<!-- Crystal C -->
+<item id="18">
+<ingredient id="57" count="35000" enchant="0"/>
+<production id="1459" count="1" enchant="0"/>
+</item>
+
+<!-- Crystal B -->
+<item id="47">
+<ingredient id="57" count="115000" enchant="0"/>
+<production id="1460" count="1" enchant="0"/>
+</item>
+
+<!-- Crystal A -->
+<item id="44">
+<ingredient id="57" count="1250000" enchant="0"/>
+<production id="1461" count="1" enchant="0"/>
+</item>
+
+<!-- Crystal S -->
+<item id="46">
+<ingredient id="57" count="2150000" enchant="0"/>
+<production id="1462" count="1" enchant="0"/>
+</item>
+</list>
+

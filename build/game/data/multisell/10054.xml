@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Scroll: Enchant Armor (Grade B) -->
+  <item id="3">
+    <ingredient id="57" count="17500000"/>
+    <production id="948" count="1"/>
+  </item>
+
+  <!-- Scroll: Enchant Armor (Grade A) -->
+  <item id="4">
+    <ingredient id="57" count="20000000"/>
+    <production id="730" count="1"/>
+  </item>
+
+  <!-- Scroll: Enchant Armor (Grade S) -->
+  <item id="5">
+    <ingredient id="57" count="25000000"/>
+    <production id="960" count="1"/>
+  </item>
+
+  <!-- Scroll: Enchant Weapon (Grade B) -->
+  <item id="8">
+    <ingredient id="57" count="25000000"/>
+    <production id="947" count="1"/>
+  </item>
+
+  <!-- Scroll: Enchant Weapon (Grade A) -->
+  <item id="9">
+    <ingredient id="57" count="35000000"/>
+    <production id="729" count="1"/>
+  </item>
+
+  <!-- Scroll: Enchant Weapon (Grade S) -->
+  <item id="10">
+    <ingredient id="57" count="50000000"/>
+    <production id="959" count="1"/>
+  </item>
+
+
+</list>

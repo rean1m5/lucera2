@@ -1,0 +1,373 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+<!-- Tunic of Doom -->
+  <item id="1">
+    <ingredient id="57" count="10000000"/>
+    <production id="2399" count="1"/>
+  </item>
+
+  <!-- Stockings of Doom -->
+  <item id="2">
+    <ingredient id="57" count="10000000"/>
+    <production id="2404" count="1"/>
+  </item>
+
+  <!-- Doom Helmet -->
+  <item id="3">
+    <ingredient id="57" count="7500000"/>
+    <production id="2417" count="1"/>
+  </item>
+
+  <!-- Doom Boots - Robe -->
+  <item id="4">
+    <ingredient id="57" count="7500000"/>
+    <production id="5740" count="1"/>
+  </item>
+
+  <!-- Doom Gloves - Robe -->
+  <item id="5">
+    <ingredient id="57" count="7500000"/>
+    <production id="5724" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Tunic -->
+  <item id="6">
+    <ingredient id="57" count="10000000"/>
+    <production id="2398" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Stockings -->
+  <item id="7">
+    <ingredient id="57" count="10000000"/>
+    <production id="2403" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Helmet -->
+  <item id="8">
+    <ingredient id="57" count="7500000"/>
+    <production id="2416" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Boots - Robe -->
+  <item id="9">
+    <ingredient id="57" count="7500000"/>
+    <production id="5736" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Gloves - Robe -->
+  <item id="10">
+    <ingredient id="57" count="7500000"/>
+    <production id="5720" count="1"/>
+  </item>
+
+  <!-- Tunic of Zubei -->
+  <item id="11">
+    <ingredient id="57" count="10000000"/>
+    <production id="2397" count="1"/>
+  </item>
+
+  <!-- Stockings of Zubei -->
+  <item id="12">
+    <ingredient id="57" count="10000000"/>
+    <production id="2402" count="1"/>
+  </item>
+
+  <!-- Zubei's Helmet -->
+  <item id="13">
+    <ingredient id="57" count="7500000"/>
+    <production id="503" count="1"/>
+  </item>
+
+  <!-- Zubei's Boots - Robe -->
+  <item id="14">
+    <ingredient id="57" count="7500000"/>
+    <production id="5728" count="1"/>
+  </item>
+
+  <!-- Zubei's Gauntlets - Robe -->
+  <item id="15">
+    <ingredient id="57" count="7500000"/>
+    <production id="5712" count="1"/>
+  </item>
+
+  <!-- Avadon Robe -->
+  <item id="16">
+    <ingredient id="57" count="20000000"/>
+    <production id="2406" count="1"/>
+  </item>
+
+  <!-- Avadon Circlet -->
+  <item id="17">
+    <ingredient id="57" count="7500000"/>
+    <production id="2415" count="1"/>
+  </item>
+
+  <!-- Avadon Boots - Robe -->
+  <item id="18">
+    <ingredient id="57" count="7500000"/>
+    <production id="5732" count="1"/>
+  </item>
+
+  <!-- Avadon Gloves - Robe -->
+  <item id="19">
+    <ingredient id="57" count="7500000"/>
+    <production id="5716" count="1"/>
+  </item>
+
+  <!-- Leather Armor of Doom -->
+  <item id="20">
+    <ingredient id="57" count="20000000"/>
+    <production id="2392" count="1"/>
+  </item>
+
+  <!-- Doom Helmet -->
+  <item id="21">
+    <ingredient id="57" count="7500000"/>
+    <production id="2417" count="1"/>
+  </item>
+
+  <!-- Doom Boots - Light Armor -->
+  <item id="22">
+    <ingredient id="57" count="7500000"/>
+    <production id="5739" count="1"/>
+  </item>
+
+  <!-- Doom Gloves - Light Armor -->
+  <item id="23">
+    <ingredient id="57" count="7500000"/>
+    <production id="5723" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Leather Armor -->
+  <item id="24">
+    <ingredient id="57" count="20000000"/>
+    <production id="2391" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Helmet -->
+  <item id="25">
+    <ingredient id="57" count="7500000"/>
+    <production id="2416" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Boots - Light Armor -->
+  <item id="26">
+    <ingredient id="57" count="7500000"/>
+    <production id="5735" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Gloves - Light Armor -->
+  <item id="27">
+    <ingredient id="57" count="7500000"/>
+    <production id="5719" count="1"/>
+  </item>
+
+  <!-- Zubei's Leather Shirt -->
+  <item id="28">
+    <ingredient id="57" count="10000000"/>
+    <production id="2384" count="1"/>
+  </item>
+
+  <!-- Zubei's Leather Gaiters -->
+  <item id="29">
+    <ingredient id="57" count="10000000"/>
+    <production id="2388" count="1"/>
+  </item>
+
+  <!-- Zubei's Helmet -->
+  <item id="30">
+    <ingredient id="57" count="7500000"/>
+    <production id="503" count="1"/>
+  </item>
+
+  <!-- Zubei's Gauntlets - Light Armor -->
+  <item id="31">
+    <ingredient id="57" count="7500000"/>
+    <production id="5711" count="1"/>
+  </item>
+
+  <!-- Zubei's Boots - Light Armor -->
+  <item id="32">
+    <ingredient id="57" count="7500000"/>
+    <production id="5727" count="1"/>
+  </item>
+
+  <!-- Avadon Leather Armor -->
+  <item id="33">
+    <ingredient id="57" count="20000000"/>
+    <production id="2390" count="1"/>
+  </item>
+
+  <!-- Avadon Circlet -->
+  <item id="34">
+    <ingredient id="57" count="7500000"/>
+    <production id="2415" count="1"/>
+  </item>
+
+  <!-- Avadon Boots - Light Armor -->
+  <item id="35">
+    <ingredient id="57" count="7500000"/>
+    <production id="5731" count="1"/>
+  </item>
+
+  <!-- Avadon Gloves - Light Armor -->
+  <item id="36">
+    <ingredient id="57" count="7500000"/>
+    <production id="5715" count="1"/>
+  </item>
+
+  <!-- Doom Plate Armor -->
+  <item id="37">
+    <ingredient id="57" count="20000000"/>
+    <production id="2381" count="1"/>
+  </item>
+
+  <!-- Doom Helmet -->
+  <item id="38">
+    <ingredient id="57" count="7500000"/>
+    <production id="2417" count="1"/>
+  </item>
+
+  <!-- Doom Gloves - Heavy Armor -->
+  <item id="39">
+    <ingredient id="57" count="7500000"/>
+    <production id="5722" count="1"/>
+  </item>
+
+  <!-- Doom Boots - Heavy Armor -->
+  <item id="40">
+    <ingredient id="57" count="7500000"/>
+    <production id="5738" count="1"/>
+  </item>
+
+  <!-- Doom Shield -->
+  <item id="41">
+    <ingredient id="57" count="7500000"/>
+    <production id="110" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Breastplate -->
+  <item id="42">
+    <ingredient id="57" count="10000000"/>
+    <production id="358" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Gaiters -->
+  <item id="43">
+    <ingredient id="57" count="10000000"/>
+    <production id="2380" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Helmet -->
+  <item id="44">
+    <ingredient id="57" count="7500000"/>
+    <production id="2416" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Gloves - Heavy Armor -->
+  <item id="45">
+    <ingredient id="57" count="7500000"/>
+    <production id="5718" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Boots - Heavy Armor -->
+  <item id="46">
+    <ingredient id="57" count="7500000"/>
+    <production id="5734" count="1"/>
+  </item>
+
+  <!-- Zubei's Breastplate -->
+  <item id="47">
+    <ingredient id="57" count="10000000"/>
+    <production id="357" count="1"/>
+  </item>
+
+  <!-- Zubei's Gaiters -->
+  <item id="48">
+    <ingredient id="57" count="10000000"/>
+    <production id="383" count="1"/>
+  </item>
+
+  <!-- Zubei's Helmet -->
+  <item id="49">
+    <ingredient id="57" count="7500000"/>
+    <production id="503" count="1"/>
+  </item>
+
+  <!-- Zubei's Gauntlets - Heavy Armor -->
+  <item id="50">
+    <ingredient id="57" count="7500000"/>
+    <production id="5710" count="1"/>
+  </item>
+
+  <!-- Zubei's Boots - Heavy Armor -->
+  <item id="51">
+    <ingredient id="57" count="7500000"/>
+    <production id="5726" count="1"/>
+  </item>
+
+  <!-- Zubei's Shield -->
+  <item id="52">
+    <ingredient id="57" count="7500000"/>
+    <production id="633" count="1"/>
+  </item>
+
+  <!-- Avadon Breastplate -->
+  <item id="53">
+    <ingredient id="57" count="10000000"/>
+    <production id="2376" count="1"/>
+  </item>
+
+  <!-- Avadon Gaiters -->
+  <item id="54">
+    <ingredient id="57" count="10000000"/>
+    <production id="2379" count="1"/>
+  </item>
+
+  <!-- Avadon Circlet -->
+  <item id="55">
+    <ingredient id="57" count="7500000"/>
+    <production id="2415" count="1"/>
+  </item>
+
+  <!-- Avadon Gloves - Heavy Armor -->
+  <item id="56">
+    <ingredient id="57" count="7500000"/>
+    <production id="5714" count="1"/>
+  </item>
+
+  <!-- Avadon Boots - Heavy Armor -->
+  <item id="57">
+    <ingredient id="57" count="7500000"/>
+    <production id="5730" count="1"/>
+  </item>
+
+  <!-- Avadon Shield -->
+  <item id="58">
+    <ingredient id="57" count="7500000"/>
+    <production id="673" count="1"/>
+  </item>
+
+<!-- Ring of Black Ore -->
+  <item id="59">
+    <ingredient id="57" count="7500000"/>
+    <production id="895" count="1"/>
+  </item>
+
+  <!-- Earring of Black Ore -->
+  <item id="60">
+    <ingredient id="57" count="7500000"/>
+    <production id="864" count="1"/>
+  </item>
+
+  <!-- Necklace of Black Ore -->
+  <item id="61">
+    <ingredient id="57" count="7500000"/>
+    <production id="926" count="1"/>
+  </item>
+</list>

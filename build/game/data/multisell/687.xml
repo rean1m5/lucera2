@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+
+<list>
+  		<!-- [Strider] -->
+  <item id="5">
+    <ingredient id="57" count="1000000" enchant="0"/>
+    <production id="4422" count="1" enchant="0"/>
+  </item> 
+  
+  <item id="6">
+    <ingredient id="57" count="1000000" enchant="0"/>
+    <production id="4423" count="1" enchant="0"/>
+  </item> 
+  
+  <item id="7">
+    <ingredient id="57" count="1000000" enchant="0"/>
+    <production id="4424" count="1" enchant="0"/>
+  </item> 
+
+
+
+		<!-- [OcTAJIbHblE] -->
+
+  <item id="11">
+    <ingredient id="4037" count="100" enchant="0"/>
+    <production id="6648" count="1" enchant="0"/>
+  </item>
+  <item id="12">
+    <ingredient id="4037" count="100" enchant="0"/>
+    <production id="6649" count="1" enchant="0"/>
+  </item>
+  <item id="13">
+    <ingredient id="4037" count="100" enchant="0"/>
+    <production id="6650" count="1" enchant="0"/>
+  </item>
+
+
+</list>

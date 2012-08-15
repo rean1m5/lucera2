@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Weapon's S Grade -->
+
+<list>
+
+<!-- brig -->
+<item id="1">
+<ingredient id="57" count="500000" enchant="0"/>
+<production id="352" count="1" enchant="0"/>
+</item>
+<!-- brig -->
+<item id="2">
+<ingredient id="57" count="300000" enchant="0"/>
+<production id="2378" count="1" enchant="0"/>
+</item>
+<!-- mith -->
+<item id="3">
+<ingredient id="57" count="500000" enchant="0"/>
+<production id="437" count="1" enchant="0"/>
+</item>
+<!-- mith -->
+<item id="4">
+<ingredient id="57" count="300000" enchant="0"/>
+<production id="470" count="1" enchant="0"/>
+</item>
+<!-- mith -->
+<item id="5">
+<ingredient id="57" count="200000" enchant="0"/>
+<production id="2425" count="1" enchant="0"/>
+</item>
+<!-- mith -->
+<item id="6">
+<ingredient id="57" count="200000" enchant="0"/>
+<production id="2426" count="1" enchant="0"/>
+</item>
+<!-- mith -->
+<item id="7">
+<ingredient id="57" count="100000" enchant="0"/>
+<production id="2449" count="1" enchant="0"/>
+</item>
+<!-- mith -->
+<item id="8">
+<ingredient id="57" count="100000" enchant="0"/>
+<production id="2450" count="1" enchant="0"/>
+</item>
+<!-- mith -->
+<item id="9">
+<ingredient id="57" count="100000" enchant="0"/>
+<production id="2411" count="1" enchant="0"/>
+</item>
+<!-- mith -->
+<item id="10">
+<ingredient id="57" count="100000" enchant="0"/>
+<production id="2493" count="1" enchant="0"/>
+</item>
+
+
+</list>

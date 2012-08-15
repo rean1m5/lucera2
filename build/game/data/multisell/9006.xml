@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Weapon's S Grade -->
+
+<list>
+
+<!-- karmian -->
+<item id="1">
+<ingredient id="57" count="1000000" enchant="0"/>
+<production id="439" count="1" enchant="0"/>
+</item>
+<!-- karmian -->
+<item id="2">
+<ingredient id="57" count="1000000" enchant="0"/>
+<production id="471" count="1" enchant="0"/>
+</item>
+<!-- karmian -->
+<item id="3">
+<ingredient id="57" count="500000" enchant="0"/>
+<production id="2430" count="1" enchant="0"/>
+</item>
+<!-- karmian -->
+<item id="4">
+<ingredient id="57" count="500000" enchant="0"/>
+<production id="2454" count="1" enchant="0"/>
+</item>
+<!-- demon -->
+<item id="5">
+<ingredient id="57" count="1500000" enchant="0"/>
+<production id="441" count="1" enchant="0"/>
+</item>
+<!-- demon -->
+<item id="6">
+<ingredient id="57" count="1500000" enchant="0"/>
+<production id="472" count="1" enchant="0"/>
+</item>
+<!-- demon -->
+<item id="7">
+<ingredient id="57" count="750000" enchant="0"/>
+<production id="2435" count="1" enchant="0"/>
+</item>
+<!-- demon -->
+<item id="8">
+<ingredient id="57" count="750000" enchant="0"/>
+<production id="2459" count="1" enchant="0"/>
+</item>
+<!-- demon -->
+<item id="9">
+<ingredient id="57" count="2000000" enchant="0"/>
+<production id="60" count="1" enchant="0"/>
+</item>
+<!-- demon -->
+<item id="10">
+<ingredient id="57" count="500000" enchant="0"/>
+<production id="568" count="1" enchant="0"/>
+</item>
+<!-- demon -->
+<item id="11">
+<ingredient id="57" count="500000" enchant="0"/>
+<production id="517" count="1" enchant="0"/>
+</item>
+<!-- demon -->
+<item id="12">
+<ingredient id="57" count="500000" enchant="0"/>
+<production id="107" count="1" enchant="0"/>
+</item>
+<!-- fullplate -->
+<item id="13">
+<ingredient id="57" count="2500000" enchant="0"/>
+<production id="356" count="1" enchant="0"/>
+</item>
+<!-- fullplate -->
+<item id="14">
+<ingredient id="57" count="750000" enchant="0"/>
+<production id="2438" count="1" enchant="0"/>
+</item>
+<!-- fullplate -->
+<item id="15">
+<ingredient id="57" count="750000" enchant="0"/>
+<production id="2462" count="1" enchant="0"/>
+</item>
+<!-- fullplate -->
+<item id="16">
+<ingredient id="57" count="750000" enchant="0"/>
+<production id="2414" count="1" enchant="0"/>
+</item>
+<!-- fullplate -->
+<item id="17">
+<ingredient id="57" count="750000" enchant="0"/>
+<production id="2497" count="1" enchant="0"/>
+</item>
+<!-- theca -->
+<item id="18">
+<ingredient id="57" count="1000000" enchant="0"/>
+<production id="400" count="1" enchant="0"/>
+</item>
+<!-- theca -->
+<item id="19">
+<ingredient id="57" count="1000000" enchant="0"/>
+<production id="420" count="1" enchant="0"/>
+</item>
+<!-- theca -->
+<item id="20">
+<ingredient id="57" count="500000" enchant="0"/>
+<production id="2436" count="1" enchant="0"/>
+</item>
+<!-- theca -->
+<item id="21">
+<ingredient id="57" count="500000" enchant="0"/>
+<production id="2460" count="1" enchant="0"/>
+</item>
+<!-- drake -->
+<item id="22">
+<ingredient id="57" count="2500000" enchant="0"/>
+<production id="401" count="1" enchant="0"/>
+</item>
+<!-- drake -->
+<item id="23">
+<ingredient id="57" count="750000" enchant="0"/>
+<production id="2437" count="1" enchant="0"/>
+</item>
+<!-- drake -->
+<item id="24">
+<ingredient id="57" count="750000" enchant="0"/>
+<production id="2461" count="1" enchant="0"/>
+</item>
+
+
+</list>

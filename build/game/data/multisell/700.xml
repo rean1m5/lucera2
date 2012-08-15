@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Apella Clan -->
+<list applyTaxes="true">
+	<item id="1">
+		<production id="7870" count="1"/>
+		<ingredient id="-200" count="3480"/>
+		<ingredient id="57" count="174000"/>
+	</item>
+	<item id="2">
+		<production id="7871" count="1"/>
+		<ingredient id="-200" count="13540"/>
+		<ingredient id="57" count="677000"/>
+	</item>
+	<item id="3">
+		<production id="7872" count="1"/>
+		<ingredient id="-200" count="2320"/>
+		<ingredient id="57" count="116000"/>
+	</item>
+	<item id="4">
+		<production id="7873" count="1"/>
+		<ingredient id="-200" count="2320"/>
+		<ingredient id="57" count="116000"/>
+	</item>
+	<item id="5">
+		<production id="7874" count="1"/>
+		<ingredient id="-200" count="10160"/>
+		<ingredient id="57" count="508000"/>
+	</item>
+	<item id="6">
+		<production id="7875" count="1"/>
+		<ingredient id="-200" count="2320"/>
+		<ingredient id="57" count="116000"/>
+	</item>
+	<item id="7">
+		<production id="7876" count="1"/>
+		<ingredient id="-200" count="2320"/>
+		<ingredient id="57" count="116000"/>
+	</item>
+	<item id="8">
+		<production id="7877" count="1"/>
+		<ingredient id="-200" count="10160"/>
+		<ingredient id="57" count="508000"/>
+	</item>
+	<item id="9">
+		<production id="7878" count="1"/>
+		<ingredient id="-200" count="2320"/>
+		<ingredient id="57" count="116000"/>
+	</item>
+	<item id="10">
+		<production id="7879" count="1"/>
+		<ingredient id="-200" count="2320"/>
+		<ingredient id="57" count="116000"/>
+	</item>
+</list>

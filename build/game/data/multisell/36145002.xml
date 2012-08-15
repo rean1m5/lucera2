@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fortress Support Unit Captain - Bracelet -->
+<list>
+<!-- Iron Bracelet -->
+<item id="1">
+  <production id="9589" count="1"/>
+  <ingredient id="9912" count="216"/>
+</item>
+<!-- Bronze Bracelet -->
+<item id="2">
+  <production id="9590" count="1"/>
+  <ingredient id="9912" count="480"/>
+</item>
+<!-- Steel Bracelet -->
+<item id="3">
+  <production id="9591" count="1"/>
+  <ingredient id="9912" count="1144"/>
+</item>
+</list>

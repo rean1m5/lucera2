@@ -1,0 +1,128 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Heavy Doom Hammer -->
+  <item id="1">
+    <ingredient id="57" count="2500000"/>
+    <production id="191" count="1"/>
+  </item>
+
+  <!-- Crystal Staff -->
+  <item id="2">
+    <ingredient id="57" count="2500000"/>
+    <production id="192" count="1"/>
+  </item>
+
+  <!-- Heavy Doom Axe -->
+  <item id="3">
+    <ingredient id="57" count="2500000"/>
+    <production id="194" count="1"/>
+  </item>
+
+  <!-- Cursed Staff -->
+  <item id="4">
+    <ingredient id="57" count="3000000"/>
+    <production id="195" count="1"/>
+  </item>
+
+  <!-- Karik Horn -->
+  <item id="5">
+    <ingredient id="57" count="4500000"/>
+    <production id="5888" count="1"/>
+  </item>
+
+  <!-- Paradia Staff -->
+  <item id="6">
+    <ingredient id="57" count="4500000"/>
+    <production id="197" count="1"/>
+  </item>
+
+  <!-- Inferno Staff -->
+  <item id="7">
+    <ingredient id="57" count="4500000"/>
+    <production id="198" count="1"/>
+  </item>
+
+  <!-- Pa'agrian Hammer -->
+  <item id="8">
+    <ingredient id="57" count="4500000"/>
+    <production id="199" count="1"/>
+  </item>
+
+  <!-- Sage's Staff -->
+  <item id="9">
+    <ingredient id="57" count="4500000"/>
+    <production id="200" count="1"/>
+  </item>
+
+  <!-- Pa'agrian Axe -->
+  <item id="10">
+    <ingredient id="57" count="5000000"/>
+    <production id="203" count="1"/>
+  </item>
+
+  <!-- Deadman's Staff -->
+  <item id="11">
+    <ingredient id="57" count="6000000"/>
+    <production id="204" count="1"/>
+  </item>
+
+  <!-- Ghoul's Staff -->
+  <item id="12">
+    <ingredient id="57" count="6000000"/>
+    <production id="205" count="1"/>
+  </item>
+
+  <!-- Demon's Staff -->
+  <item id="13">
+    <ingredient id="57" count="6000000"/>
+    <production id="206" count="1"/>
+  </item>
+
+  <!-- Sprite's Staff -->
+  <item id="14">
+    <ingredient id="57" count="9000000"/>
+    <production id="92" count="1"/>
+  </item>
+
+  <!-- Staff of Phantom -->
+  <item id="15">
+    <ingredient id="57" count="9000000"/>
+    <production id="207" count="1"/>
+  </item>
+
+  <!-- Staff of Seal -->
+  <item id="16">
+    <ingredient id="57" count="9000000"/>
+    <production id="208" count="1"/>
+  </item>
+
+  <!-- Ice Storm Hammer -->
+  <item id="17">
+    <ingredient id="57" count="9000000"/>
+    <production id="7900" count="1"/>
+  </item>
+
+  <!-- Star Buster -->
+  <item id="18">
+    <ingredient id="57" count="13000000"/>
+    <production id="7901" count="1"/>
+  </item>
+
+  <!-- Divine Staff -->
+  <item id="19">
+    <ingredient id="57" count="13000000"/>
+    <production id="209" count="1"/>
+  </item>
+
+  <!-- Staff of Evil Spirits -->
+  <item id="20">
+    <ingredient id="57" count="13000000"/>
+    <production id="210" count="1"/>
+  </item>
+
+</list>

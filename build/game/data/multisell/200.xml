@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Luxury Shop Giran - Weapons -->
+<list>
+<item id="1"><!-- Flamberge  -->
+<ingredient id="1459" count="573" enchant="0"/>
+<ingredient id="1458" count="2865" enchant="0"/>
+<production id="71" count="1" enchant="0"/>
+</item>
+<item id="2"><!-- Stormbringer -->
+<ingredient id="1459" count="573" enchant="0"/>
+<ingredient id="1458" count="2865" enchant="0"/>
+<production id="72" count="1" enchant="0"/>
+</item>
+<item id="3"><!-- Sword of Delusion -->
+<ingredient id="1459" count="1075" enchant="0"/>
+<ingredient id="1458" count="5375" enchant="0"/>
+<production id="76" count="1" enchant="0"/>
+</item>
+<item id="4"><!-- Silver Axe -->
+<ingredient id="1459" count="573" enchant="0"/>
+<ingredient id="1458" count="2865" enchant="0"/>
+<production id="161" count="1" enchant="0"/>
+</item>
+<item id="5"><!-- War Axe -->
+<ingredient id="1459" count="1075" enchant="0"/>
+<ingredient id="1458" count="5375" enchant="0"/>
+<production id="162" count="1" enchant="0"/>
+</item> 
+<item id="6"><!-- Crystal Staff -->
+<ingredient id="1459" count="573" enchant="0"/>
+<ingredient id="1458" count="2865" enchant="0"/>
+<production id="192" count="1" enchant="0"/>
+</item>
+<item id="7"><!-- Sages Staff -->
+<ingredient id="1459" count="1075" enchant="0"/>
+<ingredient id="1458" count="5375" enchant="0"/>
+<production id="200" count="1" enchant="0"/>
+</item>
+<item id="8"><!-- Cursed Dagger -->
+<ingredient id="1459" count="573" enchant="0"/>
+<ingredient id="1458" count="2865" enchant="0"/>
+<production id="226" count="1" enchant="0"/>
+</item>
+<item id="9"><!-- Dark Screamer -->
+<ingredient id="1459" count="1075" enchant="0"/>
+<ingredient id="1458" count="5375" enchant="0"/>
+<production id="233" count="1" enchant="0"/>
+</item>
+<item id="10"><!-- Chakram -->
+<ingredient id="1459" count="573" enchant="0"/>
+<ingredient id="1458" count="2865" enchant="0"/>
+<production id="263" count="1" enchant="0"/>
+</item>
+<item id="11"><!-- Fist Blade -->
+<ingredient id="1459" count="1075" enchant="0"/>
+<ingredient id="1458" count="5375" enchant="0"/>
+<production id="265" count="1" enchant="0"/>
+</item>
+<item id="12"><!-- Crystallized Ice Bow -->
+<ingredient id="1459" count="573" enchant="0"/>
+<ingredient id="1458" count="2865" enchant="0"/>
+<production id="281" count="1" enchant="0"/>
+</item>
+<item id="13"><!-- Akat Long Bow -->
+<ingredient id="1459" count="1075" enchant="0"/>
+<ingredient id="1458" count="5375" enchant="0"/>
+<production id="283" count="1" enchant="0"/>
+</item>
+<item id="14"><!-- Orcish Glaive -->
+<ingredient id="1459" count="573" enchant="0"/>
+<ingredient id="1458" count="2865" enchant="0"/>
+<production id="298" count="1" enchant="0"/>
+</item>
+<item id="15"><!-- Poleaxe -->
+<ingredient id="1459" count="1075" enchant="0"/>
+<ingredient id="1458" count="5375" enchant="0"/>
+<production id="95" count="1" enchant="0"/>
+</item>
+</list>

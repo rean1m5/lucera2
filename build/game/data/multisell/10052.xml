@@ -1,0 +1,20 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Formal Wear -->
+  <item id="2">
+    <ingredient id="6673" count="70"/>
+    <production id="6408" count="2"/>
+  </item>
+
+  <!-- Large Firework -->
+  <item id="3">
+    <ingredient id="6673" count="10"/>
+    <production id="6407" count="5"/>
+  </item>
+
+</list>

@@ -418,9 +418,10 @@ public class L2GameServer
 	}
 	public static boolean isAvalible(int id)
 	{
-		for(int event : avalibleEvents)
-			if (event == id)
-				return true;
+		if (avalibleEvents != null)
+			for(int event : avalibleEvents)
+				if (event == id)
+					return true;
 		return false;
 	}
 

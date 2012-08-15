@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>  <!-- Korvin -->
+<!-- Hude -->
+<list>
+  <!-- Sealed Dynasty Blast Plate Piece (x2) -->
+  <item id="1">
+    <ingredient id="9600" count="68"/>
+    <ingredient id="9601" count="173"/>
+    <ingredient id="9602" count="17"/>
+    <production id="9530" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Gaiter Piece (x2) -->
+  <item id="2">
+    <ingredient id="9600" count="46"/>
+    <ingredient id="9601" count="120"/>
+    <ingredient id="9602" count="11"/>
+    <production id="9531" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Helmet Piece (x2) -->
+  <item id="3">
+    <ingredient id="9600" count="27"/>
+    <ingredient id="9601" count="70"/>
+    <ingredient id="9602" count="8"/>
+    <production id="9532" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Gauntlet Piece (x2) -->
+  <item id="4">
+    <ingredient id="9600" count="21"/>
+    <ingredient id="9601" count="50"/>
+    <ingredient id="9602" count="6"/>
+    <production id="9533" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Boot Piece (x2) -->
+  <item id="5">
+    <ingredient id="9600" count="21"/>
+    <ingredient id="9601" count="50"/>
+    <ingredient id="9602" count="6"/>
+    <production id="9534" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Leather Armor Piece (x2) -->
+  <item id="6">
+    <ingredient id="9600" count="53"/>
+    <ingredient id="9601" count="130"/>
+    <ingredient id="9602" count="14"/>
+    <production id="9535" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Leather Leggings Piece (x2) -->
+  <item id="7">
+    <ingredient id="9600" count="36"/>
+    <ingredient id="9601" count="89"/>
+    <ingredient id="9602" count="9"/>
+    <production id="9536" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Leather Helmet Piece (x2) -->
+  <item id="8">
+    <ingredient id="9600" count="30"/>
+    <ingredient id="9601" count="72"/>
+    <ingredient id="9602" count="7"/>
+    <production id="9537" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Leather Glove Piece (x2) -->
+  <item id="9">
+    <ingredient id="9600" count="21"/>
+    <ingredient id="9601" count="50"/>
+    <ingredient id="9602" count="6"/>
+    <production id="9538" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Leather Boots Piece (x2) -->
+  <item id="10">
+    <ingredient id="9600" count="21"/>
+    <ingredient id="9601" count="50"/>
+    <ingredient id="9602" count="6"/>
+    <production id="9539" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Tunic Piece (x2) -->
+  <item id="11">
+    <ingredient id="9600" count="53"/>
+    <ingredient id="9601" count="130"/>
+    <ingredient id="9602" count="4"/>
+    <production id="9540" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Stocking Piece (x2) -->
+  <item id="12">
+    <ingredient id="9600" count="36"/>
+    <ingredient id="9601" count="89"/>
+    <ingredient id="9602" count="9"/>
+    <production id="9541" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Circlet Piece (x2) -->
+  <item id="13">
+    <ingredient id="9600" count="27"/>
+    <ingredient id="9601" count="70"/>
+    <ingredient id="9602" count="8"/>
+    <production id="9542" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Glove Piece (x2) -->
+  <item id="14">
+    <ingredient id="9600" count="20"/>
+    <ingredient id="9601" count="50"/>
+    <ingredient id="9602" count="6"/>
+    <production id="9543" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Shoes Piece (x2) -->
+  <item id="15">
+    <ingredient id="9600" count="20"/>
+    <ingredient id="9601" count="50"/>
+    <ingredient id="9602" count="6"/>
+    <production id="9544" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Shield Piece (x2) -->
+  <item id="16">
+    <ingredient id="9600" count="20"/>
+    <ingredient id="9601" count="50"/>
+    <ingredient id="9602" count="6"/>
+    <production id="9545" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Earring Gemstone (x2) -->
+  <item id="17">
+    <ingredient id="9600" count="21"/>
+    <ingredient id="9601" count="58"/>
+    <ingredient id="9602" count="6"/>
+    <production id="9991" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Necklace Gemstone (x2) -->
+  <item id="18">
+    <ingredient id="9600" count="29"/>
+    <ingredient id="9601" count="70"/>
+    <ingredient id="9602" count="8"/>
+    <production id="9992" count="1"/>
+  </item>
+  <!-- Sealed Dynasty Ring Gemstone (x2) -->
+  <item id="19">
+    <ingredient id="9600" count="16"/>
+    <ingredient id="9601" count="41"/>
+    <ingredient id="9602" count="4"/>
+    <production id="9993" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Blast Plate (60%) -->
+  <item id="20">
+    <ingredient id="9600" count="266"/>
+    <ingredient id="9601" count="661"/>
+    <ingredient id="9602" count="67"/>
+    <production id="9482" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Gaiter (60%) -->
+  <item id="21">
+    <ingredient id="9600" count="166"/>
+    <ingredient id="9601" count="413"/>
+    <ingredient id="9602" count="42"/>
+    <production id="9483" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Helmet (60%) -->
+  <item id="22">
+    <ingredient id="9600" count="100"/>
+    <ingredient id="9601" count="248"/>
+    <ingredient id="9602" count="25"/>
+    <production id="9484" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Gauntlet (60%) -->
+  <item id="23">
+    <ingredient id="9600" count="66"/>
+    <ingredient id="9601" count="164"/>
+    <ingredient id="9602" count="17"/>
+    <production id="9485" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Boots (60%) -->
+  <item id="24">
+    <ingredient id="9600" count="66"/>
+    <ingredient id="9601" count="164"/>
+    <ingredient id="9602" count="17"/>
+    <production id="9486" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Leather Armor (60%) -->
+  <item id="25">
+    <ingredient id="9600" count="200"/>
+    <ingredient id="9601" count="498"/>
+    <ingredient id="9602" count="50"/>
+    <production id="9487" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Leather Leggings (60%) -->
+  <item id="26">
+    <ingredient id="9600" count="125"/>
+    <ingredient id="9601" count="314"/>
+    <ingredient id="9602" count="31"/>
+    <production id="9488" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Leather Helmet (60%) -->
+  <item id="27">
+    <ingredient id="9600" count="100"/>
+    <ingredient id="9601" count="249"/>
+    <ingredient id="9602" count="25"/>
+    <production id="9489" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Leather Gloves (60%) -->
+  <item id="28">
+    <ingredient id="9600" count="66"/>
+    <ingredient id="9601" count="164"/>
+    <ingredient id="9602" count="17"/>
+    <production id="9490" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Leather Boots (60%) -->
+  <item id="29">
+    <ingredient id="9600" count="66"/>
+    <ingredient id="9601" count="164"/>
+    <ingredient id="9602" count="17"/>
+    <production id="9491" count="1"/>
+  </item>
+  
+  <!-- Recipe: Sealed Dynasty Tunic (60%) -->
+  <item id="30">
+    <ingredient id="9600" count="200"/>
+    <ingredient id="9601" count="498"/>
+    <ingredient id="9602" count="50"/>
+    <production id="9492" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Stockings (60%) -->
+  <item id="31">
+    <ingredient id="9600" count="125"/>
+    <ingredient id="9601" count="313"/>
+    <ingredient id="9602" count="31"/>
+    <production id="9493" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Circlet (60%) -->
+  <item id="32">
+    <ingredient id="9600" count="100"/>
+    <ingredient id="9601" count="249"/>
+    <ingredient id="9602" count="25"/>
+    <production id="9494" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Gloves (60%) -->
+  <item id="33">
+    <ingredient id="9600" count="67"/>
+    <ingredient id="9601" count="161"/>
+    <ingredient id="9602" count="17"/>
+    <production id="9495" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Shoes (60%) -->
+  <item id="34">
+    <ingredient id="9600" count="67"/>
+    <ingredient id="9601" count="161"/>
+    <ingredient id="9602" count="17"/>
+    <production id="9496" count="1"/>
+  </item>
+  <!-- Recipe: Sealed Dynasty Shield (60%) -->
+  <item id="35">
+    <ingredient id="9600" count="70"/>
+    <ingredient id="9601" count="179"/>
+    <ingredient id="9602" count="17"/>
+    <production id="9497" count="1"/>
+  </item>
+  <!-- Recipe - Sealed Dynasty Earrings (70%) -->
+  <item id="36">
+    <ingredient id="9600" count="66"/>
+    <ingredient id="9601" count="162"/>
+    <ingredient id="9602" count="16"/>
+    <production id="9985" count="1"/>
+  </item>
+  <!-- Recipe - Sealed Dynasty Necklace (70%) -->
+  <item id="37">
+    <ingredient id="9600" count="88"/>
+    <ingredient id="9601" count="220"/>
+    <ingredient id="9602" count="21"/>
+    <production id="9986" count="1"/>
+  </item>
+  <!-- Recipe - Sealed Dynasty Ring (70%) -->
+  <item id="38">
+    <ingredient id="9600" count="43"/>
+    <ingredient id="9601" count="110"/>
+    <ingredient id="9602" count="11"/>
+    <production id="9987" count="1"/>
+  </item>
+</list>

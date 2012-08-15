@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+
+<list>
+  
+  <!-- Items -->
+  <item id="1">
+    <ingredient id="57" count="36000" enchant="0"/>
+    <production id="6036" count="1" enchant="0"/>
+  </item>
+  
+  <item id="2">
+    <ingredient id="57" count="36000" enchant="0"/>
+    <production id="1375" count="1" enchant="0"/>
+  </item>
+  
+  <!-- Greater Haste Potion -->
+  <item id="3">
+    <ingredient id="57" count="36000" enchant="0"/>
+    <production id="1374" count="1" enchant="0"/>
+  </item>
+  
+  <item id="4">
+    <ingredient id="57" count="999" enchant="0"/>
+    <production id="1539" count="1" enchant="0"/>
+  </item>
+
+  <!-- Mana Potion -->
+  <item id="5">
+    <ingredient id="57" count="36000" enchant="0"/>
+    <production id="728" count="1" enchant="0"/>
+  </item>
+
+  <!-- Curse Bone -->
+  <item id="6">
+    <ingredient id="57" count="10000000" enchant="0"/>
+    <production id="2508" count="1000" enchant="0"/>
+  </item>
+
+  <!-- Spirit Ore -->
+  <item id="7">
+    <ingredient id="57" count="10000000" enchant="0"/>
+    <production id="3031" count="1000" enchant="0"/>
+  </item>
+
+    <!-- Crystal D -->
+  <item id="8">
+    <ingredient id="57" count="10000" enchant="0"/>
+    <production id="1458" count="1" enchant="0"/>
+  </item>
+
+    <!--Crystal C -->
+  <item id="9">
+    <ingredient id="57" count="20000" enchant="0"/>
+    <production id="1459" count="1" enchant="0"/>
+  </item>
+  
+  <item id="12">
+    <ingredient id="57" count="30000" enchant="0"/>
+    <production id="1460" count="1" enchant="0"/>
+  </item>
+
+  <item id="13">
+    <ingredient id="57" count="40000" enchant="0"/>
+    <production id="1461" count="1" enchant="0"/>
+  </item>
+  
+  <item id="14">
+    <ingredient id="57" count="50000" enchant="0"/>
+    <production id="1462" count="1" enchant="0"/>
+  </item>
+  
+    <!-- Gemstone D -->
+  <item id="10">
+    <ingredient id="57" count="20000" enchant="0"/>
+    <production id="2130" count="1" enchant="0"/>
+  </item>
+
+    <!-- Gemstone C -->
+  <item id="11">
+    <ingredient id="57" count="30000" enchant="0"/>
+    <production id="2131" count="1" enchant="0"/>
+  </item>
+
+   <item id="15">
+    <ingredient id="57" count="40000" enchant="0"/>
+    <production id="2132" count="1" enchant="0"/>
+  </item>
+  
+  <item id="16">
+    <ingredient id="57" count="50000" enchant="0"/>
+    <production id="2133" count="1" enchant="0"/>
+  </item>
+
+  <item id="17">
+    <ingredient id="57" count="60000" enchant="0"/>
+    <production id="2134" count="1" enchant="0"/>
+  </item>
+
+  <item id="18">
+    <ingredient id="57" count="5000000" enchant="0"/>
+    <production id="5589" count="500" enchant="0"/>
+  </item>
+  
+    <!-- Einhasad\'s Holy Water -->
+  <item id="19">
+    <ingredient id="57" count="15000" enchant="0"/>
+    <production id="8874" count="1" enchant="0"/>
+  </item>
+
+              <!-- Battle Symbol -->
+  <item id="20">
+    <ingredient id="57" count="15000" enchant="0"/>
+    <production id="8875" count="1" enchant="0"/>
+  </item>
+
+              <!-- Magic Symbol -->
+  <item id="21">
+    <ingredient id="57" count="15000" enchant="0"/>
+    <production id="8876" count="1" enchant="0"/>
+  </item>
+
+              <!-- Phoenix Blood -->
+  <item id="22">
+    <ingredient id="57" count="15000" enchant="0"/>
+    <production id="8873" count="1" enchant="0"/>
+  </item>
+
+              <!-- Soul Ore -->
+  <item id="23">
+    <ingredient id="57" count="10000000" enchant="0"/>
+    <production id="1785" count="1000" enchant="0"/>
+  </item>
+
+  <item id="24">
+    <ingredient id="57" count="1000000000" enchant="0"/>
+    <production id="6408" count="1" enchant="0"/>
+  </item>
+
+  <item id="25">
+    <ingredient id="57" count="1000000" enchant="0"/>
+    <production id="4393" count="1" enchant="0"/>
+  </item>
+  
+    <!-- Proof of Blood -->
+  <item id="33">
+    <ingredient id="57" count="5000000" enchant="0"/>
+    <production id="1419" count="1" enchant="0"/>
+  </item>
+
+  <!-- Proof of Alliance -->
+  <item id="34">
+    <ingredient id="57" count="10000000" enchant="0"/>
+    <production id="3874" count="1" enchant="0"/>
+  </item>
+
+  <!-- Proof of Aspiration -->
+  <item id="35">
+    <ingredient id="57" count="50000000" enchant="0"/>
+    <production id="3870" count="1" enchant="0"/>
+  </item>
+
+  <!-- Noblesse -->
+  <item id="36">
+    <ingredient id="57" count="500000000" enchant="0"/>
+    <production id="6029" count="1" enchant="0"/>
+  </item>
+  
+  <item id="37">
+    <ingredient id="57" count="500000000" enchant="0"/>
+    <production id="6033" count="1" enchant="0"/>
+  </item>
+
+  <item id="38">
+    <ingredient id="57" count="1000000000" enchant="0"/>
+    <production id="5011" count="1" enchant="0"/>
+  </item>
+
+
+</list>

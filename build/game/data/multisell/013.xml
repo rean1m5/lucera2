@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>  <!-- L2Emu Project -->
+<!-- Exchange Attribute Stones -->
+
+<list>
+  <item id="1">
+    <ingredient id="9547" count="1"/>
+    <production id="9546" count="1"/>
+  </item>
+  <item id="2">
+    <ingredient id="9546" count="1"/>
+    <production id="9547" count="1"/>
+  </item>
+  <item id="3">
+   <ingredient id="9549" count="1"/>
+   <production id="9548" count="1"/>
+  </item>
+  <item id="4">
+   <ingredient id="9548" count="1"/>
+   <production id="9549" count="1"/>
+  </item>
+  <item id="5">
+   <ingredient id="9550" count="1"/>
+   <production id="9551" count="1"/>
+  </item>
+  <item id="6">
+   <ingredient id="9551" count="1"/>
+   <production id="9550" count="1"/>
+  </item>
+</list>

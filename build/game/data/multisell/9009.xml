@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- A&S Grade Armour -->
+
+<list>
+
+<!-- Imperial Helm -->
+<item id="1">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6378" count="1" enchant="0"/>
+</item>
+
+<!-- Imperial Legs -->
+<item id="2">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6374" count="1" enchant="0"/>
+</item>
+
+<!-- Imperial Chest -->
+<item id="3">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6373" count="1" enchant="0"/>
+</item>
+
+<!-- Imperial Boots -->
+<item id="4">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6376" count="1" enchant="0"/>
+</item>
+
+<!-- Imperial Gloves -->
+<item id="5">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6375" count="1" enchant="0"/>
+</item>
+
+<!-- Draconic Helm -->
+<item id="6">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6382" count="1" enchant="0"/>
+</item>
+
+<!-- Draconic Leather -->
+<item id="7">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6379" count="1" enchant="0"/>
+</item>
+
+<!-- Draconic Boots -->
+<item id="8">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6381" count="1" enchant="0"/>
+</item>
+
+<!-- Draconic Gloves -->
+<item id="9">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6380" count="1" enchant="0"/>
+</item>
+
+<!-- Arcana Helm -->
+<item id="10">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6386" count="1" enchant="0"/>
+</item>
+
+<!-- Arcana Robe -->
+<item id="11">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6383" count="1" enchant="0"/>
+</item>
+
+<!-- Arcana Boots -->
+<item id="12">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6385" count="1" enchant="0"/>
+</item>
+
+<!-- Arcana Gloves -->
+<item id="13">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6384" count="1" enchant="0"/>
+</item>
+
+<!-- Imperial Shield -->
+<item id="14">
+<ingredient id="57" count="700000000" enchant="0"/>
+<production id="6377" count="1" enchant="0"/>
+</item>
+
+</list>

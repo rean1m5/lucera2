@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Chain Hood -->
+  <item id="1">
+    <ingredient id="4037" count="6"/>
+    <production id="2413" count="1"/>
+  </item>
+
+  <!-- Composite Helmet -->
+  <item id="2">
+    <ingredient id="4037" count="6"/>
+    <production id="517" count="1"/>
+  </item>
+
+  <!-- Full Plate Helmet -->
+  <item id="3">
+    <ingredient id="4037" count="6"/>
+    <production id="2414" count="1"/>
+  </item>
+
+  <!-- Theca Leather Gloves -->
+  <item id="4">
+    <ingredient id="4037" count="6"/>
+    <production id="2460" count="1"/>
+  </item>
+
+  <!-- Karmian Gloves -->
+  <item id="5">
+    <ingredient id="4037" count="6"/>
+    <production id="2454" count="1"/>
+  </item>
+
+  <!-- Full Plate Gauntlets -->
+  <item id="6">
+    <ingredient id="4037" count="6"/>
+    <production id="2462" count="1"/>
+  </item>
+
+  <!-- Mithril Boots -->
+  <item id="7">
+    <ingredient id="4037" count="6"/>
+    <production id="62" count="1"/>
+  </item>
+
+  <!-- Theca Leather Boots -->
+  <item id="8">
+    <ingredient id="4037" count="6"/>
+    <production id="2436" count="1"/>
+  </item>
+
+  <!-- Full Plate Boots -->
+  <item id="9">
+    <ingredient id="4037" count="6"/>
+    <production id="2438" count="1"/>
+  </item>
+
+  <!-- Theca Leather Armor -->
+  <item id="10">
+    <ingredient id="4037" count="6"/>
+    <production id="400" count="1"/>
+  </item>
+
+  <!-- Theca Leather Gaiters -->
+  <item id="11">
+    <ingredient id="4037" count="6"/>
+    <production id="420" count="1"/>
+  </item>
+
+  <!-- Karmian Tunic -->
+  <item id="12">
+    <ingredient id="4037" count="6"/>
+    <production id="439" count="1"/>
+  </item>
+
+  <!-- Karmian Stockings -->
+  <item id="13">
+    <ingredient id="4037" count="6"/>
+    <production id="471" count="1"/>
+  </item>
+
+  <!-- Chain Mail Shirt -->
+  <item id="14">
+    <ingredient id="4037" count="6"/>
+    <production id="354" count="1"/>
+  </item>
+
+  <!-- Chain Gaiters -->
+  <item id="15">
+    <ingredient id="4037" count="6"/>
+    <production id="381" count="1"/>
+  </item>
+
+  <!-- Composite Armor -->
+  <item id="16">
+    <ingredient id="4037" count="6"/>
+    <production id="60" count="1"/>
+  </item>
+
+  <!-- Full Plate Armor -->
+  <item id="17">
+    <ingredient id="4037" count="6"/>
+    <production id="356" count="1"/>
+  </item>
+
+  <!-- Chain Shield -->
+  <item id="18">
+    <ingredient id="4037" count="6"/>
+    <production id="2495" count="1"/>
+  </item>
+
+  <!-- Composite Shield -->
+  <item id="19">
+    <ingredient id="4037" count="6"/>
+    <production id="107" count="1"/>
+  </item>
+
+  <!-- Full Plate Shield -->
+  <item id="20">
+    <ingredient id="4037" count="6"/>
+    <production id="2497" count="1"/>
+  </item>
+
+
+</list>

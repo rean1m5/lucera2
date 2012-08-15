@@ -1,0 +1,68 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Scythe -->
+  <item id="1">
+    <ingredient id="57" count="2500000"/>
+    <production id="96" count="1"/>
+  </item>
+
+  <!-- Orcish Glaive -->
+  <item id="2">
+    <ingredient id="57" count="2500000"/>
+    <production id="298" count="1"/>
+  </item>
+
+  <!-- Body Slasher -->
+  <item id="3">
+    <ingredient id="57" count="2500000"/>
+    <production id="302" count="1"/>
+  </item>
+
+  <!-- Bec de Corbin -->
+  <item id="4">
+    <ingredient id="57" count="3000000"/>
+    <production id="94" count="1"/>
+  </item>
+
+  <!-- Poleaxe -->
+  <item id="5">
+    <ingredient id="57" count="4500000"/>
+    <production id="95" count="1"/>
+  </item>
+
+  <!-- Scorpion -->
+  <item id="6">
+    <ingredient id="57" count="5000000"/>
+    <production id="301" count="1"/>
+  </item>
+
+  <!-- Widow Maker -->
+  <item id="7">
+    <ingredient id="57" count="5000000"/>
+    <production id="303" count="1"/>
+  </item>
+
+  <!-- Orcish Poleaxe -->
+  <item id="8">
+    <ingredient id="57" count="6000000"/>
+    <production id="299" count="1"/>
+  </item>
+
+  <!-- Great Axe -->
+  <item id="9">
+    <ingredient id="57" count="9000000"/>
+    <production id="300" count="1"/>
+  </item>
+
+  <!-- Lance -->
+  <item id="10">
+    <ingredient id="57" count="13000000"/>
+    <production id="97" count="1"/>
+  </item>
+
+</list>
