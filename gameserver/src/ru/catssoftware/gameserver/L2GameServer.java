@@ -416,6 +416,12 @@ public class L2GameServer
 		if (avalibleEvents == null)
 			avalibleEvents = check;
 	}
+
+	/**
+	 * Проверка на доступность эвента.
+	 * @param id
+	 * @return
+	 */
 	public static boolean isAvalible(int id)
 	{
 		if (avalibleEvents != null)
