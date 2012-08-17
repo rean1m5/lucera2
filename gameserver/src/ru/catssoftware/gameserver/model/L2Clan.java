@@ -134,7 +134,7 @@ public  class L2Clan
 	private int								_reputationScore			= 0;
 	private int								_rank						= 0;
 
-	private String							_notice;
+	private String							_notice = "";
 
 	@SuppressWarnings("unused")
 	private boolean							_noticeEnabled				= true;
@@ -152,7 +152,7 @@ public  class L2Clan
 		restore();
 		getWarehouse().restore();
 		//L2EMU_EDIT
-		if (getNotice().equals(""))
+		if (getNotice() == null || getNotice().equals(""))
 		//L2EMU_EDIT
 			insertNotice(); // add this line so it inserts the new clan's (blank) notice into the DB
 	}
