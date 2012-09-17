@@ -401,4 +401,15 @@ public abstract class L2Object extends L2Entity
 		return false;
 	}
 
+
+	public L2Summon getSummon()
+	{
+		return null;
+	}
+
+	public boolean isSummon()
+	{
+		return false;
+	}
+
 }

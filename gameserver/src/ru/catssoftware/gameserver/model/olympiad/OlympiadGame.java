@@ -204,30 +204,6 @@ public class OlympiadGame
 						summon.unSummon(player);
 				}
 
-				// Remove invalid cubics
-				if (player.getCubics() != null)
-				{
-					FastList<Integer> allowedList = new FastList<Integer>();
-
-					for (L2Skill skill : player.getAllSkills())
-					{
-						if (skill.isCubic() && skill instanceof L2SkillSummon)
-						{
-							int npcId = ((L2SkillSummon) skill).getNpcId();
-							if (npcId != 0)
-								allowedList.add(npcId);
-						}
-					}
-					for (L2CubicInstance cubic : player.getCubics().values())
-					{
-						if (!allowedList.contains((cubic.getId())))
-						{
-							cubic.stopAction();
-							player.delCubic(cubic.getId());
-						}
-					}
-				}
-
 				// Remove player from his party
 				if (player.getParty() != null)
 				{
@@ -252,8 +228,32 @@ public class OlympiadGame
 					weap.setChargedSoulshot(L2ItemInstance.CHARGED_NONE,false);
 					weap.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 				}
+
 				player.sendSkillList();
-				
+
+				// Remove invalid cubics
+				if (Config.ALT_OLY_REMOVE_CUBICS && player.getCubics() != null)
+				{
+					FastList<Integer> allowedList = new FastList<Integer>();
+
+					for (L2Skill skill : player.getAllSkills())
+					{
+						if (skill.isCubic() && skill instanceof L2SkillSummon)
+						{
+							int npcId = ((L2SkillSummon) skill).getNpcId();
+							if (npcId != 0)
+								allowedList.add(npcId);
+						}
+					}
+					for (L2CubicInstance cubic : player.getCubics().values())
+					{
+						if (!allowedList.contains((cubic.getId())))
+						{
+							cubic.stopAction();
+							player.delCubic(cubic.getId());
+						}
+					}
+				}
 				
 			}
 			catch (Exception e)
@@ -302,6 +302,17 @@ public class OlympiadGame
 
 		try
 		{
+
+			if (_playerOne.getObservMode() == 1)
+				_playerOne.leaveObserverMode();
+			else if (_playerOne.getObservMode() == 2)
+				_playerOne.leaveOlympiadObserverMode();
+
+			if (_playerTwo.getObservMode() == 1)
+				_playerTwo.leaveObserverMode();
+			else if (_playerTwo.getObservMode() == 2)
+				_playerTwo.leaveOlympiadObserverMode();
+
 			x1 = _playerOne.getX();
 			y1 = _playerOne.getY();
 			z1 = _playerOne.getZ();
@@ -339,11 +350,6 @@ public class OlympiadGame
 			_gamestarted = true;
 			_playerOne.teleToLocation(_stadiumPort[0] + 800, _stadiumPort[1], _stadiumPort[2], false);
 			_playerTwo.teleToLocation(_stadiumPort[0] - 800, _stadiumPort[1], _stadiumPort[2], false);
-			
-			if(Config.ALT_OLY_RESET_SKILL_TIME) {
-				_playerOne.resetSkillTime(true);
-				_playerTwo.resetSkillTime(true);
-			}
 			_playerOne.getStatus().restoreHpMp();
 			_playerTwo.getStatus().restoreHpMp();
 			_playerOne.sendPacket(new ExOlympiadMode(2));
@@ -356,20 +362,6 @@ public class OlympiadGame
 			_playerTwo.setOlympiadSide(2);
 			OlympiadManager.enchantUpdate(_playerOne);
 			OlympiadManager.enchantUpdate(_playerTwo);
-                        /*
-                         * Замена проверки, на сброс статов до нужного уровня заточки
-			for(L2ItemInstance item : _playerOne.getInventory().getItems()) {
-				if(item.isEquipped()) 
-					if(item.isOlyRestrictedItem())
-					 _playerOne.getInventory().unEquipItemInSlot(item.getLocationSlot());
-			}
-			for(L2ItemInstance item : _playerTwo.getInventory().getItems()) {
-				if(item.isEquipped()) 
-					if(item.isOlyRestrictedItem())
-					 _playerTwo.getInventory().unEquipItemInSlot(item.getLocationSlot());
-			}
-                        * 
-                        */
 			_playerOne.broadcastFullInfo();
 			_playerTwo.broadcastFullInfo();
 
@@ -440,7 +432,11 @@ public class OlympiadGame
 			_playerTwo.teleToLocation(x2, y2, z2, true);
 			GameExtensionManager.getInstance().handleAction(_playerTwo, Action.PC_OLY_BATTLE_FINISHED,_winner);
 		}
-		
+
+		if(Config.ALT_OLY_RESET_SKILL_TIME) {
+			_playerOne.resetSkillTime(true);
+			_playerTwo.resetSkillTime(true);
+		}
 	}
 
 	protected void PlayersStatusBack()

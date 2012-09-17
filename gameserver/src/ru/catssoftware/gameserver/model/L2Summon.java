@@ -883,4 +883,16 @@ public abstract class L2Summon extends L2PlayableInstance
 		}
 		super.doAttack(target);
 	}
+
+	@Override
+	public L2Summon getSummon()
+	{
+		return this;
+	}
+
+	@Override
+	public boolean isSummon()
+	{
+		return true;
+	}
 }

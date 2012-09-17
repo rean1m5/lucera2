@@ -1,11 +1,7 @@
 package ru.catssoftware.gameserver.geodata.pathfinding;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import javolution.util.FastList;
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.geodata.GeoData.PathFindingMode;
@@ -14,7 +10,8 @@ import ru.catssoftware.gameserver.geodata.pathfinding.utils.CellNodeMap;
 import ru.catssoftware.gameserver.geodata.pathfinding.utils.FastNodeList;
 import ru.catssoftware.gameserver.model.L2World;
 
-import javolution.util.FastList;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -30,7 +27,7 @@ public  class PathFinding
 		{
 			if(Config.GEODATA) {
 				if (Config.PATHFIND_MODE==PathFindingMode.CELLFINDING)
-					_instance =CellPathFinding.getInstance();
+					_instance = CellPathFinding.getInstance();
 				else
 					_instance = GeoPathFinding.getInstance();
 			} else {

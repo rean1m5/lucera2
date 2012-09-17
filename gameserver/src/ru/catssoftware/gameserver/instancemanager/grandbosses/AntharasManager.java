@@ -14,11 +14,7 @@
  */
 package ru.catssoftware.gameserver.instancemanager.grandbosses;
 
-import java.util.List;
-import java.util.concurrent.ScheduledFuture;
-
 import javolution.util.FastList;
-
 import ru.catssoftware.Config;
 import ru.catssoftware.config.L2Properties;
 import ru.catssoftware.gameserver.ThreadPoolManager;
@@ -39,6 +35,9 @@ import ru.catssoftware.gameserver.model.quest.pack.ai.Antharas;
 import ru.catssoftware.gameserver.network.serverpackets.SocialAction;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.tools.random.Rnd;
+
+import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 
 
 
@@ -178,7 +177,7 @@ public class AntharasManager extends BossLair
 
 		switch (_state.getState()) {
 		case DEAD:
-                        long inter = Rnd.get((int)(MIN_RESPAWN*60000), (int)(MAX_RESPAWN*60000));
+        	long inter = Rnd.get(MIN_RESPAWN, MAX_RESPAWN) * 60000;
 			_state.setRespawnDate(inter);
 			_state.setState(StateEnum.INTERVAL);
 		case SLEEP:	
@@ -476,7 +475,7 @@ public class AntharasManager extends BossLair
 	// setting teleport cube spawn task.
 	public void setCubeSpawn()
 	{
-		long interval = Rnd.get(MIN_RESPAWN,MAX_RESPAWN) * 60000;
+		long interval = Rnd.get(MIN_RESPAWN, MAX_RESPAWN) * 60000;
 		_state.setRespawnDate(interval);
 		_state.setState(GrandBossState.StateEnum.INTERVAL);
 		_activityTimeEndTask.cancel(true);

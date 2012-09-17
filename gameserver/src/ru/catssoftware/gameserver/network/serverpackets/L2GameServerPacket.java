@@ -2,10 +2,6 @@ package ru.catssoftware.gameserver.network.serverpackets;
 
 
 import org.apache.log4j.Logger;
-
-
-
-import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.mmocore.SendablePacket;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.L2GameClient;
@@ -27,8 +23,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 		catch (Exception e)
 		{
 			_log.error("Failed writing: " + client + " - Failed writing: " + getType());
-			if(Config.DEBUG)  
-				e.printStackTrace();
+			e.printStackTrace();
 			
 		}
 	}

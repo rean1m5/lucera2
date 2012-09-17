@@ -1,5 +1,6 @@
 package ru.catssoftware.gameserver.banmanager;
 
+import com.lameguard.BanList;
 import org.apache.log4j.Logger;
 import ru.catssoftware.Config;
 import ru.catssoftware.L2DatabaseFactory;
@@ -12,6 +13,7 @@ import ru.catssoftware.gameserver.model.restriction.AvailableRestriction;
 import ru.catssoftware.gameserver.model.restriction.ObjectRestrictions;
 import ru.catssoftware.gameserver.model.restriction.RestrictionBindClassException;
 import ru.catssoftware.gameserver.network.Disconnection;
+import ru.catssoftware.protection.LameStub;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -643,5 +645,24 @@ public class BanManager
 			Announcements.getInstance().announceToAll(message);
 		else
 			Announcements.getInstance().criticalAnnounceToAll(message);
+	}
+
+	/**
+	 * Метод блокировки персонажа по HWID.
+	 * @param player
+	 */
+	public boolean banHWID(L2PcInstance actor, L2PcInstance player, String reason)
+	{
+		String hwid = player.getHWid();
+		String ip = player.getHost();
+		if (banAccount(actor, player))
+		{
+			if (LameStub.ISLAME)
+				BanList.getInstance().addHWID(hwid, ip, player.getAccountName(), reason);
+			else
+				actor.sendMessage("LameGuard is disabled.");
+			return true;
+		}
+		return false;
 	}
 }

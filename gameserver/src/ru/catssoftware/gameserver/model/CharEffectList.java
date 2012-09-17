@@ -39,12 +39,14 @@ public class CharEffectList
 		for (L2Effect eff : _buffs) try {
 				if (eff != null)
 					temp.add(eff);
-		} catch(NullPointerException npe) { continue; }
+		} catch(NullPointerException npe) {
+		}
 		
 		for (L2Effect eff : _debuffs ) try {
 				if (eff != null)
 					temp.add(eff);
-		} catch(NullPointerException npe) { continue; }
+		} catch(NullPointerException npe) {
+		}
 		return temp.moveToArray(new L2Effect[temp.size()]);
 	}
 
@@ -227,7 +229,7 @@ public class CharEffectList
 			if (e.getEffectType() == L2EffectType.CHARMOFCOURAGE)
 				continue;
 
-			if (e.getSkill().getId() == checkSkill.getId())
+			if (e.getSkill().getId().equals(checkSkill.getId()))
 			{
 				removeMe = e;
 				break;
@@ -325,9 +327,7 @@ public class CharEffectList
 			if(!_stackedEffects.containsKey(newEffect.stackType))
 				return true;
 			List<L2Effect> eff = _stackedEffects.get(newEffect.stackType);
-			if(eff==null || eff.isEmpty())
-				return true;
-			return eff.get(0).getSkill().getEffectLevel() <= skill.getEffectLevel();
+			return eff == null || eff.isEmpty() || eff.get(0).getSkill().getEffectLevel() <= skill.getEffectLevel();
 		}
 		
 	}
@@ -355,7 +355,7 @@ public class CharEffectList
 			// Check for same effects
 			for (L2Effect e : effectList)
 			{
-				if (e != null && e.getSkill().getId() == newEffect.getSkill().getId() && e.getEffectType() == newEffect.getEffectType() && e.getStackOrder() == newEffect.getStackOrder())
+				if (e != null && e.getSkill().getId().equals(newEffect.getSkill().getId()) && e.getEffectType() == newEffect.getEffectType() && e.getStackOrder() == newEffect.getStackOrder())
 				{
 					if (!newEffect.getSkill().isDebuff())
 					{

@@ -2456,9 +2456,12 @@ public class L2Skill implements FuncOwner
 								continue;
 						}
 					}
-					if (obj instanceof L2Summon && src != null)
+					if (obj.isSummon() && src != null)
 					{
-						trg = ((L2Summon) obj).getOwner();
+						trg = obj.getSummon().getOwner();
+
+						if (obj.getSummon().isInsideZone(L2Zone.FLAG_PEACE))
+							continue;
 
 						if ((src.getParty() != null && trg.getParty() != null) && src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 							continue;
@@ -2477,11 +2480,8 @@ public class L2Skill implements FuncOwner
 							if (!src.checkPvpSkill(trg, this))
 								continue;
 						}
-
-						if (((L2Summon) obj).isInsideZone(L2Zone.FLAG_PEACE))
-							continue;
 					}
-					targetList.add((L2Character) obj);
+					targetList.add(obj.getCharacter());
 				}
 				if (targetList.size() == 0)
 					return null;

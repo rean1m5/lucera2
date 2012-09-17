@@ -14,27 +14,20 @@
  */
 package ru.catssoftware.gameserver.model;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastMap;
-
-
 import org.apache.log4j.Logger;
-
-
-import ru.catssoftware.gameserver.Shutdown;
-import ru.catssoftware.gameserver.Shutdown.ShutdownModeType;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PetInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PlayableInstance;
 import ru.catssoftware.gameserver.network.Disconnection;
 import ru.catssoftware.tools.geometry.Point3D;
-import ru.catssoftware.tools.random.Rnd;
 import ru.catssoftware.util.LinkedBunch;
 import ru.catssoftware.util.concurrent.L2Collection;
 import ru.catssoftware.util.concurrent.L2ReadWriteCollection;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class ...
@@ -203,9 +196,7 @@ public final class L2World
 
 	public boolean findObject(L2Object obj)
 	{
-		if (obj!=null && _objects.contains(obj))
-			return true;
-		return false;
+		return obj != null && _objects.contains(obj);
 	}
 	
 	public L2Character findCharacter(int objectId)

@@ -14,23 +14,15 @@
  */
 package ru.catssoftware.gameserver.instancemanager.grandbosses;
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledFuture;
-
-
+import javolution.util.FastList;
+import javolution.util.FastMap;
 import ru.catssoftware.Config;
 import ru.catssoftware.config.L2Properties;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.NpcTable;
 import ru.catssoftware.gameserver.datatables.SkillTable;
-import ru.catssoftware.gameserver.model.L2Attackable;
-import ru.catssoftware.gameserver.model.L2CharPosition;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Spawn;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.instance.L2GrandBossInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
@@ -45,9 +37,10 @@ import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.gameserver.threadmanager.ExclusiveTask;
 import ru.catssoftware.tools.random.Rnd;
 
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  *
@@ -225,7 +218,7 @@ public class BaiumManager extends BossLair
 		}
 		switch (_state.getState()) {
 		case DEAD:
-                        long inter = Rnd.get((int)(MIN_RESPAWN*60000), (int)(MAX_RESPAWN*60000));
+        	long inter = Rnd.get((int)(MIN_RESPAWN*60000), (int)(MAX_RESPAWN*60000));
 			_state.setRespawnDate(inter);
 			_state.setState(StateEnum.INTERVAL);
 			break;

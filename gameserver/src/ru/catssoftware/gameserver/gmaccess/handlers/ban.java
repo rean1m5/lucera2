@@ -19,7 +19,8 @@ public class ban extends gmHandler
 		"unban",
 		"banchar",
 		"unbanchar",
-		"gmacc"
+		"gmacc",
+		"banhwid"
 	};
 
 	@Override
@@ -74,6 +75,11 @@ public class ban extends gmHandler
 			if (!BanManager.getInstance().gmAccess(admin, params[1]))
 				admin.sendMessage(Message.getMessage(admin, Message.MessageId.MSG_ERROR_TRY_LATER));
 			return;
+		}
+		else if (command.equals("banhwid"))
+		{
+			if (!BanManager.getInstance().banHWID(admin, player, "ban hwid by " + admin.getName()))
+				admin.sendMessage(Message.getMessage(admin, Message.MessageId.MSG_ERROR_TRY_LATER));
 		}
 	}
 

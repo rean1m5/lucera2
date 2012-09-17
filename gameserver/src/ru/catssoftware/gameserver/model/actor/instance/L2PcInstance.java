@@ -10844,7 +10844,7 @@ public class L2PcInstance extends L2PlayableInstance
 			
 		}
 
-		if (getClanId() > 0)
+		if (getClan() != null)
 			getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
 
 		if (_snoopedPlayer != null)

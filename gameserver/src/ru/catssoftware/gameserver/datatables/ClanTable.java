@@ -14,18 +14,8 @@
  */
 package ru.catssoftware.gameserver.datatables;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map;
-
 import javolution.util.FastMap;
-
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
 import ru.catssoftware.L2DatabaseFactory;
 import ru.catssoftware.gameserver.ThreadPoolManager;
@@ -40,11 +30,13 @@ import ru.catssoftware.gameserver.model.entity.Castle;
 import ru.catssoftware.gameserver.model.entity.Fort;
 import ru.catssoftware.gameserver.model.entity.FortSiege;
 import ru.catssoftware.gameserver.network.SystemMessageId;
-import ru.catssoftware.gameserver.network.serverpackets.PledgeShowInfoUpdate;
-import ru.catssoftware.gameserver.network.serverpackets.PledgeShowMemberListAll;
-import ru.catssoftware.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
-import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
-import ru.catssoftware.gameserver.network.serverpackets.UserInfo;
+import ru.catssoftware.gameserver.network.serverpackets.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Map;
 
 public class ClanTable
 {
@@ -83,8 +75,13 @@ public class ClanTable
 
 			while (result.next())
 			{
-				_clans.put(Integer.parseInt(result.getString("clan_id")), new L2Clan(Integer.parseInt(result.getString("clan_id"))));
-				clan = getClan(Integer.parseInt(result.getString("clan_id")));
+				clan = new L2Clan(result.getInt("clan_id"));
+				clan = _clans.put(clan.getClanId(), clan);
+				if (clan == null)
+				{
+					_log.error("Load clan [" + result.getString("clan_id") + "] is null.");
+					continue;
+				}
 				if (clan.getDissolvingExpiryTime() != 0)
 				{
 					if (clan.getDissolvingExpiryTime() < System.currentTimeMillis())
@@ -125,8 +122,7 @@ public class ClanTable
 	 */
 	public L2Clan getClan(int clanId)
 	{
-		L2Clan clan = _clans.get(clanId);
-		return clan;
+		return _clans.get(clanId);
 	}
 
 	public L2Clan getClanByName(String clanName)
