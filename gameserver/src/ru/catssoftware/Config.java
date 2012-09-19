@@ -2520,7 +2520,7 @@ public class Config extends L2Config
 			DISABLE_SKILLS_ON_LEVEL_LOST = Boolean.parseBoolean(skillsSettings.getProperty("DisableSkillsOnLevelLost","false"));
 			USE_CHAR_LEVEL_MOD = Boolean.parseBoolean(skillsSettings.getProperty("UseCharLevelModifier","true"));
 			OLD_CANCEL_MODE = skillsSettings.getProperty("CancelMode","new").toLowerCase().equals("old");
-                        BLOCK_BUFF = Integer.parseInt(skillsSettings.getProperty("BlockBuff", "7077"));
+			BLOCK_BUFF = Integer.parseInt(skillsSettings.getProperty("BlockBuff", "7077"));
 		}
 		catch (Exception e)
 		{

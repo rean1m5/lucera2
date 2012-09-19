@@ -404,7 +404,7 @@ public class OlympiadManager implements Runnable
 
 		for (OlympiadGame instance : _olympiadInstances.values())
 		{
-			if (instance == null || instance._gamestarted != true)
+			if (instance == null || !instance._gamestarted)
 				continue;
 			titles.put(instance._stadiumID, instance.getTitle());
 		}

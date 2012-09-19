@@ -1,15 +1,12 @@
 package ru.catssoftware;
 
-import java.io.File;
-import java.util.Map;
-
+import javolution.util.FastMap;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
-
-
-import javolution.util.FastMap;
-
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
+
+import java.io.File;
+import java.util.Map;
 
 public class Message {
 	public static enum MessageId {
@@ -196,7 +193,7 @@ public class Message {
 		MSG_EVENT_YOU_KILL_REGULAR_PLAYER("Вы убили простого игрока."),
 		MSG_EVENT_CANT_USE_ITEM("Вы не можете использовать этот предемет на эвенте."),
 		MSG_EVENT_SKILL_NOT_ALOWED("Это умение запрещено на эвенте."),
-                MSG_OLY_SKILL_NOT_ALOWED("Это умение запрещено на олимпе."),
+		MSG_OLY_SKILL_NOT_ALOWED("Это умение запрещено на олимпиаде."),
 		MSG_EVENT_NOT_ALLOWED("Извините, эвент не доступен."),
 		MSG_EVENT_ALREADY_REGISTERED("Вы уже зарегистрированы на эвент."),
 		MSG_EVENT_HWID_ALREADY_REGISTERED("Игрок с вашего компьютера уже зарегистрирован."),

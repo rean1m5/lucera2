@@ -1,24 +1,8 @@
 package ru.catssoftware.gameserver.model.olympiad;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
 import ru.catssoftware.L2DatabaseFactory;
 import ru.catssoftware.Message;
@@ -34,6 +18,19 @@ import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
 import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
 import ru.catssoftware.util.StatsSet;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 
  /**
@@ -323,7 +320,7 @@ public final class Olympiad
 		public void run()
 		{
 			// Переменные
-			int _vPeriodTime						= Config.ALT_OLY_VPERIOD * 60 * 60000;
+			int _vPeriodTime = Config.ALT_OLY_VPERIOD * 60 * 60000;
 			_log.info("Olympiad: Finishing "+_period+" period");
 			// Анонсирование информации
 			SystemMessage sm = new SystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_ENDED);
@@ -817,13 +814,18 @@ public final class Olympiad
 		Calendar currentTime = Calendar.getInstance();
 		currentTime.set(Calendar.HOUR_OF_DAY, 0);
 		currentTime.set(Calendar.MINUTE, 1);
-		currentTime.set(Calendar.SECOND, 00);
-		if(Config.ALT_OLY_DURATION_TYPES.equalsIgnoreCase("month")) {
+		currentTime.set(Calendar.SECOND, 0);
+		if(Config.ALT_OLY_DURATION_TYPES.equalsIgnoreCase("month"))
+		{
 			currentTime.add(Calendar.MONTH, Config.ALT_OLY_DURATION);
 			currentTime.set(Calendar.DAY_OF_MONTH, 1);
-		} else if(Config.ALT_OLY_DURATION_TYPES.equalsIgnoreCase("week")) {
+		}
+		else if(Config.ALT_OLY_DURATION_TYPES.equalsIgnoreCase("week"))
+		{
 			currentTime.set(Calendar.DAY_OF_WEEK, 1);
-			currentTime.add(Calendar.WEEK_OF_YEAR, Config.ALT_OLY_DURATION);
+			// прибавляем указанное кол-во недель, но учитываем, что если расчет идет в первый день недели, то нужно высчитывать
+			// конец периода с учетом текущей недели, добавляем на одну неделю меньше.
+			currentTime.add(Calendar.WEEK_OF_YEAR, Config.ALT_OLY_DURATION - currentTime.get(Calendar.DAY_OF_WEEK) == 1 ? 1 : 0);
 		}
 		_olympiadEnd = currentTime.getTimeInMillis();
 
