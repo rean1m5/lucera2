@@ -14,68 +14,82 @@
  */
 package ru.catssoftware.gameserver.geodata.pathfinding.utils;
 
-import ru.catssoftware.gameserver.geodata.pathfinding.Node;
+import ru.catssoftware.gameserver.geodata.pathfinding.geonodes.GeoNode;
+
+/*
+ * @author Ro0TT
+ * @date 24.09.2012
+ */
 
 /**
  * @author -Nemesiss-
  */
 public class BinaryNodeHeap
 {
-	private final Node[] _list;
+	private final GeoNode[] _list;
 	private int _size;
-
+	
 	public BinaryNodeHeap(int size)
 	{
-		_list = new Node[size+1];
+		_list = new GeoNode[size + 1];
 		_size = 0;
 	}
-
-	public void add(Node n) {
+	
+	public void add(GeoNode n)
+	{
 		_size++;
-		int pos  = _size;
+		int pos = _size;
 		_list[pos] = n;
 		while (pos != 1)
 		{
-			int p2 = pos/2;
+			int p2 = pos / 2;
 			if (_list[pos].getCost() <= _list[p2].getCost())
 			{
-				Node temp = _list[p2];
+				GeoNode temp = _list[p2];
 				_list[p2] = _list[pos];
 				_list[pos] = temp;
-		        pos = p2;
+				pos = p2;
 			}
 			else
+			{
 				break;
+			}
 		}
 	}
-
-	public Node removeFirst()
+	
+	public GeoNode removeFirst()
 	{
-		Node first = _list[1];
+		GeoNode first = _list[1];
 		_list[1] = _list[_size];
 		_list[_size] = null;
 		_size--;
 		int pos = 1;
 		int cpos;
 		int dblcpos;
-		Node temp;
-		while(true)
+		GeoNode temp;
+		while (true)
 		{
 			cpos = pos;
-			dblcpos = cpos*2;
-			if ((dblcpos+1) <= _size)
+			dblcpos = cpos * 2;
+			if ((dblcpos + 1) <= _size)
 			{
 				if (_list[cpos].getCost() >= _list[dblcpos].getCost())
+				{
 					pos = dblcpos;
-			    if (_list[pos].getCost() >= _list[dblcpos+1].getCost())
-			    	pos = dblcpos+1;
+				}
+				if (_list[pos].getCost() >= _list[dblcpos + 1].getCost())
+				{
+					pos = dblcpos + 1;
+				}
 			}
 			else if (dblcpos <= _size)
 			{
 				if (_list[cpos].getCost() >= _list[dblcpos].getCost())
+				{
 					pos = dblcpos;
+				}
 			}
-
+			
 			if (cpos != pos)
 			{
 				temp = _list[cpos];
@@ -83,23 +97,29 @@ public class BinaryNodeHeap
 				_list[pos] = temp;
 			}
 			else
+			{
 				break;
+			}
 		}
 		return first;
 	}
-
-	public boolean contains(Node n)
+	
+	public boolean contains(GeoNode n)
 	{
 		if (_size == 0)
+		{
 			return false;
+		}
 		for (int i = 1; i <= _size; i++)
 		{
-			if(_list[i].equals(n))
+			if (_list[i].equals(n))
+			{
 				return true;
+			}
 		}
 		return false;
 	}
-
+	
 	public boolean isEmpty()
 	{
 		return _size == 0;

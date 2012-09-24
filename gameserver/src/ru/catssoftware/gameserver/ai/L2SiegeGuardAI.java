@@ -1,25 +1,15 @@
 package ru.catssoftware.gameserver.ai;
 
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 import ru.catssoftware.gameserver.GameTimeController;
 import ru.catssoftware.gameserver.geodata.GeoData;
-import ru.catssoftware.gameserver.model.L2Attackable;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Effect;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Summon;
-import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2FolkInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2SiegeGuardInstance;
+import ru.catssoftware.gameserver.model.*;
+import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import ru.catssoftware.gameserver.templates.skills.L2SkillType;
 import ru.catssoftware.gameserver.util.Util;
 import ru.catssoftware.tools.random.Rnd;
+
+import static ru.catssoftware.gameserver.ai.CtrlIntention.*;
 
 
 public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
@@ -102,7 +92,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			if (((L2PlayableInstance) target).isSilentMoving() && !_actor.isInsideRadius(target, 250, false, false))
 				return false;
 		}*/
-		return (_actor.isAutoAttackable(target) && GeoData.getInstance().canSeeTarget(_actor, target, _actor.getInstanceId()));
+		return (_actor.isAutoAttackable(target) && GeoData.getInstance().canSeeTarget(_actor, target));
 	}
 
 	@Override
@@ -317,7 +307,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 								continue;
 							if (5 >= Rnd.get(100)) // chance
 								continue;
-							if (!GeoData.getInstance().canSeeTarget(_actor, cha, _actor.getInstanceId()))
+							if (!GeoData.getInstance().canSeeTarget(_actor, cha))
 								break;
 
 							L2Object OldTarget = _actor.getTarget();
@@ -339,7 +329,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 			if (npc.getAI() != null)
 			{
-				if (!npc.isDead() && Math.abs(target.getZ() - npc.getZ()) < 600 && (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE) && target.isInsideRadius(npc, 1500, true, false) && GeoData.getInstance().canSeeTarget(npc, target, _actor.getInstanceId()))
+				if (!npc.isDead() && Math.abs(target.getZ() - npc.getZ()) < 600 && (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE) && target.isInsideRadius(npc, 1500, true, false) && GeoData.getInstance().canSeeTarget(npc, target))
 				{
 					npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
 					return;
@@ -357,7 +347,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 							continue;
 						if (4 >= Rnd.get(100)) // chance
 							continue;
-						if (!GeoData.getInstance().canSeeTarget(_actor, npc, _actor.getInstanceId()))
+						if (!GeoData.getInstance().canSeeTarget(_actor, npc))
 							break;
 						L2Object OldTarget = _actor.getTarget();
 						clientStopMoving(null);
@@ -406,7 +396,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			return;
 		}
 
-		if (!GeoData.getInstance().canSeeTarget(_actor, attackTarget, _actor.getInstanceId()))
+		if (!GeoData.getInstance().canSeeTarget(_actor, attackTarget))
 		{
 			// Siege guards differ from normal mobs currently:
 			// If target cannot seen, don't attack any more

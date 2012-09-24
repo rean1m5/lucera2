@@ -621,7 +621,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (isAttackingDisabled())
 			return;
 
-		if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(this, target, this.getInstanceId()))
+		if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(this, target))
 		{
 			sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
@@ -1059,7 +1059,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				if (!Util.checkIfInRange(maxRadius, this, obj, false))
 					continue;
 
-				if (!GeoData.getInstance().canSeeTarget(this, obj, this.getInstanceId()))
+				if (!GeoData.getInstance().canSeeTarget(this, obj))
 					continue;
 
 				if (Math.abs(obj.getZ() - getZ()) > 650)
@@ -1578,7 +1578,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			return false;
 		}
 		
-		if(target!=null && target != this && skill.getTargetType() == SkillTargetType.TARGET_ONE && !GeoData.getInstance().canSeeTarget(this, target, getInstanceId())) {
+		if(target!=null && target != this && skill.getTargetType() == SkillTargetType.TARGET_ONE && !GeoData.getInstance().canSeeTarget(this, target)) {
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
@@ -3472,7 +3472,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		&& GameTimeController.getGameTicks() % 10 == 0
 		&& !(this instanceof L2BoatInstance)) // once a second to reduce possible cpu load
 		{
-			short geoHeight = GeoData.getInstance().getSpawnHeight(xPrev, yPrev, zPrev-30, zPrev+30, getObjectId());
+			short geoHeight = GeoData.getInstance().getSpawnHeight(xPrev, yPrev, zPrev-30, zPrev+30, this);
 			dz = m._zDestination - geoHeight;
 			// quite a big difference, compare to validatePosition packet
 			if (this instanceof L2PcInstance && Math.abs(getZ() - geoHeight) > 200
@@ -4333,7 +4333,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 
 		// GeoData Los Check or dz > 1000
-		if (!GeoData.getInstance().canSeeTarget(player, this, player.getInstanceId()))
+		if (!GeoData.getInstance().canSeeTarget(player, this))
 		{
 			player.sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -4755,7 +4755,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			{
 				if (element instanceof L2Character)
 				{
-					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element, this.getInstanceId())))
+					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element)))
 						continue;
 					if (skill.isOffensive() && !skill.isNeutral())
 					{

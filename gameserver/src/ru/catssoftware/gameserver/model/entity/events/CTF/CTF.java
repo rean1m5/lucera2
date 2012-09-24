@@ -1036,7 +1036,6 @@ public class CTF extends GameEvent
 	}
 	public String getTitle(L2PcInstance cha, L2PcInstance other) {
 		return getPlayerTeam(cha).name;
-		
 	}
 
 	private void incKills(L2PcInstance player)

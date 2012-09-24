@@ -191,7 +191,7 @@ public abstract class L2Summon extends L2PlayableInstance
 			{
 				if (Config.GEODATA)
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this, player.getInstanceId()))
+					if (GeoData.getInstance().canSeeTarget(player, this))
 					{
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 						player.onActionRequest();
@@ -209,7 +209,7 @@ public abstract class L2Summon extends L2PlayableInstance
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				if (Config.GEODATA)
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this, player.getInstanceId()))
+					if (GeoData.getInstance().canSeeTarget(player, this))
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 				}
 				else

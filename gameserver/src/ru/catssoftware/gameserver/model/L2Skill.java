@@ -1575,7 +1575,7 @@ public class L2Skill implements FuncOwner
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 					return null;
 				}
-				if (target!=activeChar && !GeoData.getInstance().canSeeTarget(activeChar, target, activeChar.getInstanceId()))
+				if (target!=activeChar && !GeoData.getInstance().canSeeTarget(activeChar, target))
 					return null;
 				return new L2Character[] { target };
 			}
@@ -1723,7 +1723,7 @@ public class L2Skill implements FuncOwner
 									break;
 							}
 
-							if (!GeoData.getInstance().canSeeTarget(activeChar, obj, activeChar.getInstanceId()))
+							if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
 								continue;
 
 							if (obj instanceof L2PcInstance)
@@ -1839,7 +1839,7 @@ public class L2Skill implements FuncOwner
 
 					boolean targetInPvP = target.isInsideZone(L2Zone.FLAG_PVP) && !target.isInsideZone(L2Zone.FLAG_SIEGE);
 
-					if (!GeoData.getInstance().canSeeTarget(activeChar, target, activeChar.getInstanceId()))
+					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 						continue;
 
 					if (!target.isDead() && (target != activeChar))
@@ -1957,7 +1957,7 @@ public class L2Skill implements FuncOwner
 					else
 						continue;
 
-					if (!GeoData.getInstance().canSeeTarget(activeChar, target, activeChar.getInstanceId()))
+					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 						continue;
 
 					if (!target.isAlikeDead()) // If target is not dead/fake death and not self
@@ -2428,7 +2428,7 @@ public class L2Skill implements FuncOwner
 					if (!Util.checkIfInRange(radius, target, obj, true))
 						continue;
 
-					if (!GeoData.getInstance().canSeeTarget(activeChar, obj, activeChar.getInstanceId()))
+					if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
 						continue;
 
 					if (obj instanceof L2PcInstance && src != null)
@@ -2512,7 +2512,7 @@ public class L2Skill implements FuncOwner
 						if (!cha.isDead() || !Util.checkIfInRange(radius, target, cha, true))
 							continue;
 
-						if (!GeoData.getInstance().canSeeTarget(activeChar, cha, activeChar.getInstanceId()))
+						if (!GeoData.getInstance().canSeeTarget(activeChar, cha))
 							continue;
 
 						targetList.add(cha);

@@ -105,7 +105,7 @@ public class InventoryUpdate extends L2GameServerPacket
 			// Небольшое дополнение для олимпиады, если персонаж на олимпиаде и заточка больше допустимой - отсылает допустимую заточку.
 			// !!! Влияет только на отображение.
 			// !!! Обязательно отправлять пакет с соответствующей вещицей перед и после олимпиады.
-			int enchant = activeChar.isInOlympiadMode() && item.getEnchant() > Config.ALT_OLY_ENCHANT_LIMIT ? Config.ALT_OLY_ENCHANT_LIMIT : item.getEnchant();
+			int enchant = Config.ALT_OLY_ENCHANT_LIMIT >= 0 && activeChar.isInOlympiadMode() && item.getEnchant() > Config.ALT_OLY_ENCHANT_LIMIT ? Config.ALT_OLY_ENCHANT_LIMIT : item.getEnchant();
 			writeH(enchant);					// Enchant level (pet level shown in control item)
 			writeH(item.getCustomType2());				// Pet name exists or not shown in control item
 			writeD(item.getAugemtationBonus());

@@ -80,6 +80,7 @@ public class Config extends L2Config
 	public static File		GEODATA_ROOT;
 	public static int		PATH_LENGTH;
 	public static int		Z_DENSITY;
+	public static boolean DEBUG_PATH;
 	public static PathFindingMode PATHFIND_MODE;
 	public static String GEOENGINE;
 	
@@ -106,6 +107,7 @@ public class Config extends L2Config
 			GEOENGINE = geoSettings.getProperty("GeoEngine", "lucera");
 			PATH_LENGTH = Integer.parseInt(geoSettings.getProperty("MaxPathLength","3500"));
 			Z_DENSITY = Integer.parseInt(geoSettings.getProperty("ZAxisDensity","12"));
+			DEBUG_PATH = Boolean.parseBoolean(geoSettings.getProperty("EnableDebugPath", "false"));
 		}
 		catch (Exception e)
 		{

@@ -1,15 +1,8 @@
 package ru.catssoftware.gameserver.model;
 
-import java.lang.reflect.Constructor;
-import java.util.List;
-import java.util.concurrent.Future;
-
 import javolution.util.FastList;
-
 import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
-
-
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.Announcements;
 import ru.catssoftware.gameserver.ThreadPoolManager;
@@ -25,6 +18,10 @@ import ru.catssoftware.gameserver.model.zone.L2Zone.ZoneType;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.gameserver.util.RndCoord;
 import ru.catssoftware.tools.random.Rnd;
+
+import java.lang.reflect.Constructor;
+import java.util.List;
+import java.util.concurrent.Future;
 
 
 public class L2Spawn
@@ -478,7 +475,7 @@ public class L2Spawn
 			newlocz = getLocz();
 		}
 
-		newlocz = GeoData.getInstance().getSpawnHeight(newlocx, newlocy, newlocz, newlocz, _id);
+		newlocz = GeoData.getInstance().getSpawnHeight(newlocx, newlocy, newlocz, newlocz, mob);
 		for (L2Effect f : mob.getAllEffects())
 		{
 			if (f != null)

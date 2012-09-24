@@ -14,15 +14,14 @@
  */
 package ru.catssoftware.gameserver.model;
 
-import java.util.concurrent.Future;
-import java.util.logging.Logger;
-
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.datatables.SkillTable;
 import ru.catssoftware.gameserver.geodata.GeoData;
-import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.skills.effects.EffectFusion;
 import ru.catssoftware.gameserver.util.Util;
+
+import java.util.concurrent.Future;
+import java.util.logging.Logger;
 
 
 /**
@@ -91,7 +90,7 @@ public final class FusionSkill
 				if (!Util.checkIfInRange(_skillCastRange, _caster, _target, true))
 					_caster.abortCast();
 
-				if (!GeoData.getInstance().canSeeTarget(_caster, _target, _caster.getInstanceId()))
+				if (!GeoData.getInstance().canSeeTarget(_caster, _target))
 					_caster.abortCast();
 			}
 			catch (Exception e)

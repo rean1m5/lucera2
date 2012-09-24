@@ -14,18 +14,10 @@
  */
 package ru.catssoftware.gameserver.model.actor.instance;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.concurrent.Future;
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
-import ru.catssoftware.Message;
 import ru.catssoftware.L2DatabaseFactory;
+import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.ItemTable;
@@ -37,30 +29,14 @@ import ru.catssoftware.gameserver.handler.ItemHandler;
 import ru.catssoftware.gameserver.idfactory.IdFactory;
 import ru.catssoftware.gameserver.instancemanager.CursedWeaponsManager;
 import ru.catssoftware.gameserver.instancemanager.ItemsOnGroundManager;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2PetData;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Summon;
-import ru.catssoftware.gameserver.model.L2World;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.stat.PetStat;
 import ru.catssoftware.gameserver.model.actor.status.PetStatus;
 import ru.catssoftware.gameserver.model.itemcontainer.Inventory;
 import ru.catssoftware.gameserver.model.itemcontainer.PcInventory;
 import ru.catssoftware.gameserver.model.itemcontainer.PetInventory;
 import ru.catssoftware.gameserver.network.SystemMessageId;
-import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
-import ru.catssoftware.gameserver.network.serverpackets.InventoryUpdate;
-import ru.catssoftware.gameserver.network.serverpackets.ItemList;
-import ru.catssoftware.gameserver.network.serverpackets.MyTargetSelected;
-import ru.catssoftware.gameserver.network.serverpackets.PetInventoryUpdate;
-import ru.catssoftware.gameserver.network.serverpackets.PetItemList;
-import ru.catssoftware.gameserver.network.serverpackets.PetStatusShow;
-import ru.catssoftware.gameserver.network.serverpackets.StatusUpdate;
-import ru.catssoftware.gameserver.network.serverpackets.StopMove;
-import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
-import ru.catssoftware.gameserver.network.serverpackets.ValidateLocation;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.skills.Stats;
 import ru.catssoftware.gameserver.taskmanager.DecayTaskManager;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
@@ -68,6 +44,12 @@ import ru.catssoftware.gameserver.templates.item.L2EtcItemType;
 import ru.catssoftware.gameserver.templates.item.L2Item;
 import ru.catssoftware.gameserver.templates.item.L2Weapon;
 import ru.catssoftware.tools.random.Rnd;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.concurrent.Future;
 
 
 public class L2PetInstance extends L2Summon
@@ -313,7 +295,7 @@ public class L2PetInstance extends L2Summon
 			{
 				if (Config.GEODATA)
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this, player.getInstanceId()))
+					if (GeoData.getInstance().canSeeTarget(player, this))
 					{
 						// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
@@ -330,7 +312,7 @@ public class L2PetInstance extends L2Summon
 			{
 				if (Config.GEODATA )
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this, player.getInstanceId()))
+					if (GeoData.getInstance().canSeeTarget(player, this))
 					{
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 						player.onActionRequest();

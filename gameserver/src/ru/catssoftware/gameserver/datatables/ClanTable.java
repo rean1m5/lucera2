@@ -14,7 +14,6 @@
  */
 package ru.catssoftware.gameserver.datatables;
 
-import javolution.util.FastMap;
 import org.apache.log4j.Logger;
 import ru.catssoftware.Config;
 import ru.catssoftware.L2DatabaseFactory;
@@ -36,7 +35,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ClanTable
 {
@@ -47,7 +46,7 @@ public class ClanTable
 
 	private static final Logger		_log	= Logger.getLogger(ClanTable.class.getName());
 
-	private Map<Integer, L2Clan>	_clans;
+	private ConcurrentHashMap<Integer, L2Clan> _clans;
 
 	public static ClanTable getInstance()
 	{
@@ -61,7 +60,7 @@ public class ClanTable
 
 	private ClanTable()
 	{
-		_clans = new FastMap<Integer, L2Clan>();
+		_clans = new ConcurrentHashMap<Integer, L2Clan>();
 		L2Clan clan;
 		Connection con = null;
 		try
@@ -75,13 +74,15 @@ public class ClanTable
 
 			while (result.next())
 			{
-				clan = new L2Clan(result.getInt("clan_id"));
-				clan = _clans.put(clan.getClanId(), clan);
+				_clans.put(Integer.parseInt(result.getString("clan_id")), new L2Clan(Integer.parseInt(result.getString("clan_id"))));
+				clan = getClan(Integer.parseInt(result.getString("clan_id")));
+
 				if (clan == null)
 				{
 					_log.error("Load clan [" + result.getString("clan_id") + "] is null.");
 					continue;
 				}
+
 				if (clan.getDissolvingExpiryTime() != 0)
 				{
 					if (clan.getDissolvingExpiryTime() < System.currentTimeMillis())

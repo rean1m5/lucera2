@@ -14,8 +14,7 @@
  */
 package ru.catssoftware.gameserver.model.actor.instance;
 
-import java.util.List;
-
+import javolution.util.FastList;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.model.L2Character;
@@ -26,7 +25,7 @@ import ru.catssoftware.gameserver.network.serverpackets.StatusUpdate;
 import ru.catssoftware.gameserver.network.serverpackets.ValidateLocation;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 
-import javolution.util.FastList;
+import java.util.List;
 
 public class L2ControlTowerInstance extends L2NpcInstance
 {
@@ -87,7 +86,7 @@ public class L2ControlTowerInstance extends L2NpcInstance
 		else
 		{
 			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100 // Less then max height difference, delete check when geo
-					&& GeoData.getInstance().canSeeTarget(player, this, player.getInstanceId()))
+					&& GeoData.getInstance().canSeeTarget(player, this))
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);

@@ -14,42 +14,46 @@
  */
 package ru.catssoftware.gameserver.geodata.pathfinding.utils;
 
-import ru.catssoftware.gameserver.geodata.pathfinding.Node;
+import ru.catssoftware.gameserver.geodata.pathfinding.AbstractNode;
 
 /**
  * @author -Nemesiss-
  */
 public class FastNodeList
 {
-	private Node[] _list;
+	private final AbstractNode[] _list;
 	private int _size;
-
+	
 	public FastNodeList(int size)
 	{
-		_list = new Node[size];
+		_list = new AbstractNode[size];
 	}
-
-	public void add(Node n)
+	
+	public void add(AbstractNode n)
 	{
 		_list[_size++] = n;
 	}
-
-	public boolean contains(Node n)
+	
+	public boolean contains(AbstractNode n)
 	{
-		for (int i =0; i < _size; i++)
+		for (int i = 0; i < _size; i++)
 		{
-			if(_list[i].equals(n))
+			if (_list[i].equals(n))
+			{
 				return true;
+			}
 		}
 		return false;
 	}
-
-	public boolean containsRev(Node n)
+	
+	public boolean containsRev(AbstractNode n)
 	{
-		for (int i=_size-1; i >= 0; i--)
+		for (int i = _size - 1; i >= 0; i--)
 		{
-			if(_list[i].equals(n))
+			if (_list[i].equals(n))
+			{
 				return true;
+			}
 		}
 		return false;
 	}

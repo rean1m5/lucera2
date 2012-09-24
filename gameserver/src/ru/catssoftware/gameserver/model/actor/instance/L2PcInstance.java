@@ -3483,7 +3483,7 @@ public class L2PcInstance extends L2PlayableInstance
 					{
 						if (Config.GEODATA)
 						{
-							if (GeoData.getInstance().canSeeTarget(player, this, player.getInstanceId()))
+							if (GeoData.getInstance().canSeeTarget(player, this))
 							{
 								player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 								player.onActionRequest();
@@ -3501,7 +3501,7 @@ public class L2PcInstance extends L2PlayableInstance
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 					if (Config.GEODATA)
 					{
-						if (GeoData.getInstance().canSeeTarget(player, this, player.getInstanceId()))
+						if (GeoData.getInstance().canSeeTarget(player, this))
 							player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 					}
 					else
@@ -3592,7 +3592,7 @@ public class L2PcInstance extends L2PlayableInstance
 							{
 								if (Config.GEODATA)
 								{
-									if (GeoData.getInstance().canSeeTarget(player, this, player.getInstanceId()))
+									if (GeoData.getInstance().canSeeTarget(player, this))
 									{
 										player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 										player.onActionRequest();
@@ -5524,7 +5524,7 @@ public class L2PcInstance extends L2PlayableInstance
 			return false;
 		}
 
-		if (!GeoData.getInstance().canSeeTarget(this, pet, this.getInstanceId()))
+		if (!GeoData.getInstance().canSeeTarget(this, pet))
 		{
 			sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			return false;
@@ -8187,14 +8187,14 @@ public class L2PcInstance extends L2PlayableInstance
 		{
 			if (sklTargetType == SkillTargetType.TARGET_GROUND)
 			{
-				if (!GeoData.getInstance().canSeeTarget(this, worldPosition, this.getInstanceId()))
+				if (!GeoData.getInstance().canSeeTarget(this, worldPosition))
 				{
 					sendPacket(SystemMessageId.CANT_SEE_TARGET);
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return false;
 				}
 			}
-			else if (!GeoData.getInstance().canSeeTarget(this, target, this.getInstanceId()))
+			else if (!GeoData.getInstance().canSeeTarget(this, target))
 			{
 				sendPacket(SystemMessageId.CANT_SEE_TARGET);
 				sendPacket(ActionFailed.STATIC_PACKET);

@@ -12,9 +12,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package ru.catssoftware.gameserver.geodata;
+package ru.catssoftware.gameserver.geodata.pathfinding;
 
-import ru.catssoftware.gameserver.geodata.pathfinding.AbstractNodeLoc;
+/*
+ * @author Ro0TT
+ * @date 24.09.2012
+ */
 
 public abstract class AbstractNode
 {
@@ -26,10 +29,6 @@ public abstract class AbstractNode
 		_loc = loc;
 	}
 	
-	@Override
-	public String toString() {
-		return "Абстрактная нода";
-	}
 	public void setParent(AbstractNode p)
 	{
 		_parent = p;
@@ -51,37 +50,47 @@ public abstract class AbstractNode
 	}
 	
 	/**
-	 * @see java.lang.Object#hashCode()
+	 * @see Object#hashCode()
 	 */
 	@Override
 	public int hashCode()
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((_loc == null) ? 0 : _loc.hashCode());
+		result = (prime * result) + ((_loc == null) ? 0 : _loc.hashCode());
 		return result;
 	}
-	
+
 	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
+	 * @see Object#equals(Object)
 	 */
 	@Override
 	public boolean equals(Object obj)
 	{
 		if (this == obj)
+		{
 			return true;
+		}
 		if (obj == null)
+		{
 			return false;
+		}
 		if (!(obj instanceof AbstractNode))
+		{
 			return false;
+		}
 		final AbstractNode other = (AbstractNode) obj;
 		if (_loc == null)
 		{
 			if (other._loc != null)
+			{
 				return false;
+			}
 		}
 		else if (!_loc.equals(other._loc))
+		{
 			return false;
+		}
 		return true;
 	}
 }
