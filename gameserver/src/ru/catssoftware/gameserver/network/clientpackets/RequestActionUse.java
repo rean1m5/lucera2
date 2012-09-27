@@ -239,7 +239,7 @@ public class RequestActionUse extends L2GameClientPacket
 				if (activeChar.getPrivateStoreType() != 0)
 				{
 					activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-					activeChar.broadcastUserInfo();
+					activeChar.broadcastUserInfo(true);
 				}
 				if (activeChar.isSitting())
 					activeChar.standUp();
@@ -293,7 +293,7 @@ public class RequestActionUse extends L2GameClientPacket
 				if (activeChar.getPrivateStoreType() != 0)
 				{
 					activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-					activeChar.broadcastUserInfo();
+					activeChar.broadcastUserInfo(true);
 				}
 				if (activeChar.isSitting())
 					activeChar.standUp();

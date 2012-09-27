@@ -50,7 +50,7 @@ public class RequestExSetPledgeCrestLarge extends L2GameClientPacket
 			activeChar.sendMessage("Успешно удалено.");
 
 			for (L2PcInstance member : clan.getOnlineMembers(0))
-				member.broadcastUserInfo();
+				member.broadcastUserInfo(true);
 
 			return;
 		}
@@ -118,7 +118,7 @@ public class RequestExSetPledgeCrestLarge extends L2GameClientPacket
 			activeChar.sendPacket(SystemMessageId.CLAN_EMBLEM_WAS_SUCCESSFULLY_REGISTERED);
 
 			for (L2PcInstance member : clan.getOnlineMembers(0))
-				member.broadcastUserInfo();
+				member.broadcastUserInfo(true);
 
 		}
 	}

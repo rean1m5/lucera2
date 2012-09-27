@@ -109,7 +109,7 @@ public class CursedWeapon
 
 				_player.sendPacket(iu);
 
-				_player.broadcastUserInfo();
+				_player.broadcastUserInfo(true);
 			}
 			else
 			{
@@ -175,7 +175,7 @@ public class CursedWeapon
 					_player.sendPacket(iu);
 				}
 
-				_player.broadcastUserInfo();
+				_player.broadcastUserInfo(true);
 			}
 			//  is dropped on the ground
 			else if (_item != null)
@@ -406,7 +406,7 @@ public class CursedWeapon
 		}
 
 		// Refresh player stats
-		_player.broadcastUserInfo();
+		_player.broadcastUserInfo(true);
 		_player.setCursedWeaponEquippedId(_itemId);
 		
 /*		SocialAction atk = new SocialAction(_player.getObjectId(), 17);
@@ -482,7 +482,7 @@ public class CursedWeapon
 			removeSkillAndAppearance();
 
 			_player.abortAttack();
-			_player.broadcastUserInfo();
+			_player.broadcastUserInfo(true);
 		}
 	}
 
@@ -493,7 +493,7 @@ public class CursedWeapon
 		if (_player != null && _player.isOnline() > 0)
 		{
 			_player.setPkKills(_nbKills);
-			_player.broadcastUserInfo();
+			_player.broadcastUserInfo(true);
 
 			if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills*(_skillMaxLevel-1))
 				giveSkill();
@@ -511,7 +511,7 @@ public class CursedWeapon
 		if (_player != null && _player.isOnline() > 0)
 		{
 			_player.setPkKills(_nbKills);
-			_player.broadcastUserInfo();
+			_player.broadcastUserInfo(true);
 
 			if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills*(_skillMaxLevel-1))
 				giveSkill();

@@ -85,7 +85,7 @@ public class InventoryUpdate extends L2GameServerPacket
 		}
 
 	@Override
-	protected final void writeImpl(L2GameClient client,L2PcInstance activeChar)
+	protected final void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
 		writeC(0x27);
 		int count = _items.size();
@@ -102,10 +102,16 @@ public class InventoryUpdate extends L2GameServerPacket
 			writeH(item.getCustomType1());				// Filler (always 0)
 			writeH(item.getEquipped());					// Equipped : 00-No, 01-yes
 			writeD(item.getItem().getBodyPart());		// Slot : 0006-lr.ear, 0008-neck, 0030-lr.finger, 0040-head, 0100-l.hand, 0200-gloves, 0400-chest, 0800-pants, 1000-feet, 4000-r.hand, 8000-r.hand
+
 			// Небольшое дополнение для олимпиады, если персонаж на олимпиаде и заточка больше допустимой - отсылает допустимую заточку.
 			// !!! Влияет только на отображение.
 			// !!! Обязательно отправлять пакет с соответствующей вещицей перед и после олимпиады.
-			int enchant = Config.ALT_OLY_ENCHANT_LIMIT >= 0 && activeChar.isInOlympiadMode() && item.getEnchant() > Config.ALT_OLY_ENCHANT_LIMIT ? Config.ALT_OLY_ENCHANT_LIMIT : item.getEnchant();
+			int enchant = item.getEnchant();
+			if (Config.ALT_OLY_ENCHANT_LIMIT >= 0)
+				if (client.getActiveChar().isInOlympiadMode())
+					if (item.getEnchant() > Config.ALT_OLY_ENCHANT_LIMIT )
+						enchant = Config.ALT_OLY_ENCHANT_LIMIT;
+
 			writeH(enchant);					// Enchant level (pet level shown in control item)
 			writeH(item.getCustomType2());				// Pet name exists or not shown in control item
 			writeD(item.getAugemtationBonus());

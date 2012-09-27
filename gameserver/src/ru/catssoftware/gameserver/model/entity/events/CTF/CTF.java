@@ -1032,10 +1032,18 @@ public class CTF extends GameEvent
 	}
 	
 	public int getCharTitleColor(L2PcInstance cha, L2PcInstance other) {
-		return getPlayerTeam(cha).color;
+		Team team = getPlayerTeam(cha);
+		if (team != null)
+			return team.color;
+		return super.getCharTitleColor(cha, other);
 	}
-	public String getTitle(L2PcInstance cha, L2PcInstance other) {
-		return getPlayerTeam(cha).name;
+
+	public String getTitle(L2PcInstance cha, L2PcInstance other)
+	{
+		Team team = getPlayerTeam(cha);
+		if (team != null)
+			return team.name;
+		return super.getTitle(cha, other);
 	}
 
 	private void incKills(L2PcInstance player)

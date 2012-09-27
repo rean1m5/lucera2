@@ -413,13 +413,13 @@ public  class L2Clan
 		SiegeManager.getInstance().removeSiegeSkills(exLeader);
 		exLeader.setClan(this);
 		exLeader.setClanPrivileges(L2Clan.CP_NOTHING);
-		exLeader.broadcastUserInfo();
+		exLeader.broadcastUserInfo(true);
 
 		setLeader(member);
 		updateClanInDB();
 
 		exLeader.setPledgeClass(L2ClanMember.getCurrentPledgeClass(exLeader));
-		exLeader.broadcastUserInfo();
+		exLeader.broadcastUserInfo(true);
 		exLeader.checkItemRestriction();
 		L2PcInstance newLeader = member.getPlayerInstance();
 		newLeader.setClan(this);
@@ -440,7 +440,7 @@ public  class L2Clan
 				newLeader.sendPacket(new SkillCoolTime(newLeader));
 			}
 		}
-		newLeader.broadcastUserInfo();
+		newLeader.broadcastUserInfo(true);
 
 		broadcastClanStatus();
 

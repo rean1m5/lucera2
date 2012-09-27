@@ -131,7 +131,7 @@ public class PcAction
 			statement.execute();
 			statement.close();
 			player.setHero(true);
-			player.broadcastUserInfo();
+			player.broadcastUserInfo(true);
 			player.sendMessage(Message.getMessage(player, Message.MessageId.MSG_YOU_ARE_HERO_NOW));
 		}
 		catch (SQLException e)
@@ -311,7 +311,7 @@ public class PcAction
 		activeChar.changeName(_name);
 		activeChar.store();
 		L2World.getInstance().addToAllPlayers(activeChar);
-		activeChar.broadcastUserInfo();
+		activeChar.broadcastUserInfo(true);
 		if (activeChar.isInParty())
 			activeChar.getParty().refreshPartyView();
 		if (activeChar.getClan() != null)
@@ -403,7 +403,7 @@ public class PcAction
 				player.sendPacket(iu);
 			}
 			player.sendPacket(new UserInfo(player));
-			player.broadcastUserInfo();
+			player.broadcastUserInfo(true);
 		}
 		catch (NullPointerException e)
 		{

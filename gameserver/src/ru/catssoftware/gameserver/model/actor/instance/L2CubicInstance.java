@@ -412,7 +412,7 @@ public class L2CubicInstance
 				{
 					stopAction();
 					_owner.delCubic(_id);
-					_owner.broadcastUserInfo();
+					_owner.broadcastUserInfo(true);
 					cancelDisappear();
 					return;
 				}
@@ -595,7 +595,7 @@ public class L2CubicInstance
 			{
 				stopAction();
 				_owner.delCubic(_id);
-				_owner.broadcastUserInfo();
+				_owner.broadcastUserInfo(true);
 				cancelDisappear();
 				return;
 			}
@@ -647,7 +647,7 @@ public class L2CubicInstance
 		{
 			stopAction();
 			_owner.delCubic(_id);
-			_owner.broadcastUserInfo();
+			_owner.broadcastUserInfo(true);
 		}
 	}
 }

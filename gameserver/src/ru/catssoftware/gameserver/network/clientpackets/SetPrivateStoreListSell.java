@@ -100,7 +100,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 		if (_count <= 0)
 		{
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-			player.broadcastUserInfo();
+			player.broadcastUserInfo(true);
 			return;
 		}
 
@@ -135,7 +135,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_PACKAGE_SELL);
 		else
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_SELL);
-		player.broadcastUserInfo();
+		player.broadcastUserInfo(true);
 		player.broadcastPacket(new PrivateStoreMsgSell(player));
 	}
 

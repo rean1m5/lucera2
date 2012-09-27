@@ -16,7 +16,7 @@ public class L2WaterZone extends L2DefaultZone
 
 		if (character instanceof L2PcInstance)
 		{
-			((L2PcInstance) character).broadcastUserInfo();
+			((L2PcInstance) character).broadcastUserInfo(true);
 		}
 		else if (character instanceof L2NpcInstance)
 			character.broadcastFullInfo();
@@ -29,7 +29,7 @@ public class L2WaterZone extends L2DefaultZone
 	{
 		character.setInsideZone(this,FLAG_WATER, false);
 		if (character instanceof L2PcInstance)
-			((L2PcInstance) character).broadcastUserInfo();
+			((L2PcInstance) character).broadcastUserInfo(true);
 		else if (character instanceof L2NpcInstance)
 			character.broadcastFullInfo();
 

@@ -14,16 +14,16 @@
  */
 package ru.catssoftware.gameserver.instancemanager;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javolution.util.FastMap;
+import javolution.util.FastSet;
 import ru.catssoftware.gameserver.model.L2Party;
 import ru.catssoftware.gameserver.model.L2PartyRoom;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.ExClosePartyRoom;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Party room and party matching waiting list manager.
@@ -70,7 +70,7 @@ public class PartyRoomManager
 		if (getWaitingList().add(player))
 		{
 			player.setLookingForParty(true);
-			player.broadcastUserInfo();
+			player.broadcastUserInfo(true);
 		}
 	}
 
@@ -78,7 +78,7 @@ public class PartyRoomManager
 	{
 		getWaitingList().remove(player);
 		player.setLookingForParty(false);
-		player.broadcastUserInfo();
+		player.broadcastUserInfo(true);
 	}
 
 	public List<L2PcInstance> getWaitingList(int minLevel, int maxLevel)
@@ -106,7 +106,7 @@ public class PartyRoomManager
 		L2PartyRoom room = new L2PartyRoom(_nextId++, minLevel, maxLevel, maxMembers, lootDist, title);
 		room.addMember(leader);
 		leader.setLookingForParty(true);
-		leader.broadcastUserInfo();
+		leader.broadcastUserInfo(true);
 		room.setParty(leader.getParty());
 		getPartyRooms().put(room.getId(), room);
 	}

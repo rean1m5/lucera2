@@ -45,7 +45,7 @@ public class RequestRecipeShopManageList extends L2GameClientPacket
 		if (player.getPrivateStoreType() != 0)
 		{
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-			player.broadcastUserInfo();
+			player.broadcastUserInfo(true);
 			if (player.isSitting())
 				player.standUp();
 		}

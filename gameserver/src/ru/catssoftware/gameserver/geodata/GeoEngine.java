@@ -212,7 +212,11 @@ public class GeoEngine extends GeoData
 			return true;
 		return false;
 	}
-	
+
+	private static void debug(String debug)
+	{
+		//_log.info("GeoEngine debug: " + debug);
+	}
 	/**
 	 * Can see.
 	 * @param x the x coordinate
@@ -247,8 +251,12 @@ public class GeoEngine extends GeoData
 				// geodata is loaded for region and mobs should have correct Z coordinate...
 				// so there would likely be a floor in between the two
 				if (_geodata.contains(region))
+				{
+
 					return false;
+				}
 			}
+			debug("distance2: " + distance2);
 			return true;
 		}
 		
@@ -283,12 +291,12 @@ public class GeoEngine extends GeoData
 					d += delta_B;
 					next_x += inc_x;
 					z += inc_z_directionx;
-					if (!nLOS(x, y, (int) z, inc_x, 0, inc_z_directionx, tz, false))
+					if (!nLOS(x, y, (int) z, inc_x, 0, inc_z_directionx, false))
 						return false;
 					next_y += inc_y;
 					z += inc_z_directiony;
 					//_log.warning("1: next_x:"+next_x+" next_y"+next_y);
-					if (!nLOS(next_x, y, (int) z, 0, inc_y, inc_z_directiony, tz, false))
+					if (!nLOS(next_x, y, (int) z, 0, inc_y, inc_z_directiony, false))
 						return false;
 				}
 				else
@@ -297,7 +305,7 @@ public class GeoEngine extends GeoData
 					next_x += inc_x;
 					//_log.warning("2: next_x:"+next_x+" next_y"+next_y);
 					z += inc_z_directionx;
-					if (!nLOS(x, y, (int) z, inc_x, 0, inc_z_directionx, tz, false))
+					if (!nLOS(x, y, (int) z, inc_x, 0, inc_z_directionx, false))
 						return false;
 				}
 			}
@@ -316,21 +324,21 @@ public class GeoEngine extends GeoData
 					d += delta_B;
 					next_y += inc_y;
 					z += inc_z_directiony;
-					if (!nLOS(x, y, (int) z, 0, inc_y, inc_z_directiony, tz, false))
+					if (!nLOS(x, y, (int) z, 0, inc_y, inc_z_directiony, false))
 						return false;
 					next_x += inc_x;
 					z += inc_z_directionx;
-					//_log.warning("3: next_x:"+next_x+" next_y"+next_y);
-					if (!nLOS(x, next_y, (int) z, inc_x, 0, inc_z_directionx, tz, false))
+					debug("3: next_x:"+next_x+" next_y"+next_y);
+					if (!nLOS(x, next_y, (int) z, inc_x, 0, inc_z_directionx, false))
 						return false;
 				}
 				else
 				{
 					d += delta_A;
 					next_y += inc_y;
-					//_log.warning("4: next_x:"+next_x+" next_y"+next_y);
+					debug("4: next_x:"+next_x+" next_y"+next_y);
 					z += inc_z_directiony;
-					if (!nLOS(x, y, (int) z, 0, inc_y, inc_z_directiony, tz, false))
+					if (!nLOS(x, y, (int) z, 0, inc_y, inc_z_directiony, false))
 						return false;
 				}
 			}
@@ -419,12 +427,12 @@ public class GeoEngine extends GeoData
 					d += delta_B;
 					next_x += inc_x;
 					z += inc_z_directionx;
-					if (!nLOS(x, y, (int) z, inc_x, 0, inc_z_directionx, tz, true))
+					if (!nLOS(x, y, (int) z, inc_x, 0, inc_z_directionx, true))
 						return false;
 					next_y += inc_y;
 					z += inc_z_directiony;
 					//_log.warning("1: next_x:"+next_x+" next_y"+next_y);
-					if (!nLOS(next_x, y, (int) z, 0, inc_y, inc_z_directiony, tz, true))
+					if (!nLOS(next_x, y, (int) z, 0, inc_y, inc_z_directiony, true))
 						return false;
 				}
 				else
@@ -433,7 +441,7 @@ public class GeoEngine extends GeoData
 					next_x += inc_x;
 					//_log.warning("2: next_x:"+next_x+" next_y"+next_y);
 					z += inc_z_directionx;
-					if (!nLOS(x, y, (int) z, inc_x, 0, inc_z_directionx, tz, true))
+					if (!nLOS(x, y, (int) z, inc_x, 0, inc_z_directionx, true))
 						return false;
 				}
 			}
@@ -452,12 +460,12 @@ public class GeoEngine extends GeoData
 					d += delta_B;
 					next_y += inc_y;
 					z += inc_z_directiony;
-					if (!nLOS(x, y, (int) z, 0, inc_y, inc_z_directiony, tz, true))
+					if (!nLOS(x, y, (int) z, 0, inc_y, inc_z_directiony, true))
 						return false;
 					next_x += inc_x;
 					z += inc_z_directionx;
 					//_log.warning("3: next_x:"+next_x+" next_y"+next_y);
-					if (!nLOS(x, next_y, (int) z, inc_x, 0, inc_z_directionx, tz, true))
+					if (!nLOS(x, next_y, (int) z, inc_x, 0, inc_z_directionx, true))
 						return false;
 				}
 				else
@@ -466,7 +474,7 @@ public class GeoEngine extends GeoData
 					next_y += inc_y;
 					//_log.warning("4: next_x:"+next_x+" next_y"+next_y);
 					z += inc_z_directiony;
-					if (!nLOS(x, y, (int) z, 0, inc_y, inc_z_directiony, tz, true))
+					if (!nLOS(x, y, (int) z, 0, inc_y, inc_z_directiony, true))
 						return false;
 				}
 			}
@@ -522,7 +530,7 @@ public class GeoEngine extends GeoData
 		// next_* are used in NcanMoveNext check from x,y
 		int next_x = x;
 		int next_y = y;
-		double tempz = z;
+		double tempz;
 		
 		// creates path to the target, using only x or y direction
 		// calculation stops when next_* == target
@@ -540,14 +548,14 @@ public class GeoEngine extends GeoData
 				{
 					d += delta_B;
 					next_x += inc_x;
-					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y, tz);
+					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y);
 					if (tempz == java.lang.Double.MIN_VALUE)
 						return new Location((x << 4) + L2World.MAP_MIN_X, (y << 4) + L2World.MAP_MIN_Y, (int) z);
 					
 					z = tempz;
 					next_y += inc_y;
 					//_log.warning("2: next_x:"+next_x+" next_y"+next_y);
-					tempz = nCanMoveNext(next_x, y, (int) z, next_x, next_y, tz);
+					tempz = nCanMoveNext(next_x, y, (int) z, next_x, next_y);
 					if (tempz == Double.MIN_VALUE)
 						return new Location((x << 4) + L2World.MAP_MIN_X, (y << 4) + L2World.MAP_MIN_Y, (int) z);
 					
@@ -558,7 +566,7 @@ public class GeoEngine extends GeoData
 					d += delta_A;
 					next_x += inc_x;
 					//_log.warning("3: next_x:"+next_x+" next_y"+next_y);
-					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y, tz);
+					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y);
 					if (tempz == Double.MIN_VALUE)
 						return new Location((x << 4) + L2World.MAP_MIN_X, (y << 4) + L2World.MAP_MIN_Y, (int) z);
 					
@@ -579,14 +587,14 @@ public class GeoEngine extends GeoData
 				{
 					d += delta_B;
 					next_y += inc_y;
-					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y, tz);
+					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y);
 					if (tempz == Double.MIN_VALUE)
 						return new Location((x << 4) + L2World.MAP_MIN_X, (y << 4) + L2World.MAP_MIN_Y, (int) z);
 					
 					z = tempz;
 					next_x += inc_x;
 					//_log.warning("5: next_x:"+next_x+" next_y"+next_y);
-					tempz = nCanMoveNext(x, next_y, (int) z, next_x, next_y, tz);
+					tempz = nCanMoveNext(x, next_y, (int) z, next_x, next_y);
 					if (tempz == Double.MIN_VALUE)
 						return new Location((x << 4) + L2World.MAP_MIN_X, (y << 4) + L2World.MAP_MIN_Y, (int) z);
 
@@ -597,7 +605,7 @@ public class GeoEngine extends GeoData
 					d += delta_A;
 					next_y += inc_y;
 					//_log.warning("6: next_x:"+next_x+" next_y"+next_y);
-					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y, tz);
+					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y);
 					if (tempz == Double.MIN_VALUE)
 						return new Location((x << 4) + L2World.MAP_MIN_X, (y << 4) + L2World.MAP_MIN_Y, (int) z);
 					
@@ -748,7 +756,7 @@ public class GeoEngine extends GeoData
 		}
 		catch (Exception e)
 		{
-			_log.log(Level.WARNING, "Failed to Load GeoFile at block: " + block, e);
+			_log.log(Level.WARNING, "Failed to Load GeoFile at block: " + block + " file: " + fname);
 			return false;
 		}
 		return true;
@@ -801,7 +809,7 @@ public class GeoEngine extends GeoData
 		short region = getRegionOffset(x, y);
 		int blockX = getBlock(x);
 		int blockY = getBlock(y);
-		int index = 0;
+		int index;
 		final IntBuffer idx = _geodataIndex.get(region);
 		//Geodata without index - it is just empty so index can be calculated on the fly
 		if (idx == null)
@@ -877,7 +885,7 @@ public class GeoEngine extends GeoData
 			}
 			byte layers = geo.get(index);
 			index++;
-			short height = -1;
+			short height;
 			if (layers <= 0 || layers > 125)
 			{
 				_log.warning("Broken geofile (case1), region: " + region + " - invalid layer count: " + layers + " at: " + geox + " "
@@ -956,7 +964,7 @@ public class GeoEngine extends GeoData
 			}
 			byte layers = geo.get(index);
 			index++;
-			short height = -1;
+			short height;
 			if (layers <= 0 || layers > 125)
 			{
 				_log.warning("Broken geofile (case1), region: " + region + " - invalid layer count: " + layers + " at: " + geox + " "
@@ -1077,15 +1085,15 @@ public class GeoEngine extends GeoData
 	
 	/**
 	 * Can move next.
+	 *
 	 * @param x the x coordinate
 	 * @param y the y coordinate
 	 * @param z the z coordinate
 	 * @param tx the target's x coordinate
 	 * @param ty the target's y coordinate
-	 * @param tz the target's z coordinate
 	 * @return {@code true} if character can move to (tx,ty,tz), {@code false} otherwise
 	 */
-	private static double nCanMoveNext(int x, int y, int z, int tx, int ty, int tz)
+	private static double nCanMoveNext(int x, int y, int z, int tx, int ty)
 	{
 		short region = getRegionOffset(x, y);
 		int blockX = getBlock(x);
@@ -1093,7 +1101,7 @@ public class GeoEngine extends GeoData
 		int cellX, cellY;
 		short NSWE = 0;
 		
-		int index = 0;
+		int index;
 		final IntBuffer idx = _geodataIndex.get(region);
 		//Geodata without index - it is just empty so index can be calculated on the fly
 		if (idx == null)
@@ -1142,7 +1150,7 @@ public class GeoEngine extends GeoData
 			byte layers = geo.get(index);
 			//_log.warning("layers"+layers);
 			index++;
-			short height = -1;
+			short height;
 			if (layers <= 0 || layers > 125)
 			{
 				_log.warning("Broken geofile (case3), region: " + region + " - invalid layer count: " + layers + " at: " + x + " " + y);
@@ -1174,17 +1182,17 @@ public class GeoEngine extends GeoData
 	
 	/**
 	 * Line of sight.
+	 *
 	 * @param x the x coordinate
 	 * @param y the y coordinate
 	 * @param z the z coordinate
 	 * @param inc_x the inc_x
 	 * @param inc_y the inc_y
 	 * @param inc_z the inc_z
-	 * @param tz the tz
 	 * @param debug if {@code true} there will be debug logs
 	 * @return {@code true} if the character can see the target
 	 */
-	private static boolean nLOS(int x, int y, int z, int inc_x, int inc_y, double inc_z, int tz, boolean debug)
+	private static boolean nLOS(int x, int y, int z, int inc_x, int inc_y, double inc_z, boolean debug)
 	{
 		short region = getRegionOffset(x, y);
 		int blockX = getBlock(x);
@@ -1214,8 +1222,7 @@ public class GeoEngine extends GeoData
 		if (type == 0) //flat, movement and sight always possible
 		{
 			short height = geo.getShort(index);
-			if (debug)
-				_log.warning("flatheight:" + height);
+			debug("flatheight:" + height);
 			if (z > height)
 				return z+inc_z > height;
 			return z+inc_z < height;
@@ -1231,8 +1238,7 @@ public class GeoEngine extends GeoData
 			height = (short) (height >> 1); //height / 2
 			if (!checkNSWE(NSWE, x, y, x + inc_x, y + inc_y))
 			{
-				if (debug)
-					_log.warning("height:" + height + " z" + z);
+				debug("height:" + height + " z" + z);
 				if (z < nGetUpperHeight(x + inc_x, y + inc_y, height))
 					return false; // an obstacle high enough
 			}
@@ -1254,7 +1260,7 @@ public class GeoEngine extends GeoData
 			byte layers = geo.get(index);
 			
 			index++;
-			short tempZ = -1;
+			short tempZ;
 			if (layers <= 0 || layers > 125)
 			{
 				_log.warning("Broken geofile (case4), region: " + region + " - invalid layer count: " + layers + " at: " + x + " " + y);
@@ -1285,15 +1291,13 @@ public class GeoEngine extends GeoData
 				temp_layers--;
 				index += 2;
 			}
-			if (debug)
-				_log.warning("z:" + z + " x: " + cellX + " y:" + cellY + " la " + layers + " lo:" + lowerHeight + " up:" + upperHeight);
+			debug("z:" + z + " x: " + cellX + " y:" + cellY + " la " + layers + " lo:" + lowerHeight + " up:" + upperHeight);
 			// Check if LOS goes under a layer/floor
 			// clearly under layer but not too much under
 			// lower height here only for geodata bug checking, layers very close? maybe could be removed
 			if ((z - upperHeight) < -10 && (z - upperHeight) > inc_z - 20 && (z - lowerHeight) > 40)
 			{
-				if (debug)
-					_log.warning("false, incz" + inc_z);
+				debug("false, incz" + inc_z);
 				return false;
 			}
 			
@@ -1303,8 +1307,7 @@ public class GeoEngine extends GeoData
 				//a probable wall, there's movement block and layers above you
 				if (!checkNSWE(NSWE, x, y, x + inc_x, y + inc_y)) // cannot move
 				{
-					if (debug)
-						_log.warning("block and next in x" + inc_x + " y" + inc_y + " is:"
+					debug("block and next in x" + inc_x + " y" + inc_y + " is:"
 								+ nGetUpperHeight(x + inc_x, y + inc_y, lowerHeight));
 					// check one inc_x inc_y further, for the height there
 					if (z < nGetUpperHeight(x + inc_x, y + inc_y, lowerHeight))
@@ -1337,7 +1340,7 @@ public class GeoEngine extends GeoData
 		int cellX, cellY;
 		short NSWE = 0;
 		
-		int index = 0;
+		int index;
 		final IntBuffer idx = _geodataIndex.get(region);
 		//Geodata without index - it is just empty so index can be calculated on the fly
 		if (idx == null)
@@ -1380,7 +1383,7 @@ public class GeoEngine extends GeoData
 			}
 			byte layers = geo.get(index);
 			index++;
-			short height = -1;
+			short height;
 			if (layers <= 0 || layers > 125)
 			{
 				_log.warning("Broken geofile (case5), region: " + region + " - invalid layer count: " + layers + " at: " + x + " " + y);
@@ -1420,8 +1423,8 @@ public class GeoEngine extends GeoData
 		int blockX = getBlock(x);
 		int blockY = getBlock(y);
 		int cellX, cellY;
-		
-		int index = 0;
+
+		int index;
 		final IntBuffer idx = _geodataIndex.get(region);
 		//Geodata without index - it is just empty so index can be calculated on the fly
 		if (idx == null)
@@ -1463,7 +1466,7 @@ public class GeoEngine extends GeoData
 			}
 			byte layers = geo.get(index);
 			index++;
-			short height = -1;
+			short height;
 			if (layers <= 0 || layers > 125)
 			{
 				_log.warning("Broken geofile (case1), region: " + region + " - invalid layer count: " + layers + " at: " + x + " " + y);

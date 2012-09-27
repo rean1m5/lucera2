@@ -293,7 +293,7 @@ public class Hero
 					}
 
 					player.sendPacket(new UserInfo(player));
-					player.broadcastUserInfo();
+					player.broadcastUserInfo(true);
 				}
 				catch (NullPointerException e)
 				{
@@ -363,7 +363,7 @@ public class Hero
 					sm.addNumber(1000);
 					clan.broadcastToOnlineMembers(sm);
 				}
-				player.broadcastUserInfo();
+				player.broadcastUserInfo(true);
 
 				for (L2Skill skill : HeroSkillTable.getInstance().getHeroSkills())
 					player.addSkill(skill);

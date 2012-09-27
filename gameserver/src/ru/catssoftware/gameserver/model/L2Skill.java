@@ -1673,6 +1673,10 @@ public class L2Skill implements FuncOwner
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
 					boolean checkPeace = true;
+
+					if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
+						continue;
+
 					try
 					{
 						if (obj.isPlayer())

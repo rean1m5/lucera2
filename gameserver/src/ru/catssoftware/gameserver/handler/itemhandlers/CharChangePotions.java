@@ -6,7 +6,6 @@ import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PlayableInstance;
 import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
 import ru.catssoftware.gameserver.network.serverpackets.MagicSkillUse;
-import ru.catssoftware.gameserver.network.serverpackets.UserInfo;
 
 public class CharChangePotions implements IItemHandler
 {
@@ -90,10 +89,7 @@ public class CharChangePotions implements IItemHandler
 
 		// Remove the item from inventory.
 		activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
-
-		// Broadcast the changes to the char and all those nearby.
-		UserInfo ui = new UserInfo(activeChar);
-		activeChar.broadcastPacket(ui);
+		activeChar.broadcastUserInfo(true);
 	}
 
 	public int[] getItemIds()

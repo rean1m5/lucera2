@@ -15,7 +15,6 @@
 package ru.catssoftware.gameserver.model;
 
 import ru.catssoftware.gameserver.datatables.ItemTable;
-import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.InventoryUpdate;
@@ -90,8 +89,6 @@ public class CombatFlag
 		iu.addItem(_item);
 		_player.sendPacket(iu);
 
-		// Refresh player stats
-		_player.broadcastUserInfo();
 		_player.setCombatFlagEquipped(true);
 
 		return true;
@@ -105,7 +102,7 @@ public class CombatFlag
 		_player.getInventory().unEquipItemInBodySlotAndRecord(slot);
 		_player.destroyItem("CombatFlag", _item, null, true);
 		_item = null;
-		_player.broadcastUserInfo();
+		_player.broadcastUserInfo(true);
 		_player = null;
 		playerId = 0;
 	}

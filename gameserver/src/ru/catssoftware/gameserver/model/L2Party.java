@@ -365,7 +365,7 @@ public class L2Party
 			_partyLvl = player.getLevel();
 
 		for (L2PcInstance member : getPartyMembers())
-			member.broadcastUserInfo();
+			member.broadcastUserInfo(true);
 		
 		//update partySpelled
 		updateEffectIcons();
@@ -505,7 +505,7 @@ public class L2Party
 					{
 						PartyRoomManager.getInstance().removeRoom(room.getId());
 						player.setLookingForParty(false);
-						player.broadcastUserInfo();
+						player.broadcastUserInfo(true);
 					}
 					else
 						room.setParty(null);
@@ -560,9 +560,9 @@ public class L2Party
 					if (room != null)
 					{
 						leader.setLookingForParty(false);
-						leader.broadcastUserInfo();
+						leader.broadcastUserInfo(true);
 						player.setLookingForParty(true);
-						player.broadcastUserInfo();
+						player.broadcastUserInfo(true);
 						room.updateRoomStatus(true);
 					}
 					

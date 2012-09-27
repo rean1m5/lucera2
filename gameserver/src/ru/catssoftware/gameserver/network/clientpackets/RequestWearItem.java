@@ -194,7 +194,7 @@ public class RequestWearItem extends L2GameClientPacket
 		StatusUpdate su = new StatusUpdate(_activeChar.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, _activeChar.getCurrentLoad());
 		_activeChar.sendPacket(su);
-		_activeChar.broadcastUserInfo();
+		_activeChar.broadcastUserInfo(true);
 		if (_removeWearItemsTask == null)
 			_removeWearItemsTask = ThreadPoolManager.getInstance().scheduleGeneral(new RemoveWearItemsTask(), Config.WEAR_DELAY * 1000);
 	}

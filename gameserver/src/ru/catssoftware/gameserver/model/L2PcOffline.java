@@ -203,7 +203,7 @@ public class L2PcOffline extends Thread
 							offliner.setEndOfflineTime(true, rs.getLong(6));
 							offliner.spawnMe();
 							offliner.sitDown();
-							offliner.broadcastUserInfo();
+							offliner.broadcastUserInfo(true);
 							nTraders++;
 						}
 						catch(Exception e)

@@ -1,14 +1,6 @@
 package ru.catssoftware.gameserver.gmaccess.handlers;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Map;
-
-
-
+import javolution.text.TextBuilder;
 import ru.catssoftware.Config;
 import ru.catssoftware.L2DatabaseFactory;
 import ru.catssoftware.gameserver.datatables.CharNameTable;
@@ -25,7 +17,12 @@ import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
 import ru.catssoftware.gameserver.util.PcAction;
 
-import javolution.text.TextBuilder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Map;
 
 public class editchar extends gmHandler
 {
@@ -150,7 +147,7 @@ public class editchar extends gmHandler
 						player.store();
 						if (player != admin)
 							player.sendMessage("Ваш класс изменен на " + newclass);
-						player.broadcastUserInfo();
+						player.broadcastUserInfo(true);
 						admin.sendMessage("Игроку " + player.getName() + " изменен класс на " + newclass);
 					}
 					else
@@ -226,7 +223,7 @@ public class editchar extends gmHandler
 					player.store();
 					L2World.getInstance().addToAllPlayers(player);
 					player.sendMessage("Ваше имя изменено Gm'ом");
-					player.broadcastUserInfo();
+					player.broadcastUserInfo(true);
 					if (player.isInParty())
 						player.getParty().refreshPartyView();
 					if (player.getClan() != null)
@@ -318,7 +315,7 @@ public class editchar extends gmHandler
 				else
 					player.setRecomHave(player.getRecomHave() + val);
 				
-				player.broadcastUserInfo();
+				player.broadcastUserInfo(true);
 				if (player != admin)
 					player.sendMessage("Вас рекомендовал администратор");
 				admin.sendMessage("Вы рекомендовали игрока " + player.getName());
@@ -334,7 +331,7 @@ public class editchar extends gmHandler
 			{
 				L2PcInstance player = (L2PcInstance) target;
 				player.getAppearance().setSex(player.getAppearance().getSex() ? false : true);
-				player.broadcastUserInfo();
+				player.broadcastUserInfo(true);
 				player.decayMe();
 				player.spawnMe(player.getX(), player.getY(), player.getZ());
 				PcAction.storeCharSex(player, 0);
@@ -615,7 +612,7 @@ public class editchar extends gmHandler
 			player.store();
 			
 			player.broadcastStatusUpdateImpl();	
-			player.broadcastUserInfo();
+			player.broadcastUserInfo(true);
 		}
 		catch (Exception e)
 		{

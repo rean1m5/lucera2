@@ -1801,7 +1801,6 @@ public class L2PcInstance extends L2PlayableInstance
 				super.removeSkill(getKnownSkill(4270));
 
 			sendEtcStatusUpdate();
-			broadcastUserInfo();
 		}
 	}
 
@@ -2052,7 +2051,7 @@ public class L2PcInstance extends L2PlayableInstance
 		if (abortAttack)
 			abortAttack();
 
-		broadcastUserInfo();
+		broadcastUserInfo(true);
 		if (getInventoryLimit() != oldInvLimit)
 			sendPacket(new ExStorageMaxCount(this));
 	}
@@ -3088,7 +3087,7 @@ public class L2PcInstance extends L2PlayableInstance
 		sendPacket(il);
 
 		// Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers
-		broadcastUserInfo();
+		broadcastUserInfo(true);
 
 		// Sends message to client if requested
 		sendPacket(SystemMessageId.NO_LONGER_TRYING_ON);
@@ -3745,17 +3744,24 @@ public class L2PcInstance extends L2PlayableInstance
 
 	public final void broadcastUserInfo()
 	{
-		Broadcast.toKnownPlayers(this,new CharInfo(this));
-		sendPacket(new UserInfo(this));
+		broadcastUserInfo(false);
+	}
 
-//		broadcastFullInfo();
+	public final void broadcastUserInfo(boolean charInfo)
+	{
+		sendPacket(new UserInfo(this));
+		if (charInfo)
+			broadcastCharInfo();
+	}
+
+	public final void broadcastCharInfo()
+	{
+		Broadcast.toKnownPlayers(this,new CharInfo(this));
 	}
 
 	public final void broadcastTitleInfo()
 	{
 		broadcastFullInfo();
-//		sendPacket(new UserInfo(this));
-//		Broadcast.toKnownPlayers(this, new NicknameChanged(this));
 	}
 
 	/**
@@ -5376,7 +5382,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 			abortAttack();
 			refreshExpertisePenalty();
-			broadcastUserInfo();
+			broadcastUserInfo(true);
 
 			// this can be 0 if the user pressed the right mousebutton twice very fast
 			if (unequipped.length > 0)
@@ -5412,7 +5418,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 			abortAttack();
 			refreshExpertisePenalty();
-			broadcastUserInfo();
+			broadcastUserInfo(true);
 
 			// this can be 0 if the user pressed the right mousebutton twice very fast
 			if (unequipped.length > 0)
@@ -5545,7 +5551,7 @@ public class L2PcInstance extends L2PlayableInstance
 		clearPetData();
 		startFeed(pet.getNpcId());
 		broadcastPacket(mount);
-		broadcastUserInfo();
+		broadcastUserInfo(true);
 		pet.unSummon(this);
 		return true;
 	}
@@ -5578,7 +5584,7 @@ public class L2PcInstance extends L2PlayableInstance
 			setMountObjectID(controlItemObjId);
 			broadcastPacket(mount);
 			// Notify self and others about speed change
-			broadcastUserInfo();
+			broadcastUserInfo(true);
 			if (useFood)
 				startFeed(npcId);
 			return true;
@@ -5728,7 +5734,7 @@ public class L2PcInstance extends L2PlayableInstance
 			storePetFood(petId);
 			
 			// Notify self and others about speed change
-			broadcastUserInfo();
+			broadcastUserInfo(true);
 			return true;
 		}
 		return false;
@@ -5874,7 +5880,7 @@ public class L2PcInstance extends L2PlayableInstance
 		StatusUpdate su = new StatusUpdate(getObjectId());
 		su.addAttribute(StatusUpdate.KARMA, getKarma());
 		sendPacket(su);
-		broadcastUserInfo();
+		broadcastUserInfo(true);
 	}
 
 	/**
@@ -8744,7 +8750,7 @@ public class L2PcInstance extends L2PlayableInstance
 		sendPacket(new ObservationReturn(this));
 		_observerMode = false;
 		setObserveMode(0);
-		broadcastUserInfo();
+		broadcastUserInfo(true);
 	}
 
 	public void leaveOlympiadObserverMode()
@@ -8763,12 +8769,12 @@ public class L2PcInstance extends L2PlayableInstance
 		_olympiadGameId = -1;
 		_observerMode = false;
 		setObserveMode(0);
-		broadcastUserInfo();
+		broadcastUserInfo(true);
 	}
 
 	public void updateNameTitleColor()
 	{
-		broadcastUserInfo();
+		broadcastUserInfo(true);
 	}
 
 	public void setOlympiadSide(int i)
@@ -9864,7 +9870,7 @@ public class L2PcInstance extends L2PlayableInstance
 		    getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_R_HAND);
 		    getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_L_HAND);
 		    sendPacket(new ItemList(this,false));
-	    	broadcastUserInfo();
+	    	broadcastUserInfo(true);
 	    	refreshOverloaded();
 	    	refreshExpertisePenalty();
 	    	setExpBeforeDeath(0);
@@ -9957,7 +9963,7 @@ public class L2PcInstance extends L2PlayableInstance
 			// Added to sync fall when swimming stops:
 			// (e.g. catacombs players swim down and then they fell when they got out of the water).
 			isFalling(false, 0);
-			broadcastUserInfo();
+			broadcastUserInfo(true);
 		}
 		
 		
@@ -9976,7 +9982,7 @@ public class L2PcInstance extends L2PlayableInstance
 			int timeinwater = (int) calcStat(Stats.BREATH, 60000, this, null);
 
 			sendPacket(new SetupGauge(2, timeinwater));
-			broadcastUserInfo();
+			broadcastUserInfo(true);
 			_taskWater = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new WaterTask(), timeinwater, 1000);
 		}
 	}
@@ -10985,7 +10991,7 @@ public class L2PcInstance extends L2PlayableInstance
 		stopMove(null);
 		setIsImmobilized(true);
 		_fishing = true;
-		broadcastUserInfo();
+		broadcastUserInfo(true);
 		//Starts fishing
 		int lvl = getRandomFishLvl();
 		int group = getRandomGroup();
@@ -11255,7 +11261,7 @@ public class L2PcInstance extends L2PlayableInstance
 		_fishx = 0;
 		_fishy = 0;
 		_fishz = 0;
-		broadcastUserInfo();
+		broadcastUserInfo(true);
 		if (_fishCombat == null)
 			sendPacket(SystemMessageId.BAIT_LOST_FISH_GOT_AWAY);
 		_fishCombat = null;
@@ -12592,7 +12598,7 @@ public class L2PcInstance extends L2PlayableInstance
 			
 			sendPacket(sm);
 			
-			broadcastUserInfo();
+			broadcastUserInfo(true);
 		}
 	}
 	private final class ConditionGameTimeListener extends ConditionListener
@@ -12628,7 +12634,7 @@ public class L2PcInstance extends L2PlayableInstance
 			
 			sendPacket(sm);
 			
-			broadcastUserInfo();
+			broadcastUserInfo(true);
 		}
 	}
 
@@ -12722,9 +12728,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 	public boolean isChaotic()
 	{
-		if (getKarma() > 0)
-			return true;
-		return false;
+		return getKarma() > 0;
 	}
 
 	private boolean	_trading	= false;

@@ -120,7 +120,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 				iu.addModifiedItem(element);
 			}
 			activeChar.sendPacket(iu);
-			activeChar.broadcastUserInfo();
+			activeChar.broadcastUserInfo(true);
 		}
 
 		if (PetDataTable.isPetItem(itemId))

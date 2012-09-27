@@ -245,7 +245,7 @@ public class TvT extends GameEvent
 				if(player.isDead())
 					player.doRevive();
 				player.setGameEvent(null);
-				player.broadcastUserInfo();
+				player.broadcastUserInfo(true);
 			}
 			_participants.remove(player.getObjectId());
 			player.setGameEvent(null);
@@ -923,7 +923,9 @@ public class TvT extends GameEvent
 	}
 	public int getCharTitleColor(L2PcInstance cha, L2PcInstance other) {
 		int myTeam = getTeam(cha);
-		return _teams.get(myTeam).color;
+		if (myTeam > -1)
+			return _teams.get(myTeam).color;
+		return super.getCharTitleColor(cha, other);
 	}
 		
 }

@@ -137,7 +137,7 @@ public class L2SkillChangeWeapon extends L2Skill
 				u.addNewItem(newItem);
 				player.sendPacket(u);
 
-				player.broadcastUserInfo();
+				player.broadcastUserInfo(true);
 			}
 		}
 	}

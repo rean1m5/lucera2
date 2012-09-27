@@ -61,7 +61,7 @@ public class effects extends gmHandler
 		if (command.equals("vis") || command.equals("visible"))
 		{
 			admin.getAppearance().setVisible();
-			admin.broadcastUserInfo();
+			admin.broadcastUserInfo(true);
 			return;
 		}
 		else if (command.equals("invis") || command.equals("invisible"))

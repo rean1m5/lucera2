@@ -133,6 +133,7 @@ public class CharInfo extends L2GameServerPacket
 					else
 					{
 						writeC(_activeChar.getAppearance().isInvisible() ? 1 : 0); // invisible ?? 0=false  1=true   2=summoned (only works if model has a summon animation)
+
 						if(_activeChar.isInFunEvent())
 							writeS(_activeChar.getGameEvent().getTitle(_activeChar, activeChar));
 						else

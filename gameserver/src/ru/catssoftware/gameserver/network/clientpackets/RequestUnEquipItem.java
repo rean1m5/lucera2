@@ -55,7 +55,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			activeChar.getInventory().updateInventory(element);
 		}
 
-		activeChar.broadcastUserInfo();
+		activeChar.broadcastUserInfo(true);
 
 		if (unequiped.length > 0)
 		{

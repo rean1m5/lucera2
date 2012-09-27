@@ -788,7 +788,7 @@ public class L2PetInstance extends L2Summon
 			su.addAttribute(StatusUpdate.CUR_LOAD, owner.getCurrentLoad());
 			owner.sendPacket(su);
 
-			owner.broadcastUserInfo();
+			owner.broadcastUserInfo(true);
 
 			L2World world = L2World.getInstance();
 			world.removeObject(removedItem);

@@ -57,10 +57,12 @@ public class UserInfo extends L2GameServerPacket
 
 		if(_activeChar==null)
 			return;
+
 		if(_activeChar!=client.getActiveChar())
 			return;
+
 		if (!_first && client.getActiveChar() != null)
-			if ((activeChar._inWorld == false) && (client.getActiveChar() == activeChar))
+			if ((!activeChar._inWorld) && (client.getActiveChar() == activeChar))
 				return;
 //		System.out.println("UI Sent! ");
 		writeC(0x04);
@@ -99,7 +101,7 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getCurrentLoad());
 		writeD(_activeChar.getMaxLoad());
 		
-		writeD(0x28); // FIXME: ╨┤╨░╨╗╤М╨╜╨╛╤Б╤В╤М ╨╛╤А╤Г╨╢╨╕╤П (PTS: nWeaponRange)
+		writeD(0x28);
 		
 		writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_HAIRALL));
 		writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_REAR));
@@ -137,7 +139,6 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
 		writeD(_activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE));
 
-		// ╨Э╨Р╨з╨Р╨Ы╨Ю ╨Р╨г╨У╨Ь╨Х╨Э╨в╨Р╨ж╨Ш╨Ш
 		writeH(0x00);
 		writeH(0x00);
 		writeH(0x00);
@@ -170,8 +171,6 @@ public class UserInfo extends L2GameServerPacket
 		writeH(0x00);
 		writeH(0x00);
 		writeH(0x00);
-		// ╨Ъ╨Ю╨Э╨Х╨ж ╨Р╨г╨У╨Ь╨Х╨Э╨в╨Р╨ж╨Ш╨Ш
-
 		writeD(_activeChar.getPAtk(null));
 		writeD(_activeChar.getPAtkSpd());
 		writeD(_activeChar.getPDef(null));
@@ -253,7 +252,7 @@ public class UserInfo extends L2GameServerPacket
 			writeH(id);
 		}
 
-		writeC(0x00); //FIXME: ╨┐╨╛╨╕╤Б╨║ ╨┐╨░╤А╤В╨╕╨╕ (1-╨╕╤Й╨╡╨╝ ╨┐╨░╤А╤В╨╕╤О)
+		writeC(0x00);
 
 		writeD(_activeChar.getAbnormalEffect());
 		writeC(0x00); //unk

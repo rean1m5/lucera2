@@ -85,7 +85,7 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 				activeChar.sendPacket(new PledgeShowMemberListAll(clan, activeChar));
 				activeChar.setClanJoinExpiryTime(0);
-				activeChar.broadcastUserInfo();
+				activeChar.broadcastUserInfo(true);
 			}
 		}
 		activeChar.getRequest().onRequestResponse();

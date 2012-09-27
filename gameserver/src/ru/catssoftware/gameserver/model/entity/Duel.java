@@ -429,7 +429,7 @@ public class Duel
 				temp.cancelActiveTrade();
 				temp.setIsInDuel(_duelId);
 				temp.setTeam(1);
-				temp.broadcastUserInfo();
+				temp.broadcastUserInfo(true);
 				broadcastToTeam2(new ExDuelUpdateUserInfo(temp));
 			}
 			for (L2PcInstance temp : _playerB.getParty().getPartyMembers())
@@ -437,7 +437,7 @@ public class Duel
 				temp.cancelActiveTrade();
 				temp.setIsInDuel(_duelId);
 				temp.setTeam(2);
-				temp.broadcastUserInfo();
+				temp.broadcastUserInfo(true);
 				broadcastToTeam1(new ExDuelUpdateUserInfo(temp));
 			}
 
@@ -469,8 +469,8 @@ public class Duel
 			
 			broadcastToTeam1(new ExDuelUpdateUserInfo(_playerB));
 			broadcastToTeam2(new ExDuelUpdateUserInfo(_playerA));
-			_playerA.broadcastUserInfo();
-			_playerB.broadcastUserInfo();
+			_playerA.broadcastUserInfo(true);
+			_playerB.broadcastUserInfo(true);
 		}
 
 		// play sound
@@ -515,23 +515,23 @@ public class Duel
 			{
 				temp.setIsInDuel(0);
 				temp.setTeam(0);
-				temp.broadcastUserInfo();
+				temp.broadcastUserInfo(true);
 			}
 			for (L2PcInstance temp : _playerB.getParty().getPartyMembers())
 			{
 				temp.setIsInDuel(0);
 				temp.setTeam(0);
-				temp.broadcastUserInfo();
+				temp.broadcastUserInfo(true);
 			}
 		}
 		else
 		{
 			_playerA.setIsInDuel(0);
 			_playerA.setTeam(0);
-			_playerA.broadcastUserInfo();
+			_playerA.broadcastUserInfo(true);
 			_playerB.setIsInDuel(0);
 			_playerB.setTeam(0);
-			_playerB.broadcastUserInfo();
+			_playerB.broadcastUserInfo(true);
 		}
 
 		// if it is an abnormal DuelEnd do not restore hp, mp, cp
@@ -547,7 +547,7 @@ public class Duel
 	{
 		pl.setIsInDuel(0);
 		pl.setTeam(0);
-		pl.broadcastUserInfo();
+		pl.broadcastUserInfo(true);
 		for (PlayerCondition e : _playerConditions)
 			if (e.getPlayer()==pl)
 			{

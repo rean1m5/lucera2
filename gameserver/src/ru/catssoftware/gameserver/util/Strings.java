@@ -204,9 +204,32 @@ public class Strings
 
 	public static String getButton(String string, String bypass, boolean big)
 	{
-		String size = !big ? "width=100 height=25 back=\"L2UI_CH3.bigbutton_down\" fore=\"L2UI_CH3.bigbutton\"" : "width=157 height=25 back=\"L2UI_CH3.bigbutton3_down\" fore=\"L2UI_CH3.bigbutton3\"";
+		String size = !big ? "width=100 height=22 back=\"L2UI_CH3.bigbutton_down\" fore=\"L2UI_CH3.bigbutton\"" : "width=135 height=22 back=\"L2UI_CH3.bigbutton3_down\" fore=\"L2UI_CH3.bigbutton3\"";
 		return "<button value=\"" + string + "\" action=\"bypass -h " + bypass + "\" " + size + " />";
 	}
+
+	public static String getTR(String value)
+	{
+		return "<tr>" + value + "</tr>";
+	}
+
+	public static String getTD(String value, int width, int height, boolean center)
+	{
+		String td = "<td";
+		if (width > 0)
+			td += " width=" + width;
+		if (height > 0)
+			td += " height=" + height;
+		if (center)
+			td += " align=center";
+		return td + ">" + value + "</td>";
+	}
+
+	public static String getTRTD(String value, int width, int height, boolean center)
+	{
+		return getTR(getTD(value, width, height, center));
+	}
+
 
 	public static String buttonCBUI94(String name, String bypass, int width, int height)
 	{

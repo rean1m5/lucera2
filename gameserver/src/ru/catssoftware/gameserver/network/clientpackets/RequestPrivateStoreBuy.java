@@ -142,7 +142,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 		if (storeList.getItemCount() == 0)
 		{
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-			storePlayer.broadcastUserInfo();
+			storePlayer.broadcastUserInfo(true);
 
 			if(storePlayer.isOfflineTrade())
 				OfflineManager.getInstance().removeTrader(storePlayer);

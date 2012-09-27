@@ -78,7 +78,7 @@ public class AllyDismiss extends L2GameClientPacket
 		// Added to delete the Alliance Crest when a clan leaves an ally.
 		player.getClan().setAllyCrestId(0);
 		for (L2PcInstance member : player.getClan().getOnlineMembers(0))
-			member.broadcastUserInfo();
+			member.broadcastUserInfo(true);
 	}
 
 	@Override

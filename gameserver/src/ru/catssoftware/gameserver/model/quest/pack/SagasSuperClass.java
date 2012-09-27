@@ -214,7 +214,7 @@ public class SagasSuperClass extends Quest
 					player.setClassId(Class);
 					if (!player.isSubClassActive() && player.getBaseClass() == prevClass)
 						player.setBaseClass(Class);
-					player.broadcastUserInfo();
+					player.broadcastUserInfo(true);
 					Cast(npc,player,4339,1);
 				}
 				else
@@ -628,7 +628,7 @@ public class SagasSuperClass extends Quest
 								player.setClassId(Class);
 								if (!player.isSubClassActive() && player.getBaseClass() == prevClass)
 									player.setBaseClass(Class);
-								player.broadcastUserInfo();
+								player.broadcastUserInfo(true);
 								Cast(npc,player,4339,1);
 							}
 						}

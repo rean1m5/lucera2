@@ -128,7 +128,7 @@ public class L2SkillSummon extends L2Skill
 					if (player.getCubics().size() > mastery)
 						continue;
 					player.addCubic(_npcId, skillLevel, getPower(), getActivationTime(), getActivationChance(), getTotalLifeTime());
-					player.broadcastUserInfo();
+					player.broadcastUserInfo(true);
 				}
 				return;
 			}
@@ -152,7 +152,7 @@ public class L2SkillSummon extends L2Skill
 				return;
 			}
 			activeChar.addCubic(_npcId, skillLevel, getPower(), getActivationTime(), getActivationChance(), getTotalLifeTime());
-			activeChar.broadcastUserInfo();
+			activeChar.broadcastUserInfo(true);
 			return;
 		}
 

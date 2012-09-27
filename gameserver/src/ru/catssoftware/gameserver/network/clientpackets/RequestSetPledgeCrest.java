@@ -64,7 +64,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 			activeChar.sendPacket(SystemMessageId.CLAN_CREST_HAS_BEEN_DELETED);
 
 			for (L2PcInstance member : clan.getOnlineMembers(0))
-				member.broadcastUserInfo();
+				member.broadcastUserInfo(true);
 
 			return;
 		}
@@ -123,7 +123,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 			clan.setHasCrest(true);
 
 			for (L2PcInstance member : clan.getOnlineMembers(0))
-				member.broadcastUserInfo();
+				member.broadcastUserInfo(true);
 		}
 	}
 

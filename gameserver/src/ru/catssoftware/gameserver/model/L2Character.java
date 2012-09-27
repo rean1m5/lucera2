@@ -1582,12 +1582,28 @@ public abstract class L2Character extends L2Object implements IEffector
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
-		if (this instanceof L2PcInstance && !skill.checkCondition(this, target))
+
+		if (isPlayer() && !skill.checkCondition(this, target))
 		{
 			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
+
+		if (isPlayer())
+			switch(skill.getSkillType())
+			{
+				case HEAL:
+				case HEAL_STATIC:
+				case HEAL_PERCENT:
+					if (target instanceof L2RaidBossInstance && !Config.HEALTH_SKILLS_TO_BOSSES || target instanceof L2GrandBossInstance && !Config.HEALTH_SKILLS_TO_EPIC_BOSSES)
+					{
+						sendPacket(ActionFailed.STATIC_PACKET);
+						sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+						return false;
+					}
+					break;
+			}
 
 		// Check if the caster has enough MP
 		if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))

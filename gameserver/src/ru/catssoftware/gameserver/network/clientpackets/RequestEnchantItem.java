@@ -515,7 +515,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 				if(GameExtensionManager.getInstance().handleAction(item, ObjectExtension.Action.ITEM_ENCHANTFAIL)!=null) {
 					activeChar.getInventory().updateInventory(item);
 					activeChar.sendPacket(new UserInfo(activeChar));
-					activeChar.broadcastUserInfo();
+					activeChar.broadcastUserInfo(true);
 					activeChar.setActiveEnchantItem(null);
 					return;
 					
@@ -598,7 +598,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 			activeChar.sendPacket(new ExPutEnchantTargetItemResult(0, 0 ,0));
 		activeChar.getInventory().updateInventory(item);
 		activeChar.sendPacket(new UserInfo(activeChar));
-		activeChar.broadcastUserInfo();
+		activeChar.broadcastUserInfo(true);
 		activeChar.setActiveEnchantItem(null);
 		} finally {
 			activeChar.getInventory().updateDatabase();

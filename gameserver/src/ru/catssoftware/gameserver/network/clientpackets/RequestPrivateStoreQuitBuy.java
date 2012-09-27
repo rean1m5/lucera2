@@ -18,7 +18,7 @@ public class RequestPrivateStoreQuitBuy extends L2GameClientPacket
 
 		player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 		player.standUp();
-		player.broadcastUserInfo();
+		player.broadcastUserInfo(true);
 	}
 
 	@Override

@@ -134,7 +134,7 @@ public class enchant extends gmHandler
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addModifiedItem(itemInstance);
 			player.sendPacket(iu);
-			player.broadcastUserInfo();
+			player.broadcastUserInfo(true);
 
 			activeChar.sendMessage("Игроку " + player.getName() + " изменен уровень точки вещи " + itemInstance.getItem().getName() + " с " + curEnchant + " на " + ench + ".");
 			if (activeChar != player)

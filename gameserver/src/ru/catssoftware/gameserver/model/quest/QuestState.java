@@ -620,7 +620,7 @@ public final class QuestState
 				for (L2ItemInstance itm: unequiped)
 					iu.addModifiedItem(itm);
 				getPlayer().sendPacket(iu);
-				getPlayer().broadcastUserInfo();
+				getPlayer().broadcastUserInfo(true);
 			}
 			getPlayer().destroyItemByItemId("Quest", itemId, count, getPlayer(), true);			
 		}

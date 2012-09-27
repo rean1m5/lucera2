@@ -114,10 +114,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					return false;
 
 			// Проверка факшенов сервера
-			if (me.getFactionId().equals("varka") && player.isAlliedWithVarka())
-				return false;
-			else if (me.getFactionId().equals("ketra") && player.isAlliedWithKetra())
-				return false;
+			if (me.getFactionId() != null)
+				if (me.getFactionId().equals("varka") && player.isAlliedWithVarka())
+					return false;
+				else if (me.getFactionId().equals("ketra") && player.isAlliedWithKetra())
+					return false;
 
 			// Игроки участники эвентов не получают агро
 			if (player.isInFunEvent())

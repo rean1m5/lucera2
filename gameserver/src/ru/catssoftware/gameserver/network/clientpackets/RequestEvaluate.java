@@ -76,7 +76,7 @@ public class RequestEvaluate extends L2GameClientPacket
 		target.sendPacket(sm);
 
 		activeChar.sendPacket(new UserInfo(activeChar));
-		target.broadcastUserInfo();
+		target.broadcastUserInfo(true);
 	}
 
 	@Override

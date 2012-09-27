@@ -195,12 +195,11 @@ public class ClanTable
 		_clans.put(clan.getClanId(), clan);
 
 		//should be update packet only
-		player.sendPacket(new UserInfo(player));
 		player.sendPacket(new PledgeShowInfoUpdate(clan));
 		player.sendPacket(new PledgeShowMemberListAll(clan, player));
 		player.sendPacket(new PledgeShowMemberListUpdate(player));
 		player.sendPacket(SystemMessageId.CLAN_CREATED);
-		player.sendPacket(new UserInfo(player));
+		player.broadcastUserInfo(true);
 		return clan;
 	}
 

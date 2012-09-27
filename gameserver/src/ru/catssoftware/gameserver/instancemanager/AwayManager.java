@@ -1,13 +1,6 @@
 package ru.catssoftware.gameserver.instancemanager;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.WeakHashMap;
-
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
@@ -15,6 +8,10 @@ import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
 import ru.catssoftware.gameserver.network.serverpackets.SetupGauge;
 import ru.catssoftware.gameserver.network.serverpackets.SocialAction;
+
+import java.util.Collections;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public final class AwayManager
 {
@@ -144,7 +141,7 @@ public final class AwayManager
 				_activeChar.setTitle("*Away*");
 			else
 				_activeChar.setTitle("Away*" + _awayText + "*");
-			_activeChar.broadcastUserInfo();
+			_activeChar.broadcastUserInfo(true);
 			_activeChar.setIsParalyzed(true);
 			_activeChar.setIsAway(true);
 		}
@@ -172,7 +169,7 @@ public final class AwayManager
 			_activeChar.standUp();
 			rd.restore(_activeChar);
 			_awayPlayers.remove(_activeChar);
-			_activeChar.broadcastUserInfo();
+			_activeChar.broadcastUserInfo(true);
  			// Send html page start
 			NpcHtmlMessage html = new NpcHtmlMessage(_activeChar.getObjectId());
 			html.setFile("data/html/mods/away/away-off.htm");

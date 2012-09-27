@@ -421,6 +421,6 @@ public class OlympiadManager implements Runnable
 			if (item.getEnchantLevel() > Config.ALT_OLY_ENCHANT_LIMIT)
 				inventoryUpdate.addModifiedItem(item);
 		player.sendPacket(inventoryUpdate);
-		player.broadcastUserInfo();
+		player.broadcastUserInfo(true);
 	}
 }

@@ -116,7 +116,7 @@ public class control extends gmHandler
 					player.sendMessage("Вы получили статус дворянина.");
 				}
 				player.setNoble(!player.isNoble());
-				player.broadcastUserInfo();
+				player.broadcastUserInfo(true);
 			}
 		}	
 		else if (command.equals("sethero"))
@@ -135,7 +135,7 @@ public class control extends gmHandler
 				}
 				PcAction.admGiveHero(player, player.isHero());
 				player.setHero(!player.isHero());
-				player.broadcastUserInfo();
+				player.broadcastUserInfo(true);
 			}
 		}
 		else if (command.equals("fullfood"))

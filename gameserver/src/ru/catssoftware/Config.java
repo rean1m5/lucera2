@@ -2405,7 +2405,9 @@ public class Config extends L2Config
 	public static boolean				USE_CHAR_LEVEL_MOD;
 	public static boolean				DISABLE_SKILLS_ON_LEVEL_LOST;
 	public static boolean				OLD_CANCEL_MODE;
-        public static int                               BLOCK_BUFF;
+	public static int                   BLOCK_BUFF;
+	public static boolean				HEALTH_SKILLS_TO_BOSSES;
+	public static boolean				HEALTH_SKILLS_TO_EPIC_BOSSES;
 
 	//********************************************************
 	public static void loadSkillsConfig()
@@ -2523,6 +2525,8 @@ public class Config extends L2Config
 			USE_CHAR_LEVEL_MOD = Boolean.parseBoolean(skillsSettings.getProperty("UseCharLevelModifier","true"));
 			OLD_CANCEL_MODE = skillsSettings.getProperty("CancelMode","new").toLowerCase().equals("old");
 			BLOCK_BUFF = Integer.parseInt(skillsSettings.getProperty("BlockBuff", "7077"));
+			HEALTH_SKILLS_TO_BOSSES = Boolean.parseBoolean(skillsSettings.getProperty("HealthSkillsToBosses","true"));
+			HEALTH_SKILLS_TO_EPIC_BOSSES = Boolean.parseBoolean(skillsSettings.getProperty("HealthSkillsToEpicBosses","true"));
 		}
 		catch (Exception e)
 		{

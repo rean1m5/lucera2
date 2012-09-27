@@ -287,7 +287,7 @@ public final class UseItem extends L2GameClientPacket
 							|| (itemid >= 8484 && itemid <= 8486) || (itemid >= 8505 && itemid <= 8513) || itemid == 8548))
 			{
 				activeChar.getInventory().setPaperdollItem(Inventory.PAPERDOLL_LHAND, item);
-				activeChar.broadcastUserInfo();
+				activeChar.broadcastUserInfo(true);
 				// Send a Server->Client packet ItemList to this L2PcINstance to update left hand equipement
 				ItemList il = new ItemList(activeChar, false);
 				sendPacket(il);

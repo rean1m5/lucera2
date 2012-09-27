@@ -24,6 +24,7 @@ import ru.catssoftware.gameserver.model.L2Skill;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PetInstance;
 import ru.catssoftware.gameserver.model.base.Experience;
+import ru.catssoftware.gameserver.model.base.SubClass;
 import ru.catssoftware.gameserver.model.quest.QuestState;
 import ru.catssoftware.gameserver.model.zone.L2Zone;
 import ru.catssoftware.gameserver.network.SystemMessageId;
@@ -334,7 +335,13 @@ public class PcStat extends PlayableStat
 		L2PcInstance activeChar = getActiveChar();
 
 		if (activeChar.isSubClassActive())
-			return activeChar.getSubclassByIndex(activeChar.getClassIndex()).getSp();
+		{
+			SubClass subClass = activeChar.getSubclassByIndex(activeChar.getClassIndex());
+			if (subClass != null)
+				return subClass.getSp();
+			else
+				_log.error("Subclass with index " + activeChar.getClassIndex() + " is null O_o, for player " + activeChar.getName() + ", subclas count: " + activeChar.getTotalSubClasses() + ".");
+		}
 		return super.getSp();
 	}
 
