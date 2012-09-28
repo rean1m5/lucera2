@@ -15,13 +15,12 @@
 package ru.catssoftware.gameserver.model;
 
 import ru.catssoftware.Config;
+import ru.catssoftware.gameserver.GameTimeController;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.ai.L2CharacterAI;
 import ru.catssoftware.gameserver.ai.L2SummonAI;
 import ru.catssoftware.gameserver.datatables.PetDataTable;
 import ru.catssoftware.gameserver.datatables.SkillTable;
-import ru.catssoftware.gameserver.GameTimeController;
-import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.model.L2Attackable.AggroInfo;
 import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
@@ -32,16 +31,7 @@ import ru.catssoftware.gameserver.model.actor.stat.SummonStat;
 import ru.catssoftware.gameserver.model.base.Experience;
 import ru.catssoftware.gameserver.model.itemcontainer.PetInventory;
 import ru.catssoftware.gameserver.network.SystemMessageId;
-import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
-import ru.catssoftware.gameserver.network.serverpackets.MyTargetSelected;
-import ru.catssoftware.gameserver.network.serverpackets.NpcInfo;
-import ru.catssoftware.gameserver.network.serverpackets.PartySpelled;
-import ru.catssoftware.gameserver.network.serverpackets.PetDelete;
-import ru.catssoftware.gameserver.network.serverpackets.PetInfo;
-import ru.catssoftware.gameserver.network.serverpackets.PetStatusShow;
-import ru.catssoftware.gameserver.network.serverpackets.PetStatusUpdate;
-import ru.catssoftware.gameserver.network.serverpackets.StatusUpdate;
-import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import ru.catssoftware.gameserver.taskmanager.DecayTaskManager;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
@@ -191,7 +181,7 @@ public abstract class L2Summon extends L2PlayableInstance
 			{
 				if (Config.GEODATA)
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
+					if (player.canSee(this))
 					{
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 						player.onActionRequest();
@@ -209,7 +199,7 @@ public abstract class L2Summon extends L2PlayableInstance
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				if (Config.GEODATA)
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
+					if (player.canSee(this))
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 				}
 				else

@@ -22,6 +22,11 @@ import ru.catssoftware.tools.geometry.Point3D;
 
 import java.util.logging.Logger;
 
+/*
+ * @author Ro0TT
+ * @date 28.09.2012
+ */
+
 /**
  * @author -Nemesiss-
  */

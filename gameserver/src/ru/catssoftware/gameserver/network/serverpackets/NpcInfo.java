@@ -200,7 +200,7 @@ public class NpcInfo extends L2GameServerPacket
 		if (_activeChar instanceof L2Summon && ((L2Summon) _activeChar).getOwner() == activeChar)
 			return false;
 
-		if (activeChar==null || !activeChar.canSee(_activeChar))
+		if (activeChar==null || !activeChar.canSee(_activeChar, false))
 			return false;
 
 		return true;

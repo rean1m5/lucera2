@@ -2,7 +2,6 @@ package ru.catssoftware.gameserver.ai;
 
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.GameTimeController;
-import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.instancemanager.DimensionalRiftManager;
 import ru.catssoftware.gameserver.instancemanager.DimensionalRiftManager.DimensionalRiftRoom;
 import ru.catssoftware.gameserver.model.*;
@@ -167,7 +166,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		{
 			// Гварды атакуют PK
 			if (target instanceof L2PcInstance)
-				return ((L2PcInstance) target).getKarma() > 0 && GeoData.getInstance().canSeeTarget(me, target);
+				return ((L2PcInstance) target).getKarma() > 0 && me.canSee(target);
 
 			// Гварды атакуют Агров (Мобов)
 			if (Config.GUARD_ATTACK_MOBS &&  target instanceof L2MonsterInstance) {
@@ -175,7 +174,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					return false;
 				L2MonsterInstance monster = (L2MonsterInstance) target;
 				if(monster.isInCombat() && monster.getTarget().getActingPlayer()!=null)
-					return GeoData.getInstance().canSeeTarget(me, target);
+					return me.canSee(target);
 			}
 
 			return false;
@@ -187,7 +186,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				return false;
 
 			// Чары атакуют PK
-			return target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0 && GeoData.getInstance().canSeeTarget(me, target);
+			return target.isPlayer() && target.getPlayer().getKarma() > 0 && me.canSee(target);
 		}
 		else
 		{
@@ -211,7 +210,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						return false;
 				}
 			}
-			return (me.isAggressive() && GeoData.getInstance().canSeeTarget(me, target));
+			return (me.isAggressive() && me.canSee(target));
 		}
 	}
 
@@ -587,7 +586,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 												continue;
 											if (10 >= Rnd.get(100)) // chance
 												continue;
-											if (!GeoData.getInstance().canSeeTarget(_actor, npc))
+											if (!_actor.canSee(npc))
 												break;
 
 											L2Object OldTarget = _actor.getTarget();
@@ -626,7 +625,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 											chance = 6;
 										if (chance >= Rnd.get(100)) // chance
 											continue;
-										if (!GeoData.getInstance().canSeeTarget(_actor, npc))
+										if (!_actor.canSee(npc))
 											break;
 
 										L2Object OldTarget = _actor.getTarget();
@@ -722,7 +721,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 
 		// Cannot see target, needs to go closer, currently just goes to range 300 if mage
-		if ((dist2 > 96100 + combinedCollision * combinedCollision) && _selfAnalysis.hasLongRangeSkills && !GeoData.getInstance().canSeeTarget(_actor, _mostHatedAnalysis.character))
+		if ((dist2 > 96100 + combinedCollision * combinedCollision) && _selfAnalysis.hasLongRangeSkills && !_actor.canSee(_mostHatedAnalysis.character))
 		{
 			if (!(_selfAnalysis.isMage && _actor.isMuted()))
 			{
@@ -1332,7 +1331,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					if (_actor.isInsideRadius(npc, npc.getFactionRange() + npc.getTemplate().getCollisionRadius()*2, true, false) && npc.getAI() != null)
 					{
 
-						if (Math.abs(attacker.getZ() - npc.getZ()) < 600 && (!npc.isInCombat()) && GeoData.getInstance().canSeeTarget(_actor, npc))
+						if (Math.abs(attacker.getZ() - npc.getZ()) < 600 && (!npc.isInCombat()) && _actor.canSee(npc))
 						{
 							if (attacker instanceof L2PcInstance && attacker.isInParty() && attacker.getParty().isInDimensionalRift())
 							{

@@ -23,7 +23,6 @@ import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.ItemTable;
 import ru.catssoftware.gameserver.datatables.PetDataTable;
 import ru.catssoftware.gameserver.datatables.SkillTable;
-import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.handler.IItemHandler;
 import ru.catssoftware.gameserver.handler.ItemHandler;
 import ru.catssoftware.gameserver.idfactory.IdFactory;
@@ -295,7 +294,7 @@ public class L2PetInstance extends L2Summon
 			{
 				if (Config.GEODATA)
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
+					if (player.canSee(this))
 					{
 						// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
@@ -312,7 +311,7 @@ public class L2PetInstance extends L2Summon
 			{
 				if (Config.GEODATA )
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
+					if (player.canSee(this))
 					{
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 						player.onActionRequest();

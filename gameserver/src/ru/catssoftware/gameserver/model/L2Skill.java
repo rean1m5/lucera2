@@ -6,7 +6,6 @@ import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.datatables.SkillTable;
 import ru.catssoftware.gameserver.datatables.SkillTreeTable;
-import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.instancemanager.CoupleManager;
 import ru.catssoftware.gameserver.instancemanager.SiegeManager;
 import ru.catssoftware.gameserver.model.actor.instance.*;
@@ -1575,7 +1574,7 @@ public class L2Skill implements FuncOwner
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 					return null;
 				}
-				if (target!=activeChar && !GeoData.getInstance().canSeeTarget(activeChar, target))
+				if (target!=activeChar && !activeChar.canSee(target))
 					return null;
 				return new L2Character[] { target };
 			}
@@ -1674,7 +1673,7 @@ public class L2Skill implements FuncOwner
 				{
 					boolean checkPeace = true;
 
-					if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
+					if (!activeChar.canSee(obj))
 						continue;
 
 					try
@@ -1727,7 +1726,7 @@ public class L2Skill implements FuncOwner
 									break;
 							}
 
-							if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
+							if (!activeChar.canSee(obj))
 								continue;
 
 							if (obj instanceof L2PcInstance)
@@ -1843,7 +1842,7 @@ public class L2Skill implements FuncOwner
 
 					boolean targetInPvP = target.isInsideZone(L2Zone.FLAG_PVP) && !target.isInsideZone(L2Zone.FLAG_SIEGE);
 
-					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
+					if (!activeChar.canSee(target))
 						continue;
 
 					if (!target.isDead() && (target != activeChar))
@@ -1961,7 +1960,7 @@ public class L2Skill implements FuncOwner
 					else
 						continue;
 
-					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
+					if (!activeChar.canSee(target))
 						continue;
 
 					if (!target.isAlikeDead()) // If target is not dead/fake death and not self
@@ -2013,7 +2012,11 @@ public class L2Skill implements FuncOwner
 					{
 						if (player == null || partyMember == null || partyMember == player)
 							continue;
+
 						if (player.isInDuel() && player.getDuelId() != partyMember.getDuelId())
+							continue;
+
+						if (!activeChar.canSee(partyMember))
 							continue;
 
 						if(activeChar.getGameEvent()!=null && !activeChar.getGameEvent().canBeSkillTarget(activeChar, partyMember, this))
@@ -2432,7 +2435,7 @@ public class L2Skill implements FuncOwner
 					if (!Util.checkIfInRange(radius, target, obj, true))
 						continue;
 
-					if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
+					if (!activeChar.canSee(obj))
 						continue;
 
 					if (obj instanceof L2PcInstance && src != null)
@@ -2516,7 +2519,7 @@ public class L2Skill implements FuncOwner
 						if (!cha.isDead() || !Util.checkIfInRange(radius, target, cha, true))
 							continue;
 
-						if (!GeoData.getInstance().canSeeTarget(activeChar, cha))
+						if (!activeChar.canSee(cha))
 							continue;
 
 						targetList.add(cha);

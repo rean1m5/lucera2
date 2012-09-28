@@ -26,8 +26,10 @@ public class TradeRequest extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
+
 		if (player == null)
 			return;
+
 		player._bbsMultisell = 0;
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null
 				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
@@ -52,7 +54,6 @@ public class TradeRequest extends L2GameClientPacket
 			player.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
 		}
-
 		L2PcInstance partner = (L2PcInstance) obj;
 
 		if (partner.isInOlympiadMode() || player.isInOlympiadMode())
@@ -60,12 +61,11 @@ public class TradeRequest extends L2GameClientPacket
 			player.sendMessage("На олимпиаде трэйд запрещен");
 			return;
 		}
-
 		if(partner.isCastingNow() || partner.isTeleporting()) {
 			player.sendMessage("Игрок занят");
 			return;
 		}
-		
+
 		if (BlockList.isBlocked(partner, player))
 		{
 			player.sendMessage("Игрок игнорирует вас");
@@ -75,6 +75,12 @@ public class TradeRequest extends L2GameClientPacket
 		if (player.getDistanceSq(partner) > 22500) // 150
 		{
 			player.sendPacket(SystemMessageId.TARGET_TOO_FAR);
+			return;
+		}
+
+		if (!player.canSee(partner))
+		{
+			player.sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			return;
 		}
 

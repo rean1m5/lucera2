@@ -34,6 +34,11 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/*
+ * @author Ro0TT
+ * @date 28.09.2012
+ */
+
 /**
  * @author -Nemesiss-
  */
@@ -239,7 +244,7 @@ public class GeoEngine extends GeoData
 			//Avoid too long check
 			return false;
 		}
-		// very short checks: 9 => 144 world distance
+		/*// very short checks: 9 => 144 world distance
 		// this ensures NLOS function has enough points to calculate,
 		// it might not work when distance is small and path vertical
 		else if (distance2 < 82)
@@ -258,7 +263,7 @@ public class GeoEngine extends GeoData
 			}
 			debug("distance2: " + distance2);
 			return true;
-		}
+		}*/
 		
 		// Increment in Z coordinate when moving along X or Y axis
 		// and not straight to the target. This is done because

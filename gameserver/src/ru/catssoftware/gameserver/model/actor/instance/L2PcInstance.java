@@ -3482,7 +3482,7 @@ public class L2PcInstance extends L2PlayableInstance
 					{
 						if (Config.GEODATA)
 						{
-							if (GeoData.getInstance().canSeeTarget(player, this))
+							if (player.canSee(this))
 							{
 								player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 								player.onActionRequest();
@@ -3500,7 +3500,7 @@ public class L2PcInstance extends L2PlayableInstance
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 					if (Config.GEODATA)
 					{
-						if (GeoData.getInstance().canSeeTarget(player, this))
+						if (player.canSee(this))
 							player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 					}
 					else
@@ -3591,7 +3591,7 @@ public class L2PcInstance extends L2PlayableInstance
 							{
 								if (Config.GEODATA)
 								{
-									if (GeoData.getInstance().canSeeTarget(player, this))
+									if (player.canSee(this))
 									{
 										player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 										player.onActionRequest();
@@ -5530,7 +5530,7 @@ public class L2PcInstance extends L2PlayableInstance
 			return false;
 		}
 
-		if (!GeoData.getInstance().canSeeTarget(this, pet))
+		if (!this.canSee(pet))
 		{
 			sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			return false;
@@ -8200,7 +8200,7 @@ public class L2PcInstance extends L2PlayableInstance
 					return false;
 				}
 			}
-			else if (!GeoData.getInstance().canSeeTarget(this, target))
+			else if (!this.canSee(target))
 			{
 				sendPacket(SystemMessageId.CANT_SEE_TARGET);
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -13291,23 +13291,6 @@ public class L2PcInstance extends L2PlayableInstance
 		if(_fakeAccData==null) // Для предотвращения NPE
 			_fakeAccData= new StatsSet();
 		return _fakeAccData;
-	}
-	public boolean canSee(L2Character cha)
-	{
-		if(cha instanceof L2Decoy)
-			return true;
-		final L2PcInstance player = cha.getActingPlayer();
-		
-		if (player != null)
-		{
-			if (player.inObserverMode())
-				return false;
-			if (isGM())
-				return true;
-			if (player.getAppearance().isInvisible())
-				return false;
-		}
-		return true;
 	}
 	
 	public long getPremiumService()

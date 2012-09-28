@@ -86,7 +86,7 @@ public class L2ControlTowerInstance extends L2NpcInstance
 		else
 		{
 			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100 // Less then max height difference, delete check when geo
-					&& GeoData.getInstance().canSeeTarget(player, this))
+					&& player.canSee(this))
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);

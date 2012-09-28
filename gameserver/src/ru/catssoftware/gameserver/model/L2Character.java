@@ -621,7 +621,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (isAttackingDisabled())
 			return;
 
-		if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(this, target))
+		if (!(target instanceof L2DoorInstance) && !this.canSee(target))
 		{
 			sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
@@ -1059,7 +1059,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				if (!Util.checkIfInRange(maxRadius, this, obj, false))
 					continue;
 
-				if (!GeoData.getInstance().canSeeTarget(this, obj))
+				if (!this.canSee(obj))
 					continue;
 
 				if (Math.abs(obj.getZ() - getZ()) > 650)
@@ -1578,7 +1578,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			return false;
 		}
 		
-		if(target!=null && target != this && skill.getTargetType() == SkillTargetType.TARGET_ONE && !GeoData.getInstance().canSeeTarget(this, target)) {
+		if(target!=null && target != this && skill.getTargetType() == SkillTargetType.TARGET_ONE && !this.canSee(target)) {
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
@@ -4349,7 +4349,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 
 		// GeoData Los Check or dz > 1000
-		if (!GeoData.getInstance().canSeeTarget(player, this))
+		if (!player.canSee(this))
 		{
 			player.sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -4771,7 +4771,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			{
 				if (element instanceof L2Character)
 				{
-					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element)))
+					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !this.canSee(element)))
 						continue;
 					if (skill.isOffensive() && !skill.isNeutral())
 					{
@@ -5794,6 +5794,33 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 		}
 		broadcastFullInfo();
+	}
+
+	public boolean canSee(L2Object cha)
+	{
+		return canSee(cha, true);
+	}
+
+	public boolean canSee(L2Object cha, boolean checkGeo)
+	{
+		if (cha == null)
+			return false;
+
+		if(cha instanceof L2Decoy)
+			return true;
+
+		if (checkGeo && !GeoData.getInstance().canSeeTarget(this, cha))
+			return false;
+
+		if (cha.isPlayer())
+		{
+			if (cha.getPlayer().inObserverMode())
+				return false;
+
+			if (cha.getPlayer().getAppearance().isInvisible())
+				return false;
+		}
+		return true;
 	}
 
 	public final void broadcastFullInfo()

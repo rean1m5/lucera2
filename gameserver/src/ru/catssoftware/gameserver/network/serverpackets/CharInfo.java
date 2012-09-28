@@ -377,8 +377,8 @@ public class CharInfo extends L2GameServerPacket
 	{
 		if (_isDecoy)
 			return true;
-		
-		if (activeChar == _activeChar || activeChar == null || !activeChar.canSee(_activeChar))
+
+		if (activeChar == _activeChar || activeChar == null || !activeChar.canSee(_activeChar, false))
 			return false;
 
 		return true;

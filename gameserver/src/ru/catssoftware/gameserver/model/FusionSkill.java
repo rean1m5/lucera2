@@ -16,7 +16,6 @@ package ru.catssoftware.gameserver.model;
 
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.datatables.SkillTable;
-import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.skills.effects.EffectFusion;
 import ru.catssoftware.gameserver.util.Util;
 
@@ -90,7 +89,7 @@ public final class FusionSkill
 				if (!Util.checkIfInRange(_skillCastRange, _caster, _target, true))
 					_caster.abortCast();
 
-				if (!GeoData.getInstance().canSeeTarget(_caster, _target))
+				if (!_caster.canSee(_target))
 					_caster.abortCast();
 			}
 			catch (Exception e)
