@@ -15,9 +15,7 @@
 package ru.catssoftware.gameserver.geodata.pathfinding;
 
 import ru.catssoftware.Config;
-import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.geodata.pathfinding.cellnodes.CellPathFinding;
-import ru.catssoftware.gameserver.geodata.pathfinding.geonodes.GeoPathFinding;
 import ru.catssoftware.gameserver.model.L2World;
 
 import java.util.List;
@@ -34,12 +32,6 @@ public abstract class PathFinding
 {
 	public static PathFinding getInstance()
 	{
-		if (Config.PATHFIND_MODE.equals(GeoData.PathFindingMode.PATHNODE))
-		{
-			// Higher Memory Usage, Smaller Cpu Usage
-			return GeoPathFinding.getInstance();
-		}
-		// Cell pathfinding, calculated directly from geodata files
 		return CellPathFinding.getInstance();
 	}
 	

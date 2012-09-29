@@ -207,7 +207,7 @@ public class ClassMaster implements IVoicedCommandHandler,IBBSHandler {
 		else
 			player.setBaseClass(player.getActiveClass());
 
-		player.broadcastUserInfo();
+		player.broadcastUserInfo(true);
 		player.broadcastClassIcon();
 	}
 	

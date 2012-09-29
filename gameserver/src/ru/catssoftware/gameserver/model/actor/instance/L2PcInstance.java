@@ -6625,7 +6625,7 @@ public class L2PcInstance extends L2PlayableInstance
 				totalOnlineTime += (System.currentTimeMillis() - _onlineBeginTime) / 1000;
 
 			PreparedStatement statement = con.prepareStatement(UPDATE_CHARACTER);
-			statement.setInt(1, _classIndex==0?getLevel():_baseLevel);
+			statement.setInt(1, _classIndex==0? getLevel() : _baseLevel);
 			statement.setInt(2, getMaxHp());
 			statement.setDouble(3, getStatus().getCurrentHp());
 			statement.setInt(4, getMaxCp());
@@ -9710,6 +9710,7 @@ public class L2PcInstance extends L2PlayableInstance
 	private int _baseLevel;
 	private long _baseExp;
 	private int _baseSP;
+
 	public synchronized boolean setActiveClass(int classIndex)
 	{
 		// Remove active item skills before saving char to database

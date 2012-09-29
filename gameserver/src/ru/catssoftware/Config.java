@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import ru.catssoftware.config.L2Properties;
 import ru.catssoftware.gameserver.GSConfig;
 import ru.catssoftware.gameserver.datatables.ClassTreeTable;
-import ru.catssoftware.gameserver.geodata.GeoData.PathFindingMode;
 import ru.catssoftware.gameserver.handler.IReloadHandler;
 import ru.catssoftware.gameserver.handler.ReloadHandler;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
@@ -81,7 +80,6 @@ public class Config extends L2Config
 	public static int		PATH_LENGTH;
 	public static int		Z_DENSITY;
 	public static boolean DEBUG_PATH;
-	public static PathFindingMode PATHFIND_MODE;
 	public static String GEOENGINE;
 	
 	public static enum		CorrectSpawnsZ
@@ -99,8 +97,7 @@ public class Config extends L2Config
 		{
 			Properties geoSettings = new L2Properties(GEO_FILE);
 			GEODATA = Boolean.parseBoolean(geoSettings.getProperty("EnableGeoData", "true"));
-			PATHFINDING = Boolean.parseBoolean(geoSettings.getProperty("EnablePathFinding", "true")); 
-			PATHFIND_MODE = PathFindingMode.valueOf(geoSettings.getProperty("PathFindingMode","CellFinding").toUpperCase());
+			PATHFINDING = Boolean.parseBoolean(geoSettings.getProperty("EnablePathFinding", "true"));
 			String correctZ = geoSettings.getProperty("GeoCorrectZ", "All");
 			GEO_CORRECT_Z = CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
 			GEODATA_ROOT = new File(geoSettings.getProperty("GeoDataRoot", ".")).getCanonicalFile();

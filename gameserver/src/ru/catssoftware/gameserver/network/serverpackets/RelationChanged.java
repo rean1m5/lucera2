@@ -62,8 +62,8 @@ public final class RelationChanged extends L2GameServerPacket
 		_objId = target.getObjectId();
 		_relation = relation;
 		_autoAttackable = target.isAutoAttackable(attacker) ? 1 : 0;
-		_karma = target.getPlayer().getKarma();
-		_pvpFlag = target.getPlayer().getPvpFlag();
+		_karma = target != null && target.isPlayer() ? target.getPlayer().getKarma() : 0;
+		_pvpFlag = target != null && target.isPlayer() ? target.getPlayer().getPvpFlag() : 0;
 	}
 
 	@Override

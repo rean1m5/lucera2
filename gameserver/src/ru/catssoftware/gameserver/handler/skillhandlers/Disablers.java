@@ -24,6 +24,7 @@ import ru.catssoftware.gameserver.skills.effects.EffectBuff;
 import ru.catssoftware.gameserver.templates.skills.L2SkillType;
 import ru.catssoftware.tools.random.Rnd;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -602,7 +603,8 @@ public class Disablers implements ICubicSkillHandler
 
 				if(target.getActingPlayer() == activeChar && !reflect)
 					continue;
-				if(Config.OLD_CANCEL_MODE) {
+				if(Config.OLD_CANCEL_MODE)
+				{
 					if (Formulas.calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
 					{
 						L2Effect[] effects = target.getAllEffects();
@@ -616,6 +618,7 @@ public class Disablers implements ICubicSkillHandler
 
 						double count = 0;
 
+						List<L2Effect> remove = new ArrayList<L2Effect>();
 						for (L2Effect e : effects)
 						{
 							switch (e.getSkill().getId())
@@ -638,17 +641,15 @@ public class Disablers implements ICubicSkillHandler
 								case REFLECT:
 								case COMBATPOINTHEAL:
 									count += 1;
-									double rate = 1 - (count / max);
-									if (rate < 0.33)
-										rate = 0.33;
-									else if (rate > 0.95)
-										rate = 0.95;
-									if (Rnd.get(1000) < (rate * 1000))
-										e.exit();
+									remove.add(e);
 							}
 							if (count == max)
 								break;
 						}
+
+						for (int i = 0; i < 5 && !remove.isEmpty(); i++)
+							remove.remove(Rnd.get(remove.size())).exit();
+						remove.clear();
 					}
 					else
 					{
