@@ -1,12 +1,7 @@
 package ru.catssoftware.loginserver.clientpackets;
 
-import java.security.GeneralSecurityException;
-import java.util.Map;
-
-import javax.crypto.Cipher;
-
 import javolution.util.FastMap;
-
+import org.apache.log4j.Logger;
 import ru.catssoftware.Config;
 import ru.catssoftware.loginserver.L2LoginClient;
 import ru.catssoftware.loginserver.L2LoginClient.LoginClientState;
@@ -23,6 +18,10 @@ import ru.catssoftware.loginserver.services.exception.AccountBannedException;
 import ru.catssoftware.loginserver.services.exception.AccountWrongPasswordException;
 import ru.catssoftware.tools.random.Rnd;
 
+import javax.crypto.Cipher;
+import java.security.GeneralSecurityException;
+import java.util.Map;
+
 
 /**
  * Format: x
@@ -36,6 +35,8 @@ public class RequestAuthLogin extends L2LoginClientPacket
 	private String				_user, _password;
 	private int					_ncotp;
 	private static 				Map<String,Integer> _invalidTryes = new FastMap<String, Integer>();
+	private static Logger _log = Logger.getLogger(RequestAuthLogin.class);
+
 	public String getPassword()
 	{
 		return _password;
@@ -122,7 +123,7 @@ public class RequestAuthLogin extends L2LoginClientPacket
 					
 					if(Config.CARD_ENABLED && !client.getIp().equals(acc.getLastIp()) ) {
 						if(Config.DEBUG)
-							System.out.println("Client last IP mismatch: await "+acc.getLastIp()+", got "+client.getIp());
+							_log.info("Client last IP mismatch: await "+acc.getLastIp()+", got "+client.getIp());
 						client.setState(LoginClientState.AUTHED_CARD);
 					
 					} else {

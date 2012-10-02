@@ -18,43 +18,10 @@
       <sourceFolder url="file://$MODULE_DIR$/quests" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="module-library">
-      <library name="javolution-5.2.6.jar">
-        <CLASSES>
-          <root url="file:///libs/javolution-5.2.6.jar" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="bin">
-        <CLASSES>
-          <root url="file:///commons/bin" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="bin">
-        <CLASSES>
-          <root url="file:///gameserver/bin" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="log4j-1.2.16.jar">
-        <CLASSES>
-          <root url="file:///libs/log4j-1.2.16.jar" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
+    <orderEntry type="library" name="Libs" level="project" />
+    <orderEntry type="module" module-name="Commons" />
+    <orderEntry type="module" module-name="Gameserver" />
   </component>
 </module>
 

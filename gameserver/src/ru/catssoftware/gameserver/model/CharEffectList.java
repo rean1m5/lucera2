@@ -2,6 +2,7 @@ package ru.catssoftware.gameserver.model;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import org.apache.log4j.Logger;
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.SystemMessageId;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 public class CharEffectList
 {
+	private static Logger _log = Logger.getLogger(CharEffectList.class);
 	private static final L2Effect[]			EMPTY_EFFECTS	= new L2Effect[0];
 	private FastList<L2Effect>				_buffs;
 	private FastList<L2Effect>				_debuffs;
@@ -402,6 +404,13 @@ public class CharEffectList
 		if (!_stackedEffects.containsKey(newEffect.getStackType()) && !tempSkill.isDebuff() && !tempSkill.bestowed() && !(tempSkill.getId() > 4360 && tempSkill.getId() < 4367)) {
 				removeFirstBuff(tempSkill);
 		}
+
+		if (getBuffCount() >= _owner.getMaxBuffCount() && newEffect.isBuff())
+		{
+			newEffect.stopEffectTask();
+			return;
+		}
+
 
 		synchronized (effectList)
 		{

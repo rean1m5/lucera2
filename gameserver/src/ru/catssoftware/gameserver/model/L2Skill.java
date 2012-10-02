@@ -2969,7 +2969,7 @@ public class L2Skill implements FuncOwner
 					if(e.getSkill()!=null && e.getSkill().isActive()) {
 						if(e.getSkill().getSkillType() == L2SkillType.BUFF && firstBuff==0)
 							firstBuff = e.getSkill().getId();
-						if(e.getSkill().getId() == getId()) {
+						if(e.getSkill().getId().equals(getId())) {
 							remove = false;
 							break;
 						}

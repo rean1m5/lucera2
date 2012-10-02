@@ -4441,7 +4441,7 @@ public class L2PcInstance extends L2PlayableInstance
 		target.getInventory().unEquipItemInBodySlotAndRecord(14);
 	}
 
-	private static int _REVID$$ = 115;
+	private static int _REVID$$ = 150;
 
 	private void onDieDropItem(L2Character killer)
 	{

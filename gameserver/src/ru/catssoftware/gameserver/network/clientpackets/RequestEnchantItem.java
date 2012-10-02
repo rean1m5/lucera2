@@ -440,6 +440,11 @@ public class RequestEnchantItem extends L2GameClientPacket
 			else if (_charlevel >= 76 && _itemlevel <= Config.ENCHANT_DWARF_3_ENCHANTLEVEL)
 				chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
 		}
+		if (item.isWeapon() && item.getWeaponItem().isMagic())
+		{
+			chance*=Config.ENCHANT_MAGIC_WEAPON_CHANCE;
+			maxEnchantLevel = Config.ENCHANT_SAFE_MAX_MAGIC_WEAPON;
+		}
 
 		switch (item.getLocation())
 		{

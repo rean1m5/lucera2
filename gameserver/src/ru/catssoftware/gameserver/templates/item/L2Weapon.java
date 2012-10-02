@@ -410,4 +410,9 @@ public final class L2Weapon extends L2Equip
 		
 		return affected;
 	}
+
+	public boolean isMagic()
+	{
+		return getMDamage() / getPDamage() > 0.6;
+	}
 }
