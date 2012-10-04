@@ -1583,14 +1583,8 @@ public abstract class L2Character extends L2Object implements IEffector
 			return false;
 		}
 
-		if (isPlayer() && !skill.checkCondition(this, target))
-		{
-			// Send a Server->Client packet ActionFailed to the L2PcInstance
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
-
 		if (isPlayer())
+		{
 			switch(skill.getSkillType())
 			{
 				case HEAL:
@@ -1605,6 +1599,13 @@ public abstract class L2Character extends L2Object implements IEffector
 					break;
 			}
 
+			if (!skill.checkCondition(this, target))
+			{
+				// Send a Server->Client packet ActionFailed to the L2PcInstance
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
+			}
+		}
 		// Check if the caster has enough MP
 		if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
 		{

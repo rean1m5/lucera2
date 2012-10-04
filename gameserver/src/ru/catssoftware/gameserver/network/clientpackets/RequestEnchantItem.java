@@ -407,6 +407,12 @@ public class RequestEnchantItem extends L2GameClientPacket
 			}
 		}
 
+		if (item.isWeapon() && item.getWeaponItem().isMagic())
+		{
+			chance*=Config.ENCHANT_MAGIC_WEAPON_CHANCE;
+			maxEnchantLevel = Config.ENCHANT_SAFE_MAX_MAGIC_WEAPON;
+		}
+
 		if (item.getEnchantLevel()+1 >= maxEnchantLevel)
 		{
 			activeChar.sendPacket(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
@@ -439,11 +445,6 @@ public class RequestEnchantItem extends L2GameClientPacket
 				chance = chance + Config.ENCHANT_DWARF_2_CHANCE;
 			else if (_charlevel >= 76 && _itemlevel <= Config.ENCHANT_DWARF_3_ENCHANTLEVEL)
 				chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
-		}
-		if (item.isWeapon() && item.getWeaponItem().isMagic())
-		{
-			chance*=Config.ENCHANT_MAGIC_WEAPON_CHANCE;
-			maxEnchantLevel = Config.ENCHANT_SAFE_MAX_MAGIC_WEAPON;
 		}
 
 		switch (item.getLocation())

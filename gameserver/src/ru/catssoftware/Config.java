@@ -8,6 +8,7 @@ import ru.catssoftware.gameserver.GSConfig;
 import ru.catssoftware.gameserver.datatables.ClassTreeTable;
 import ru.catssoftware.gameserver.handler.IReloadHandler;
 import ru.catssoftware.gameserver.handler.ReloadHandler;
+import ru.catssoftware.gameserver.model.L2Clan;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.skills.Stats;
 import ru.catssoftware.gameserver.templates.item.L2Armor;
@@ -1505,7 +1506,7 @@ public class Config extends L2Config
 	public static boolean		ENCHANT_LIMIT_AURA_OTHER;
 	public static int			ENCHANT_LIMIT_AURA_LEVEL;
 
-	public static double 			ENCHANT_MAGIC_WEAPON_CHANCE;
+	public static float 			ENCHANT_MAGIC_WEAPON_CHANCE;
 	public static int			ENCHANT_SAFE_MAX_MAGIC_WEAPON;
 
 	//********************************************************************************************
@@ -1516,7 +1517,7 @@ public class Config extends L2Config
 		{
 			Properties enchantSettings = new L2Properties("./" + ENCHANT_FILE);
 
-			ENCHANT_MAGIC_WEAPON_CHANCE = Double.parseDouble(enchantSettings.getProperty("EnchantMagicWeaponChance", "1.0"));
+			ENCHANT_MAGIC_WEAPON_CHANCE = Float.parseFloat(enchantSettings.getProperty("EnchantMagicWeaponChance", "1.0"));
 			ENCHANT_SAFE_MAX_MAGIC_WEAPON = Integer.parseInt(enchantSettings.getProperty("SaveMaxMagicWeapon", "7"));
 
 			String[] propertySplit = enchantSettings.getProperty("NormalWeaponEnchantLevel", "").split(";");

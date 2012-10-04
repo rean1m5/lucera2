@@ -30,6 +30,7 @@ import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.serverpackets.InventoryUpdate;
 import ru.catssoftware.gameserver.network.serverpackets.StatusUpdate;
 import ru.catssoftware.gameserver.templates.item.L2EtcItemType;
+import ru.catssoftware.gameserver.templates.item.L2Item;
 import ru.catssoftware.util.LinkedBunch;
 
 import java.sql.Connection;
@@ -593,7 +594,15 @@ public class PcInventory extends Inventory
 				objId = invdata.getInt("object_id");
 				itemId = invdata.getInt("item_id");
 				enchant = invdata.getInt("enchant_level");
-				displayId = ItemTable.getInstance().getTemplate(itemId).getItemDisplayId();
+				L2Item item = ItemTable.getInstance().getTemplate(itemId);
+				if (item != null)
+					displayId = item.getItemDisplayId();
+				else
+				{
+					_log.error("Item with ID: " + itemId + " is NULL!");
+					Thread.dumpStack();
+					displayId = itemId;
+				}
 
 				paperdoll[slot][0] = objId;
 				paperdoll[slot][1] = itemId;
