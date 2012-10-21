@@ -407,7 +407,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 			}
 		}
 
-		if (item.isWeapon() && item.getWeaponItem().isMagic())
+		if (Config.ENCHANT_FOR_MAGIC_WEAPON && item.isWeapon() && item.getWeaponItem().isMagic())
 		{
 			chance*=Config.ENCHANT_MAGIC_WEAPON_CHANCE;
 			maxEnchantLevel = Config.ENCHANT_SAFE_MAX_MAGIC_WEAPON;

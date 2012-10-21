@@ -24,7 +24,7 @@ public class VoicedCommandHandler
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
 		Help h = new Help();
 		registerVoicedCommandHandler(h);
-		_datatable.put("devinfo", h);
+		_datatable.put("help", h);
 	}
 
 	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)

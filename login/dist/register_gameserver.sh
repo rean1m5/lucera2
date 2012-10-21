@@ -1,2 +1,2 @@
 # !/bin/sh
-java  -cp ../libs/*:./login.jar ru.catssoftware.gsregistering.GameServerRegister
+java -Xbootclasspath/p:libs/crypt.jar -cp ../libs/*:./login.jar ru.catssoftware.gsregistering.GameServerRegister

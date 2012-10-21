@@ -915,7 +915,7 @@ public class TvT extends GameEvent
 		if(cha.getGameEvent() == other.getGameEvent()) {
 			int myTeam = getTeam(cha);
 			int otherTeam = getTeam(other);
-			if(myTeam!=otherTeam)
+			if(myTeam!=otherTeam && myTeam > 0)
 				return _teams.get(myTeam).name;
 		}
 

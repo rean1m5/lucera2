@@ -92,6 +92,10 @@ public class enchant extends gmHandler
 				{
 					admin.sendMessage("Введите уровень заточки");
 				}
+				catch (ArrayIndexOutOfBoundsException e)
+				{
+					admin.sendMessage("Введите уровень заточки");
+				}
 			}
 			showMainPage(admin);
 		}

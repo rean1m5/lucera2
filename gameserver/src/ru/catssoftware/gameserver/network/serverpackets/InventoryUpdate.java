@@ -108,7 +108,7 @@ public class InventoryUpdate extends L2GameServerPacket
 			// !!! Обязательно отправлять пакет с соответствующей вещицей перед и после олимпиады.
 			int enchant = item.getEnchant();
 			if (Config.ALT_OLY_ENCHANT_LIMIT >= 0)
-				if (client.getActiveChar().isInOlympiadMode())
+				if (client != null && client.getActiveChar() != null && client.getActiveChar().isInOlympiadMode())
 					if (item.getEnchant() > Config.ALT_OLY_ENCHANT_LIMIT )
 						enchant = Config.ALT_OLY_ENCHANT_LIMIT;
 

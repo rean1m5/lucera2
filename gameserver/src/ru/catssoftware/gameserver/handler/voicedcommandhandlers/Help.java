@@ -1,15 +1,10 @@
 package ru.catssoftware.gameserver.handler.voicedcommandhandlers;
 
 import javolution.text.TextBuilder;
-
-
-import ru.catssoftware.Config;
-import ru.catssoftware.gameserver.banmanager.BanManager;
-import ru.catssoftware.gameserver.handler.VoicedCommandHandler;
 import ru.catssoftware.gameserver.handler.IVoicedCommandHandler;
+import ru.catssoftware.gameserver.handler.VoicedCommandHandler;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
-import ru.catssoftware.info.Version;
 
 /**
  * Автор: L2CatsSoftware
@@ -31,17 +26,7 @@ public class Help implements IVoicedCommandHandler
 		if (activeChar == null)
 			return false;
 
-		if (command.startsWith("devinfo")) {
-			String html = "<html><title>Server info</title><body>";
-			html+="<br><center>";
-			html+="Version "+Version.Version+"<br1>";
-			html+="Server IP "+Config.GAMESERVER_HOSTNAME+"<br>";
-			html+=	"</center></body></html>";
-			NpcHtmlMessage msg = new NpcHtmlMessage(0);
-			msg.setHtml(html);
-			activeChar.sendPacket(msg);
-		}
-		else if (command.startsWith("help"))
+		if (command.startsWith("help"))
 		{
 
 			NpcHtmlMessage help = new NpcHtmlMessage(5);

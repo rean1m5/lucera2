@@ -7,6 +7,7 @@ import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.datatables.CharNameTable;
 import ru.catssoftware.gameserver.datatables.NpcTable;
 import ru.catssoftware.gameserver.datatables.SpawnTable;
+import ru.catssoftware.gameserver.model.L2Augmentation;
 import ru.catssoftware.gameserver.model.L2ItemInstance;
 import ru.catssoftware.gameserver.model.L2Spawn;
 import ru.catssoftware.gameserver.model.L2World;
@@ -187,28 +188,35 @@ public class PcAction
 		}
 	}
 
-	public static void giveItems(L2PcInstance player, int itemId, int count)
+	public static L2ItemInstance giveItems(L2PcInstance player, int itemId, int count)
 	{
-		if (player == null)
-			return;
-
-		giveItems(player, itemId, count, 0);
+		return giveItems(player, itemId, count, 0);
 	}
 
-	public static void giveItems(L2PcInstance player, int itemId, int count, int enchantlevel)
+	public static L2ItemInstance giveItems(L2PcInstance player, int itemId, int count, int enchantLevel)
+	{
+		return giveItems(player, itemId, count, enchantLevel, -1, -1, -1);
+	}
+
+	public static L2ItemInstance giveItems(L2PcInstance player, int itemId, int count, int enchantlevel, int augmentationId, int skillId, int skillLevel)
 	{
 		if (player == null)
-			return;
+			return null;
 
 		if (count <= 0)
-			return;
+			return null;
 
 		L2ItemInstance item = player.getInventory().addItem("PcAction", itemId, count, player, player.getTarget());
 
 		if (item == null)
-			return;
+			return null;
+
 		if (enchantlevel > 0)
 			item.setEnchantLevel(enchantlevel);
+
+		if (augmentationId > -1)
+			item.setAugmentation(new L2Augmentation(augmentationId * 65536 + 1, skillId, skillLevel));
+
 		if (itemId == 57)
 		{
 			SystemMessage msg = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
@@ -232,7 +240,10 @@ public class PcAction
 			}
 		}
 		player.getInventory().updateInventory(item);
+
+		return item;
 	}
+
 
 	public static void playSound(L2PcInstance player, String sound)
 	{
