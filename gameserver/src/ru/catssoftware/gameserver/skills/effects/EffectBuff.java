@@ -75,7 +75,6 @@ public class EffectBuff extends L2Effect
 		public void notifyUnequiped(int slot, L2ItemInstance inst) {
 			if (inst.getItemType().equals(L2WeaponType.NONE))
 				exit();
-			System.out.println(inst.getItemType());
 		}
 	}
 
