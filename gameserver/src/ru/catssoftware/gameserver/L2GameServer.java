@@ -462,9 +462,14 @@ public class L2GameServer
 		_log.info("Max players: " + Config.MAXIMUM_ONLINE_USERS);
 		_log.info("Load time: " + (int) ((finalTime - _intialTime) / 1000) + " Seconds.");
 
-		Console.printSection("lucera2.ru");
-		_log.info("License: " + _license + " for " + getRevision() + " rev.");
-		_log.info("Build: " + L2PcInstance.checkClass() + " rev.");
+		if (_license != null)
+		{
+			Console.printSection("lucera2.ru");
+			_log.info("License: " + _license + " for " + getRevision() + " rev.");
+			_log.info("Build: " + L2PcInstance.checkClass() + " rev.");
+		}
+		else
+			System.exit(1);
 
 		Console.printSection("");
 		// set uptime

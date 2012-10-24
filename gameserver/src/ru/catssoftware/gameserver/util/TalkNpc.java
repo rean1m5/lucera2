@@ -64,13 +64,13 @@ public abstract class TalkNpc extends Quest
 	{
 		return "data/html/mods/" + getName() + "/template/" + name + ".htm";
 	}
-	
-	protected String getContentPage(L2PcInstance player, String name)
+
+	public String getContentPage(L2PcInstance player, String name)
 	{
 		return HtmCache.getInstance().getHtm(getAddrPage(name), player);
 	}
 
-	protected String getTemplateHtml(L2PcInstance player, String name)
+	public String getTemplateHtml(L2PcInstance player, String name)
 	{
 		return HtmCache.getInstance().getHtm(getTemplateHtmlPage(name), player);
 	}

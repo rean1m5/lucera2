@@ -37,18 +37,20 @@ public class CharEffectList
 		if ((_buffs == null || _buffs.isEmpty()) && (_debuffs == null || _debuffs.isEmpty()))
 			return EMPTY_EFFECTS;
 		LinkedBunch<L2Effect> temp = new LinkedBunch<L2Effect>();
-		
-		for (L2Effect eff : _buffs) try {
-				if (eff != null)
-					temp.add(eff);
-		} catch(NullPointerException npe) {
-		}
-		
-		for (L2Effect eff : _debuffs ) try {
-				if (eff != null)
-					temp.add(eff);
-		} catch(NullPointerException npe) {
-		}
+
+		if (_buffs != null)
+			for (L2Effect eff : _buffs) try {
+					if (eff != null)
+						temp.add(eff);
+			} catch(NullPointerException npe) {
+			}
+
+		if (_debuffs != null)
+			for (L2Effect eff : _debuffs ) try {
+					if (eff != null)
+						temp.add(eff);
+			} catch(NullPointerException npe) {
+			}
 		return temp.moveToArray(new L2Effect[temp.size()]);
 	}
 

@@ -1,24 +1,14 @@
 package ru.catssoftware.gameserver.network.clientpackets;
 
-import java.util.StringTokenizer;
-import java.util.NoSuchElementException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.communitybbs.CommunityBoard;
 import ru.catssoftware.gameserver.datatables.ClanTable;
 import ru.catssoftware.gameserver.gmaccess.gmController;
-import ru.catssoftware.gameserver.handler.IExItemHandler;
-import ru.catssoftware.gameserver.handler.IItemHandler;
-import ru.catssoftware.gameserver.handler.IVoicedCommandHandler;
-import ru.catssoftware.gameserver.handler.ItemHandler;
-import ru.catssoftware.gameserver.handler.VoicedCommandHandler;
+import ru.catssoftware.gameserver.handler.*;
 import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2ItemInstance;
 import ru.catssoftware.gameserver.model.L2Object;
 import ru.catssoftware.gameserver.model.L2World;
-// import ru.catssoftware.gameserver.model.BypassManager.DecodedBypass;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.entity.events.GameEvent;
@@ -27,6 +17,13 @@ import ru.catssoftware.gameserver.model.olympiad.Olympiad;
 import ru.catssoftware.gameserver.network.InvalidPacketException;
 import ru.catssoftware.gameserver.network.serverpackets.GMViewPledgeInfo;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+// import ru.catssoftware.gameserver.model.BypassManager.DecodedBypass;
 
 
 public class RequestBypassToServer extends L2GameClientPacket
@@ -42,7 +39,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 			if(bypass!=null)
 				_command = bypass.bypass;
 		}
-*/	
+*/
 	}
 
 	@Override
@@ -52,13 +49,17 @@ public class RequestBypassToServer extends L2GameClientPacket
 
 		if (activeChar == null)
 			return;
+
 		if(activeChar.isDead()) {
 			ActionFailed();
 			return;
 		}
+
 		activeChar._bbsMultisell = 0;
+
 		if(_command==null)
 			return;
+
 		if (_command.startsWith("admin_"))
 		{
 			if (activeChar.isGM())
@@ -67,7 +68,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 			}
 			else
 				ActionFailed();
-				
 		}
 		else if (_command.startsWith("item_")) {
 			Pattern p = Pattern.compile("item_(\\d+) ?(.?+)");
@@ -93,7 +93,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 					handler.useItem(activeChar, item, _command.split(" "));
 				}
 			}
-			return;
 		}
 		else if (_command.startsWith("voice_"))
 		{
@@ -101,7 +100,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 			String params="";
 			
 			// ------------------------------ Parse command --------------------------------
-			if (_command.indexOf(" ") != -1)
+			if (_command.contains(" "))
 			{
 				command = _command.substring(6, _command.indexOf(" "));
 				params = _command.substring(_command.indexOf(" ")+1);
@@ -116,7 +115,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 				return;
 
 			vc.useVoicedCommand(command, activeChar, params);
-			return;
 		}
 		// L2CatsSoftware: Bypass for ctf commands
 		else if (_command.startsWith("event")) {
@@ -136,7 +134,6 @@ public class RequestBypassToServer extends L2GameClientPacket
 			GameEvent evt = GameEventManager.getInstance().findEvent(eventName);
 			if(evt!=null)
 				evt.onCommand(activeChar, cmd, param);
-			return;
 		}
 		else if (_command.equals("come_here") && activeChar.isGM())
 			comeHere(activeChar);
@@ -238,7 +235,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 
 	private void playerHelp(L2PcInstance activeChar, String path)
 	{
-		if (path.indexOf("..") != -1)
+		if (path.contains(".."))
 			return;
 
 		StringTokenizer st = new StringTokenizer(path);
@@ -246,8 +243,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 
 		if (cmd.length > 1)
 		{
-			int itemId = 0;
-			itemId = Integer.parseInt(cmd[1]);
+			int itemId = Integer.parseInt(cmd[1]);
 			String filename = "data/html/help/" + cmd[0];
 			NpcHtmlMessage html = new NpcHtmlMessage(1, itemId);
 			html.setFile(filename);

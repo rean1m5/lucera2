@@ -14,26 +14,19 @@
  */
 package ru.catssoftware.gameserver.instancemanager.grandbosses;
 
-import java.util.List;
-import java.util.concurrent.Future;
-
 import javolution.util.FastList;
-
 import ru.catssoftware.config.L2Properties;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.NpcTable;
 import ru.catssoftware.gameserver.datatables.SkillTable;
-import ru.catssoftware.gameserver.model.L2Attackable;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Spawn;
-import ru.catssoftware.gameserver.model.Location;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.instance.L2FrintezzaBossInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.entity.GrandBossState;
 import ru.catssoftware.gameserver.model.entity.GrandBossState.StateEnum;
+import ru.catssoftware.gameserver.model.quest.QuestState;
 import ru.catssoftware.gameserver.network.serverpackets.Earthquake;
 import ru.catssoftware.gameserver.network.serverpackets.MagicSkillUse;
 import ru.catssoftware.gameserver.network.serverpackets.SocialAction;
@@ -41,6 +34,9 @@ import ru.catssoftware.gameserver.skills.AbnormalEffect;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.tools.random.Rnd;
 import ru.catssoftware.util.ArrayUtils;
+
+import java.util.List;
+import java.util.concurrent.Future;
 
 
 
@@ -482,11 +478,15 @@ public class FrintezzaManager extends BossLair
 	}
 	
 	@Override
-	public void onEnter(L2Character cha) {
-		if(!ENABLED)
+	public void onEnter(L2Character cha)
+	{
+		if(!ENABLED || !cha.isPlayer())
 			return;
-	 if(cha instanceof L2PcInstance && _state.getState()==StateEnum.NOTSPAWN && _startTask==null)
-		 _startTask = ThreadPoolManager.getInstance().schedule(new Runnable() {
+		L2PcInstance player = cha.getPlayer();
+		QuestState qs = player.getQuestState("654_JourneytoaSettlement");
+
+	 	if(qs != null && qs.isCompleted() && _state.getState()==StateEnum.NOTSPAWN && _startTask==null)
+			 _startTask = ThreadPoolManager.getInstance().schedule(new Runnable() {
 			 public void run() {
 				 start();
 				 _startTask = null;
