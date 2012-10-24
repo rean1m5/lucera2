@@ -1,7 +1,6 @@
 package ru.catssoftware.gameserver.handler.skillhandlers;
 
 import javolution.util.FastList;
-import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlEvent;
@@ -603,66 +602,57 @@ public class Disablers implements ICubicSkillHandler
 
 				if(target.getActingPlayer() == activeChar && !reflect)
 					continue;
-				if(Config.OLD_CANCEL_MODE)
+				/*if(Config.OLD_CANCEL_MODE)
+				{*/
+				if (Formulas.calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
 				{
-					if (Formulas.calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+					L2Effect[] effects = target.getAllEffects();
+
+					List<L2Effect> remove = new ArrayList<L2Effect>();
+
+					for (L2Effect e : effects)
 					{
-						L2Effect[] effects = target.getAllEffects();
-
-						double max = skill.getMaxNegatedEffects();
-						if (max == 0)
-							max = 24; //this is for RBcancells and stuff...
-
-						if (effects.length >= max)
-							effects = sortEffects(effects);
-
-						double count = 0;
-
-						List<L2Effect> remove = new ArrayList<L2Effect>();
-						for (L2Effect e : effects)
+						switch (e.getSkill().getId())
 						{
-							switch (e.getSkill().getId())
-							{
-								case 110:
-								case 111:
-								case 1323:
-								case 1325:
-								case 4082:
-								case 4215:
-								case 4515:
-								case 5182:
-									continue;
-							}
+							case 110:
+							case 111:
+							case 1323:
+							case 1325:
+							case 1418:
+							case 4082:
+							case 4215:
+							case 4515:
+							case 5182:
+								continue;
+						}
 
-							switch (e.getSkill().getSkillType())
-							{
-								case BUFF:
-								case HEAL_PERCENT:
-								case REFLECT:
-								case COMBATPOINTHEAL:
-									count += 1;
-									remove.add(e);
-							}
-							if (count == max)
+						switch (e.getSkill().getSkillType())
+						{
+							case BUFF:
+							case HEAL_PERCENT:
+							case REFLECT:
+							case COMBATPOINTHEAL:
+								remove.add(e);
 								break;
 						}
-
-						for (int i = 0; i < 5 && !remove.isEmpty(); i++)
-							remove.remove(Rnd.get(remove.size())).exit();
-						remove.clear();
 					}
-					else
+
+					for (int i = 0; i < Rnd.get(1, skill.getMaxNegatedEffects()) && !remove.isEmpty(); i++)
+						remove.remove(Rnd.get(remove.size())).exit();
+					remove.clear();
+				}
+				else
+				{
+					if (activeChar.isPlayer())
 					{
-						if (activeChar instanceof L2PcInstance)
-						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
-							sm.addCharName(target);
-							sm.addSkillName(skill);
-							activeChar.sendPacket(sm);
-						}
+						SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
+						sm.addCharName(target);
+						sm.addSkillName(skill);
+						activeChar.sendPacket(sm);
 					}
+				}
 
-				} else {
+				/*} else {
 					L2Effect[] effects = target.getAllEffects();
 					int max = skill.getMaxNegatedEffects();
 					if (max == 0)
@@ -697,7 +687,7 @@ public class Disablers implements ICubicSkillHandler
 							break;
 
 					}
-				}
+				}*/
 				break;
 
 			}
