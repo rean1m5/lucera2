@@ -38,7 +38,7 @@ public final class EffectPhysicalMute extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		getEffected().startPhysicalMuted();
+		getEffected().startPhysicalMuted(getEffector());
 		return true;
 	}
 

@@ -14,10 +14,10 @@
  */
 package ru.catssoftware.gameserver.network.serverpackets;
 
+import ru.catssoftware.gameserver.model.L2Character;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import ru.catssoftware.gameserver.model.L2Character;
 
 
 public final class StatusUpdate extends L2GameServerPacket

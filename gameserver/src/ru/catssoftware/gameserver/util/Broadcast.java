@@ -51,7 +51,7 @@ public final class Broadcast
 
 	public static void toSelfAndKnownPlayers(L2Character character, L2GameServerPacket mov)
 	{
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 			character.sendPacket(mov);
 
 		toKnownPlayers(character, mov);

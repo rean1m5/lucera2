@@ -22,7 +22,7 @@ public final class EffectMedusa extends L2Effect
 	public boolean onStart()
 	{
 		getEffected().startAbnormalEffect(AbnormalEffect.HOLD_2);
-		getEffected().startParalyze();
+		getEffected().startParalyze(getEffector());
 		getEffected().setIsPetrified(true);
 		return true;
 	}

@@ -402,6 +402,7 @@ public abstract class AbstractAI implements Ctrl
 	{
 		if (!_actor.isVisible() || !_actor.hasAI())
 			return;
+
 		GameExtensionManager.getInstance().handleAction(_actor, Action.CHAR_INTENTIONCHANGE, evt,arg0,arg1);
 		switch (evt)
 		{

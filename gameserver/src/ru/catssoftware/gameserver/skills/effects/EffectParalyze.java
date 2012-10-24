@@ -36,7 +36,7 @@ public final class EffectParalyze extends L2Effect
 	public boolean onStart()
 	{
 		getEffected().startAbnormalEffect(AbnormalEffect.HOLD_1);
-		getEffected().startParalyze();
+		getEffected().startParalyze(getEffector());
 		return true;
 	}
 

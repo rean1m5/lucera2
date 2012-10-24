@@ -14,26 +14,19 @@
  */
 package ru.catssoftware.gameserver.skills.effects;
 
-import java.util.Map;
-
+import javolution.util.FastMap;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Effect;
 import ru.catssoftware.gameserver.model.Location;
-import ru.catssoftware.gameserver.model.actor.instance.L2FolkInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2FortCommanderInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PetInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2SiegeFlagInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2SiegeGuardInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2SiegeSummonInstance;
+import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.skills.Env;
 import ru.catssoftware.gameserver.templates.skills.L2EffectType;
-//import java.util.logging.Logger;
 
-import javolution.util.FastMap;
+import java.util.Map;
+
+//import java.util.logging.Logger;
 
 
 /**
@@ -171,7 +164,7 @@ public final class EffectFear extends L2Effect
 				_dY = -1;
 			}
 			_deltas.put(getEffected().getObjectId(), new float[] {_dX,_dY});
-			getEffected().startFear();
+			getEffected().startFear(getEffector());
 			onActionTime();
 			return true;
 		}

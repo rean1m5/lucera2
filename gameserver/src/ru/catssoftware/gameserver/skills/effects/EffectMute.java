@@ -34,7 +34,7 @@ public final class EffectMute extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		getEffected().startMuted();
+		getEffected().startMuted(getEffector());
 		return true;
 	}
 

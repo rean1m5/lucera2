@@ -14,15 +14,8 @@
  */
 package ru.catssoftware.gameserver.instancemanager.grandbosses;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
-
-
+import javolution.util.FastList;
+import javolution.util.FastMap;
 import ru.catssoftware.L2DatabaseFactory;
 import ru.catssoftware.config.L2Properties;
 import ru.catssoftware.gameserver.ThreadPoolManager;
@@ -47,8 +40,13 @@ import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.gameserver.templates.skills.L2EffectType;
 import ru.catssoftware.tools.random.Rnd;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 
 /**
@@ -1136,7 +1134,7 @@ public class VanHalterManager extends BossLair
 					_vanHalter.stopFear(null);
 				else
 				{
-					_vanHalter.startFear();
+					_vanHalter.startFear(_vanHalter);
 					if (_vanHalter.getZ() >= -10476)
 					{
 						L2CharPosition pos = new L2CharPosition(-16397, -53308, -10448, 0);

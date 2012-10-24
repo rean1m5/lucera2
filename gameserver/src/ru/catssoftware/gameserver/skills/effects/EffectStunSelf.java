@@ -35,7 +35,7 @@ public final class EffectStunSelf extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		getEffector().startStunning();
+		getEffector().startStunning(getEffector());
 		getEffected().abortAttack();
 		getEffected().abortCast();
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, getEffector());

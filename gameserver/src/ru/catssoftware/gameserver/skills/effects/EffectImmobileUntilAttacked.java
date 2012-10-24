@@ -38,7 +38,7 @@ public final class EffectImmobileUntilAttacked extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		getEffected().startImmobileUntilAttacked();
+		getEffected().startImmobileUntilAttacked(getEffector());
 		return true;
 	}
 

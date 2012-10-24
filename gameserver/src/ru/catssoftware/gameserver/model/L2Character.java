@@ -2740,53 +2740,53 @@ public abstract class L2Character extends L2Object implements IEffector
 		broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_START_FAKEDEATH));
 	}
 
-	public final void startFear()
+	public final void startFear(L2Character effector)
 	{
 		setIsAfraid(true);
-		getAI().notifyEvent(CtrlEvent.EVT_AFRAID);
+		getAI().notifyEvent(CtrlEvent.EVT_AFRAID, effector);
 		updateAbnormalEffect();
 	}
 
-	public final void startMuted()
+	public final void startMuted(L2Character effector)
 	{
 		setIsMuted(true);
 		abortCast();
-		getAI().notifyEvent(CtrlEvent.EVT_MUTED);
+		getAI().notifyEvent(CtrlEvent.EVT_MUTED, effector);
 		updateAbnormalEffect();
 	}
 
-	public final void startPhysicalMuted()
+	public final void startPhysicalMuted(L2Character effector)
 	{
 		setIsPhysicalMuted(true);
-		getAI().notifyEvent(CtrlEvent.EVT_MUTED);
+		getAI().notifyEvent(CtrlEvent.EVT_MUTED, effector);
 		updateAbnormalEffect();
 	}
 
-	public final void startRooted()
+	public final void startRooted(L2Character effector)
 	{
-		setIsRooted(true);
-		stopMove(null);
-		getAI().notifyEvent(CtrlEvent.EVT_ROOTED, null);
-		updateAbnormalEffect();
+        setIsRooted(true);
+        stopMove(null);
+        getAI().notifyEvent(CtrlEvent.EVT_ROOTED, effector);
+        updateAbnormalEffect();
 	}
 
-	public final void startSleeping()
+	public final void startSleeping(L2Character effector)
 	{
 		setIsSleeping(true);
 		abortAttack();
 		abortCast();
 		stopMove(null);
-		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
+		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, effector);
 		updateAbnormalEffect();
 	}
 
-	public final void startImmobileUntilAttacked()
+	public final void startImmobileUntilAttacked(L2Character effector)
 	{
 		setIsImmobileUntilAttacked(true);
 		abortAttack();
 		abortCast();
 		stopMove(null);
-		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
+		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, effector);
 		updateAbnormalEffect();
 	}
 
@@ -2802,30 +2802,30 @@ public abstract class L2Character extends L2Object implements IEffector
 		getAI().notifyEvent(CtrlEvent.EVT_LUCKNOBLESSE, null);
 	}
 
-	public final void startStunning()
+	public final void startStunning(L2Character effector)
 	{
 		setIsStunned(true);
 		abortAttack();
 		abortCast();
 		stopMove(null);
-		getAI().notifyEvent(CtrlEvent.EVT_STUNNED, null);
+		getAI().notifyEvent(CtrlEvent.EVT_STUNNED, effector);
 		updateAbnormalEffect();
 	}
 
-	public final void startParalyze()
+	public final void startParalyze(L2Character effector)
 	{
 		setIsParalyzed(true);
 		abortAttack();
 		abortCast();
 		stopMove(null);
-		getAI().notifyEvent(CtrlEvent.EVT_PARALYZED, null);
+		getAI().notifyEvent(CtrlEvent.EVT_PARALYZED, effector);
 		updateAbnormalEffect();
 	}
 
-	public final void startBetray()
+	public final void startBetray(L2Character effector)
 	{
 		setIsBetrayed(true);
-		getAI().notifyEvent(CtrlEvent.EVT_BETRAYED, null);
+		getAI().notifyEvent(CtrlEvent.EVT_BETRAYED, effector);
 		updateAbnormalEffect();
 	}
 

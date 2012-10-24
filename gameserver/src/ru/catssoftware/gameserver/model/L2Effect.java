@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class L2Effect implements FuncOwner
 {
-	static final Logger	_log	= Logger.getLogger(L2Effect.class.getName());
+	protected static final Logger	_log	= Logger.getLogger(L2Effect.class.getName());
 	public static final L2Effect[] EMPTY_ARRAY = new L2Effect[0];
 	public static enum EffectState
 	{

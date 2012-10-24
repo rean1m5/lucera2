@@ -39,7 +39,7 @@ public final class EffectRoot extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		getEffected().startRooted();
+		getEffected().startRooted(getEffector());
 		return true;
 	}
 

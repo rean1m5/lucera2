@@ -39,7 +39,7 @@ public final class EffectSleep extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		getEffected().startSleeping();
+		getEffected().startSleeping(getEffector());
 		return true;
 	}
 

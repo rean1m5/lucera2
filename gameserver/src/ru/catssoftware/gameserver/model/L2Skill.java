@@ -2422,7 +2422,7 @@ public class L2Skill implements FuncOwner
 				L2PcInstance src = null;
 				if (activeChar instanceof L2PcInstance)
 					src = (L2PcInstance) activeChar;
-				L2PcInstance trg = null;
+				L2PcInstance trg;
 
 				int radius = getSkillRadius();
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -2430,7 +2430,7 @@ public class L2Skill implements FuncOwner
 					if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance) || ((L2Character) obj).isDead() || obj == activeChar)
 						continue;
 
-					boolean targetInPvP = ((L2Character) obj).isInsideZone(L2Zone.FLAG_PVP) && !((L2Character) obj).isInsideZone(L2Zone.FLAG_SIEGE);
+					boolean targetInPvP = obj.getCharacter().isInsideZone(L2Zone.FLAG_PVP);
 
 					if (!Util.checkIfInRange(radius, target, obj, true))
 						continue;
@@ -2438,9 +2438,12 @@ public class L2Skill implements FuncOwner
 					if (!activeChar.canSee(obj))
 						continue;
 
-					if (obj instanceof L2PcInstance && src != null)
+					if ((obj.isPlayer() || obj.isSummon()) && src != null)
 					{
-						trg = (L2PcInstance) obj;
+						trg = obj.getPlayer();
+
+						if (trg.equals(src))
+							continue;
 
 						if ((src.getParty() != null && trg.getParty() != null) && src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 							continue;
@@ -2460,31 +2463,6 @@ public class L2Skill implements FuncOwner
 							}
 
 							if (!src.checkPvpSkill(obj, this))
-								continue;
-						}
-					}
-					if (obj.isSummon() && src != null)
-					{
-						trg = obj.getSummon().getOwner();
-
-						if (obj.getSummon().isInsideZone(L2Zone.FLAG_PEACE))
-							continue;
-
-						if ((src.getParty() != null && trg.getParty() != null) && src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
-							continue;
-
-						if (!srcInArena && !targetInPvP)
-						{
-							if (src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
-								continue;
-
-							if (src.getClan() != null && trg.getClan() != null)
-							{
-								if (src.getClan().getClanId() == trg.getClan().getClanId())
-									continue;
-							}
-
-							if (!src.checkPvpSkill(trg, this))
 								continue;
 						}
 					}
@@ -2514,6 +2492,7 @@ public class L2Skill implements FuncOwner
 					{
 						if (obj == null || !(obj instanceof L2Attackable))
 							continue;
+
 						L2Character cha = (L2Character) obj;
 
 						if (!cha.isDead() || !Util.checkIfInRange(radius, target, cha, true))

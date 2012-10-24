@@ -35,8 +35,8 @@ public final class EffectSilenceMagicPhysical extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		getEffected().startMuted();
-		getEffected().startPhysicalMuted();
+		getEffected().startMuted(getEffector());
+		getEffected().startPhysicalMuted(getEffector());
 		return true;
 	}
 

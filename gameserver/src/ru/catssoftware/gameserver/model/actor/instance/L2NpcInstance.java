@@ -2810,7 +2810,8 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public void broadcastFullInfoImpl()
 	{
-		broadcastPacket(new NpcInfo(this));
+		if (!getKnownList().getKnownPlayers().isEmpty())
+			broadcastPacket(new NpcInfo(this));
 	}
 
 	//===================================== L2Emu Addons ======================

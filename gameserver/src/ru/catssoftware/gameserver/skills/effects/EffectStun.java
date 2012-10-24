@@ -39,7 +39,7 @@ public final class EffectStun extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		getEffected().startStunning();
+		getEffected().startStunning(getEffector());
 		getEffected().abortAttack();
 		getEffected().abortCast();
 		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, getEffector());

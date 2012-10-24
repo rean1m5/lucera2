@@ -244,26 +244,6 @@ public class GeoEngine extends GeoData
 			//Avoid too long check
 			return false;
 		}
-		/*// very short checks: 9 => 144 world distance
-		// this ensures NLOS function has enough points to calculate,
-		// it might not work when distance is small and path vertical
-		else if (distance2 < 82)
-		{
-			// 150 should be too deep/high.
-			if (dz * dz > 22500)
-			{
-				short region = getRegionOffset(x, y);
-				// geodata is loaded for region and mobs should have correct Z coordinate...
-				// so there would likely be a floor in between the two
-				if (_geodata.contains(region))
-				{
-
-					return false;
-				}
-			}
-			debug("distance2: " + distance2);
-			return true;
-		}*/
 		
 		// Increment in Z coordinate when moving along X or Y axis
 		// and not straight to the target. This is done because

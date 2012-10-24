@@ -8242,7 +8242,7 @@ public class L2PcInstance extends L2PlayableInstance
 	 * @param srcIsSummon is L2Summon - caster?
 	 * @return False if the skill is a pvpSkill and target is not a valid pvp target
 	 */
-	public boolean checkPvpSkill(L2Object obj, L2Skill skill,boolean srcIsSummon)
+	public boolean checkPvpSkill(L2Object obj, L2Skill skill, boolean srcIsSummon)
 	{
 		// check for PC->PC Pvp status
 		if (obj != this && // target is not self and
