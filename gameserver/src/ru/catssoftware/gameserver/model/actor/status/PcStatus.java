@@ -32,7 +32,7 @@ public final class PcStatus extends CharStatus
 	}
 
 	@Override
-	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT)
+	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean directHp)
 	{
 		double realValue = value;
 
@@ -57,7 +57,7 @@ public final class PcStatus extends CharStatus
 				}
 			}
 
-			if (attacker instanceof L2PlayableInstance)
+			if (attacker instanceof L2PlayableInstance && !directHp)
 			{
 				if (getCurrentCp() >= value)
 				{
@@ -72,7 +72,7 @@ public final class PcStatus extends CharStatus
 			}
 		}
 
-		super.reduceHp0(value, attacker, awake, isDOT);
+		super.reduceHp0(value, attacker, awake, isDOT, directHp);
 
 		if (!getActiveChar().isDead() && getActiveChar().isSitting())
 			getActiveChar().standUp();

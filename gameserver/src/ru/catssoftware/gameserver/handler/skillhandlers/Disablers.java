@@ -531,7 +531,7 @@ public class Disablers implements ICubicSkillHandler
 					if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
 					{
 						//Do not remove raid curse skills
-						if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 4082 && e.getSkill().getId() != 5660)
+						if (e.getSkill().isCancelable())
 						{
 							e.exit();
 							if (count > -1)
@@ -611,31 +611,16 @@ public class Disablers implements ICubicSkillHandler
 					List<L2Effect> remove = new ArrayList<L2Effect>();
 
 					for (L2Effect e : effects)
-					{
-						switch (e.getSkill().getId())
-						{
-							case 110:
-							case 111:
-							case 1323:
-							case 1325:
-							case 1418:
-							case 4082:
-							case 4215:
-							case 4515:
-							case 5182:
-								continue;
-						}
-
-						switch (e.getSkill().getSkillType())
-						{
-							case BUFF:
-							case HEAL_PERCENT:
-							case REFLECT:
-							case COMBATPOINTHEAL:
-								remove.add(e);
-								break;
-						}
-					}
+						if (e.getSkill().isCancelable())
+							switch (e.getSkill().getSkillType())
+							{
+								case BUFF:
+								case HEAL_PERCENT:
+								case REFLECT:
+								case COMBATPOINTHEAL:
+									remove.add(e);
+									break;
+							}
 
 					for (int i = 0; i < Rnd.get(1, skill.getMaxNegatedEffects()) && !remove.isEmpty(); i++)
 						remove.remove(Rnd.get(remove.size())).exit();

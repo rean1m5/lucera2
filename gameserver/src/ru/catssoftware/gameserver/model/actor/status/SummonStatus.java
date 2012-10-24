@@ -27,9 +27,9 @@ public final class SummonStatus extends CharStatus
 	}
 
 	@Override
-	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT)
+	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean directHp)
 	{
-		super.reduceHp0(value, attacker, awake, isDOT);
+		super.reduceHp0(value, attacker, awake, isDOT, directHp);
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_S1);
 		sm.addCharName(attacker);

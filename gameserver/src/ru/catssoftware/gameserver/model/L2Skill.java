@@ -213,6 +213,11 @@ public class L2Skill implements FuncOwner
 	// Kill by damage over time
 	private final boolean			_killByDOT;
 
+	// Скилл будет пулять по ХП, пропуская CP.
+	private final boolean			_directHp;
+	// Возможно ли снять эффекты этого скила.
+	private final boolean			_isCancelable;
+
 	// Effecting area of the skill, in radius.
 	// The radius center varies according to the _targetType:
 	// "caster" if targetType = AURA/PARTY/CLAN or "target" if targetType = AREA
@@ -396,6 +401,9 @@ public class L2Skill implements FuncOwner
 		_is5MinMagic = set.getBool("is5MinMagic", false);
 		_useAlways = set.getBool("useAlways",false);
 
+		_directHp = set.getBool("directHp", false);
+		_isCancelable = set.getBool("isCancelable", true);
+
 		//if is dance magic adds the proper time multi
 		if (_isDance)
 			_timeMulti = Config.ALT_DANCE_TIME;
@@ -560,7 +568,7 @@ public class L2Skill implements FuncOwner
 		caster.sendPacket(ActionFailed.STATIC_PACKET);
 		
 		if (caster instanceof L2PcInstance)
-			((L2PcInstance) caster).sendMessage(String.format(Message.getMessage((L2PcInstance)caster, Message.MessageId.MSG_SKILL_NOT_IMPLEMENTED),getId()));
+			caster.sendMessage(String.format(Message.getMessage((L2PcInstance) caster, Message.MessageId.MSG_SKILL_NOT_IMPLEMENTED), getId()));
 	}
 
 	public final boolean isPotion()
@@ -3157,5 +3165,15 @@ public class L2Skill implements FuncOwner
 
 	public boolean useAlways() {
 		return _useAlways;
+	}
+
+	public boolean isDirectHp()
+	{
+		return _directHp;
+	}
+
+	public boolean isCancelable()
+	{
+		return _isCancelable;
 	}
 }

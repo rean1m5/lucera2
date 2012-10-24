@@ -1218,6 +1218,7 @@
   <set name="isDebuff" val="true"/>
   <set name="castRange" val="600"/>
   <set name="killByDOT" val="true"/>
+  <set name="isCancelable" val="false"/>
   <for>
     <effect count="1" name="ImmobileBuff" time="4200" val="0"/>
     <effect count="1" name="Root" time="4200" val="0" noicon="1"/>

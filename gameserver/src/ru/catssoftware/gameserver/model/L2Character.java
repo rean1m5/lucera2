@@ -4103,7 +4103,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			return;
 		}
 
-		if ((this instanceof L2NpcInstance && target.isAlikeDead()) || target.isDead() || (!getKnownList().knowsObject(target) && !(this instanceof L2DoorInstance)))
+		if ((isNpc() && target.isAlikeDead()) || target.isDead() || (!getKnownList().knowsObject(target) && !isDoor()))
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -5592,7 +5592,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			sm.addNumber((int)i);
 			((L2Summon)attacker).getOwner().sendPacket(sm);
 		}
-		getStatus().reduceHp(i, attacker, awake, isDOT);
+		getStatus().reduceHp(i, attacker, awake, isDOT, skill!=null && skill.isDirectHp());
 	}
 
 	public void reduceCurrentMp(double i)

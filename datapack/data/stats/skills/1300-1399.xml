@@ -415,6 +415,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="1"/>
+  <set name="isCancelable" val="false"/>
   <for>
     <effect count="1" name="NoblesseBless" time="3600" val="0" stackOrder="1" stackType="noblebless"/>
   </for>
@@ -446,6 +447,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="aggroPoints" val="659"/>
+  <set name="isCancelable" val="false"/>
   <for>
     <effect count="1" name="CharmOfLuck" time="3600" val="0" stackOrder="1" stackType="LuckyCharm"/>
   </for>

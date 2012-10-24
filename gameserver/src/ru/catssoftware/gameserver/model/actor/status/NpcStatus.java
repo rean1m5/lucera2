@@ -25,10 +25,10 @@ public class NpcStatus extends CharStatus
 	}
 
 	@Override
-	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT)
+	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean directHp)
 	{
 		getActiveChar().addAttackerToAttackByList(attacker);
-		super.reduceHp0(value, attacker, awake, isDOT);		
+		super.reduceHp0(value, attacker, awake, isDOT, directHp);
 	}
 
 	@Override

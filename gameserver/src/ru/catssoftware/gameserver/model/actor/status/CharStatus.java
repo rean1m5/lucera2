@@ -18,7 +18,6 @@ package ru.catssoftware.gameserver.model.actor.status;
 import org.apache.log4j.Logger;
 
 
-import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.instancemanager.DuelManager;
 import ru.catssoftware.gameserver.model.L2Attackable;
@@ -234,18 +233,18 @@ public class CharStatus
 
 	public final void reduceHp(double value, L2Character attacker, boolean awake)
 	{
-		reduceHp(value, attacker, awake, false);
+		reduceHp(value, attacker, awake, false, false);
 	}
 
-	public final void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT)
+	public final void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT, boolean directHp)
 	{
 		if (!canReduceHp(value, attacker, awake, isDOT))
 			return;
 
-		reduceHp0(value, attacker, awake, isDOT);
+		reduceHp0(value, attacker, awake, isDOT, directHp);
 	}
 
-	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT)
+	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean directHp)
 	{
 		if (!isDOT)
 		{

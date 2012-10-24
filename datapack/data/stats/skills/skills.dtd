@@ -26,7 +26,7 @@
   enchant1 define enchantement of skill
   enchant2 define enchantement of skill
 -->
-<!ELEMENT skill (for|add|sub|div|mul|set|table|cond|enchant1|enchant1for|enchant2|enchant2for|enchant3for|enchant4for|enchant5for)*>
+<!ELEMENT skill (for|add|sub|div|mul|set|basemul|table|cond|enchant1|enchant1for|enchant2|enchant2for|enchant3for|enchant4for|enchant5for)*>
 
 <!--
   The document for. A item can contain "add,mull,sub and div" element
@@ -102,7 +102,7 @@ effectRange|effectId|effectNpcId|effectPoint|flyCourse|killByDOT|expNeeded|giveC
 maxCharges|staticReuse|staticHitTime|bestowTriggered|triggeredLevel|activationChance|
 chanceType|bestowed|abnormalLvl|maxNegated|activationtime|activationchance|soulMaxConsumeCount|
 needCharges|consumeCharges|negatePower|pvpMulti|targetConsumeId|targetConsumeCount|triggerAnotherSkill|
-feed|continueAfterMax|referenceId
+feed|continueAfterMax|referenceId|LethalType|elementPower|directHp|cubicSkillsLevel|isCancelable
 )
  #IMPLIED>
 <!ATTLIST set val CDATA #REQUIRED>
@@ -120,6 +120,10 @@ feed|continueAfterMax|referenceId
 <!ATTLIST sub val CDATA #REQUIRED>
 <!ATTLIST sub order CDATA #IMPLIED>
 <!ATTLIST sub stat CDATA #REQUIRED>
+
+<!ATTLIST basemul val CDATA #REQUIRED>
+<!ATTLIST basemul order CDATA #IMPLIED>
+<!ATTLIST basemul stat CDATA #REQUIRED>
 
 
 <!ATTLIST effect count CDATA #IMPLIED>

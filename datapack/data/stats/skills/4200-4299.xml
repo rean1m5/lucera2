@@ -273,6 +273,7 @@
   <set name="power" val="100"/>
   <set name="castRange" val="1500"/>
   <set name="effectRange" val="2000"/>
+  <set name="isCancelable" val="false"/>
   <for>
     <effect count="1" name="SilenceMagicPhysical" time="3600" val="0" stackOrder="3600" stackType="silence_all"/>
   </for>

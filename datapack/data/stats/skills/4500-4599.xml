@@ -100,6 +100,7 @@
   <set name="isMagic" val="true"/>
   <set name="castRange" val="1500"/>
   <set name="effectRange" val="2000"/>
+  <set name="isCancelable" val="false"/>
   <for>
     <effect count="1" name="Petrify" time="120" val="0" stackOrder="120" stackType="turn_stone"/>
   </for>
