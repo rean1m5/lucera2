@@ -2,30 +2,13 @@ package ru.catssoftware.gameserver.skills;
 
 
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.SevenSigns;
 import ru.catssoftware.gameserver.SevenSignsFestival;
-import ru.catssoftware.gameserver.instancemanager.CastleManager;
-import ru.catssoftware.gameserver.instancemanager.ClanHallManager;
-import ru.catssoftware.gameserver.instancemanager.FortManager;
-import ru.catssoftware.gameserver.instancemanager.SiegeManager;
-import ru.catssoftware.gameserver.instancemanager.ZoneManager;
-import ru.catssoftware.gameserver.model.L2Boss;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2SiegeClan;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Summon;
-import ru.catssoftware.gameserver.model.actor.instance.L2CubicInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PetInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PlayableInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2SummonInstance;
+import ru.catssoftware.gameserver.instancemanager.*;
+import ru.catssoftware.gameserver.model.*;
+import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.model.base.PlayerState;
 import ru.catssoftware.gameserver.model.entity.Castle;
 import ru.catssoftware.gameserver.model.entity.ClanHall;
@@ -38,8 +21,8 @@ import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
 import ru.catssoftware.gameserver.skills.conditions.ConditionPlayerState;
 import ru.catssoftware.gameserver.skills.conditions.ConditionUsingItemType;
 import ru.catssoftware.gameserver.skills.funcs.Func;
-import ru.catssoftware.gameserver.templates.chars.L2PcTemplate;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate.Race;
+import ru.catssoftware.gameserver.templates.chars.L2PcTemplate;
 import ru.catssoftware.gameserver.templates.item.L2Armor;
 import ru.catssoftware.gameserver.templates.item.L2Weapon;
 import ru.catssoftware.gameserver.templates.item.L2WeaponType;
@@ -1950,60 +1933,55 @@ public final class Formulas
 	 */
 	public static final boolean calcLethalHit(L2Character activeChar, L2Character target, L2Skill skill)
 	{
-		if (!(target instanceof L2Boss) && !(target instanceof L2DoorInstance) && !(target instanceof L2NpcInstance && ((L2NpcInstance) target).isLethalImmune()))
-		{
-			// Проверка цели, инвул и пертификация не дает шанса леталу
-			if (target.isInvul() || target.isPetrified())
-				return false;
-			
-			// Расчет общего щанса летала
-			int chance = 100;
-			double rate = 0;
-			switch (skill.getLethalType())
-			{
-				case 1:
-					rate = Config.ALT_LETHAL_RATE_OTHER;
-					break;
-				case 2:
-					rate = Config.ALT_LETHAL_RATE_DAGGER;
-					break;
-				case 3:
-					rate = Config.ALT_LETHAL_RATE_ARCHERY;
-					break;
-			}
-			chance *= target.calcStat(Stats.LETHAL_VULN, 1, target, skill);
-			// Расчет летал страйка
-			if (skill.getLethalChance2() > 0 && Rnd.get(chance) < (rate*calcLethal(activeChar, target, skill.getLethalChance2(), skill.getMagicLevel())))
-			{
-				if (target instanceof L2PcInstance)
-				{
-					((L2PcInstance) target).getStatus().setCurrentHp(1);
-					((L2PcInstance) target).getStatus().setCurrentCp(1);
-					((L2PcInstance) target).sendPacket(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL);
-				}
-				else if (target instanceof L2NpcInstance)
-				{
-					target.reduceCurrentHp(target.getStatus().getCurrentHp() - 1, activeChar, skill);
-					activeChar.sendPacket(SystemMessageId.LETHAL_STRIKE);
-				}
-			}
-			// Расчет халф килла
-			else if (skill.getLethalChance1() > 0 && Rnd.get(chance) < (rate*calcLethal(activeChar, target, skill.getLethalChance1(), skill.getMagicLevel())))
-			{
-				if (target instanceof L2PcInstance)
-				{
-					((L2PcInstance) target).getStatus().setCurrentCp(1);
-				}
-				else if (target instanceof L2NpcInstance)
-					target.reduceCurrentHp(target.getStatus().getCurrentHp() / 2, activeChar, skill);
-			}
-			else
-				return false;
-		}
-		else
+		// Проверка цели, инвул и пертификация не дает шанса леталу
+		if (target.isInvul() || target.isPetrified())
 			return false;
-		
-		return true;
+
+		// Проверяем иммунитет.
+		if (target.isBoss() || target.isDoor() || target.isNpc() && target.getNpc().isLethalImmune())
+			return false;
+
+		// Расчет общего щанса летала
+		int chance = 100;
+		double rate = 0;
+		switch (skill.getLethalType())
+		{
+			case 1:
+				rate = Config.ALT_LETHAL_RATE_OTHER;
+				break;
+			case 2:
+				rate = Config.ALT_LETHAL_RATE_DAGGER;
+				break;
+			case 3:
+				rate = Config.ALT_LETHAL_RATE_ARCHERY;
+				break;
+		}
+		chance *= target.calcStat(Stats.LETHAL_VULN, 1, target, skill);
+		// Расчет летал страйка
+		if (skill.getLethalChance2() > 0 && Rnd.get(chance) < (rate*calcLethal(activeChar, target, skill.getLethalChance2(), skill.getMagicLevel())))
+		{
+			if (target.isPlayer())
+			{
+				target.getStatus().setCurrentHp(1);
+				target.getStatus().setCurrentCp(1);
+				activeChar.sendPacket(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL);
+				target.sendPacket(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL);
+			}
+			else if (target.isNpc())
+			{
+				target.reduceCurrentHp(target.getStatus().getCurrentHp() - 1, activeChar, skill);
+				activeChar.sendPacket(SystemMessageId.LETHAL_STRIKE);
+			}
+		}
+		// Расчет халф килла
+		else if (skill.getLethalChance1() > 0 && Rnd.get(chance) < (rate*calcLethal(activeChar, target, skill.getLethalChance1(), skill.getMagicLevel())))
+		{
+			if (target.isPlayer())
+				target.getStatus().setCurrentCp(1);
+			else
+				target.reduceCurrentHp(target.getStatus().getCurrentHp() / 2, activeChar, skill);
+		}
+		return false;
 	}
 
 	/**
@@ -2545,10 +2523,11 @@ public final class Formulas
 		if (skill.isBadBuff())
 			return true;
 		
-		int value = (int) skill.getPower();
+		int value = skill.getActivateRate() == -1 ? (int) skill.getPower() : skill.getActivateRate();
 		int lvlDepend = skill.getLevelDepend();
 		
 		L2SkillType type = skill.getSkillType();
+
 		if (type == L2SkillType.PDAM || type == L2SkillType.MDAM || type == L2SkillType.DRAIN || type == L2SkillType.WEAPON_SA)
 		{
 			value = skill.getEffectPower();
