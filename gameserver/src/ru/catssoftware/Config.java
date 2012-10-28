@@ -55,7 +55,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + DATETIME_FILE);
 		try
 		{
-			Properties datetimeSettings = new L2Properties("./" + DATETIME_FILE);
+			L2Properties datetimeSettings = new L2Properties("./" + DATETIME_FILE);
 
 			DATETIME_SAVECAL = Boolean.parseBoolean(datetimeSettings.getProperty("SaveDate", "false"));
 			DATETIME_MULTI = Integer.parseInt(datetimeSettings.getProperty("TimeMulti", "10"));
@@ -66,7 +66,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + DATETIME_FILE + " File.");
 		}
 	}
@@ -95,7 +95,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + GEO_FILE + ".");
 		try
 		{
-			Properties geoSettings = new L2Properties(GEO_FILE);
+			L2Properties geoSettings = new L2Properties(GEO_FILE);
 			GEODATA = Boolean.parseBoolean(geoSettings.getProperty("EnableGeoData", "true"));
 			PATHFINDING = Boolean.parseBoolean(geoSettings.getProperty("EnablePathFinding", "true"));
 			String correctZ = geoSettings.getProperty("GeoCorrectZ", "All");
@@ -108,7 +108,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + GEO_FILE + " File.");
 		}
 	}
@@ -147,7 +147,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + GAMESERVER_FILE);
 		try
 		{
-			Properties gsSettings = new L2Properties("./" + GAMESERVER_FILE);
+			L2Properties gsSettings = new L2Properties("./" + GAMESERVER_FILE);
 
 			// --------------- ThreadPoolManager config -------------- 
 			int CpuCount = Runtime.getRuntime().availableProcessors();
@@ -192,7 +192,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + GAMESERVER_FILE + " File.");
 		}
 
@@ -244,7 +244,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + L2TOP_FILE);
 		try
 		{
-			Properties l2topSettings = new L2Properties("./" + L2TOP_FILE);
+			L2Properties l2topSettings = new L2Properties("./" + L2TOP_FILE);
 
 
 			L2TOPDEMON_ENABLED = Boolean.parseBoolean(l2topSettings.getProperty("L2TopDeamonEnabled","false"));
@@ -261,7 +261,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + L2TOP_FILE + " File.");
 		}
 	}
@@ -279,7 +279,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + HEXID_FILE);
 		try
 		{
-			Properties hexidSettings = new L2Properties("./" + HEXID_FILE);
+			L2Properties hexidSettings = new L2Properties("./" + HEXID_FILE);
 
 			SERVER_ID = Integer.parseInt(hexidSettings.getProperty("ServerID"));
 			HEX_ID = new BigInteger(hexidSettings.getProperty("HexID"), 16).toByteArray();
@@ -316,7 +316,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + SECURITY_FILE);
 		try
 		{
-			Properties securitySettings = new L2Properties("./" + SECURITY_FILE);
+			L2Properties securitySettings = new L2Properties("./" + SECURITY_FILE);
 
 			SAFE_REBOOT = Boolean.parseBoolean(securitySettings.getProperty("SafeReboot", "true"));
 			SAFE_REBOOT_TIME = Integer.parseInt(securitySettings.getProperty("SafeRebootTime", "10"));
@@ -336,7 +336,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + SECURITY_FILE + " File.");
 		}
 	}
@@ -366,7 +366,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + NETWORK_FILE);
 		try
 		{
-			Properties networkSettings = new L2Properties("./" + NETWORK_FILE);
+			L2Properties networkSettings = new L2Properties("./" + NETWORK_FILE);
 
 			EXTERNAL_HOSTNAME = networkSettings.getProperty("ExternalHostname", "*");
 			INTERNAL_NETWORKS = networkSettings.getProperty("InternalNetworks", "");
@@ -384,7 +384,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load: " + NETWORK_FILE + " File.");
 		}
 		LineNumberReader lnr = null;
@@ -405,8 +405,11 @@ public class Config extends L2Config
 				{
 					if (SUBNETWORKS.length() > 0 && !SUBNETWORKS.endsWith(";"))
 						SUBNETWORKS += ";";
-					subnet = line.split("=")[1];
-					SUBNETWORKS += subnet;
+					String split[] = line.split("=");
+					if (split.length == 2)
+						subnet = split[1];
+					if (subnet != null)
+						SUBNETWORKS += subnet;
 				}
 			}
 
@@ -445,7 +448,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + NICKS_FILE);
 		try
 		{
-			Properties nickSettings = new L2Properties("./" + NICKS_FILE);
+			L2Properties nickSettings = new L2Properties("./" + NICKS_FILE);
 
 			try
 			{
@@ -486,7 +489,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + NICKS_FILE + " File.");
 
 		}
@@ -523,7 +526,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + CHAT_FILE);
 		try
 		{
-			Properties chatSettings = new L2Properties("./" + CHAT_FILE);
+			L2Properties chatSettings = new L2Properties("./" + CHAT_FILE);
 
 			DEFAULT_GLOBAL_CHAT = ChatMode.valueOf(chatSettings.getProperty("GlobalChat", "REGION").toUpperCase());
 			DEFAULT_TRADE_CHAT = ChatMode.valueOf(chatSettings.getProperty("TradeChat", "REGION").toUpperCase());
@@ -546,7 +549,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + CHAT_FILE + " File.");
 		}
 	}
@@ -571,7 +574,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + JAIL_FILE);
 		try
 		{
-			Properties jailSettings = new L2Properties("./" + JAIL_FILE);
+			L2Properties jailSettings = new L2Properties("./" + JAIL_FILE);
 
 			JAIL_POINT_CHANCE = Integer.parseInt(jailSettings.getProperty("PointChance", "100"));
 			POINTS_PER_KILL = Integer.parseInt(jailSettings.getProperty("PointsPerKill", "1"));
@@ -585,7 +588,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + JAIL_FILE + " File.");
 		}
 	}
@@ -618,7 +621,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + BAN_FILE);
 		try
 		{
-			Properties banSettings = new L2Properties("./" + BAN_FILE);
+			L2Properties banSettings = new L2Properties("./" + BAN_FILE);
 			
 			BAN_CHAT_LOG = Boolean.parseBoolean(banSettings.getProperty("BanChatLog", "true"));
 			BAN_ACCOUNT_LOG = Boolean.parseBoolean(banSettings.getProperty("BanAccountLog", "true"));
@@ -638,7 +641,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + BAN_FILE + " File.");
 		}
 	}
@@ -661,7 +664,7 @@ public class Config extends L2Config
 			CLAN_ANNOUNCE = p.getProperty("AnnounceClan","");
 			ALLY_ANOUNCE = p.getProperty("AnnounceAlly","");
 		} catch(Exception e) {
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + BAN_FILE + " File.");
 		}
 	}
@@ -692,7 +695,6 @@ public class Config extends L2Config
 	public static boolean		ALT_RECOMMEND;
 	public static boolean		ALT_BLACKSMITH_USE_RECIPES;
 
-	public static boolean		SUBCLASS_WITH_ITEM_AND_NO_QUEST;
 	public static boolean		SUBCLASS_WITH_CUSTOM_ITEM;
 	public static int			SUBCLASS_WITH_CUSTOM_ITEM_ID;
 	public static int			SUBCLASS_WITH_CUSTOM_ITEM_COUNT;
@@ -778,7 +780,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + CUSTOM_FILE);
 		try
 		{
-			Properties customSettings = new L2Properties("./" + CUSTOM_FILE);
+			L2Properties customSettings = new L2Properties("./" + CUSTOM_FILE);
 
 			AUCTION_ITEM_ID = Integer.parseInt(customSettings.getProperty("AuctionBidItemId","57"));
 			PVP_COLOR_SYSTEM = Boolean.parseBoolean(customSettings.getProperty("PvPColorSystem", "false"));
@@ -810,8 +812,7 @@ public class Config extends L2Config
 			SPECIAL_PET_TICKET_ID = Integer.parseInt(customSettings.getProperty("SpecialPetTicketID", "0"));
 			LOAD_CUSTOM_TELEPORTS = Boolean.parseBoolean(customSettings.getProperty("LoadCustomTeleports", "false"));
 			LOAD_CUSTOM_MERCHANT_BUYLISTS = Boolean.parseBoolean(customSettings.getProperty("LoadCustomBuylists", "false"));
-			SUBCLASS_WITH_ITEM_AND_NO_QUEST = Boolean.parseBoolean(customSettings.getProperty("SubclassWithItemAndNoQuest", "false"));
-			SUBCLASS_WITH_CUSTOM_ITEM = Boolean.parseBoolean(customSettings.getProperty("SubclassWithCustomItem", "false"));;
+			SUBCLASS_WITH_CUSTOM_ITEM = Boolean.parseBoolean(customSettings.getProperty("SubclassWithCustomItem", "false"));
 			SUBCLASS_WITH_CUSTOM_ITEM_ID = Integer.parseInt(customSettings.getProperty("SubclassWithCustomItemID", "4037"));
 			SUBCLASS_WITH_CUSTOM_ITEM_COUNT  = Integer.parseInt(customSettings.getProperty("SubclassWithCustomItemCount", "1"));
 
@@ -858,8 +859,6 @@ public class Config extends L2Config
 			PVP_REWARD_ITEM_ID = Integer.parseInt(customSettings.getProperty("PvpRewardItemId", "57"));
 			PVP_REWARD_ITEM_AMMOUNT = Integer.parseInt(customSettings.getProperty("PvpRewardAmmount", "100"));
 			PVP_REWARD_LEVEL = Integer.parseInt(customSettings.getProperty("PvpRewardLevel", "0"));
-			if (PVP_REWARD_LEVEL == 0)
-				ALLOW_PVP_REWARD = false;
 			ALLOW_MENU = Boolean.parseBoolean(customSettings.getProperty("AllowUserMenu","true"));
 			DISABLED_COMMANDS = customSettings.getProperty("DisabledCommands","");
 			ALLOW_CUSTOM_STARTER_ITEMS = Boolean.parseBoolean(customSettings.getProperty("AllowCustomStarterItems", "false"));
@@ -906,7 +905,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + CUSTOM_FILE + " File.");
 		}
 	}
@@ -941,7 +940,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + CHAMPION_FILE);
 		try
 		{
-			Properties championsSettings = new L2Properties("./" + CHAMPION_FILE);
+			L2Properties championsSettings = new L2Properties("./" + CHAMPION_FILE);
 
 			CHAMPION_PASSIVE = Boolean.parseBoolean(championsSettings.getProperty("ChampionPassive", "false"));
 			CHAMPION_TITLE = championsSettings.getProperty("ChampionTitle", "Champion").trim();
@@ -965,7 +964,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + CHAMPION_FILE + " File.");
 
 		}
@@ -1025,7 +1024,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + FUN_EVENTS_FILE);
 		try
 		{
-			Properties funEventsSettings = new L2Properties("./" + FUN_EVENTS_FILE);
+			L2Properties funEventsSettings = new L2Properties("./" + FUN_EVENTS_FILE);
 			// *** MEDALS EVENT
 			MEDAL_DROP = Boolean.parseBoolean(funEventsSettings.getProperty("MedalAddDrop", "false"));
 			MEDAL_SPAWN = Boolean.parseBoolean(funEventsSettings.getProperty("MedalSpawnMeneger", "false"));
@@ -1070,7 +1069,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + FUN_EVENTS_FILE + " File.");
 		}
 	}
@@ -1093,7 +1092,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + FORTSIEGE_CONFIGURATION_FILE);
 		try
 		{
-			Properties fortSiegeSettings = new L2Properties("./" + FORTSIEGE_CONFIGURATION_FILE);
+			L2Properties fortSiegeSettings = new L2Properties("./" + FORTSIEGE_CONFIGURATION_FILE);
 
 			FORTSIEGE_MAX_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerMaxClans", "500"));
 			FORTSIEGE_FLAG_MAX_COUNT = Integer.parseInt(fortSiegeSettings.getProperty("MaxFlags", "1"));
@@ -1107,7 +1106,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + FORTSIEGE_CONFIGURATION_FILE + " File.");
 		}
 	}
@@ -1143,7 +1142,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + OPTIONS_FILE);
 		try
 		{
-			Properties optionsSettings = new L2Properties("./" + OPTIONS_FILE);
+			L2Properties optionsSettings = new L2Properties("./" + OPTIONS_FILE);
 
 			RESTORE_PLAYER_INSTANCE = Boolean.parseBoolean(optionsSettings.getProperty("RestorePlayerInstance", "false"));
 			ALLOW_SUMMON_TO_INSTANCE = Boolean.parseBoolean(optionsSettings.getProperty("AllowSummonToInstance", "true"));
@@ -1174,7 +1173,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + OPTIONS_FILE + " File.");
 		}
 	}
@@ -1207,7 +1206,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + ID_FACTORY_FILE);
 		try
 		{
-			Properties idFactorySettings = new L2Properties("./" + ID_FACTORY_FILE);
+			L2Properties idFactorySettings = new L2Properties("./" + ID_FACTORY_FILE);
 
 			IDFACTORY_TYPE = IdFactoryType.valueOf(idFactorySettings.getProperty("IDFactory", "BitSet"));
 			BAD_ID_CHECKING = Boolean.parseBoolean(idFactorySettings.getProperty("BadIdChecking", "true"));
@@ -1215,7 +1214,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + ID_FACTORY_FILE + " File.");
 		}
 	}
@@ -1235,7 +1234,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + PVTSTORE_FILE);
 		try
 		{
-			Properties pvtStoresSettings = new L2Properties("./" + PVTSTORE_FILE);
+			L2Properties pvtStoresSettings = new L2Properties("./" + PVTSTORE_FILE);
 
 			MAX_PVTSTORESELL_SLOTS_DWARF = Integer.parseInt(pvtStoresSettings.getProperty("MaxPvtStoreSellSlotsDwarf", "4"));
 			MAX_PVTSTORESELL_SLOTS_OTHER = Integer.parseInt(pvtStoresSettings.getProperty("MaxPvtStoreSellSlotsOther", "3"));
@@ -1245,7 +1244,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + PVTSTORE_FILE + " File.");
 		}
 	}
@@ -1273,7 +1272,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + WAREHOUSE_FILE);
 		try
 		{
-			Properties whSettings = new L2Properties("./" + WAREHOUSE_FILE);
+			L2Properties whSettings = new L2Properties("./" + WAREHOUSE_FILE);
 
 			ALLOW_WAREHOUSE = Boolean.parseBoolean(whSettings.getProperty("AllowWarehouse", "true"));
 			ALLOW_FREIGHT = Boolean.parseBoolean(whSettings.getProperty("AllowFreight", "true"));
@@ -1291,7 +1290,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + WAREHOUSE_FILE + " File.");
 		}
 	}
@@ -1318,7 +1317,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + OTHER_FILE);
 		try
 		{
-			Properties otherSettings = new L2Properties("./" + OTHER_FILE);
+			L2Properties otherSettings = new L2Properties("./" + OTHER_FILE);
 
 			PET_RENT_NPC = otherSettings.getProperty("ListPetRentNpc", "30827");
 			LIST_PET_RENT_NPC = new FastList<Integer>();
@@ -1343,7 +1342,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + OTHER_FILE + " File.");
 		}
 	}
@@ -1369,7 +1368,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + RESPAWN_FILE);
 		try
 		{
-			Properties respawnSettings = new L2Properties("./" + RESPAWN_FILE);
+			L2Properties respawnSettings = new L2Properties("./" + RESPAWN_FILE);
 
 			ALT_DEFAULT_RESTARTTOWN = Integer.parseInt(respawnSettings.getProperty("AltDefaultRestartTown", "0"));
 			RESPAWN_RANDOM_MAX_OFFSET = Integer.parseInt(respawnSettings.getProperty("RespawnRandomMaxOffset", "50"));
@@ -1385,7 +1384,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + RESPAWN_FILE + " File.");
 		}
 	}
@@ -1405,7 +1404,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + PETITION_FILE);
 		try
 		{
-			Properties petitionSettings = new L2Properties("./" + PETITION_FILE);
+			L2Properties petitionSettings = new L2Properties("./" + PETITION_FILE);
 
 			SEND_PAGE_ON_PETTITON = Boolean.parseBoolean(petitionSettings.getProperty("SendPageOnPetition", "false"));
 			PETITIONING_ALLOWED = Boolean.parseBoolean(petitionSettings.getProperty("PetitioningAllowed", "true"));
@@ -1415,7 +1414,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + PETITION_FILE + " File.");
 		}
 	}
@@ -1440,7 +1439,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + REGEN_FILE);
 		try
 		{
-			Properties regenSettings = new L2Properties("./" + REGEN_FILE);
+			L2Properties regenSettings = new L2Properties("./" + REGEN_FILE);
 
 			NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(regenSettings.getProperty("NPCHpRegenMultiplier", "100")) / 100;
 			NPC_MP_REGEN_MULTIPLIER = Double.parseDouble(regenSettings.getProperty("NPCMpRegenMultiplier", "100")) / 100;
@@ -1456,7 +1455,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + REGEN_FILE + " File.");
 		}
 	}
@@ -1515,7 +1514,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + ENCHANT_FILE);
 		try
 		{
-			Properties enchantSettings = new L2Properties("./" + ENCHANT_FILE);
+			L2Properties enchantSettings = new L2Properties("./" + ENCHANT_FILE);
 
 			ENCHANT_MAGIC_WEAPON_CHANCE = Float.parseFloat(enchantSettings.getProperty("EnchantMagicWeaponChance", "1.0"));
 			ENCHANT_SAFE_MAX_MAGIC_WEAPON = Integer.parseInt(enchantSettings.getProperty("SaveMaxMagicWeapon", "7"));
@@ -1772,7 +1771,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + ENCHANT_FILE + " File.");
 		}
 	}
@@ -1833,7 +1832,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + SERVICES_FILE);
 		try
 		{
-			Properties servicesSettings = new L2Properties("./" + SERVICES_FILE);
+			L2Properties servicesSettings = new L2Properties("./" + SERVICES_FILE);
 			
 			USE_PREMIUMSERVICE = Boolean.parseBoolean(servicesSettings.getProperty("UsePremiumServices", "false"));
 			PREMIUM_RATE_XP = Float.parseFloat(servicesSettings.getProperty("RateXp", "1."));
@@ -1894,7 +1893,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + SERVICES_FILE + " File.");
 		}
 	}
@@ -1942,7 +1941,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + RATES_FILE);
 		try
 		{
-			Properties ratesSettings = new L2Properties("./" + RATES_FILE);
+			L2Properties ratesSettings = new L2Properties("./" + RATES_FILE);
 
 			SINEATER_XP_RATE = Float.parseFloat(ratesSettings.getProperty("SinEaterXpRate", "1."));
 			RATE_XP = Float.parseFloat(ratesSettings.getProperty("RateXp", "1."));
@@ -1981,7 +1980,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + RATES_FILE + " File.");
 		}
 	}
@@ -2033,7 +2032,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + ALT_FILE);
 		try
 		{
-			Properties altSettings = new L2Properties("./" + ALT_FILE);
+			L2Properties altSettings = new L2Properties("./" + ALT_FILE);
 
 			MANAGER_CRYSTAL_COUNT = Integer.parseInt(altSettings.getProperty("ManagerCrystalCount", "25"));
 			ALT_URN_TEMP_FAIL = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
@@ -2077,7 +2076,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + ALT_FILE + " File.");
 		}
 	}
@@ -2110,7 +2109,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + DEV_FILE);
 		try
 		{
-			Properties devSettings = new L2Properties("./" + DEV_FILE);
+			L2Properties devSettings = new L2Properties("./" + DEV_FILE);
 
 			DEADLOCKCHECK_INTERVAL = Integer.parseInt(devSettings.getProperty("DeadLockCheck", "10000"));
 			DEBUG = Boolean.parseBoolean(devSettings.getProperty("Debug", "false"));
@@ -2128,7 +2127,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + DEV_FILE + " File.");
 		}
 	}
@@ -2165,7 +2164,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + AREAS_FILE);
 		try
 		{
-			Properties areasSettings = new L2Properties("./" + AREAS_FILE);
+			L2Properties areasSettings = new L2Properties("./" + AREAS_FILE);
 
 			LIT_REGISTRATION_MODE = Integer.parseInt(areasSettings.getProperty("RegistrationMode", "0"));
 			LIT_REGISTRATION_TIME = Integer.parseInt(areasSettings.getProperty("RegistrationTime", "10"));
@@ -2191,7 +2190,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + AREAS_FILE + " File.");
 		}
 	}
@@ -2213,7 +2212,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + PARTY_FILE);
 		try
 		{
-			Properties partySettings = new L2Properties("./" + PARTY_FILE);
+			L2Properties partySettings = new L2Properties("./" + PARTY_FILE);
 
 			PARTY_XP_CUTOFF_METHOD = partySettings.getProperty("PartyXpCutoffMethod", "percentage");
 			PARTY_XP_CUTOFF_PERCENT = Double.parseDouble(partySettings.getProperty("PartyXpCutoffPercent", "3."));
@@ -2225,7 +2224,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + PARTY_FILE + " File.");
 		}
 	}
@@ -2247,7 +2246,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + DROP_FILE);
 		try
 		{
-			Properties dropSettings = new L2Properties("./" + DROP_FILE);
+			L2Properties dropSettings = new L2Properties("./" + DROP_FILE);
 
 			MULTIPLE_ITEM_DROP = Boolean.parseBoolean(dropSettings.getProperty("MultipleItemDrop", "true"));
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(dropSettings.getProperty("UseDeepBlueDropRules", "true"));
@@ -2267,7 +2266,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + DROP_FILE + " File.");
 		}
 	}
@@ -2298,7 +2297,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + COMMUNITY_BOARD_FILE);
 		try
 		{
-			Properties cbSettings = new L2Properties("./" + COMMUNITY_BOARD_FILE);
+			L2Properties cbSettings = new L2Properties("./" + COMMUNITY_BOARD_FILE);
 
 			SHOW_CLAN_LEADER = Boolean.parseBoolean(cbSettings.getProperty("ShowClanLeader", "false"));
 			SHOW_CLAN_LEADER_CLAN_LEVEL = Integer.parseInt(cbSettings.getProperty("ShowClanLeaderAtClanLevel", "3"));
@@ -2327,7 +2326,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + COMMUNITY_BOARD_FILE + " File.");
 		}
 	}
@@ -2408,7 +2407,8 @@ public class Config extends L2Config
 	public static float					MCRIT_RATE;
 	public static boolean				USE_LEVEL_PENALTY;
 	public static boolean				USE_CHAR_LEVEL_MOD;
-	public static boolean				DISABLE_SKILLS_ON_LEVEL_LOST;
+	public static int				    DISABLE_SKILLS_ON_LEVEL_LOST;
+	public static int				    UPDATE_SKILLS_ON_LEVEL_LOST;
 	public static boolean				OLD_CANCEL_MODE;
 	public static int                   BLOCK_BUFF;
 	public static boolean				HEALTH_SKILLS_TO_BOSSES;
@@ -2420,7 +2420,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + SKILLS_FILE);
 		try
 		{
-			Properties skillsSettings = new L2Properties("./" + SKILLS_FILE);
+			L2Properties skillsSettings = new L2Properties("./" + SKILLS_FILE);
 
 			ALLOWED_SKILLS = skillsSettings.getProperty("AllowedSkills", "0");
 			ALLOWED_SKILLS_LIST = new FastList<Integer>();
@@ -2526,7 +2526,8 @@ public class Config extends L2Config
 			SKILL_DELAY = Integer.parseInt(skillsSettings.getProperty("SkillReuseDelay","70"));
 			USE_LEVEL_PENALTY = Boolean.parseBoolean(skillsSettings.getProperty("UseLevelPenalty","true"));
 			USE_OLY_STATIC_REUSE = Boolean.parseBoolean(skillsSettings.getProperty("OlyUseStaticReuse","true"));
-			DISABLE_SKILLS_ON_LEVEL_LOST = Boolean.parseBoolean(skillsSettings.getProperty("DisableSkillsOnLevelLost","false"));
+			DISABLE_SKILLS_ON_LEVEL_LOST = Integer.parseInt(skillsSettings.getProperty("DisableSkillsOnLevelLost","0"));
+			UPDATE_SKILLS_ON_LEVEL_LOST = Integer.parseInt(skillsSettings.getProperty("UpdateSkillsOnLevelLost", "9"));
 			USE_CHAR_LEVEL_MOD = Boolean.parseBoolean(skillsSettings.getProperty("UseCharLevelModifier","true"));
 			OLD_CANCEL_MODE = skillsSettings.getProperty("CancelMode","new").toLowerCase().equals("old");
 			BLOCK_BUFF = Integer.parseInt(skillsSettings.getProperty("BlockBuff", "7077"));
@@ -2535,7 +2536,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + SKILLS_FILE + " File.");
 		}
 	}
@@ -2556,7 +2557,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + CLASSMASTER_FILE);
 		try
 		{
-			Properties cmSettings = new L2Properties("./" + CLASSMASTER_FILE);
+			L2Properties cmSettings = new L2Properties("./" + CLASSMASTER_FILE);
 
 			ALLOW_SAY_MSG_CLASS_MASSTER = Boolean.parseBoolean(cmSettings.getProperty("AllowDialogClassMater", "false"));
 			SPAWN_CLASS_MASTER = Boolean.parseBoolean(cmSettings.getProperty("SpawnClassMaster", "false"));
@@ -2569,7 +2570,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("GameSever: Failed to Load " + CLASSMASTER_FILE + " File.");
 		}
 	}
@@ -2592,7 +2593,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + MANOR_FILE);
 		try
 		{
-			Properties manorSettings = new L2Properties("./" + MANOR_FILE);
+			L2Properties manorSettings = new L2Properties("./" + MANOR_FILE);
 
 			ALLOW_MANOR = Boolean.parseBoolean(manorSettings.getProperty("AllowManor", "false"));
 			ALT_MANOR_REFRESH_TIME = Integer.parseInt(manorSettings.getProperty("AltManorRefreshTime", "20"));
@@ -2605,7 +2606,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("GameSever: Failed to Load " + MANOR_FILE + " File.");
 		}
 	}
@@ -2628,7 +2629,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + PERMISSIONS_FILE);
 		try
 		{
-			Properties permissionsSettings = new L2Properties("./" + PERMISSIONS_FILE);
+			L2Properties permissionsSettings = new L2Properties("./" + PERMISSIONS_FILE);
 
 			ALLOW_NPC_WALKERS = Boolean.parseBoolean(permissionsSettings.getProperty("AllowNpcWalkers", "false"));
 			ALLOW_GUARDS = Boolean.parseBoolean(permissionsSettings.getProperty("AllowGuards", "false"));
@@ -2641,7 +2642,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("GameSever: Failed to Load " + PERMISSIONS_FILE + " File.");
 		}
 	}
@@ -2674,7 +2675,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + CLAN_FILE);
 		try
 		{
-			Properties clansSettings = new L2Properties("./" + CLAN_FILE);
+			L2Properties clansSettings = new L2Properties("./" + CLAN_FILE);
 
 			MIN_CLAN_LEVEL_FOR_USE_AUCTION = Integer.parseInt(clansSettings.getProperty("LvlForUseAuction", "2"));
 			REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(clansSettings.getProperty("RemoveCastleCirclets", "true"));
@@ -2697,7 +2698,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + CLAN_FILE + " File.");
 		}
 	}
@@ -2743,7 +2744,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + OLYMPIAD_FILE);
 		try
 		{
-			Properties olympiadSettings = new L2Properties("./" + OLYMPIAD_FILE);
+			L2Properties olympiadSettings = new L2Properties("./" + OLYMPIAD_FILE);
 
 			ALT_OLY_SAME_IP = Boolean.parseBoolean(olympiadSettings.getProperty("AltOlySameIp", "true"));
 			ALT_OLY_START_TIME = Integer.parseInt(olympiadSettings.getProperty("AltOlyStartTime", "18"));
@@ -2783,7 +2784,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + OLYMPIAD_FILE + " File.");
 		}
 	}
@@ -2805,7 +2806,7 @@ public class Config extends L2Config
 
 		try
 		{
-			Properties LotterySettings = new L2Properties("./" + LOTTERY_FILE);
+			L2Properties LotterySettings = new L2Properties("./" + LOTTERY_FILE);
 
 			ALT_LOTTERY_PRIZE = Integer.parseInt(LotterySettings.getProperty("AltLotteryPrize", "50000"));
 			ALT_LOTTERY_TICKET_PRICE = Integer.parseInt(LotterySettings.getProperty("AltLotteryTicketPrice", "2000"));
@@ -2816,7 +2817,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + LOTTERY_FILE + " File.");
 		}
 	}
@@ -2843,7 +2844,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + INVENTORY_FILE);
 		try
 		{
-			Properties inventorySettings = new L2Properties("./" + INVENTORY_FILE);
+			L2Properties inventorySettings = new L2Properties("./" + INVENTORY_FILE);
 
 			AUTO_LOOT_ADENA = inventorySettings.getProperty("AutoLootAdena").trim().equalsIgnoreCase("true");
 			ALLOW_DISCARDITEM = Boolean.parseBoolean(inventorySettings.getProperty("AllowDiscardItem", "true"));
@@ -2860,7 +2861,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + INVENTORY_FILE + " File.");
 		}
 	}
@@ -2890,7 +2891,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + GRID_FILE);
 		try
 		{
-			Properties gridSettings = new L2Properties("./" + GRID_FILE);
+			L2Properties gridSettings = new L2Properties("./" + GRID_FILE);
 
 			GRID_AUTO_DESTROY_ITEM_AFTER = Integer.parseInt(gridSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
 			AUTODESTROY_ITEM_AFTER = Integer.parseInt(gridSettings.getProperty("AutoDestroyDroppedItemAfter", "0"));
@@ -2914,7 +2915,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + GRID_FILE + " File.");
 		}
 	}
@@ -2947,7 +2948,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + WEDDING_FILE);
 		try
 		{
-			Properties weddingsSettings = new L2Properties("./" + WEDDING_FILE);
+			L2Properties weddingsSettings = new L2Properties("./" + WEDDING_FILE);
 
 			WEDDING_GIVE_CUPID_BOW = Boolean.parseBoolean(weddingsSettings.getProperty("WeddingGiveBow", "true"));
 			WEDDING_HONEYMOON_PORT = Boolean.parseBoolean(weddingsSettings.getProperty("WeddingHoneyMoon", "false"));
@@ -2970,7 +2971,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + WEDDING_FILE + " File.");
 		}
 	}
@@ -3083,7 +3084,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + ENTITIES_FILE);
 		try
 		{
-			Properties entitiesSettings = new L2Properties("./" + ENTITIES_FILE);
+			L2Properties entitiesSettings = new L2Properties("./" + ENTITIES_FILE);
 
 			CS_TELE_FEE_RATIO = Long.parseLong(entitiesSettings.getProperty("CastleTeleportFunctionFeeRatio", "604800000"));
 			CS_TELE1_FEE = Integer.parseInt(entitiesSettings.getProperty("CastleTeleportFunctionFeeLvl1", "7000"));
@@ -3181,7 +3182,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + ENTITIES_FILE + " File.");
 		}
 	}
@@ -3220,7 +3221,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + SEVEN_SIGNS_FILE);
 		try
 		{
-			Properties sevenSignsSettings = new L2Properties("./" + SEVEN_SIGNS_FILE);
+			L2Properties sevenSignsSettings = new L2Properties("./" + SEVEN_SIGNS_FILE);
 
 			ALT_DAWN_JOIN_COST = Integer.parseInt(sevenSignsSettings.getProperty("AltJoinDawnCost", "50000"));
 			ALT_GAME_CASTLE_DAWN = Boolean.parseBoolean(sevenSignsSettings.getProperty("AltCastleForDawn", "true"));
@@ -3249,7 +3250,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + SEVEN_SIGNS_FILE + " File.");
 		}
 	}
@@ -3286,7 +3287,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + PVP_CONFIG_FILE);
 		try
 		{
-			Properties pvpSettings = new L2Properties("./" + PVP_CONFIG_FILE);
+			L2Properties pvpSettings = new L2Properties("./" + PVP_CONFIG_FILE);
 
 			KARMA_RATE = Float.parseFloat(pvpSettings.getProperty("KarmaRate", "1."));
 			CURSED_WEAPON_NPC_INTERACT = Boolean.parseBoolean(pvpSettings.getProperty("CursedWeaponNpcInteract", "false"));
@@ -3319,7 +3320,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + PVP_CONFIG_FILE + " File.");
 		}
 	}
@@ -3346,7 +3347,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + GM_ACCESS_FILE);
 		try
 		{
-			Properties gmSettings = new L2Properties("./" + GM_ACCESS_FILE);
+			L2Properties gmSettings = new L2Properties("./" + GM_ACCESS_FILE);
 			GM_STARTUP_INVISIBLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvisible", "true"));
 			GM_STARTUP_INVULNERABLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvulnerable", "false"));
 			GM_STARTUP_SILENCE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupSilence", "false"));
@@ -3362,7 +3363,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + GM_ACCESS_FILE + " File.");
 		}
 	}
@@ -3397,7 +3398,7 @@ public class Config extends L2Config
 		_log.info("Loading: " + SIEGE_CONFIGURATION_FILE);
 		try
 		{
-			Properties siegeSettings = new L2Properties("./" + SIEGE_CONFIGURATION_FILE);
+			L2Properties siegeSettings = new L2Properties("./" + SIEGE_CONFIGURATION_FILE);
 
 			SIEGE_ONLY_REGISTERED = Boolean.parseBoolean(siegeSettings.getProperty("OnlyRegistered", "true"));
 			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(siegeSettings.getProperty("AltFlyingWyvernInSiege", "false"));
@@ -3465,7 +3466,7 @@ public class Config extends L2Config
 		}
 		catch (Exception e)
 		{
-			_log.error(e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + SIEGE_CONFIGURATION_FILE + " File.");
 		}
 	}
@@ -3480,7 +3481,7 @@ public class Config extends L2Config
 	public static void loadPCCaffe() {
 		_log.info("Loading: " + PC_CAFFE_FILE);
 		try {
-			Properties p = new L2Properties(PC_CAFFE_FILE);
+			L2Properties p = new L2Properties(PC_CAFFE_FILE);
 			PC_CAFFE_ENABLED = Boolean.parseBoolean(p.getProperty("PCCaffeEnabled","true"));
 			PC_CAFFE_INTERVAL = Integer.parseInt(p.getProperty("PCCafeInterval","10"));
 			PC_CAFFE_MIN_LEVEL =Integer.parseInt(p.getProperty("PCCafeMinLevel","20"));
@@ -3488,7 +3489,7 @@ public class Config extends L2Config
 			PC_CAFFE_MIN_SCORE = Integer.parseInt(p.getProperty("PCCafeMinScore","0"));
 			PC_CAFFE_MAX_SCORE = Integer.parseInt(p.getProperty("PCCafeMaxScore","10"));
 		} catch(Exception e) {
-			_log.error(e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + PC_CAFFE_FILE+" file");
 		}
 	}
@@ -3509,13 +3510,13 @@ public class Config extends L2Config
 		_log.info("Loading: " + EQUIP_CONFIGURATION_FILE);
 		try
 		{
-			Properties equipSettings = new L2Properties("./" + EQUIP_CONFIGURATION_FILE);
+			L2Properties equipSettings = new L2Properties("./" + EQUIP_CONFIGURATION_FILE);
 
 			ONLY_CLANLEADER_CAN_SIT_ON_THRONE = Boolean.parseBoolean(equipSettings.getProperty("OnlyClanleaderCanSitOnThrone", "false"));
 		}
 		catch (Exception e)
 		{
-			_log.error(e);
+			e.printStackTrace();
 			throw new Error("Failed to Load " + EQUIP_CONFIGURATION_FILE + " File.");
 		}
 	}
@@ -3789,7 +3790,7 @@ public class Config extends L2Config
 	{
 		try
 		{
-			Properties hexSetting = new L2Properties();
+			L2Properties hexSetting = new L2Properties();
 			File file = new File(HEXID_FILE);
 			//Create a new empty file only if it doesn't exist
 			file.createNewFile();

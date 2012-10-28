@@ -528,14 +528,14 @@ public class PcAction
 			removeItem(playable, item, desc);
 	}
 
-	public static void removeItem(L2PcInstance player, int[] item, String desc)
+	public static boolean removeItem(L2PcInstance player, int[] item, String desc)
 	{
-		removeItem(player, item[0], item[1], desc);
+		return removeItem(player, item[0], item[1], desc);
 	}
 
-	public static void removeItem(L2PcInstance player, int id, int count, String desc)
+	public static boolean removeItem(L2PcInstance player, int id, int count, String desc)
 	{
-		player.destroyItemByItemId(desc, id, count, null, true);
+		return player.destroyItemByItemId(desc, id, count, null, true);
 	}
 
 	public static void addItem(L2PcInstance playable, int[][] items, String desc)

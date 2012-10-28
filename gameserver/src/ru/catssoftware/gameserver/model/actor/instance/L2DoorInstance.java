@@ -152,7 +152,7 @@ public class L2DoorInstance extends L2Character
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}

@@ -134,9 +134,9 @@ public class RequestActionUse extends L2GameClientPacket
 					}
 					if (target.isAutoAttackable(activeChar) || _ctrlPressed)
 					{
-						if (target instanceof L2DoorInstance)
+						if (target.isDoor())
 						{
-							if (((L2DoorInstance) target).isAttackable(activeChar) && pet.getNpcId() != L2SiegeSummonInstance.SWOOP_CANNON_ID)
+							if (target.getDoor().isAttackable(activeChar) && pet.getNpcId() != L2SiegeSummonInstance.SWOOP_CANNON_ID)
 								pet.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
 						}
 						else if (pet.getNpcId() != L2SiegeSummonInstance.SIEGE_GOLEM_ID)

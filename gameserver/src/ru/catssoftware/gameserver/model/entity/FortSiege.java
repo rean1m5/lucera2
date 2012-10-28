@@ -88,7 +88,7 @@ public class FortSiege
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -159,7 +159,7 @@ public class FortSiege
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -637,7 +637,7 @@ public class FortSiege
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
         finally { try { if (con != null) con.close(); } catch (SQLException e) { e.printStackTrace(); } }
 	}

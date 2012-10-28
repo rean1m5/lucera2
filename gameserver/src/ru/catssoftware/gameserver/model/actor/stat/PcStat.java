@@ -138,6 +138,7 @@ public class PcStat extends PlayableStat
 		if (getLevel() + value > Experience.MAX_LEVEL - 1)
 			return false;
 
+		int oldLevel = getLevel();
 		boolean levelIncreased = super.addLevel(value);
 
 		L2PcInstance activeChar = getActiveChar();
@@ -153,7 +154,7 @@ public class PcStat extends PlayableStat
 			activeChar.sendPacket(SystemMessageId.YOU_INCREASED_YOUR_LEVEL);
 		}
 
-		activeChar.rewardSkills(); // Give Expertise skill of this level
+		activeChar.rewardSkills(oldLevel, value); // Give Expertise skill of this level
 
 		if (activeChar.getClan() != null)
 		{

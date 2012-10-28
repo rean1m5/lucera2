@@ -1287,7 +1287,7 @@ public class Quest extends ManagedScript
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 			return null;
 		}
 	}

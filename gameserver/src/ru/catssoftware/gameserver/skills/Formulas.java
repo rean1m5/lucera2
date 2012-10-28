@@ -2530,7 +2530,8 @@ public final class Formulas
 
 		if (type == L2SkillType.PDAM || type == L2SkillType.MDAM || type == L2SkillType.DRAIN || type == L2SkillType.WEAPON_SA)
 		{
-			value = skill.getEffectPower();
+			if (skill.getActivateRate() == -1)
+				value = skill.getEffectPower();
 			type = skill.getEffectType();
 		}
 		if (type == null)

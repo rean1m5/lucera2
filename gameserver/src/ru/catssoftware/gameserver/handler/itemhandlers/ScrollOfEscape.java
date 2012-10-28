@@ -331,7 +331,7 @@ public class ScrollOfEscape implements IItemHandler
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}

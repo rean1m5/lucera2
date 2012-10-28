@@ -1,20 +1,10 @@
 package ru.catssoftware.gameserver.model.entity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Set;
-
 import javolution.util.FastList;
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
-import ru.catssoftware.Message;
 import ru.catssoftware.L2DatabaseFactory;
+import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.Announcements;
 import ru.catssoftware.gameserver.SevenSigns;
 import ru.catssoftware.gameserver.datatables.ClanTable;
@@ -23,15 +13,9 @@ import ru.catssoftware.gameserver.idfactory.IdFactory;
 import ru.catssoftware.gameserver.instancemanager.MercTicketManager;
 import ru.catssoftware.gameserver.instancemanager.SiegeGuardManager;
 import ru.catssoftware.gameserver.instancemanager.SiegeManager;
-import ru.catssoftware.gameserver.instancemanager.TownManager;
 import ru.catssoftware.gameserver.instancemanager.SiegeManager.SiegeSpawn;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Clan;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2SiegeClan;
-import ru.catssoftware.gameserver.model.L2SiegeStatus;
-import ru.catssoftware.gameserver.model.L2Spawn;
-import ru.catssoftware.gameserver.model.L2World;
+import ru.catssoftware.gameserver.instancemanager.TownManager;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.L2SiegeClan.SiegeClanType;
 import ru.catssoftware.gameserver.model.actor.instance.L2ControlTowerInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
@@ -46,6 +30,13 @@ import ru.catssoftware.gameserver.network.serverpackets.UserInfo;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.gameserver.threadmanager.ExclusiveTask;
 import ru.catssoftware.gameserver.util.Broadcast;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Set;
 
 
 public class Siege
@@ -885,7 +876,7 @@ public class Siege
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -964,7 +955,7 @@ public class Siege
 		{
 			if (player.isGM() || player.isInJail())
 				continue;
-			L2SiegeStatus.getInstance().addStatus(player.getClanId(), player.getCharId());
+			L2SiegeStatus.getInstance().addStatus(player.getClanId(), player.getObjectId());
 			player.teleToLocation(teleportWhere);
 		}
 	}

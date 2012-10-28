@@ -31,6 +31,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			opcode = client._reader.read(buf);
 		else
 			opcode = buf.get() & 0xff;
+
 		L2GameClientPacket msg = null;
 		GameClientState state = client.getState();
 
@@ -811,7 +812,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				}
 			}
 			if(Config.RECIVE_PACKET_LOG)
-				System.out.println("<- "+String.format("%x", opcode)+" ("+(msg!=null?msg.getClass().getSimpleName():"null")+")");
+				_log.info("<- "+String.format("%x", opcode)+" ("+(msg!=null?msg.getClass().getSimpleName():"null")+")");
 		}
 		return msg;
 		}

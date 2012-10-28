@@ -29,7 +29,7 @@ public class olympiad extends gmHandler
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 				admin.sendMessage("Произошла ошибка при сохранении олимпиады");
 			}
 			return;
@@ -43,7 +43,7 @@ public class olympiad extends gmHandler
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 				admin.sendMessage("Произошла ошибка при обновлении героев");
 			}
 			return;

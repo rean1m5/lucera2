@@ -329,7 +329,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -355,7 +355,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}

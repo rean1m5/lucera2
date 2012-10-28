@@ -49,8 +49,8 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		// Check the validity of the skill
 		if (skill != null && skill.getSkillType() != L2SkillType.NOTDONE)
 		{
-			if(Config.DISABLE_SKILLS_ON_LEVEL_LOST) {
-				if(skill.getMagicLevel()-activeChar.getLevel()>=5) {
+			if(Config.DISABLE_SKILLS_ON_LEVEL_LOST > 0) {
+				if(skill.getMagicLevel()-activeChar.getLevel()>=Config.DISABLE_SKILLS_ON_LEVEL_LOST) {
 					ActionFailed();
 					return;
 				}

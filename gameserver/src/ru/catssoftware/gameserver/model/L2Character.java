@@ -501,7 +501,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 		catch (Exception e)
 		{
-			
+			e.printStackTrace();
 		}
 		return safeFallHeight;
 	}
@@ -599,7 +599,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 	}
@@ -1767,7 +1767,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 			setIsDead(true);
 		}
-		GameExtensionManager.getInstance().handleAction(this, Action.CHAR_DIE,killer);
+		GameExtensionManager.getInstance().handleAction(this, Action.CHAR_DIE, killer);
 		setTarget(null);
 
 		if (this instanceof L2PlayableInstance && ((L2PlayableInstance) this).isInJailMission() && Config.REDUCE_JAIL_POINTS_ON_DEATH)
@@ -1886,7 +1886,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 		catch (Exception e)
 		{
-			
+			e.printStackTrace();
 		}
 
 		if(isInFunEvent())
@@ -2459,7 +2459,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 	}
@@ -2491,7 +2491,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 	}
@@ -2526,7 +2526,7 @@ public abstract class L2Character extends L2Object implements IEffector
 					try {
 						onMagicHitTimer(_targets, _skill, _coolTime, false, _simultaneously);
 					} catch(Exception e) {
-						
+						e.printStackTrace();
 					}
 					break;
 				case 3:
@@ -4472,7 +4472,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 
 			if (oldSkill != null && _chanceSkills != null)
@@ -4542,7 +4542,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 
 			// Удаляем тригер
@@ -4826,7 +4826,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (instant) try {
 			onMagicHitTimer(targets, skill, coolTime, true, simultaneously);
 		} catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 		else
 			_skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 2, simultaneously), 200);
@@ -4956,7 +4956,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 		catch (Exception e)
 		{
-			
+			e.printStackTrace();
 		}
 
 		if (instant || coolTime == 0)
@@ -5044,7 +5044,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 	}
@@ -5731,7 +5731,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 	}
@@ -5748,6 +5748,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			_skill = skill;
 		}
 
+		@Override
 		public void runImpl()
 		{
 			try
@@ -5756,7 +5757,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 	}

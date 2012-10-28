@@ -354,7 +354,7 @@ public class Castle extends Siegeable
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -403,7 +403,7 @@ public class Castle extends Siegeable
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -580,7 +580,7 @@ public class Castle extends Siegeable
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -1676,7 +1676,7 @@ public class Castle extends Siegeable
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{

@@ -293,7 +293,7 @@ public final class L2ScriptEngineManager
 					catch (FileNotFoundException e)
 					{
 						// should never happen
-						_log.error(e.getMessage(), e);
+						e.printStackTrace();
 					}
 					catch (ScriptException e)
 					{

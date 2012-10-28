@@ -1,16 +1,13 @@
 package ru.catssoftware.gameserver;
 
-import java.lang.reflect.Constructor;
-
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.gameserver.datatables.NpcTable;
 import ru.catssoftware.gameserver.idfactory.IdFactory;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.tools.random.Rnd;
+
+import java.lang.reflect.Constructor;
 
 public class MonsterRace
 {
@@ -62,7 +59,7 @@ public class MonsterRace
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 		newSpeeds();

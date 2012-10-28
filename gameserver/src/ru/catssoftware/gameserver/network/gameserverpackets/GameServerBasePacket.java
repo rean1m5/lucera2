@@ -64,7 +64,7 @@ public abstract class GameServerBasePacket
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 
 		_bao.write(0);
@@ -79,7 +79,7 @@ public abstract class GameServerBasePacket
 		}
 		catch (IOException e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 	}
 

@@ -14,8 +14,7 @@
  */
 package ru.catssoftware.gameserver.model.actor.instance;
 
-import java.util.Set;
-
+import javolution.text.TextBuilder;
 import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.cache.HtmCache;
@@ -26,35 +25,21 @@ import ru.catssoftware.gameserver.instancemanager.CastleManager;
 import ru.catssoftware.gameserver.instancemanager.FortManager;
 import ru.catssoftware.gameserver.instancemanager.FortSiegeManager;
 import ru.catssoftware.gameserver.instancemanager.SiegeManager;
-import ru.catssoftware.gameserver.model.L2Clan;
-import ru.catssoftware.gameserver.model.L2ClanMember;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2PledgeSkillLearn;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2World;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.L2Clan.SubPledge;
-import ru.catssoftware.gameserver.model.base.ClassId;
-import ru.catssoftware.gameserver.model.base.ClassType;
-import ru.catssoftware.gameserver.model.base.PlayerClass;
-import ru.catssoftware.gameserver.model.base.Race;
-import ru.catssoftware.gameserver.model.base.SubClass;
+import ru.catssoftware.gameserver.model.base.*;
 import ru.catssoftware.gameserver.model.entity.Castle;
 import ru.catssoftware.gameserver.model.entity.Fort;
 import ru.catssoftware.gameserver.model.olympiad.Olympiad;
 import ru.catssoftware.gameserver.model.quest.QuestState;
 import ru.catssoftware.gameserver.network.SystemMessageId;
-import ru.catssoftware.gameserver.network.serverpackets.AcquireSkillDone;
-import ru.catssoftware.gameserver.network.serverpackets.AcquireSkillList;
-import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
-import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
-import ru.catssoftware.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
-import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
-import ru.catssoftware.gameserver.network.serverpackets.UserInfo;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.gameserver.util.FloodProtector;
 import ru.catssoftware.gameserver.util.FloodProtector.Protected;
+import ru.catssoftware.gameserver.util.PcAction;
 
-import javolution.text.TextBuilder;
+import java.util.Set;
 
 
 /**
@@ -330,65 +315,19 @@ public class L2VillageMasterInstance extends L2FolkInstance
 							}
 						}
 					}
-					if (Config.SUBCLASS_WITH_CUSTOM_ITEM)
+
+					if (Config.SUBCLASS_WITH_CUSTOM_ITEM && Config.SUBCLASS_WITH_CUSTOM_ITEM_COUNT>=0)
+						allowAddition = PcAction.removeItem(player,
+								Config.SUBCLASS_WITH_CUSTOM_ITEM_ID,
+								Config.SUBCLASS_WITH_CUSTOM_ITEM_COUNT,
+								"master subclass");
+
+					if(!allowAddition && !(allowAddition = Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS))
 					{
-						if(Config.SUBCLASS_WITH_CUSTOM_ITEM_COUNT>=0)
-							if(Config.SUBCLASS_WITH_CUSTOM_ITEM_COUNT>0) {
-								if (player.getInventory().getInventoryItemCount(Config.SUBCLASS_WITH_CUSTOM_ITEM_ID, -1)<Config.SUBCLASS_WITH_CUSTOM_ITEM_COUNT)
-								{
-									player.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
-									return;
-								}
-								else if (allowAddition)
-								{
-									player.destroyItemByItemId("ServiceManager", Config.SUBCLASS_WITH_CUSTOM_ITEM_ID, Config.SUBCLASS_WITH_CUSTOM_ITEM_COUNT, player, true);
-								}
-							} else {
-								if(player.getInventory().getItemByItemId(Config.SUBCLASS_WITH_CUSTOM_ITEM_ID)==null) {
-									player.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
-									return;
-								}
-							}
-					}
-					else if (Config.SUBCLASS_WITH_ITEM_AND_NO_QUEST)
-					{
-						L2ItemInstance elixirItem = player.getInventory().getItemByItemId(6319);
-						L2ItemInstance destinyItem = player.getInventory().getItemByItemId(5011);
-						if (elixirItem == null)
-						{
-							player.sendMessage(String.format(Message.getMessage(player, Message.MessageId.MSG_NEED_ITEM), "\"Mimir's Elixir\""));
-							return;
-						}
-						if (destinyItem == null)
-						{
-							player.sendMessage(String.format(Message.getMessage(player, Message.MessageId.MSG_NEED_ITEM), "\"Star of Destiny\""));
-							return;
-						}
-						if (allowAddition)
-						{
-//							player.destroyItemByItemId("Quest", 6319, 1, this, true);
-//							player.destroyItemByItemId("Quest", 5011, 1, this, true);
-						}
-					}
-					else if(!Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
-					{
-						//Нам не нужно проверять зделан ли 234 квест, ибо 235 берется только в том случаи если есть итем с 234
-						//  будет полезно для людей у которых упрощенный квест на саб.
-						/*QuestState qs = player.getQuestState("234_FatesWhisper");
-						if (qs == null || !qs.isCompleted())
-						{
-							html.setFile("data/html/villagemaster/SubClass_Fail.htm");
-							player.sendPacket(html);
-							return;
-						}*/
 						QuestState qs = player.getQuestState("235_MimirsElixir");
-						if (qs == null || !qs.isCompleted())
-						{
-							html.setFile("data/html/villagemaster/SubClass_Fail.htm");
-							player.sendPacket(html);
-							return;
-						}
+						allowAddition = qs != null && qs.isCompleted();
 					}
+
 					if (allowAddition)
 					{
 						if (!player.addSubClass(paramOne, player.getTotalSubClasses() + 1))
@@ -405,6 +344,7 @@ public class L2VillageMasterInstance extends L2FolkInstance
 					{
 							html.setFile("data/html/villagemaster/SubClass_Fail.htm");
 					}
+
 					break;
 				case 5:
 					if (player.getPet() != null)

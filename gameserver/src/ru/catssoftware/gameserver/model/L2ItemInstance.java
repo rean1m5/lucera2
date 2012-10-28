@@ -982,7 +982,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}

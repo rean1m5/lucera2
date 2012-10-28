@@ -94,7 +94,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{

@@ -182,7 +182,7 @@ public class ClanHall extends Entity
 				}
 				catch (Exception e)
 				{
-					_log.error(e.getMessage(), e);
+					e.printStackTrace();
 				}
 			}
 		}
@@ -685,7 +685,7 @@ public class ClanHall extends Entity
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}

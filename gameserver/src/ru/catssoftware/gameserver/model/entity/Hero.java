@@ -570,7 +570,7 @@ public class Hero
 		}
 		catch (SQLException e)
 		{
-			_log.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{

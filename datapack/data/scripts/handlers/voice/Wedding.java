@@ -418,7 +418,7 @@ public class Wedding implements IVoicedCommandHandler
 			}
 			catch (Exception e)
 			{
-				_log.error(e.getMessage(), e);
+				e.printStackTrace();
 			}
 		}
 	}

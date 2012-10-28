@@ -647,7 +647,7 @@ public class AutoChatHandler implements SpawnListener
 					}
 					catch (Exception e)
 					{
-						_log.error(e.getMessage(), e);
+						e.printStackTrace();
 						return;
 					}
 				}

@@ -14,12 +14,12 @@
  */
 package ru.catssoftware.gameserver.network.serverpackets;
 
-import java.util.List;
-
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.model.L2Skill;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.L2GameClient;
+
+import java.util.List;
 
 
 public final class SkillList extends L2GameServerPacket
@@ -45,8 +45,8 @@ public final class SkillList extends L2GameServerPacket
 			writeD(s.getLevel());
 			writeD(s.getDisplayId());
 			int grayed = 0;
-			if(Config.DISABLE_SKILLS_ON_LEVEL_LOST) {
-				if(s.getMagicLevel()-activeChar.getLevel() >= 5)
+			if(Config.DISABLE_SKILLS_ON_LEVEL_LOST > 0) {
+				if(s.getMagicLevel()-activeChar.getLevel() >= Config.DISABLE_SKILLS_ON_LEVEL_LOST)
 					grayed = 1;
 			}
 			writeC(grayed); // 1 = Disabled (gray) e.g. when transformed
