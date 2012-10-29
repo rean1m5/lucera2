@@ -1,6 +1,5 @@
 package ru.catssoftware.gameserver.network.clientpackets;
 
-import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2Object;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.SystemMessageId;
@@ -77,7 +76,7 @@ public final class Action extends L2GameClientPacket
 				obj.onAction(activeChar);
 				break;
 			case 1:
-				if (obj instanceof L2Character && ((L2Character) obj).isAlikeDead() && !activeChar.isGM())
+				if (obj.isCharacter() && obj.getCharacter().isAlikeDead() && !activeChar.isGM())
 					obj.onAction(activeChar);
 				else
 					obj.onActionShift(activeChar);

@@ -5811,7 +5811,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if(cha instanceof L2Decoy)
 			return true;
 
-		if (checkGeo && !GeoData.getInstance().canSeeTarget(this, cha))
+		if (!Config.GEODATA || checkGeo && !GeoData.getInstance().canSeeTarget(this, cha))
 			return false;
 
 		if (cha.isPlayer())

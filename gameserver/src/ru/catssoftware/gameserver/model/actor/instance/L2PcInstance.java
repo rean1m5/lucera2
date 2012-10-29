@@ -3449,55 +3449,35 @@ public class L2PcInstance extends L2PlayableInstance
 		if (player.isOutOfControl())
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 
+		if (player != this) {
+			player.sendPacket(new ValidateLocation(this));
+		}
+
 		if (player.getTarget() != this)
 		{
 			player.setTarget(this);
 			player.sendPacket(new MyTargetSelected(getObjectId(), 0));
-			if (player != this) {
-				player.sendPacket(new ValidateLocation(this));
-			} 
 		}
 		else
 		{
-			if (player != this) {
-				player.sendPacket(new ValidateLocation(this));
-				
-			}
-
 			if (getPrivateStoreType() != 0)
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 			else
 			{
-				if (!isGM() && isAutoAttackable(player))
+				if (isAutoAttackable(player))
 				{
 					if ((isCursedWeaponEquipped() && player.getLevel() < 21) || (player.isCursedWeaponEquipped() && getLevel() < 21))
 						player.sendPacket(ActionFailed.STATIC_PACKET);
 					else
 					{
-						if (Config.GEODATA)
-						{
-							if (player.canSee(this))
-							{
-								player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-								player.onActionRequest();
-							}
-						}
-						else
-						{
-							player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-							player.onActionRequest();
-						}
+						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+						player.onActionRequest();
 					}
 				}
 				else
 				{
 					player.sendPacket(ActionFailed.STATIC_PACKET);
-					if (Config.GEODATA)
-					{
-						if (player.canSee(this))
-							player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
-					}
-					else
+					if (player.canSee(this))
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 				}
 			}
@@ -3575,7 +3555,7 @@ public class L2PcInstance extends L2PlayableInstance
 				}
 				else
 				{
-					if (!isGM() && isAutoAttackable(player))
+					if (isAutoAttackable(player))
 					{
 						if ((isCursedWeaponEquipped() && player.getLevel() < 21) || (player.isCursedWeaponEquipped() && getLevel() < 21))
 							player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -3583,15 +3563,7 @@ public class L2PcInstance extends L2PlayableInstance
 						{
 							if (player.isInsideRadius(this, player.getPhysicalAttackRange(), false, false))
 							{
-								if (Config.GEODATA)
-								{
-									if (player.canSee(this))
-									{
-										player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-										player.onActionRequest();
-									}
-								}
-								else
+								if (player.canSee(this))
 								{
 									player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 									player.onActionRequest();

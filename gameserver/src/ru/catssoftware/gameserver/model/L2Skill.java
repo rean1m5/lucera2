@@ -2024,13 +2024,13 @@ public class L2Skill implements FuncOwner
 						if (player.isInDuel() && player.getDuelId() != partyMember.getDuelId())
 							continue;
 
-						if (!activeChar.canSee(partyMember))
+						if (getSkillRadius() > -1 && !activeChar.canSee(partyMember))
 							continue;
 
 						if(activeChar.getGameEvent()!=null && !activeChar.getGameEvent().canBeSkillTarget(activeChar, partyMember, this))
 							continue;
 
-						if (!partyMember.isDead() && Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true))
+						if (!partyMember.isDead() && (getSkillRadius() == -1 || Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true)))
 						{
 							targetList.add(partyMember);
 
