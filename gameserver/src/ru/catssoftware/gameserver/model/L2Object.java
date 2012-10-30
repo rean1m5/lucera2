@@ -371,7 +371,7 @@ public abstract class L2Object extends L2Entity
 		return false;
 	}
 
-	public L2RaidBossInstance getBoss()
+	public L2Boss getBoss()
 	{
 		return null;
 	}

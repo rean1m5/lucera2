@@ -1432,6 +1432,7 @@ public class L2Skill implements FuncOwner
 			case COMBATPOINTPERCENTHEAL:
 			case REFLECT:
 			case SHIFT_TARGET:
+			case DEATH_PENALTY:
 				return true;
 			default:
 				return false;

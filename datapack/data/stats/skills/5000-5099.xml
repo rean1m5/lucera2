@@ -441,6 +441,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="1200000"/>
   <set name="staticReuse" val="true"/>
+	<set name="itemConsumeId" val="8515" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="CharmOfCourage" time="1200" val="0" noicon="1"/>
   </for>

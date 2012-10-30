@@ -1,18 +1,10 @@
 package ru.catssoftware.gameserver.templates.skills;
 
-import java.lang.reflect.Constructor;
-
 import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.skills.l2skills.L2ScriptSkill;
-import ru.catssoftware.gameserver.skills.l2skills.L2SkillChargeDmg;
-import ru.catssoftware.gameserver.skills.l2skills.L2SkillChargeNegate;
-import ru.catssoftware.gameserver.skills.l2skills.L2SkillCreateItem;
-import ru.catssoftware.gameserver.skills.l2skills.L2SkillDrain;
-import ru.catssoftware.gameserver.skills.l2skills.L2SkillMount;
-import ru.catssoftware.gameserver.skills.l2skills.L2SkillSignet;
-import ru.catssoftware.gameserver.skills.l2skills.L2SkillSignetCasttime;
-import ru.catssoftware.gameserver.skills.l2skills.L2SkillSummon;
+import ru.catssoftware.gameserver.skills.l2skills.*;
 import ru.catssoftware.util.StatsSet;
+
+import java.lang.reflect.Constructor;
 
 
 public enum L2SkillType
@@ -66,6 +58,7 @@ public enum L2SkillType
 	FEED_PET,
 	HEAL_PERCENT,
 	HEAL_STATIC,
+	DEATH_PENALTY,
 	LUCK,
 	MANADAM,
 	MAKE_KILLABLE,

@@ -119,4 +119,16 @@ public abstract class L2Boss extends L2MonsterInstance
 		super.getStatus().setCurrentHp(super.getMaxHp());
 		super.getStatus().setCurrentMp(super.getMaxMp());
 	}
+
+	@Override
+	public boolean isBoss()
+	{
+		return true;
+	}
+
+	@Override
+	public L2Boss getBoss()
+	{
+		return this;
+	}
 }

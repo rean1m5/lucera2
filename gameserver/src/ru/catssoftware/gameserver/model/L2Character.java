@@ -1974,6 +1974,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		return _isRaid;
 	}
 
+	@Override
 	public boolean isBoss()
 	{
 		return _isBoss;
@@ -2404,6 +2405,9 @@ public abstract class L2Character extends L2Object implements IEffector
 	/** Set the Title of the L2Character. */
 	public final void setTitle(String value)
 	{
+		if (isPlayer() && value.length() > 16)
+			value = value.substring(0, 15);
+
 		if (_event!=null && _event.isRunning()) {
 			_eventTitle = value;
 			if(_eventTitle == null)
@@ -2429,9 +2433,6 @@ public abstract class L2Character extends L2Object implements IEffector
 				}
 			}
 		}
-
-		if ((this instanceof L2PcInstance) && value.length() > 16)
-			value = value.substring(0, 15);
 
 		_title = value;
 	}

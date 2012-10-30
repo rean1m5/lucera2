@@ -135,6 +135,8 @@ public class TradeList
 
 	public void setTitle(String title)
 	{
+		if (title.length() > 16)
+			title = title.substring(0, 15);
 		_title = title;
 	}
 

@@ -45,6 +45,7 @@
   </for>
 </skill>
 <skill id="2306" levels="3" name="Primeval Crystals">
+	<table name="#item">8954 8955 8956</table>
   <table name="#power"> 50000 100000 200000 </table>
   <set name="hitTime" val="200"/>
   <set name="magicLvl" val="1"/>
@@ -52,6 +53,8 @@
   <set name="power" val="#power"/>
   <set name="skillType" val="GIVE_SP"/>
   <set name="target" val="TARGET_SELF"/>
+	<set name="itemConsumeId" val="#item" />
+	<set name="itemConsumeCount" val="1" />
 </skill>
 <skill id="2307" levels="1" name="Remove Petrification Scroll">
   <set name="target" val="TARGET_NONE"/>
@@ -73,6 +76,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9146" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="5" stackType="hit_up">
       <add order="0x40" stat="accCombat" val="4"/>
@@ -84,6 +89,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9147" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.5" stackType="critical_dmg_up">
       <mul order="0x30" stat="cAtk" val="1.25"/>
@@ -95,6 +102,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9148" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.3" stackType="critical_prob_up">
       <basemul order="0x30" stat="rCrit" val="0.3"/>
@@ -106,6 +115,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9149" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.3" stackType="casting_time_down">
       <mul order="0x30" stat="mAtkSpd" val="1.3"/>
@@ -117,6 +128,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9150" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.33" stackType="attack_time_down">
       <mul order="0x30" stat="pAtkSpd" val="1.33"/>
@@ -128,6 +141,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9151" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="8" stackType="rEvas">
       <add order="0x40" stat="rEvas" val="4"/>
@@ -139,6 +154,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9152" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.75" stackType="ma_up">
       <mul order="0x30" stat="mAtk" val="1.75"/>
@@ -150,6 +167,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9153" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.15" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="1.15"/>
@@ -161,6 +180,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9154" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="33" stackType="speed_up">
       <add order="0x40" stat="runSpd" val="33"/>
@@ -172,6 +193,8 @@
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+	<set name="itemConsumeId" val="9155" />
+	<set name="itemConsumeCount" val="1" />
   <for>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.15" stackType="pd_up">
       <mul order="0x30" stat="pDef" val="1.15"/>

@@ -4,7 +4,7 @@
   <cond>
     <and>
       <player olympiad="false"/>
-      <player level="76"/>
+      <player minLevel="76"/>
     </and>
   </cond>
   <for>
@@ -14,7 +14,7 @@
   <cond>
     <and>
       <player olympiad="false"/>
-      <player level="76"/>
+      <player minLevel="76"/>
     </and>
   </cond>
   <for>
@@ -24,7 +24,7 @@
   <cond>
     <and>
       <player olympiad="false"/>
-      <player level="76"/>
+      <player minLevel="76"/>
     </and>
   </cond>
   <for>

@@ -14,18 +14,17 @@
  */
 package ru.catssoftware.gameserver.skills.conditions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-
 import ru.catssoftware.gameserver.model.base.PlayerState;
 import ru.catssoftware.gameserver.model.base.Race;
 import ru.catssoftware.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
 import ru.catssoftware.gameserver.templates.item.L2ArmorType;
 import ru.catssoftware.gameserver.templates.item.L2WeaponType;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 
 /**
@@ -196,10 +195,15 @@ public abstract class ConditionParser
 			Race race = Race.valueOf(nodeValue);
 			return new ConditionPlayerRace(race);
 		}
-		else if ("level".equalsIgnoreCase(nodeName))
+		else if ("minLevel".equalsIgnoreCase(nodeName))
 		{
 			int lvl = Integer.decode(nodeValue);
-			return new ConditionPlayerLevel(lvl);
+			return new ConditionPlayerLevelMin(lvl);
+		}
+		else if ("maxLevel".equalsIgnoreCase(nodeName))
+		{
+			int lvl = Integer.decode(nodeValue);
+			return new ConditionPlayerLevelMax(lvl);
 		}
 		else if ("resting".equalsIgnoreCase(nodeName))
 		{

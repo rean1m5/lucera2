@@ -7861,9 +7861,9 @@ public class L2PcInstance extends L2PlayableInstance
 			return false;
 		}
 
-		if (target instanceof L2DoorInstance)
+		if (target.isDoor())
 		{
-			L2DoorInstance door = (L2DoorInstance) target;
+			L2DoorInstance door = target.getDoor();
 			boolean isCastleDoor = (door.getCastle() != null && door.getCastle().getSiege().getIsInProgress());
 			boolean isFortDoor = (door.getFort() != null && door.getFort().getSiege().getIsInProgress() && !door.getIsCommanderDoor());
 			if (!isCastleDoor && !isFortDoor && !(door.isUnlockable() && (skill.getSkillType() == L2SkillType.UNLOCK )))
@@ -7872,8 +7872,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 		if (isInDuel())
 		{
-			if (!((target instanceof L2PcInstance && ((L2PcInstance) target).getDuelId() == getDuelId()) ||
-					(target instanceof L2Summon && ((L2Summon) target).getOwner().getDuelId() == getDuelId())))
+			if (target.getPlayer() != null && getDuelId() != target.getPlayer().getDuelId())
 			{
 				sendPacket(SystemMessageId.INCORRECT_TARGET);
 				sendPacket(ActionFailed.STATIC_PACKET);
