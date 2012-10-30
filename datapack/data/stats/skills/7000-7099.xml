@@ -648,6 +648,9 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_TOGGLE"/>
+	<cond msgId="1508">
+		<player olympiad="false"/>
+	</cond>
   <for>
     <effect count="0x7fffffff" name="DamOverTime" time="3" val="0"/>
   </for>

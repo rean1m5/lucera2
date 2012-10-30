@@ -1174,19 +1174,6 @@ public abstract class L2Character extends L2Object implements IEffector
 			return;
 		}
 
-		if (isPlayer())
-		{
-			L2PcInstance player = getPlayer();
-			if(player.isInOlympiadMode() && skill.getId() == Config.BLOCK_BUFF)
-			{
-				sendMessage(Message.getMessage(getActingPlayer(), Message.MessageId.MSG_OLY_SKILL_NOT_ALOWED));
-				sendPacket(ActionFailed.STATIC_PACKET);
-				getAI().setIntention(AI_INTENTION_ACTIVE);
-				return;
-			}
-
-		}
-
 		if (skill.useSoulShot())
 		{
 			if (this instanceof L2NpcInstance)
