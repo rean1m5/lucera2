@@ -16,14 +16,15 @@ import ru.catssoftware.util.LinkedBunch;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class CharEffectList
 {
 	private static Logger _log = Logger.getLogger(CharEffectList.class);
 	private static final L2Effect[]			EMPTY_EFFECTS	= new L2Effect[0];
-	private FastList<L2Effect>				_buffs;
-	private FastList<L2Effect>				_debuffs;
+	private CopyOnWriteArrayList<L2Effect> _buffs;
+	private CopyOnWriteArrayList<L2Effect>				_debuffs;
 	protected Map<String, List<L2Effect>>	_stackedEffects;
 	private L2Character						_owner;
 
@@ -250,7 +251,7 @@ public class CharEffectList
 		if (effect == null || (_buffs == null && _debuffs == null))
 			return;
 
-		FastList<L2Effect> effectList = effect.getSkill().isDebuff() ? _debuffs : _buffs;
+		List<L2Effect> effectList = effect.getSkill().isDebuff() ? _debuffs : _buffs;
 
 		synchronized (effectList)
 		{
@@ -343,14 +344,14 @@ public class CharEffectList
 		synchronized (this)
 		{
 			if (_buffs == null)
-				_buffs = new FastList<L2Effect>();
+				_buffs = new CopyOnWriteArrayList<L2Effect>();
 			if (_debuffs == null)
-				_debuffs = new FastList<L2Effect>();
+				_debuffs = new CopyOnWriteArrayList<L2Effect>();
 			if (_stackedEffects == null)
 				_stackedEffects = new FastMap<String, List<L2Effect>>();
 		}
 
-		FastList<L2Effect> effectList = newEffect.getSkill().isDebuff() ? _debuffs : _buffs;
+		List<L2Effect> effectList = newEffect.getSkill().isDebuff() ? _debuffs : _buffs;
 		L2Effect tempEffect = null;
 		boolean stopNewEffect = false;
 
@@ -433,7 +434,7 @@ public class CharEffectList
 				effectList.add(pos, newEffect);
 			}
 			else
-				effectList.addLast(newEffect);
+				effectList.add(newEffect);
 		}
 
 		// Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
@@ -500,7 +501,7 @@ public class CharEffectList
 
 	private List<L2Effect> effectQueueInsert(L2Effect newStackedEffect, List<L2Effect> stackQueue)
 	{
-		FastList<L2Effect> effectList = newStackedEffect.getSkill().isDebuff() ? _debuffs : _buffs;
+		List<L2Effect> effectList = newStackedEffect.getSkill().isDebuff() ? _debuffs : _buffs;
 
 		// Get the L2Effect corresponding to the effect identifier from the L2Character _effects
 		if (_buffs == null && _debuffs == null)

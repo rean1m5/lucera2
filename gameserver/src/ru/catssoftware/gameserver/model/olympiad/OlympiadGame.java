@@ -362,6 +362,8 @@ public class OlympiadGame
 			_playerTwo.setOlympiadSide(2);
 			OlympiadManager.enchantUpdate(_playerOne);
 			OlympiadManager.enchantUpdate(_playerTwo);
+			OlympiadManager.checkRestrictItem(_playerOne);
+			OlympiadManager.checkRestrictItem(_playerTwo);
 			_playerOne.broadcastFullInfo();
 			_playerTwo.broadcastFullInfo();
 

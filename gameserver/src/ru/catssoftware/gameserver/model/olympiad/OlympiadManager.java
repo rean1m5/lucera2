@@ -423,4 +423,11 @@ public class OlympiadManager implements Runnable
 		player.sendPacket(inventoryUpdate);
 		player.broadcastUserInfo(true);
 	}
+
+	public static void checkRestrictItem(L2PcInstance player)
+	{
+		for (L2ItemInstance item : player.getInventory().getItems())
+			if (item.isEquipped() && item.isOlyRestrictedItem())
+				player.getInventory().unEquipItemInSlot(item.getLocationSlot());
+	}
 }

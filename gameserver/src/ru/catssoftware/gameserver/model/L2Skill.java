@@ -2731,14 +2731,9 @@ public class L2Skill implements FuncOwner
 					if (!((L2Character) obj).isAlikeDead())
 						targetList.add((L2Character) obj);
 				}
-				else
-				{
-					continue;
-				}
 			}
 		}
-		else if (activeChar.isInsideZone(L2Zone.FLAG_STADIUM) || activeChar.isInsideZone(L2Zone.FLAG_PVP)
-				)
+		else if (activeChar.isInsideZone(L2Zone.FLAG_STADIUM) || activeChar.isInsideZone(L2Zone.FLAG_PVP))
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
@@ -2749,15 +2744,13 @@ public class L2Skill implements FuncOwner
 				else if (isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj))
 					continue;
 
-				if (obj instanceof L2PcInstance)
+				if (obj.isPlayer())
 				{
-					if (((L2PcInstance)obj).inObserverMode())
+					if (obj.getPlayer().inObserverMode())
 						continue;
 					if (acPt != null)
 					{
-						if (activeChar.getParty().getPartyMembers().contains(obj))
-							continue;
-						else if (!((L2Character) obj).isAlikeDead())
+						if (activeChar.getParty().inParty(obj.getPlayer()) && !obj.getPlayer().isAlikeDead())
 							targetList.add((L2Character) obj);
 					}
 					else if (!((L2Character) obj).isAlikeDead())
@@ -2928,7 +2921,20 @@ public class L2Skill implements FuncOwner
 	}
 	public synchronized final L2Effect[] getEffects(L2Character effector, L2Character effected, IEffector effectorObj)
 	{
-		
+		if (effector == null)
+		{
+			_log.warn("Method getEffects: effector is null.");
+			Thread.dumpStack();
+			return L2Effect.EMPTY_ARRAY;
+		}
+
+		if (effected == null)
+		{
+			_log.warn("Method getEffects: effected is null.");
+			Thread.dumpStack();
+			return L2Effect.EMPTY_ARRAY;
+		}
+
 		if (isPassive())
 			return L2Effect.EMPTY_ARRAY;
 
@@ -2971,7 +2977,7 @@ public class L2Skill implements FuncOwner
 
 		boolean skillMastery = false;
 
-		if (!isToggle() && effector.getActingPlayer() != null && Formulas.calcSkillMastery(effector, this))
+		if (!isToggle() && effector.isPlayer() && Formulas.calcSkillMastery(effector, this))
 			skillMastery = true;
 
 		

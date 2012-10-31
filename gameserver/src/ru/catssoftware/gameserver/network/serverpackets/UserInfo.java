@@ -39,16 +39,6 @@ public class UserInfo extends L2GameServerPacket
 		if (_activeChar.getSiegeState() == 2)
 			_relation |= 0x80;
 		_first = first;
-/*		if(_first || _activeChar._inWorld) {
-		Throwable t = new Throwable();
-		t.fillInStackTrace();
-		System.out.println("UI Created ");
-		for(StackTraceElement e : t.getStackTrace() )
-		 if(!e.getClassName().startsWith("ru.c"))
-			 break;
-		 else 
-			 System.out.println(e.getClassName().replace("ru.catssoftware", "")+": "+e.getMethodName());
-		} */
 	}
 
 	@Override

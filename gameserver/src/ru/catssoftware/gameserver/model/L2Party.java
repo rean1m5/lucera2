@@ -14,41 +14,24 @@
  */
 package ru.catssoftware.gameserver.model;
 
-import java.util.List;
-
+import javolution.util.FastList;
 import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.SevenSignsFestival;
 import ru.catssoftware.gameserver.datatables.ItemTable;
 import ru.catssoftware.gameserver.instancemanager.DuelManager;
 import ru.catssoftware.gameserver.instancemanager.PartyRoomManager;
-import ru.catssoftware.gameserver.model.L2PartyRoom;
-import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PetInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PlayableInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2SummonInstance;
+import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.model.entity.DimensionalRift;
 import ru.catssoftware.gameserver.model.mapregion.TeleportWhereType;
 import ru.catssoftware.gameserver.network.SystemMessageId;
-import ru.catssoftware.gameserver.network.serverpackets.CreatureSay;
-import ru.catssoftware.gameserver.network.serverpackets.ExCloseMPCC;
-import ru.catssoftware.gameserver.network.serverpackets.ExClosePartyRoom;
-import ru.catssoftware.gameserver.network.serverpackets.ExManagePartyRoomMember;
-import ru.catssoftware.gameserver.network.serverpackets.ExMultiPartyCommandChannelInfo;
-import ru.catssoftware.gameserver.network.serverpackets.ExOpenMPCC;
-import ru.catssoftware.gameserver.network.serverpackets.L2GameServerPacket;
-import ru.catssoftware.gameserver.network.serverpackets.PartySmallWindowAdd;
-import ru.catssoftware.gameserver.network.serverpackets.PartySmallWindowAll;
-import ru.catssoftware.gameserver.network.serverpackets.PartySmallWindowDelete;
-import ru.catssoftware.gameserver.network.serverpackets.PartySmallWindowDeleteAll;
-import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.skills.Stats;
 import ru.catssoftware.gameserver.util.Util;
 import ru.catssoftware.tools.random.Rnd;
 import ru.catssoftware.util.LinkedBunch;
 
-import javolution.util.FastList;
+import java.util.List;
 
 /**
  * This class ...
@@ -139,6 +122,16 @@ public class L2Party
 		if (_members == null)
 			_members = new FastList<L2PcInstance>();
 		return _members;
+	}
+
+	/**
+	 * Есть ли игрок в пати.
+	 * @param player
+	 * @return
+	 */
+	public boolean inParty(L2PcInstance player)
+	{
+		return getPartyMembers().contains(player);
 	}
 
 	/**

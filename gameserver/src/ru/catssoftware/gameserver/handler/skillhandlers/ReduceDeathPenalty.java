@@ -1,7 +1,6 @@
 package ru.catssoftware.gameserver.handler.skillhandlers;
 
 import ru.catssoftware.gameserver.handler.ISkillHandler;
-import ru.catssoftware.gameserver.handler.SkillHandler;
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2Skill;
 import ru.catssoftware.gameserver.templates.skills.L2SkillType;
@@ -17,8 +16,6 @@ public class ReduceDeathPenalty implements ISkillHandler
 
 	public void useSkill(L2Character actChar, L2Skill skill, L2Character... targets)
 	{
-		SkillHandler.getInstance().getSkillHandler(L2SkillType.DEATH_PENALTY).useSkill(actChar, skill, targets);
-
 		for (L2Character target : targets)
 		{
 			if (target == null || !target.isPlayer())

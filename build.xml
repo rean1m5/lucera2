@@ -91,28 +91,35 @@
 
     </target>
 
+	<target name="gameserver.jar">
+		<delete dir="${dist}/classes" />
+		<mkdir dir="${dist}/classes" />
+
+		<javac destdir="${dist}/classes" source="1.6" target="1.6" encoding="utf-8" >
+			<src path="${game}/loader/ru/catssoftware/info"/>
+		</javac>
+
+		<javac destdir="${dist}/classes" optimize="off" debug="on" source="1.6" target="1.6" encoding="utf-8" >
+			<src path="${game}/src"/>
+			<classpath>
+				<path refid="libs"/>
+				<path location="${dist}/libs/lucera-commons.jar"/>
+			</classpath>
+		</javac>
+
+		<antcall target="crypting"/>
+
+		<delete file="${dist}/classes/ru/catssoftware/info/Version.class" />
+
+		<jar destfile="${dist}/game/gameserver.jar">
+			<fileset dir="${dist}/classes"/>
+		</jar>
+
+	</target>
+
     <target name="game" depends="commons">
-        <delete dir="${dist}/classes" />
-        <mkdir dir="${dist}/classes" />
-        <javac destdir="${dist}/classes" source="1.6" target="1.6" encoding="utf-8" >
-            <src path="${game}/loader/ru/catssoftware/info"/>
-        </javac>
 
-        <javac destdir="${dist}/classes" optimize="off" debug="on" source="1.6" target="1.6" encoding="utf-8" >
-            <src path="${game}/src"/>
-            <classpath>
-                <path refid="libs"/>
-                <path location="${dist}/libs/lucera-commons.jar"/>
-            </classpath>
-        </javac>
-
-        <antcall target="crypting"/>
-
-        <delete file="${dist}/classes/ru/catssoftware/info/Version.class" />
-
-        <jar destfile="${dist}/game/gameserver.jar">
-            <fileset dir="${dist}/classes"/>
-        </jar>
+ 		<antcall target="gameserver.jar"/>
 
         <delete dir="${dist}/classes" />
         <mkdir dir="${dist}/classes" />
