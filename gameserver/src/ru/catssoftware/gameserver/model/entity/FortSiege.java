@@ -467,7 +467,7 @@ public class FortSiege
 		List<L2PcInstance> lst = new FastList<L2PcInstance>();
 		for (L2Character cha : getZone().getCharactersInside().values())
 		{
-			if (cha instanceof L2PcInstance)
+			if (cha.isPlayer())
 				lst.add((L2PcInstance) cha);
 		}
 		return lst;
@@ -479,7 +479,7 @@ public class FortSiege
 		List<L2PcInstance> lst = new FastList<L2PcInstance>();
 		for (L2Character cha : getZone().getCharactersInside().values())
 		{
-			if (cha instanceof L2PcInstance && ((L2PcInstance) cha).getClan() != null && ((L2PcInstance) cha).getClan() == getFort().getOwnerClan())
+			if (cha.isPlayer() && ((L2PcInstance) cha).getClan() != null && ((L2PcInstance) cha).getClan() == getFort().getOwnerClan())
 				lst.add((L2PcInstance) cha);
 		}
 		return lst;
@@ -1056,7 +1056,7 @@ public class FortSiege
 	
 	public L2NpcInstance getClosestFlag(L2Object obj)
 	{
-		if (( obj != null) && (obj instanceof L2PcInstance))  
+		if (( obj != null) && (obj.isPlayer()))
 		{
 			if (((L2PcInstance)obj).getClan() != null)  
 			{

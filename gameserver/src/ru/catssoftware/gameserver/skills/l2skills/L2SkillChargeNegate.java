@@ -40,7 +40,7 @@ public class L2SkillChargeNegate extends L2Skill
 	@Override
 	public void useSkill(L2Character activeChar, L2Character... targets)
 	{
-		if (activeChar.isAlikeDead() || !(activeChar instanceof L2PcInstance))
+		if (activeChar.isAlikeDead() || !(activeChar.isPlayer()))
 			return;
 
 		for (L2Character target : targets)
@@ -83,7 +83,7 @@ public class L2SkillChargeNegate extends L2Skill
 					{
 						if (f.stat == Stats.RUN_SPEED)
 						{
-							if (target instanceof L2PcInstance)
+							if (target.isPlayer())
 							{
 								SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
 								sm.addSkillName(e.getSkill().getId());
@@ -97,7 +97,7 @@ public class L2SkillChargeNegate extends L2Skill
 			}
 			else if (e.getSkill().getSkillType() == type)
 			{
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
 					sm.addSkillName(e.getSkill().getId());

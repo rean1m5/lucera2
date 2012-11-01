@@ -9,6 +9,7 @@ import ru.catssoftware.extension.ObjectExtension.Action;
 import ru.catssoftware.gameserver.LoginServerThread;
 import ru.catssoftware.gameserver.LoginServerThread.SessionKey;
 import ru.catssoftware.gameserver.ThreadPoolManager;
+import ru.catssoftware.gameserver.datatables.CharNameTable;
 import ru.catssoftware.gameserver.datatables.ClanTable;
 import ru.catssoftware.gameserver.mmocore.MMOClient;
 import ru.catssoftware.gameserver.mmocore.MMOConnection;
@@ -21,6 +22,7 @@ import ru.catssoftware.gameserver.network.serverpackets.L2GameServerPacket;
 import ru.catssoftware.gameserver.network.serverpackets.LeaveWorld;
 import ru.catssoftware.gameserver.network.serverpackets.ServerClose;
 import ru.catssoftware.gameserver.threadmanager.FIFOPacketRunnableQueue;
+import ru.catssoftware.gameserver.util.DatabaseUtils;
 import ru.catssoftware.protection.CatsGuard;
 import ru.catssoftware.protection.LameStub;
 import ru.catssoftware.tools.security.BlowFishKeygen;
@@ -47,7 +49,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	public static interface IExReader {
 		public int read(ByteBuffer buf);
 		public void checkChar(L2PcInstance cha);
-	};
+	}
 	
 	public GameClientState				_state						= GameClientState.CONNECTED;
 	private String						_hostAddress				= getSocket().getInetAddress().getHostAddress();
@@ -119,6 +121,47 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		return _activeChar;
 	}
 
+	private Integer[] charsOnAccount;
+
+	public boolean haveCharOnAccount(int charId)
+	{
+		if (charsOnAccount == null)
+				setCharOnAccount();
+
+		for(int i: charsOnAccount)
+			if (i == charId)
+				return true;
+
+		return false;
+	}
+
+	public void setCharOnAccount()
+	{
+		Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet rset = null;
+		int count = CharNameTable.getInstance().accountCharNumber(getAccountName());
+		charsOnAccount = new Integer[count];
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			statement = con.prepareStatement("SELECT `charId` FROM characters WHERE account_name=?");
+			statement.setString(1, getAccountName());
+			rset = statement.executeQuery();
+
+			while (rset.next())
+				charsOnAccount[--count] = rset.getInt("charId");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			DatabaseUtils.close(con,  statement, rset);
+		}
+	}
+
 	private boolean checkHwId() {
 		if(getActiveChar()!=null && getHWid()!=null && getHWid().length()!=0) try {
 			String hw = getActiveChar().getAccountData().getString("hwbind"); 
@@ -137,7 +180,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	public void setActiveChar(L2PcInstance pActiveChar)
 	{
 		_activeChar = pActiveChar;
-		if (_activeChar != null) {
+		if (_activeChar != null)
+		{
 			if(_reader!=null && _activeChar!=null) 
 				_reader.checkChar(_activeChar);
 			if(!checkHwId())
@@ -615,8 +659,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 				LoginServerThread.getInstance().sendLogout(getAccountName());
 			}
 		});
-		
+
 		new Disconnection(this).onDisconnection();
+
 		if(_reader!=null)
 			CatsGuard.getInstance().doneSession(this);
 //		Restrictions.onDisconnect(this);
@@ -685,5 +730,17 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	}
 	public void incBufferErrors() {
 		_bufferError++;
+	}
+
+	protected static final Logger _packetLog = Logger.getLogger("PacketLogger");
+
+	@Override
+	public void logInfo(String str)
+	{
+		if (_activeChar == null)
+			return;
+
+		//if (developer.packetLoggerList.contains(_activeChar.getObjectId()))
+			_packetLog.info(_activeChar.getName() + " (" + _activeChar.getObjectId() + "): " + str);
 	}
 }

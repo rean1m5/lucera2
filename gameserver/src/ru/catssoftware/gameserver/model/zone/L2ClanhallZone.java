@@ -26,16 +26,16 @@ public class L2ClanhallZone extends L2DefaultZone
 		if (_clanhall.getId()==35&&BanditStrongholdSiege.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(this,FLAG_PVP, true);
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 				character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 		}
 		if (_clanhall.getId()==63&&WildBeastFarmSiege.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(this,FLAG_PVP, true);
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 				character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 		}
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 		{
 			// Set as in clan hall
 			character.setInsideZone(this,FLAG_CLANHALL, true);
@@ -85,7 +85,7 @@ public class L2ClanhallZone extends L2DefaultZone
 				{
 					character.setInsideZone(this,FLAG_PVP, false);
 
-					if (character instanceof L2PcInstance)
+					if (character.isPlayer())
 						character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 				}
 				catch (Exception e)
@@ -100,16 +100,16 @@ public class L2ClanhallZone extends L2DefaultZone
 		if (_clanhall.getId()==35&&BanditStrongholdSiege.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(this,FLAG_PVP, false);
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 				character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 		}
 		if (_clanhall.getId()==63&&WildBeastFarmSiege.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(this,FLAG_PVP, false);
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 				character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 		}
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 			character.setInsideZone(this,FLAG_CLANHALL, false);
 		super.onExit(character);
 	}

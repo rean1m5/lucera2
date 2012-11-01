@@ -143,7 +143,7 @@ public class ArenaManager
 			return;
 		}
 
-		L2PcInstance winner = L2World.getInstance().findPlayer(idTop);
+		L2PcInstance winner = L2World.getInstance().getPlayer(idTop);
 
 		Announcements.getInstance().announceToAll("PvP Мэнеджер: " + arTop.name + " выигравыет текущий период " + arTop.kills + "/" + arTop.death + ". Следующий раунд пройдет через " + Config.ARENA_INTERVAL + " минут.");
 		if (winner != null && Config.ARENA_REWARD_ID > 0)

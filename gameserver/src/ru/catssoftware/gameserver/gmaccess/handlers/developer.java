@@ -1,6 +1,7 @@
 package ru.catssoftware.gameserver.gmaccess.handlers;
 
 import ru.catssoftware.gameserver.Announcements;
+import ru.catssoftware.gameserver.datatables.CharNameTable;
 import ru.catssoftware.gameserver.gmaccess.gmHandler;
 import ru.catssoftware.gameserver.instancemanager.MapRegionManager;
 import ru.catssoftware.gameserver.instancemanager.TownManager;
@@ -11,6 +12,9 @@ import ru.catssoftware.gameserver.model.mapregion.L2MapRegionRestart;
 import ru.catssoftware.gameserver.model.mapregion.TeleportWhereType;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author m095
  * @version 1.0
@@ -20,8 +24,11 @@ public class developer extends gmHandler
 	private final String[]	commands =
 	{
 		"msg",
-		"region_check"
+		"region_check",
+		"packetlogger"
 	};
+
+	public static List<Integer> packetLoggerList = new ArrayList<Integer>();
 
 	@Override
 	public void runCommand(L2PcInstance admin, String... params)
@@ -77,6 +84,27 @@ public class developer extends gmHandler
 				String nearestTown = TownManager.getInstance().getClosestTownName(admin);
 				Announcements.getInstance().announceToAll(admin.getName() + " has tried spawn-announce near " + nearestTown + "!");
 			}
+		}
+		else if (cmd.equals("packetlogger"))
+		{
+			if (params.length == 2)
+			{
+				Integer charId = CharNameTable.getInstance().getByName(params[1]);
+				if (charId == null)
+					admin.sendMessage("Игрок с ником " + params[1] + " не найден.");
+				else if (!packetLoggerList.contains(charId))
+				{
+					packetLoggerList.add(charId);
+					admin.sendMessage("Игрок с ником " + params[1] + " успешно добавлен в список логируемых.");
+				}
+				else
+				{
+					packetLoggerList.remove(charId);
+					admin.sendMessage("Игрок с ником " + params[1] + " удален из списока логируемых.");
+				}
+			}
+			else
+				admin.sendMessage("Неверный синтаксис команды (без скобок): //packetlogger [ник игрока]");
 		}
 	}
 	

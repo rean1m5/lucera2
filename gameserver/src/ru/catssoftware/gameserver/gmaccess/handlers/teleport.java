@@ -137,7 +137,7 @@ public class teleport extends gmHandler
 				if (obj == null)
 					obj = admin;
 				
-				if (obj instanceof L2PcInstance)
+				if (obj.isPlayer())
 					player = (L2PcInstance)obj;
 			}
 
@@ -188,7 +188,7 @@ public class teleport extends gmHandler
 				if (obj == null)
 					obj = admin;
 				
-				if (obj instanceof L2PcInstance)
+				if (obj.isPlayer())
 					player = (L2PcInstance)obj;
 			}
 
@@ -239,7 +239,7 @@ public class teleport extends gmHandler
 				if (obj == null)
 					obj = admin;
 				
-				if (obj instanceof L2PcInstance)
+				if (obj.isPlayer())
 					player = (L2PcInstance)obj;
 			}
 
@@ -335,7 +335,7 @@ public class teleport extends gmHandler
 		}
 		else if (command.equals("teleport_to_character"))
 		{
-			if (admin.getTarget() instanceof L2PcInstance)
+			if (admin.getTarget().isPlayer())
 				teleportToCharacter(admin, ((L2PcInstance)admin.getTarget()));
 			else
 				admin.sendMessage("Цель не является игроком.");
@@ -612,7 +612,7 @@ public class teleport extends gmHandler
 	{
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 		{
 			player = (L2PcInstance) target;
 		}
@@ -731,7 +731,7 @@ public class teleport extends gmHandler
 		else
 			obj = L2World.getInstance().getPlayer(player);
 
-		if (obj != null && obj instanceof L2PcInstance)
+		if (obj != null && obj.isPlayer())
 			((L2PcInstance)obj).teleToLocation(TeleportWhereType.Town);
 		else
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);

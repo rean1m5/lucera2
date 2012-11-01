@@ -25,7 +25,7 @@ public class ScrollOfResurrection implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item, boolean par){}
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable.isPlayer()))
 			return;
 
 		L2PcInstance activeChar = (L2PcInstance) playable;
@@ -51,7 +51,7 @@ public class ScrollOfResurrection implements IItemHandler
 			{
 				L2PcInstance targetPlayer = null;
 
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 					targetPlayer = (L2PcInstance) target;
 
 				L2PetInstance targetPet = null;

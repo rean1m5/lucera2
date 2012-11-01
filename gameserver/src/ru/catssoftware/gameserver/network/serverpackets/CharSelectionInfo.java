@@ -1,21 +1,20 @@
 package ru.catssoftware.gameserver.network.serverpackets;
 
+import ru.catssoftware.L2DatabaseFactory;
+import ru.catssoftware.gameserver.datatables.ClanTable;
+import ru.catssoftware.gameserver.model.CharSelectInfoPackage;
+import ru.catssoftware.gameserver.model.L2Clan;
+import ru.catssoftware.gameserver.model.L2World;
+import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
+import ru.catssoftware.gameserver.model.itemcontainer.Inventory;
+import ru.catssoftware.gameserver.network.L2GameClient;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import ru.catssoftware.L2DatabaseFactory;
-import ru.catssoftware.gameserver.datatables.ClanTable;
-import ru.catssoftware.gameserver.model.CharSelectInfoPackage;
-import ru.catssoftware.gameserver.model.L2Clan;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2World;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.itemcontainer.Inventory;
-import ru.catssoftware.gameserver.network.L2GameClient;
 
 
 public class CharSelectionInfo extends L2GameServerPacket
@@ -278,11 +277,9 @@ public class CharSelectionInfo extends L2GameServerPacket
 		
 		String name = chardata.getString("char_name");
 
-		L2Object object = null;
-		object = L2World.getInstance().getPlayer(name);
-		if ((object instanceof L2PcInstance))
+		L2PcInstance player = L2World.getInstance().getPlayer(name);
+		if (player != null)
 		{
-			L2PcInstance player = ((L2PcInstance)object);
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			player.setOfflineTrade(false);
 			player.deleteMe();

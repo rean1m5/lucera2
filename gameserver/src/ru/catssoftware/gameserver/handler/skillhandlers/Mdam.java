@@ -74,7 +74,7 @@ public class Mdam implements ICubicSkillHandler
 			if(target instanceof L2Boss)
 				if(Math.abs(target.getZ()-activeChar.getZ())>50)
 					continue;
-			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
+			if (activeChar.isPlayer() && target.isPlayer() && target.isFakeDeath())
 				target.stopFakeDeath(null);
 
 			else if (target.isDead())
@@ -193,7 +193,7 @@ public class Mdam implements ICubicSkillHandler
 			if (target == null)
 				continue;
 
-			if (target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())
+			if (target.isPlayer() && target.isAlikeDead() && target.isFakeDeath())
 				target.stopFakeDeath(null);
 
 			else if (target.isAlikeDead())

@@ -36,7 +36,7 @@ public class BeastSoulShot implements IItemHandler
 			activeOwner.sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
 			return;
 		}
-		else if (playable instanceof L2PcInstance)
+		else if (playable.isPlayer())
 			activeOwner = (L2PcInstance) playable;
 
 		if (activeOwner == null)

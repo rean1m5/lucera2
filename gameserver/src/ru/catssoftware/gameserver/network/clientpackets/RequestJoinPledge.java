@@ -40,16 +40,17 @@ public class RequestJoinPledge extends L2GameClientPacket
 		if (activeChar.getTargetId() == _objectId)
 			obj = activeChar.getTarget();
 
+		// Get object from world
 		if (obj == null)
 			obj = L2World.getInstance().getPlayer(_objectId);
 
-		if (!(obj instanceof L2PcInstance))
+		if (obj != null && !obj.isPlayer())
 		{
 			activeChar.sendPacket(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
 			return;
 		}
 
-		L2PcInstance target = (L2PcInstance) obj;
+		L2PcInstance target = obj.getPlayer();
 		if (!clan.checkClanJoinCondition(activeChar, target, _pledgeType))
 			return;
 

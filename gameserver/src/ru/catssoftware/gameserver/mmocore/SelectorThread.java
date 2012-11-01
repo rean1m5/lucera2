@@ -1,17 +1,18 @@
 package ru.catssoftware.gameserver.mmocore;
 
+import javolution.util.FastList;
+import javolution.util.FastList.Node;
+import javolution.util.FastMap;
+import ru.catssoftware.gameserver.network.L2GameClient;
+import ru.catssoftware.gameserver.network.L2GameClient.GameClientState;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.ClosedChannelException;
-import java.nio.channels.SelectableChannel;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.*;
 import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,17 +20,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Future;
-import java.util.concurrent.RunnableScheduledFuture;
 import java.util.concurrent.locks.ReentrantLock;
-
-import ru.catssoftware.gameserver.ThreadPoolManager;
-import ru.catssoftware.gameserver.network.L2GameClient;
-import ru.catssoftware.gameserver.network.L2GameClient.GameClientState;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastList.Node;
 
 @SuppressWarnings("unchecked")
 public class SelectorThread<T extends MMOClient> extends Thread
@@ -575,7 +566,7 @@ public class SelectorThread<T extends MMOClient> extends Thread
 				cp.setClient(client);
 				if(cp.read())
 					_pktrunner.ShedulePacket(cp);
-
+				client.logInfo("client --> server [" + cp.getClass().getSimpleName() + "] data: " + cp.getDebugData());
 				cp.setByteBuffer(null);
 			}
 			buf.limit(limit);

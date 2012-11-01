@@ -96,7 +96,7 @@ public class LastHero extends GameEvent
 		L2PcInstance player;
 		for(Integer playerId: _players)
 		{
-				player = L2World.getInstance().findPlayer(playerId);
+				player = L2World.getInstance().getPlayer(playerId);
 				if(player!=null)
 					remove(player);
 		}
@@ -212,7 +212,7 @@ public class LastHero extends GameEvent
 				if(!_winners.contains(killer.getObjectId()))
 					_winners.add(killer.getObjectId());
 				if(_winners.contains(victim.getObjectId()))
-					_winners.remove(victim.getObjectId());
+					_winners.remove((Integer)victim.getObjectId());
 				remove(victim.getPlayer());
 			}
 		}
@@ -379,7 +379,7 @@ public class LastHero extends GameEvent
 			actor.getStatus().setCurrentCp(actor.getMaxCp());
 			actor.getStatus().setCurrentHp(actor.getMaxHp());
 			actor.getStatus().setCurrentMp(actor.getMaxMp());
-			if(actor instanceof L2PcInstance)
+			if(actor.isPlayer())
 				remove((L2PcInstance)actor);
 		}
 		
@@ -405,7 +405,7 @@ public class LastHero extends GameEvent
 			{
 				for (Integer playerid : _players)
 				{
-					player = L2World.getInstance().findPlayer(playerid);
+					player = L2World.getInstance().getPlayer(playerid);
 					if (player != null && player.isOnline() != 0)
 						player.sendPacket(cs);
 				}
@@ -451,7 +451,7 @@ public class LastHero extends GameEvent
 		L2PcInstance player;
 		for(Integer playerId: _players)
 		{
-			player = L2World.getInstance().findPlayer(playerId);
+			player = L2World.getInstance().getPlayer(playerId);
 			if(player!=null)
 			{
 				player.abortAttack();
@@ -464,7 +464,7 @@ public class LastHero extends GameEvent
 		{
 			for(Integer playerId: _winners)
 			{
-				player = L2World.getInstance().findPlayer(playerId);
+				player = L2World.getInstance().getPlayer(playerId);
 				if(player!=null && !player.isAlikeDead())
 				{
 					AnnounceToPlayers(true, "LastHero: Победитель матча " + player.getName());
@@ -510,7 +510,7 @@ public class LastHero extends GameEvent
 			L2PcInstance player;
 			for(Integer playerId : _players)
 			{
-				player = L2World.getInstance().findPlayer(playerId);
+				player = L2World.getInstance().getPlayer(playerId);
 				
 				if(player!=null && !player.isDead())
 				{
@@ -536,7 +536,7 @@ public class LastHero extends GameEvent
 			int Radius = 500;
 			for(Integer playerId: _players)
 			{
-				player = L2World.getInstance().findPlayer(playerId);
+				player = L2World.getInstance().getPlayer(playerId);
 				if(player!=null)
 				{
 					player.abortAttack();
@@ -571,7 +571,7 @@ public class LastHero extends GameEvent
 					L2PcInstance player;
 					for(Integer playerId: _players)
 					{
-						player = L2World.getInstance().findPlayer(playerId);
+						player = L2World.getInstance().getPlayer(playerId);
 						if(player!=null) 
 							player.stopAllEffects();
 					}
@@ -591,7 +591,7 @@ public class LastHero extends GameEvent
 		L2PcInstance player;
 		for(Integer playerId: _players)
 		{
-			player = L2World.getInstance().findPlayer(playerId);
+			player = L2World.getInstance().getPlayer(playerId);
 			if(player!=null && player.getLevel() >= _minLvl && player.getLevel() <= _maxLvl)
 			{
 				realPlayers++;

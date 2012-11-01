@@ -209,16 +209,6 @@ public final class L2World
 		return null;
 	}
 
-	public L2PcInstance findPlayer(int objectId)
-	{
-		L2Object obj = _objects.get(objectId);
-
-		if (obj instanceof L2PcInstance)
-			return (L2PcInstance)obj;
-
-		return null;
-	}
-
 	public L2Object[] getAllVisibleObjects()
 	{
 		return _objects.toArray(new L2Object[_objects.size()]);
@@ -276,8 +266,12 @@ public final class L2World
 	 */
 	public L2PcInstance getPlayer(int objectId)
 	{
-		L2Object object = _objects.get(objectId);
-		return object instanceof L2PcInstance ? (L2PcInstance)object : null;
+		L2Object obj = _objects.get(objectId);
+
+		if (obj != null && obj.isPlayer())
+			return obj.getPlayer();
+
+		return null;
 	}
 
 	/**
@@ -379,7 +373,7 @@ public final class L2World
 	public void addVisibleObject(L2Object object, L2Character dropper)
 	{
 		//FIXME: this code should be obsoleted by protection in putObject func...
-		if (object instanceof L2PcInstance)
+		if (object.isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance) object;
 			L2PcInstance old = getPlayer(player.getName());
@@ -484,7 +478,7 @@ public final class L2World
 
 		object.getKnownList().removeAllKnownObjects();
 
-		if (object instanceof L2PcInstance)
+		if (object.isPlayer())
 			removeFromAllPlayers((L2PcInstance)object);
 	}
 

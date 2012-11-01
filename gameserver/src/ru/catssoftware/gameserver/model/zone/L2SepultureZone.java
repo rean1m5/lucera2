@@ -13,8 +13,8 @@ public class L2SepultureZone extends L2Zone {
 
 	@Override
 	protected void onEnter(L2Character cha) {
-		if(cha instanceof L2PcInstance) {
-			L2PcInstance player = cha.getActingPlayer();
+		if(cha.isPlayer()) {
+			L2PcInstance player = cha.getPlayer();
 			if(player.getParty()==null && !player.isGM())
 				player.teleToLocation(TeleportWhereType.Town);
 			player._inSepulture = true;
@@ -24,7 +24,7 @@ public class L2SepultureZone extends L2Zone {
 
 	@Override
 	protected void onExit(L2Character cha) {
-		if(cha instanceof L2PcInstance) 
+		if(cha.isPlayer())
 			((L2PcInstance)cha)._inSepulture = false;
 	}
 

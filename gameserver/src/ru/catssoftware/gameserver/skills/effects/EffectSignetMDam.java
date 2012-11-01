@@ -74,7 +74,7 @@ public final class EffectSignetMDam extends L2Effect
 		int y = getEffector().getY();
 		int z = getEffector().getZ();
 
-		if (getEffector() instanceof L2PcInstance && getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_GROUND)
+		if (getEffector().isPlayer() && getSkill().getTargetType() == L2Skill.SkillTargetType.TARGET_GROUND)
 		{
 			Point3D wordPosition = ((L2PcInstance) getEffector()).getCurrentSkillWorldPosition();
 

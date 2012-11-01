@@ -49,7 +49,7 @@ public class TradeRequest extends L2GameClientPacket
 		if (obj == null)
 			obj = L2World.getInstance().getPlayer(_objectId);
 
-		if (!(obj instanceof L2PcInstance) || obj.getObjectId() == player.getObjectId())
+		if (!(obj != null || obj.isPlayer()) || obj.getObjectId() == player.getObjectId())
 		{
 			player.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return;

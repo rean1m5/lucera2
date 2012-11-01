@@ -33,7 +33,7 @@ public class L2DefaultZone extends L2Zone
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (_onEnterMsg != null && character instanceof L2PcInstance)
+		if (_onEnterMsg != null && character.isPlayer())
 			character.sendPacket(_onEnterMsg);
 
 		if (_abnormal > 0)
@@ -72,7 +72,7 @@ public class L2DefaultZone extends L2Zone
 		{
 			character.setInsideZone(this,FLAG_NOSUMMON, true);
 			character.setInsideZone(this,FLAG_PVP, true);
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 				character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 		}
 		else if (_pvp == PvpSettings.PEACE)
@@ -80,7 +80,7 @@ public class L2DefaultZone extends L2Zone
 			if (Config.ZONE_TOWN != 2)
 				character.setInsideZone(this,FLAG_PEACE, true);
 		}
-		if (_noLanding && character instanceof L2PcInstance)
+		if (_noLanding && character.isPlayer())
 		{
 			character.setInsideZone(this,FLAG_NOLANDING, true);
 			if (((L2PcInstance) character).getMountType() == 2)
@@ -97,7 +97,7 @@ public class L2DefaultZone extends L2Zone
 			character.setInsideZone(this,FLAG_NOSTORE, true);
 		if (_noSummon)
 			character.setInsideZone(this,FLAG_NOSUMMON, true);
-		if (_noMiniMap && character instanceof L2PcInstance)
+		if (_noMiniMap && character.isPlayer())
 		{
 			((L2PcInstance) character).sendMessage(Message.getMessage((L2PcInstance) character, Message.MessageId.MSG_MAP_NOT_ALLOWED));
 			character.setInsideZone(this,FLAG_NOMAP, true);
@@ -109,13 +109,13 @@ public class L2DefaultZone extends L2Zone
 		}
 		if (_nochat)
 		{
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 				((L2PcInstance) character).sendMessage(Message.getMessage((L2PcInstance) character, Message.MessageId.MSG_NO_CHAT));
 			character.setInsideZone(this,FLAG_NOCHAT, true);
 		}
 		if (_trade)
 		{
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 				((L2PcInstance) character).sendMessage(Message.getMessage((L2PcInstance) character, Message.MessageId.MSG_ENTER_TRADE_ZONE));
 			character.setInsideZone(this,FLAG_TRADE, true);
 		}
@@ -125,7 +125,7 @@ public class L2DefaultZone extends L2Zone
 			character.setInsideZone(this,FLAG_BAIUM, true);
 		if (_Zaken && character.isGrandBoss())
 			character.setInsideZone(this,FLAG_ZAKEN, true);
-		if (_instanceName != null && _instanceGroup != null && character instanceof L2PcInstance)
+		if (_instanceName != null && _instanceGroup != null && character.isPlayer())
 		{
 			L2PcInstance pl = (L2PcInstance) character;
 			InstanceResult ir = new InstanceResult();
@@ -185,7 +185,7 @@ public class L2DefaultZone extends L2Zone
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if (_onExitMsg != null && character instanceof L2PcInstance)
+		if (_onExitMsg != null && character.isPlayer())
 			character.sendPacket(_onExitMsg);
 
 		if (_abnormal > 0)
@@ -208,17 +208,17 @@ public class L2DefaultZone extends L2Zone
 		{
 			character.setInsideZone(this,FLAG_NOSUMMON, false);
 			character.setInsideZone(this,FLAG_PVP, false);
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 				character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 		} 
 		else if (_pvp == PvpSettings.PEACE) {
 			character.setPreventedFromReceivingBuffs(false);
-			if(character instanceof L2PcInstance && character.isPreventedFromReceivingBuffs())
+			if(character.isPlayer() && character.isPreventedFromReceivingBuffs())
 				((L2PcInstance)character).sendMessage("Block buff is off");
 			character.setInsideZone(this,FLAG_PEACE, false);
 		}
 
-		if (_noLanding && character instanceof L2PcInstance)
+		if (_noLanding && character.isPlayer())
 		{
 			character.setInsideZone(this,FLAG_NOLANDING, false);
 			if (((L2PcInstance) character).getMountType() == 2)
@@ -230,9 +230,9 @@ public class L2DefaultZone extends L2Zone
 			character.setInsideZone(this,FLAG_NOSTORE, false);
 		if (_noSummon)
 			character.setInsideZone(this,FLAG_NOSUMMON, false);
-		if (_noMiniMap && character instanceof L2PcInstance)
+		if (_noMiniMap && character.isPlayer())
 		{
-			if (character.isInsideZone(FLAG_NOMAP) && character instanceof L2PcInstance)
+			if (character.isInsideZone(FLAG_NOMAP) && character.isPlayer())
 				((L2PcInstance) character).sendMessage(Message.getMessage((L2PcInstance) character, Message.MessageId.MSG_MAP_ON));
 			character.setInsideZone(this,FLAG_NOMAP, false);
 		}
@@ -241,10 +241,10 @@ public class L2DefaultZone extends L2Zone
 		if (_trade)
 		{
 			character.setInsideZone(this,FLAG_TRADE, false);
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 				((L2PcInstance) character).sendMessage(Message.getMessage((L2PcInstance)character, Message.MessageId.MSG_EXIT_TRADE_ZONE));
 		}
-		if (character instanceof L2PcInstance && _instanceName != null && character.getInstanceId() > 0)
+		if (character.isPlayer() && _instanceName != null && character.getInstanceId() > 0)
 			portIntoInstance((L2PcInstance) character, 0);
 		if (_Queen)
 			character.setInsideZone(this, FLAG_QUEEN, false);

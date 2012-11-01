@@ -115,7 +115,7 @@ public class CharStatus
 			}
 		}
 
-		if (getActiveChar() instanceof L2PcInstance)
+		if (getActiveChar().isPlayer())
 		{
 			if (getCurrentHp() <= maxHp * 0.3)
 			{
@@ -127,7 +127,7 @@ public class CharStatus
 
 		getActiveChar().broadcastStatusUpdate();
 
-		if (getActiveChar() instanceof L2PcInstance)
+		if (getActiveChar().isPlayer())
 			((L2PcInstance) getActiveChar()).refreshConditionListeners(ConditionListenerDependency.PLAYER_HP);
 	}
 
@@ -259,19 +259,19 @@ public class CharStatus
 			if (getActiveChar().isStunned() && Rnd.get(10) == 0)
 				getActiveChar().stopStunning(null);
 		}
-		else if (awake && getActiveChar() instanceof L2PcInstance)
+		else if (awake && getActiveChar().isPlayer())
 		{
 			if (getActiveChar().isSleeping())
 				getActiveChar().stopSleeping(null);
 		}
 
-		final L2PcInstance player = getActiveChar().getActingPlayer();
-		final L2PcInstance attackerPlayer = attacker.getActingPlayer();
+		final L2PcInstance player = getActiveChar().getPlayer();
+		final L2PcInstance attackerPlayer = attacker.getPlayer();
 
 		if (value > 0) // Reduce Hp if any
 		{
 			// add olympiad damage
-			if (player != null && player.isInOlympiadMode() && attacker instanceof L2PcInstance && attackerPlayer.isInOlympiadMode())
+			if (player != null && player.isInOlympiadMode() && attacker.isPlayer() && attackerPlayer.isInOlympiadMode())
 			{
 				attackerPlayer.addOlyDamage((int) value);
 			}
@@ -289,7 +289,7 @@ public class CharStatus
 			if (value <= 0)
 			{
 				// is the dying a duelist? if so, change his duel state to dead
-				if (player != null && player.isInDuel() && getActiveChar() instanceof L2PcInstance) // pets can die as usual
+				if (player != null && player.isInDuel() && getActiveChar().isPlayer()) // pets can die as usual
 				{
 					getActiveChar().disableAllSkills();
 					stopHpMpRegeneration();
@@ -315,7 +315,7 @@ public class CharStatus
 
 		if (getActiveChar().getStatus().getCurrentHp() < 1) // Die
 		{
-			if (player != null && player.isInOlympiadMode() && getActiveChar() instanceof L2PcInstance) // pets can die as usual
+			if (player != null && player.isInOlympiadMode() && getActiveChar().isPlayer()) // pets can die as usual
 			{
 				stopHpMpRegeneration();
 				player.setIsDead(true);

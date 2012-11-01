@@ -14,14 +14,8 @@
  */
 package ru.catssoftware.gameserver.model.entity;
 
-import java.util.concurrent.ScheduledFuture;
 import javolution.util.FastList;
-import java.util.Map;
-import java.util.HashMap;
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Message;
 import ru.catssoftware.extension.GameExtensionManager;
 import ru.catssoftware.extension.ObjectExtension.Action;
@@ -31,27 +25,18 @@ import ru.catssoftware.gameserver.datatables.SkillTable;
 import ru.catssoftware.gameserver.idfactory.IdFactory;
 import ru.catssoftware.gameserver.instancemanager.DuelManager;
 import ru.catssoftware.gameserver.instancemanager.SiegeManager;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Effect;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Summon;
-import ru.catssoftware.gameserver.model.L2World;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PetInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2SummonInstance;
 import ru.catssoftware.gameserver.model.base.Experience;
 import ru.catssoftware.gameserver.model.zone.L2Zone;
 import ru.catssoftware.gameserver.network.SystemMessageId;
-import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
-import ru.catssoftware.gameserver.network.serverpackets.ExDuelEnd;
-import ru.catssoftware.gameserver.network.serverpackets.ExDuelReady;
-import ru.catssoftware.gameserver.network.serverpackets.ExDuelStart;
-import ru.catssoftware.gameserver.network.serverpackets.ExDuelUpdateUserInfo;
-import ru.catssoftware.gameserver.network.serverpackets.L2GameServerPacket;
-import ru.catssoftware.gameserver.network.serverpackets.PlaySound;
-import ru.catssoftware.gameserver.network.serverpackets.SocialAction;
-import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
+import ru.catssoftware.gameserver.network.serverpackets.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 public class Duel
 {
@@ -1054,8 +1039,8 @@ public class Duel
 
 	public static boolean isInvul(L2Character targetChar, L2Character attackerChar)
 	{
-		final L2PcInstance attacker = L2Object.getActingPlayer(attackerChar);
-		final L2PcInstance target = L2Object.getActingPlayer(targetChar);
+		final L2PcInstance attacker = attackerChar.getPlayer();
+		final L2PcInstance target = targetChar.getPlayer();
 
 		if (attacker == null && target == null)
 			return false;

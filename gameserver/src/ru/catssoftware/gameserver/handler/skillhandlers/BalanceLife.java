@@ -17,7 +17,7 @@ public class BalanceLife implements ISkillHandler
 		SkillHandler.getInstance().getSkillHandler(L2SkillType.BUFF).useSkill(activeChar, skill, targets);
 
 		L2PcInstance player = null;
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 			player = (L2PcInstance) activeChar;
 
 		double fullHP = 0;
@@ -35,7 +35,7 @@ public class BalanceLife implements ISkillHandler
 			// Player holding a cursed weapon can't be healed and can't heal
 			if (target != activeChar)
 			{
-				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
+				if (target.isPlayer() && ((L2PcInstance) target).isCursedWeaponEquipped())
 					continue;
 
 				else if (player != null && player.isCursedWeaponEquipped())

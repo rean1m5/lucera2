@@ -121,7 +121,7 @@ public class FortressOfDeadSiege extends ClanHallSiege
 			setIsInProgress(false);
 			if (par!=null)
 			{
-				if (par instanceof L2PcInstance)
+				if (par.isPlayer())
 				{
 					L2PcInstance killer=((L2PcInstance)par);
 					if ((killer.getClan()!=null)&& (checkIsRegistered(killer.getClan())))

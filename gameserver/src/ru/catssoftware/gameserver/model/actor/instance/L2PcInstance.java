@@ -822,7 +822,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 	public static void disconnectIfOnline(int objectId)
 	{
-		L2PcInstance onlinePlayer = L2World.getInstance().findPlayer(objectId);
+		L2PcInstance onlinePlayer = L2World.getInstance().getPlayer(objectId);
 		
 		if (onlinePlayer == null)
 			return;
@@ -3770,7 +3770,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 	public void doInteract(L2Character target)
 	{
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 		{
 			L2PcInstance temp = (L2PcInstance) target;
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -4006,7 +4006,7 @@ public class L2PcInstance extends L2PlayableInstance
 	{
 		if (newTarget != null)
 		{
-			boolean isParty = (((newTarget instanceof L2PcInstance) && isInParty() && getParty().getPartyMembers().contains(newTarget)));
+			boolean isParty = (((newTarget.isPlayer()) && isInParty() && getParty().getPartyMembers().contains(newTarget)));
 
 			// Check if the new target is visible
 			if (!isParty && !newTarget.isVisible())
@@ -4226,7 +4226,7 @@ public class L2PcInstance extends L2PlayableInstance
 		boolean clanWarKill = false;
 		boolean playerKill = false;
 		boolean charmOfCourage = getCharmOfCourage();
-		L2PcInstance pk = killer.getActingPlayer();
+		L2PcInstance pk = killer.getPlayer();
 
 		if (pk != null)
 		{
@@ -4236,7 +4236,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 		boolean srcInPvP = isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE);
 
-		if (killer instanceof L2PcInstance && srcInPvP && Config.ARENA_ENABLED)
+		if (killer.isPlayer() && srcInPvP && Config.ARENA_ENABLED)
 		{
 			ArenaManager.getInstance().onKill(killer.getObjectId(), killer.getName());
 			ArenaManager.getInstance().onDeath(getObjectId(), getName());
@@ -4414,7 +4414,7 @@ public class L2PcInstance extends L2PlayableInstance
 		if ((_event!=null && _event.isRunning()) || killer == null)
 			return;
 
-		L2PcInstance pk = killer.getActingPlayer();
+		L2PcInstance pk = killer.getPlayer();
 		if (pk != null && getKarma() <= 0 && pk.getClan() != null && getClan() != null
 				&& (pk.getClan().isAtWarWith(getClanId())))
 			return;
@@ -4480,7 +4480,7 @@ public class L2PcInstance extends L2PlayableInstance
 			}
 			// player can drop adena against other player
 			if (Config.ALT_PLAYER_CAN_DROP_ADENA && !isKillerNpc && Config.PLAYER_RATE_DROP_ADENA > 0 && 100 >= Config.PLAYER_RATE_DROP_ADENA
-					&& !(killer instanceof L2PcInstance && ((L2PcInstance) killer).isGM()))
+					&& !(killer.isPlayer() && ((L2PcInstance) killer).isGM()))
 			{
 				L2ItemInstance itemDrop = getInventory().getAdenaInstance();
 				int iCount = getInventory().getAdena();
@@ -4516,7 +4516,7 @@ public class L2PcInstance extends L2PlayableInstance
 			return;
 		if (_event!=null && _event.isRunning())
 			return;
-		L2PcInstance targetPlayer = target.getActingPlayer();
+		L2PcInstance targetPlayer = target.getPlayer();
 
 		if (targetPlayer == null)
 			return; // Target player is null
@@ -4541,7 +4541,7 @@ public class L2PcInstance extends L2PlayableInstance
 		// Check if it's pvp
 		if ((checkIfPvP(target) && targetPlayer.getPvpFlag() != 0) || (isInsideZone(L2Zone.FLAG_PVP) && targetPlayer.isInsideZone(L2Zone.FLAG_PVP)))
 		{
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				_nowKilled = targetPlayer.getObjectId();
 				increasePvpKills(targetPlayer.getLevel());
@@ -4553,7 +4553,7 @@ public class L2PcInstance extends L2PlayableInstance
 		{
 			// check factions
 			if (Config.FACTION_ENABLED && targetPlayer.getSide() != getSide() && targetPlayer.getSide() != 0 
-			&& getSide() != 0 && Config.FACTION_KILL_REWARD && target instanceof L2PcInstance)
+			&& getSide() != 0 && Config.FACTION_KILL_REWARD && target.isPlayer())
 			{
 				// give faction pk points
 				increaseFactionKillPoints(targetPlayer.getLevel(), true);
@@ -4563,7 +4563,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 			// check about wars
 			boolean clanWarKill = (targetPlayer.getClan() != null && getClan() != null && !isAcademyMember() && !(targetPlayer.isAcademyMember()) && _clan.isAtWarWith(targetPlayer.getClanId()) && targetPlayer.getClan().isAtWarWith(_clan.getClanId()));
-			if (clanWarKill && target instanceof L2PcInstance)
+			if (clanWarKill && target.isPlayer())
 			{
 				// 'Both way war' -> 'PvP Kill'
 				increasePvpKills(targetPlayer.getLevel());
@@ -4574,13 +4574,13 @@ public class L2PcInstance extends L2PlayableInstance
 			// 'No war' or 'One way war' -> 'Normal PK'
 			if (targetPlayer.getKarma() > 0) // Target player has karma
 			{
-				if (Config.KARMA_AWARD_PK_KILL && target instanceof L2PcInstance)
+				if (Config.KARMA_AWARD_PK_KILL && target.isPlayer())
 					increasePvpKills(targetPlayer.getLevel());
 			}
 			else if (targetPlayer.getPvpFlag() == 0) // Target player doesn't have karma
 			{
 				increaseKarma(target.getLevel());
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 					setPkKills(getPkKills() + 1);
 				// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
 				sendPacket(new UserInfo(this));
@@ -4754,18 +4754,18 @@ public class L2PcInstance extends L2PlayableInstance
 
 	public void updatePvPStatus(L2Character target)
 	{
-		L2PcInstance player_target = target.getActingPlayer();
+		L2PcInstance player = target.getPlayer();
 
-		if (player_target == null)
+		if (player == null)
 			return;
 		if (_event!=null && _event.isRunning())
 			return;
 
-		if ((isInDuel() && player_target.getDuelId() == getDuelId()))
+		if ((isInDuel() && player.getDuelId() == getDuelId()))
 			return;
-		if ((!isInsideZone(L2Zone.FLAG_PVP) || !player_target.isInsideZone(L2Zone.FLAG_PVP)) && player_target.getKarma() == 0)
+		if ((!isInsideZone(L2Zone.FLAG_PVP) || !player.isInsideZone(L2Zone.FLAG_PVP)) && player.getKarma() == 0)
 		{
-			if (checkIfPvP(player_target))
+			if (checkIfPvP(player))
 				setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_PVP_TIME);
 			else
 				setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
@@ -7657,7 +7657,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 		if (attacker.isPlayer() || attacker.isSummon())
 		{
-			L2PcInstance attackTarget = attacker.getActingPlayer();
+			L2PcInstance attackTarget = attacker.getPlayer();
 
 			if (attackTarget == null)
 				return false;
@@ -7970,7 +7970,7 @@ public class L2PcInstance extends L2PlayableInstance
 					case TARGET_GROUND:
 						break;
 					default:
-/*						L2PcInstance targetPlayer = target.getActingPlayer();
+/*						L2PcInstance targetPlayer = target.getPlayer();
 						if(targetPlayer!=null) {
 							break;
 //							|| targetPlayer.getOlympiadGameId()!= getOlympiadGameId()) {
@@ -8007,7 +8007,7 @@ public class L2PcInstance extends L2PlayableInstance
 			boolean srcInPvP = isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE);
 			boolean targetInPvP = ((L2PlayableInstance)target).isInsideZone(L2Zone.FLAG_PVP) && !((L2PlayableInstance)target).isInsideZone(L2Zone.FLAG_SIEGE);
 			boolean stop = false;
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				if ((getParty() != null && ((L2PcInstance) target).getParty() != null) && getParty().getPartyLeaderOID() == ((L2PcInstance) target).getParty().getPartyLeaderOID())
 					stop = true;
@@ -8224,7 +8224,7 @@ public class L2PcInstance extends L2PlayableInstance
 	{
 		// check for PC->PC Pvp status
 		if (obj != this && // target is not self and
-				obj instanceof L2PcInstance && // target is L2PcInstance and
+				obj.isPlayer() && // target is L2PcInstance and
 				!(isInDuel() && ((L2PcInstance) obj).getDuelId() == getDuelId()) && // self is not in a duel and attacking opponent
 				!isInsideZone(L2Zone.FLAG_PVP) && // Pc is not in PvP zone
 				!((L2PcInstance) obj).isInsideZone(L2Zone.FLAG_PVP) // target is not in PvP zone
@@ -11514,7 +11514,7 @@ public class L2PcInstance extends L2PlayableInstance
 		{
 			L2Object obj = getKnownList().getKnownObject(_engageid);
 			setEngageRequest(false, 0);
-			if (obj instanceof L2PcInstance)
+			if (obj.isPlayer())
 			{
 				L2PcInstance ptarget = (L2PcInstance) obj;
 				if (answer == 1)
@@ -12251,13 +12251,7 @@ public class L2PcInstance extends L2PlayableInstance
 	}
 
 	@Override
-	public final L2PcInstance getActingPlayer()
-	{
-		return this;
-	}
-
-	@Override
-	public final L2Summon getActingSummon()
+	public final L2Summon getSummon()
 	{
 		return getPet();
 	}
@@ -13380,7 +13374,7 @@ public class L2PcInstance extends L2PlayableInstance
 	public L2PcInstance getPartner() {
 		if(_partnerId==0)
 			return null;
-		return L2World.getInstance().findPlayer(_partnerId);
+		return L2World.getInstance().getPlayer(_partnerId);
 	}
 	
 	public void onPartnerDisconnect() {

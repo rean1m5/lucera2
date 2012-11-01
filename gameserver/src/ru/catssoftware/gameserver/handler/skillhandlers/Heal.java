@@ -36,7 +36,7 @@ public class Heal implements ISkillHandler
 		L2PcInstance player = null;
 		boolean consumeSoul = true;
 
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 			player = (L2PcInstance) activeChar;
 
 		for (L2Character target : targets)
@@ -52,13 +52,13 @@ public class Heal implements ISkillHandler
 			// Player holding a cursed weapon can't be healed and can't heal
 			if (target != activeChar)
 			{
-				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
+				if (target.isPlayer() && ((L2PcInstance) target).isCursedWeaponEquipped())
 					continue;
 				else if (player != null && player.isCursedWeaponEquipped())
 					continue;
 			}
-			if((target instanceof L2Boss || target instanceof L2GuardInstance) && activeChar.getActingPlayer()!=null )
-				activeChar.getActingPlayer().updatePvPStatus();
+			if((target instanceof L2Boss || target instanceof L2GuardInstance) && activeChar.getPlayer()!=null )
+				activeChar.getPlayer().updatePvPStatus();
 			double hp = skill.getPower();
 
 			if (skill.getSkillType() == L2SkillType.HEAL_PERCENT)
@@ -145,12 +145,12 @@ public class Heal implements ISkillHandler
 				StatusUpdate su = new StatusUpdate(target.getObjectId());
 				su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
 				target.sendPacket(su);
-				L2PcInstance pc = target.getActingPlayer();
-				if(pc!=null && pc.getPvpFlag()>0 && activeChar instanceof L2PcInstance)
+				L2PcInstance pc = target.getPlayer();
+				if(pc!=null && pc.getPvpFlag()>0 && activeChar.isPlayer())
 					((L2PcInstance)activeChar).updatePvPStatus();
 			}
 			
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				
 				if (skill.getId() == 4051)
@@ -159,7 +159,7 @@ public class Heal implements ISkillHandler
 				}
 				else
 				{
-					if (activeChar instanceof L2PcInstance && activeChar != target)
+					if (activeChar.isPlayer() && activeChar != target)
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1);
 						sm.addString(activeChar.getName());

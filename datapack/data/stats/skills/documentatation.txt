@@ -110,7 +110,7 @@ Variable:
 
 Variable:
 
- <set name="target" val="val"/>
+		<set name="target" val="val"/>
  
  Options: 
         TARGET_NONE - no target, this skill is not implemented yet.

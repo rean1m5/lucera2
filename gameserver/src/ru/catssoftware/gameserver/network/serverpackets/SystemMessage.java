@@ -85,7 +85,7 @@ public final class SystemMessage extends L2GameServerPacket
 		if (cha instanceof L2NpcInstance)
 			return addNpcName((L2NpcInstance) cha);
 
-		if (cha instanceof L2PcInstance)
+		if (cha.isPlayer())
 			return addPcName((L2PcInstance)cha);
 
 		if (cha instanceof L2Summon)

@@ -60,7 +60,7 @@ public final class AttackStanceTaskManager extends AbstractPeriodicTaskManager
 			if (actor instanceof L2Summon)
 				actor = ((L2Summon)actor).getOwner();
 			
-			if (actor instanceof L2PcInstance)
+			if (actor.isPlayer())
 				for (L2CubicInstance cubic : ((L2PcInstance)actor).getCubics().values())
 					if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
 						cubic.doAction();
@@ -93,7 +93,7 @@ public final class AttackStanceTaskManager extends AbstractPeriodicTaskManager
 					
 					actor.broadcastPacket(new AutoAttackStop(actor.getObjectId()));
 					
-					if (actor instanceof L2PcInstance)
+					if (actor.isPlayer())
 					{
 						final L2Summon pet = ((L2PcInstance)actor).getPet();
 						if (pet != null)

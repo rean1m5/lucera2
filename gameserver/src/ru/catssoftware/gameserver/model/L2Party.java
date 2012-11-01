@@ -774,8 +774,8 @@ public class L2Party
 					continue;
 				CalcXPReward=xpReward;
 				CalcSPReward=spReward;
-				if(member.getActingPlayer()!=null)
-					if (member.getActingPlayer().getPremiumService()>0){
+				if(member.getPlayer()!=null)
+					if (member.getPlayer().getPremiumService()>0){
 						CalcXPReward=xpReward_pr;
 						CalcSPReward=spReward_pr;
 					}

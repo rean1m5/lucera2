@@ -25,7 +25,7 @@ public class ShiftTarget implements ISkillHandler
 
 		for (L2Object target : targets)
 		{
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				targetChar = (L2PcInstance) target;
 				break;

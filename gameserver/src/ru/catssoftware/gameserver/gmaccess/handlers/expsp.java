@@ -65,7 +65,7 @@ public class expsp extends gmHandler
 		if (target == null)
 			target = activeChar;
 
-		if (!(target instanceof L2PcInstance))
+		if (!(target.isPlayer()))
 		{
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
@@ -87,7 +87,7 @@ public class expsp extends gmHandler
 		if (target == null)
 			target = activeChar;
 
-		if (!(target instanceof L2PcInstance))
+		if (!(target.isPlayer()))
 		{
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return false;
@@ -109,7 +109,7 @@ public class expsp extends gmHandler
 		if (target == null)
 			target = activeChar;
 
-		if (!(target instanceof L2PcInstance))
+		if (!(target.isPlayer()))
 		{
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return false;

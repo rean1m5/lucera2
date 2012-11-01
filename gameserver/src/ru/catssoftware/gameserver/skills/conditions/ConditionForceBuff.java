@@ -39,7 +39,7 @@ final class ConditionForceBuff extends Condition
 	@Override
 	boolean testImpl(Env env)
 	{
-		L2PcInstance player = env.player.getActingPlayer();
+		L2PcInstance player = env.player.getPlayer();
 
 		if (player.isGM())
 			return true;

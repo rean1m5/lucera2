@@ -36,7 +36,7 @@ public class RequestRecipeShopMakeInfo extends L2GameClientPacket
 		if (obj == null)
 			obj = L2World.getInstance().getPlayer(_objectId);
 
-		if (!(obj instanceof L2PcInstance))
+		if (obj != null && !obj.isPlayer())
 			return;
 
 		activeChar.sendPacket(new RecipeShopItemInfo((L2PcInstance) obj, _recipeId));

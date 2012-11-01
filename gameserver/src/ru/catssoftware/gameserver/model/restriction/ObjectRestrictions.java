@@ -452,7 +452,7 @@ public class ObjectRestrictions
 			{
 				L2Object owner = L2World.getInstance().findObject(_action.getObjectId());
 
-				if (owner instanceof L2PcInstance)
+				if (owner.isPlayer())
 					((L2PcInstance) owner).sendMessage(_action.getMessage());
 				else if (owner instanceof L2Summon)
 				{

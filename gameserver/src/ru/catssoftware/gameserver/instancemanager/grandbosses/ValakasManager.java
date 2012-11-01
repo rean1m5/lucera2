@@ -14,10 +14,7 @@
  */
 package ru.catssoftware.gameserver.instancemanager.grandbosses;
 
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ScheduledFuture;
-
+import javolution.util.FastList;
 import ru.catssoftware.Config;
 import ru.catssoftware.config.L2Properties;
 import ru.catssoftware.gameserver.ThreadPoolManager;
@@ -38,7 +35,9 @@ import ru.catssoftware.gameserver.network.serverpackets.SocialAction;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.tools.random.Rnd;
 
-import javolution.util.FastList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 
 
 /**
@@ -577,7 +576,7 @@ public class ValakasManager extends BossLair
 
 	@Override
 	public void onEnter(L2Character cha) {
-		L2PcInstance player = cha.getActingPlayer();
+		L2PcInstance player = cha.getPlayer();
 		if(player!=null && !player.isGM() && Config.EPIC_REQUIRE_QUEST) {
 			QuestState qs  = player.getQuestState(_questName);
 			if(qs==null)

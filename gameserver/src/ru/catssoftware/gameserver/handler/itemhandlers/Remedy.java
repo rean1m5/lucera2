@@ -20,7 +20,7 @@ public class Remedy implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		L2PcInstance activeChar;
-		if (playable instanceof L2PcInstance)
+		if (playable.isPlayer())
 			activeChar = (L2PcInstance) playable;
 		else if (playable instanceof L2PetInstance)
 			activeChar = ((L2PetInstance) playable).getOwner();

@@ -51,13 +51,13 @@ public class L2SummonAI extends L2CharacterAI
 	private boolean checkZone() {
 		if (_actor.isInsideZone(L2Zone.FLAG_QUEEN))
 		{
-			if (_actor.getActingPlayer().getLevel()>QueenAntManager.SAFE_LEVEL)
+			if (_actor.getPlayer().getLevel()>QueenAntManager.SAFE_LEVEL)
 			{
 				_actor.abortAttack();
 				_actor.abortCast();
-				_actor.getAI().setIntention(AI_INTENTION_FOLLOW,_actor.getActingPlayer());
-				SkillTable.getInstance().getInfo(4515, 1).getEffects(_actor.getActingPlayer(), _actor.getActingPlayer());
-//				_actor.getActingPlayer().teleToLocation(TeleportWhereType.Town);
+				_actor.getAI().setIntention(AI_INTENTION_FOLLOW,_actor.getPlayer());
+				SkillTable.getInstance().getInfo(4515, 1).getEffects(_actor.getPlayer(), _actor.getPlayer());
+//				_actor.getPlayer().teleToLocation(TeleportWhereType.Town);
 				_actor.abortAttack();
 				_actor.abortCast();
 				super.changeIntention(CtrlIntention.AI_INTENTION_ACTIVE, null, null);

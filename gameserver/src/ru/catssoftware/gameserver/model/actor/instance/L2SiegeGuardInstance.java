@@ -59,7 +59,7 @@ public class L2SiegeGuardInstance extends L2SiegeGuard
 	public boolean isAutoAttackable(L2Character attacker)
 	{
 		// Summons and traps are attackable, too
-		L2PcInstance player = attacker.getActingPlayer();
+		L2PcInstance player = attacker.getPlayer();
 		if (player == null)
 			return false;
 		if (player.getClan() == null)

@@ -25,7 +25,7 @@ public class Harvester implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable.isPlayer()))
 			return;
 
 		if (CastleManorManager.getInstance().isDisabled())

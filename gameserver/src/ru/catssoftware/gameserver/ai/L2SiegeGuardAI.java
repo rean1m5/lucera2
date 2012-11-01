@@ -70,7 +70,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 		if (target.isInvul())
 		{
-			if (target instanceof L2PcInstance && ((L2PcInstance) target).isGM())
+			if (target.isPlayer() && ((L2PcInstance) target).isGM())
 				return false;
 			if (target instanceof L2Summon && ((L2Summon) target).getOwner().isGM())
 				return false;
@@ -292,7 +292,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 			if (!(cha instanceof L2NpcInstance))
 			{
-				if (_selfAnalysis.hasHealOrResurrect && cha instanceof L2PcInstance && ((L2NpcInstance) _actor).getCastle().getSiege().checkIsDefender(((L2PcInstance) cha).getClan()))
+				if (_selfAnalysis.hasHealOrResurrect && cha.isPlayer() && ((L2NpcInstance) _actor).getCastle().getSiege().checkIsDefender(((L2PcInstance) cha).getClan()))
 				{
 					if (!_actor.isAttackingDisabled() && cha.getStatus().getCurrentHp() < cha.getMaxHp() * 0.6 && _actor.getStatus().getCurrentHp() > _actor.getMaxHp() / 2 && _actor.getStatus().getCurrentMp() > _actor.getMaxMp() / 2 && cha.isInCombat())
 					{
@@ -386,7 +386,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 		}
 
 		// never attack defenders
-		if (attackTarget instanceof L2PcInstance && (sGuard.getCastle().getSiege().checkIsDefender(((L2PcInstance) attackTarget).getClan())))
+		if (attackTarget.isPlayer() && (sGuard.getCastle().getSiege().checkIsDefender(((L2PcInstance) attackTarget).getClan())))
 		{
 			// Cancel the target
 			sGuard.stopHating(attackTarget);

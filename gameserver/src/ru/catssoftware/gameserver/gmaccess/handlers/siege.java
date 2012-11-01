@@ -91,7 +91,7 @@ public class siege extends gmHandler
 		{
 			L2Object target = admin.getTarget();
 			L2PcInstance player = null;
-			if (target != null && target instanceof L2PcInstance)
+			if (target != null && target.isPlayer())
 				player = (L2PcInstance) target;
 
 			if (command.equalsIgnoreCase("add_attacker") && castle != null)

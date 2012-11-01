@@ -384,7 +384,7 @@ public class MapRegionManager
 	//TODO: Needs to be clean rewritten
 	public Location getTeleToLocation(L2Character activeChar, TeleportWhereType teleportWhere)
 	{
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance) activeChar;
 			L2Clan clan = player.getClan();

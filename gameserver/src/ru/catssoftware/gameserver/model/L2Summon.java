@@ -296,8 +296,8 @@ public abstract class L2Summon extends L2PlayableInstance
 						((L2Attackable) TgMob).addDamageHate(owner, info._damage, info._hate);
 				}
 			}
-			if(killer instanceof L2PcInstance) {
-				L2PcInstance pk = killer.getActingPlayer();
+			if(killer.isPlayer()) {
+				L2PcInstance pk = killer.getPlayer();
 				pk.onKillUpdatePvPKarma(this);
 			}
 			
@@ -315,8 +315,8 @@ public abstract class L2Summon extends L2PlayableInstance
 		{
 			DecayTaskManager.getInstance().addDecayTask(this);
 		}
-		if(killer instanceof L2PcInstance) {
-			L2PcInstance pk = killer.getActingPlayer();
+		if(killer.isPlayer()) {
+			L2PcInstance pk = killer.getPlayer();
 			System.out.println("Update karma1");
 			pk.onKillUpdatePvPKarma(this);
 		}
@@ -806,18 +806,6 @@ public abstract class L2Summon extends L2PlayableInstance
 	}
 
 	@Override
-	public final L2PcInstance getActingPlayer()
-	{
-		return getOwner();
-	}
-
-	@Override
-	public final L2Summon getActingSummon()
-	{
-		return this;
-	}
-
-	@Override
 	public boolean isInCombat()
 	{
 		return getOwner().isInCombat();
@@ -874,6 +862,8 @@ public abstract class L2Summon extends L2PlayableInstance
 		super.doAttack(target);
 	}
 
+
+
 	@Override
 	public L2Summon getSummon()
 	{
@@ -884,5 +874,11 @@ public abstract class L2Summon extends L2PlayableInstance
 	public boolean isSummon()
 	{
 		return true;
+	}
+
+	@Override
+	public L2PcInstance getPlayer()
+	{
+		return _owner;
 	}
 }

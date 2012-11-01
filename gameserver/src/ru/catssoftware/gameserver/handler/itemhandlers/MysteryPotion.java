@@ -19,7 +19,7 @@ public class MysteryPotion implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item, boolean par){}
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable.isPlayer()))
 			return;
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
@@ -52,7 +52,7 @@ public class MysteryPotion implements IItemHandler
 		{
 			try
 			{
-				if (!(_playable instanceof L2PcInstance))
+				if (!(_playable.isPlayer()))
 					return;
 
 				_playable.stopAbnormalEffect(AbnormalEffect.BIG_HEAD);

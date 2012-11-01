@@ -57,7 +57,7 @@ public final class EffectFear extends L2Effect
 	{
 		// Fear skills cannot be used L2Pcinstance to L2Pcinstance.
 		// Heroic Dread, Curse: Fear, Fear, Horror, Sword Symphony, Word of Fear and Mass Curse Fear are the exceptions.
-		if (getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance)
+		if (getEffected().isPlayer() && getEffector().isPlayer())
 		{
 			switch (getSkill().getId())
 			{

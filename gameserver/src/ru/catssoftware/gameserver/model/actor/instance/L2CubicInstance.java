@@ -222,7 +222,7 @@ public class L2CubicInstance
 
 			// TvT event targeting
 			if(_owner.getGameEvent()!=null && _owner.getGameEvent().isRunning()) {
-				L2PcInstance target = ownerTarget.getActingPlayer();
+				L2PcInstance target = ownerTarget.getPlayer();
 				if(target!=null && _owner.getGameEvent().canBeSkillTarget(_owner, target, skill)) {
 					_target = (L2Character) ownerTarget;
 				}
@@ -346,7 +346,7 @@ public class L2CubicInstance
 				if ((_owner.getPvpFlag() > 0 && !_owner.isInsideZone(L2Zone.FLAG_PEACE)) || _owner.isInsideZone(L2Zone.FLAG_PVP))
 				{
 					if (ownerTarget instanceof L2Character && !((L2Character) ownerTarget).isDead())
-						enemy = ownerTarget.getActingPlayer();
+						enemy = ownerTarget.getPlayer();
 
 					if (enemy != null)
 					{

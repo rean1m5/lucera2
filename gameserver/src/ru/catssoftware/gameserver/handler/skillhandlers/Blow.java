@@ -117,7 +117,7 @@ public class Blow implements ISkillHandler
 					}
 				}
 
-				if (skill.getDmgDirectlyToHP() && target instanceof L2PcInstance)
+				if (skill.getDmgDirectlyToHP() && target.isPlayer())
 				{
 					final L2Character[] ts = {target, activeChar};
 					for (L2Character targ : ts)
@@ -169,7 +169,7 @@ public class Blow implements ISkillHandler
 								if (player.isSleeping())
 									player.stopSleeping(null);
 								// Add Olympiad damage
-								if (activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isInOlympiadMode())
+								if (activeChar.isPlayer() && ((L2PcInstance) activeChar).isInOlympiadMode())
 									((L2PcInstance) activeChar).addOlyDamage((int) damage);
 							}
 						}
@@ -198,7 +198,7 @@ public class Blow implements ISkillHandler
 					target.breakCast();
 				}
 
-				if (activeChar instanceof L2PcInstance)
+				if (activeChar.isPlayer())
 				{
 					L2PcInstance activePlayer = (L2PcInstance) activeChar;
 					activePlayer.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
@@ -206,7 +206,7 @@ public class Blow implements ISkillHandler
 					sm.addNumber((int) damage);
 					activePlayer.sendPacket(sm);
 
-					if (activePlayer.isInOlympiadMode() && target instanceof L2PcInstance && ((L2PcInstance) target).isInOlympiadMode() && ((L2PcInstance) target).getOlympiadGameId() == activePlayer.getOlympiadGameId())
+					if (activePlayer.isInOlympiadMode() && target.isPlayer() && ((L2PcInstance) target).isInOlympiadMode() && ((L2PcInstance) target).getOlympiadGameId() == activePlayer.getOlympiadGameId())
 						Olympiad.getInstance().notifyCompetitorDamage(activePlayer, (int) damage, activePlayer.getOlympiadGameId());
 				}
 			}
@@ -214,13 +214,13 @@ public class Blow implements ISkillHandler
 			// Sending system messages
 			if (skillIsEvaded)
 			{
-				if (activeChar instanceof L2PcInstance)
+				if (activeChar.isPlayer())
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
 					sm.addCharName(target);
 					activeChar.sendPacket(sm);
 				}
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
 					sm.addCharName(activeChar);

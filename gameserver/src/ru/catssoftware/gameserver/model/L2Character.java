@@ -359,7 +359,7 @@ public abstract class L2Character extends L2Object implements IEffector
 	public void teleToLocation(int x, int y, int z, boolean allowRandomOffset)
 	{
 		// Restrict teleport during restart/shutdown
-		if (this instanceof L2PcInstance && Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TELEPORT && Shutdown.getCounterInstance() != null && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		if (isPlayer() && Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TELEPORT && Shutdown.getCounterInstance() != null && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
 		{
 			sendMessage(Message.getMessage((L2PcInstance)this, Message.MessageId.MSG_ACTION_NOT_ALLOWED_DURING_SHUTDOWN));
 			return;
@@ -387,7 +387,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		getPosition().setWorldPosition(x, y, z);
 		isFalling(false, 0);
 
-		if (!(this instanceof L2PcInstance))
+		if (!(isPlayer()))
 			onTeleported();
 
 		enableAllSkills();
@@ -496,7 +496,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 		try
 		{
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 				safeFallHeight = ((L2PcInstance) this).getTemplate().getBaseFallSafeHeight(((L2PcInstance) this).getAppearance().getSex());
 		}
 		catch (Exception e)
@@ -544,7 +544,7 @@ public abstract class L2Character extends L2Object implements IEffector
 	{
 		isFalling(false, 0);
 
-		if (isInvul() || (this instanceof L2PcInstance && isInFunEvent()))
+		if (isInvul() || (isPlayer() && isInFunEvent()))
 		{
 			setIsFallsdown(false);
 			return;
@@ -555,7 +555,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (damage < 1)
 			return;
 
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.FALL_DAMAGE_S1);
 			sm.addNumber(damage);
@@ -611,7 +611,7 @@ public abstract class L2Character extends L2Object implements IEffector
 	 **/
 	protected void doAttack(L2Character target)
 	{
-		if (isAlikeDead() || target == null || (this instanceof L2NpcInstance && target.isAlikeDead()) || (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath()))
+		if (isAlikeDead() || target == null || (this instanceof L2NpcInstance && target.isAlikeDead()) || (isPlayer() && target.isDead() && !target.isFakeDeath()))
 		{
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -647,7 +647,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			
 		}
 		else
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 		{
 			if (((L2PcInstance)this).isMounted() && ((L2PcInstance)this).getMountNpcId() == 12621)
 			{
@@ -661,7 +661,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				return;
 			}
 			
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				if (((L2PcInstance) target).isCursedWeaponEquipped() && getLevel() <= 20)
 				{
@@ -717,7 +717,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			// Проверка стрел и маны при использовании лука
 			if (weaponItem.getItemType() == L2WeaponType.BOW)
 			{
-				if (this instanceof L2PcInstance)
+				if (isPlayer())
 				{
 					if (target.isInsidePeaceZone((L2PcInstance) this))
 					{
@@ -810,7 +810,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		else
 			hitted = doAttackHitSimple(attack, target, timeToHit);
 
-		L2PcInstance player = getActingPlayer();
+		L2PcInstance player = getPlayer();
 
 		if (player != null && player.getPet() != target)
 			player.updatePvPStatus(target);
@@ -835,7 +835,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				}
 				else if (player.isHero())
 				{
-					if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
+					if (target.isPlayer() && ((L2PcInstance) target).isCursedWeaponEquipped())
 						target.getStatus().setCurrentCp(0); // If Zariche is hitted by a Hero, Cp is reduced to 0
 				}
 			}
@@ -878,7 +878,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 
 		// Check if the L2Character is a L2PcInstance
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 		{
 			sendPacket(SystemMessageId.GETTING_READY_TO_SHOOT_AN_ARROW);
 			SetupGauge sg = new SetupGauge(SetupGauge.RED, sAtk + reuse);
@@ -916,7 +916,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 		public void runImpl()
 		{
-			if (_character instanceof L2PcInstance)
+			if (_character.isPlayer())
 			{
 				if (((L2PcInstance)_character).getAutoSoulShot().size() > 0)
 				{
@@ -1053,7 +1053,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			// Check if the L2Object is a L2Character
 			if (obj instanceof L2Character)
 			{
-				if (obj instanceof L2PetInstance && this instanceof L2PcInstance && ((L2PetInstance) obj).getOwner() == this)
+				if (obj instanceof L2PetInstance && isPlayer() && ((L2PetInstance) obj).getOwner() == this)
 					continue;
 
 				if (!Util.checkIfInRange(maxRadius, this, obj, false))
@@ -1204,7 +1204,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				else
 					setIsCastingNow(false);
 
-				if (this instanceof L2PcInstance)
+				if (isPlayer())
 				{
 					sendPacket(ActionFailed.STATIC_PACKET);
 					getAI().setIntention(AI_INTENTION_ACTIVE);
@@ -1257,7 +1257,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			else
 				setIsCastingNow(false);
 
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				getAI().setIntention(AI_INTENTION_ACTIVE);
@@ -1270,7 +1270,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				setIsCastingSimultaneouslyNow(false);
 			else
 				setIsCastingNow(false);
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 				getAI().setIntention(AI_INTENTION_ACTIVE);
 			return;
 		}
@@ -1375,7 +1375,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 		int reuseDelay;
 		if (skill.isStaticReuse() && (Config.USE_STATIC_REUSE ||
-				(getActingPlayer()!=null && Config.USE_OLY_STATIC_REUSE && getActingPlayer().getOlympiadGameId()!=-1)) )
+				(getPlayer()!=null && Config.USE_OLY_STATIC_REUSE && getPlayer().getOlympiadGameId()!=-1)) )
 			reuseDelay = skill.getReuseDelay();
 		else
 		{
@@ -1391,8 +1391,8 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (skillMastery)
 		{
 			reuseDelay = 0;
-			if (getActingPlayer() != null)
-				getActingPlayer().sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
+			if (getPlayer() != null)
+				getPlayer().sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
 		}
 
 		if (reuseDelay > 30000)
@@ -1433,13 +1433,13 @@ public abstract class L2Character extends L2Object implements IEffector
 						setIsCastingSimultaneouslyNow(false);
 					else
 						setIsCastingNow(false);
-					if (this instanceof L2PcInstance)
+					if (isPlayer())
 						getAI().setIntention(AI_INTENTION_ACTIVE);
 					return;
 				}
 			}
 
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 			{
 				L2PcInstance player = getPlayer();
 				// Consume Charges if necessary ... L2SkillChargeDmg does the consume by itself.
@@ -1460,7 +1460,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		// to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
 		broadcastPacket(new MagicSkillUse(this, target, displayId, level, hitTime, reuseDelay, skill.isPositive()));
 
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 		{
 			long protTime = hitTime + coolTime;
 
@@ -1471,7 +1471,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 
 		// Send a system message USE_S1 to the L2Character
-		if (this instanceof L2PcInstance && magicId != 1312)
+		if (isPlayer() && magicId != 1312)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.USE_S1);
 			sm.addSkillName(skill);
@@ -1497,7 +1497,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			break;
 		}
 		// Before start AI Cast Broadcast Fly Effect is Need
-		if (skill.getFlyType() != null && (this instanceof L2PcInstance))
+		if (skill.getFlyType() != null && (isPlayer()))
 			ThreadPoolManager.getInstance().scheduleEffect(new FlyToLocationTask(this, target, skill), 50);
 
 		// launch the magic in hitTime milliseconds
@@ -1505,7 +1505,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (hitTime > 210)
 		{
 			// Send a Server->Client packet SetupGauge with the color of the gauge and the casting time
-			if (this instanceof L2PcInstance && !effectWhileCasting)
+			if (isPlayer() && !effectWhileCasting)
 				sendPacket(new SetupGauge(SetupGauge.BLUE, hitTime));
 
 			if (simultaneously)
@@ -1596,7 +1596,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		// Check if the caster has enough MP
 		if (getStatus().getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
 		{
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 			{
 				// Send a System Message to the caster
 				sendPacket(SystemMessageId.NOT_ENOUGH_MP);
@@ -1610,7 +1610,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		// Check if the caster has enough HP
 		if (getStatus().getCurrentHp() <= skill.getHpConsume())
 		{
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 			{
 				// Send a System Message to the caster
 				sendPacket(SystemMessageId.NOT_ENOUGH_HP);
@@ -1625,7 +1625,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		{
 		case SUMMON:
 		{
-			if (!skill.isCubic() && this instanceof L2PcInstance && (getPet() != null || ((L2PcInstance) this).isMounted()))
+			if (!skill.isCubic() && isPlayer() && (getPet() != null || ((L2PcInstance) this).isMounted()))
 			{
 				sendPacket(SystemMessageId.YOU_ALREADY_HAVE_A_PET);
 				return false;
@@ -1670,7 +1670,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			if (region == null)
 				return false;
 			boolean canCast = true;
-			if (skill.getTargetType() == SkillTargetType.TARGET_GROUND && this instanceof L2PcInstance)
+			if (skill.getTargetType() == SkillTargetType.TARGET_GROUND && isPlayer())
 			{
 				Point3D wp = ((L2PcInstance) this).getCurrentSkillWorldPosition();
 				if (!region.checkEffectRangeInsidePeaceZone(skill, wp.getX(), wp.getY(), wp.getZ()))
@@ -1823,7 +1823,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			if (((L2Summon) this).isPhoenixBlessed() && ((L2Summon) this).getOwner() != null)
 				((L2Summon) this).getOwner().revivePetRequest(((L2Summon) this).getOwner(), null);
 		}
-		else if (this instanceof L2PcInstance)
+		else if (isPlayer())
 		{
 			if (((L2PlayableInstance) this).isPhoenixBlessed())
 				((L2PcInstance) this).reviveRequest(((L2PcInstance) this), null);
@@ -1838,13 +1838,13 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 		if (isInsideZone(L2Zone.FLAG_SIEGE))
 		{
-			if (this instanceof L2PcInstance && ((L2PcInstance) this).getSiegeState() != 0)
+			if (isPlayer() && ((L2PcInstance) this).getSiegeState() != 0)
 			{
 				int playerClanId=((L2PcInstance) this).getClanId();
 				int playerCharId=((L2PcInstance) this).getObjectId();
 				L2SiegeStatus.getInstance().addStatus(playerClanId,playerCharId , false);
 			}
-			if (killer instanceof L2PcInstance && ((L2PcInstance) killer).getSiegeState() != 0)
+			if (killer.isPlayer() && ((L2PcInstance) killer).getSiegeState() != 0)
 			{
 				int killerClanId=((L2PcInstance) killer).getClanId();
 				int killerCharId=((L2PcInstance) killer).getObjectId();
@@ -2410,7 +2410,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 		if (Config.FACTION_ENABLED)
 		{
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 			{
 				if (FactionManager.getInstance().getFactionTitles().contains(value.toLowerCase()) && !value.isEmpty())
 				{
@@ -2616,7 +2616,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 	public void addEffect(L2Effect newEffect)
 	{
-		if (this.getFirstEffect(Config.BLOCK_BUFF) != null && newEffect.getEffector() instanceof L2PcInstance && !newEffect.getEffector().equals(newEffect.getEffected()))
+		if (this.getFirstEffect(Config.BLOCK_BUFF) != null && newEffect.getEffector().isPlayer() && !newEffect.getEffector().equals(newEffect.getEffected()))
 			if (newEffect.getSkill().getSkillType() == L2SkillType.BUFF)
 				return;
 
@@ -2652,7 +2652,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 	public final void startFakeDeath()
 	{
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance)this;
 			if (player != null)
@@ -2895,7 +2895,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		setIsFakeDeath(false);
 		setIsFallsdown(false);
 
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 			((L2PcInstance) this).setRecentFakeDeath(true);
 
 		ChangeWaitType revive = new ChangeWaitType(this, ChangeWaitType.WT_STOP_FAKEDEATH);
@@ -3199,7 +3199,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			// Add the Func to the calculator corresponding to the state
 			_calculators[stat].addFunc(f);
 
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 				((L2PcInstance) this).onFuncAddition(f);
 		}
 
@@ -3421,7 +3421,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			setIsCastingNow(false);
 			setIsCastingSimultaneouslyNow(false);
 			_castInterruptTime = 0;
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 				getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING);
 			broadcastPacket(new MagicSkillCanceled(getObjectId()));
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -3480,7 +3480,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			short geoHeight = GeoData.getInstance().getSpawnHeight(xPrev, yPrev, zPrev-30, zPrev+30, this);
 			dz = m._zDestination - geoHeight;
 			// quite a big difference, compare to validatePosition packet
-			if (this instanceof L2PcInstance && Math.abs(getZ() - geoHeight) > 200
+			if (isPlayer() && Math.abs(getZ() - geoHeight) > 200
 					&& Math.abs(getZ() - geoHeight) < 1500)
 			{
 				dz = m._zDestination - zPrev; // allow diff
@@ -3730,7 +3730,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		// Movement checks:
 		// when geodata == 2, for all characters except mobs returning home (could be changed later to teleport if pathfinding fails)
 		// when geodata == 1, for l2playableinstance and l2riftinstance only
-		if ((Config.PATHFINDING  &&	!(this instanceof L2Attackable && ((L2Attackable)this).isReturningToSpawnPoint())) || this instanceof L2PcInstance || (this instanceof L2Summon && !(getAI().getIntention() == AI_INTENTION_FOLLOW)) || isAfraid() || this instanceof L2RiftInvaderInstance)
+		if ((Config.PATHFINDING  &&	!(this instanceof L2Attackable && ((L2Attackable)this).isReturningToSpawnPoint())) || isPlayer() || (this instanceof L2Summon && !(getAI().getIntention() == AI_INTENTION_FOLLOW)) || isAfraid() || this instanceof L2RiftInvaderInstance)
 		{
 			if (isOnGeodataPath())
 			{
@@ -3751,7 +3751,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				// Temporary fix for character outside world region errors
 				_log.warn("Character "+getName()+" outside world area, in coordinates x:"+curX+" y:"+curY);
 				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-				if (this instanceof L2PcInstance)
+				if (isPlayer())
 					new Disconnection((L2PcInstance) this).defaultSequence(true);
 				else if (!(this instanceof L2Summon))
 					onDecay();
@@ -3772,10 +3772,10 @@ public abstract class L2Character extends L2Object implements IEffector
 			// Overrides previous movement check
 //			if(this instanceof L2PlayableInstance || isInCombat() || this instanceof L2MinionInstance)
 			{
-				m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ, this.getInstanceId(),getActingPlayer()!=null);
+				m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ, this.getInstanceId(),getPlayer()!=null);
 				if (m.geoPath == null || m.geoPath.size() < 2) // No path found
 				{
-					if (this instanceof L2PcInstance || (!(this instanceof L2PlayableInstance) && !(this instanceof L2MinionInstance) && Math.abs(z - curZ) > 140) || (this instanceof L2Summon && !((L2Summon)this).getFollowStatus())) 
+					if (isPlayer() || (!(this instanceof L2PlayableInstance) && !(this instanceof L2MinionInstance) && Math.abs(z - curZ) > 140) || (this instanceof L2Summon && !((L2Summon)this).getFollowStatus()))
 					{
 						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 						actionFail();
@@ -4104,7 +4104,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			if (target.getChanceSkills() != null)
 				target.getChanceSkills().onEvadedHit(this);
 
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1S_ATTACK);
 				sm.addCharName(this);
@@ -4118,7 +4118,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION && target.getLevel() <= Config.MAX_LEVEL_RAID_CURSE)
 			{
 				int level = 0;
-				if (this instanceof L2PcInstance)
+				if (isPlayer())
 					level = getLevel();
 				else if (this instanceof L2Summon)
 					level = ((L2Summon) this).getOwner().getLevel();
@@ -4128,10 +4128,10 @@ public abstract class L2Character extends L2Object implements IEffector
 					L2Skill skill = SkillTable.getInstance().getInfo(4515, 1);
 
 					if (skill != null) {
-						if(target!=target.getActingPlayer())
+						if(target!=target.getPlayer())
 							skill.getEffects(target,this);
-						if(getActingPlayer()!=null)
-							skill.getEffects(target, this.getActingPlayer());
+						if(getPlayer()!=null)
+							skill.getEffects(target, getPlayer());
 					}
 					damage = 0; // prevents messing up drop calculation
 				}
@@ -4140,7 +4140,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			sendDamageMessage(target, damage, false, crit, miss);
 
 			// If L2Character target is a L2PcInstance, send a system message
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				L2PcInstance enemy = (L2PcInstance) target;
 				enemy.getAI().clientStartAutoAttack();
@@ -4252,7 +4252,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			// Abort the attack of the L2Character and send Server->Client ActionFailed packet
 			abortAttack();
 
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 
@@ -4270,7 +4270,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			// Abort the cast of the L2Character and send Server->Client MagicSkillCanceld/ActionFailed packet.
 			abortCast();
 
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 			{
 				// Send a system message
 				sendPacket(SystemMessageId.CASTING_INTERRUPTED);
@@ -4306,7 +4306,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 		if (player.isInOlympiadMode() && target instanceof L2PlayableInstance)
 		{
-			L2PcInstance ptarget = target.getActingPlayer();
+			L2PcInstance ptarget = target.getPlayer();
 
 			if ((ptarget.isInOlympiadMode() && !player.isOlympiadStart()) || (player.getOlympiadGameId() != ptarget.getOlympiadGameId()))
 			{
@@ -4369,10 +4369,10 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (Config.ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE)
 		{
 			// allows red to be attacked and red to attack flagged players
-			if (target.getActingPlayer() != null && target.getActingPlayer().getKarma() > 0)
+			if (target.getPlayer() != null && target.getPlayer().getKarma() > 0)
 				return false;
-			if (attacker.getActingPlayer() != null && attacker.getActingPlayer().getKarma() > 0 && target.getActingPlayer() != null
-					&& target.getActingPlayer().getPvpFlag() > 0)
+			if (attacker.getPlayer() != null && attacker.getPlayer().getKarma() > 0 && target.getPlayer() != null
+					&& target.getPlayer().getPvpFlag() > 0)
 				return false;
 		}
 
@@ -4538,7 +4538,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				removeSkill(oldSkill.getTriggeredId(), true);
 
 			// Проверка. Если игрок и скил кастуется, то обрываем каст
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 			{
 				L2PcInstance player = ((L2PcInstance) this);
 				if (player.getCurrentSkill() != null && isCastingNow())
@@ -4563,10 +4563,10 @@ public abstract class L2Character extends L2Object implements IEffector
 			if (oldSkill.isChance() && _chanceSkills != null)
 				removeChanceSkill(oldSkill.getId());
 			// Проверка статуса, если чар на питомце и скил принадлежит к данному статусу, то снимаем чара
-			if (oldSkill instanceof L2SkillMount && this instanceof L2PcInstance && ((L2PcInstance)this).isMounted())
+			if (oldSkill instanceof L2SkillMount && isPlayer() && ((L2PcInstance)this).isMounted())
 				((L2PcInstance)this).dismount();
 			// Проверка самонов
-			if (oldSkill instanceof L2SkillSummon && oldSkill.getId() == 710 && this instanceof L2PcInstance && ((L2PcInstance)this).getPet() != null && ((L2PcInstance)this).getPet().getNpcId() == 14870)
+			if (oldSkill instanceof L2SkillSummon && oldSkill.getId() == 710 && isPlayer() && ((L2PcInstance)this).getPet() != null && ((L2PcInstance)this).getPet().getNpcId() == 14870)
 				((L2PcInstance)this).getPet().unSummon(((L2PcInstance)this));
 		}
 		return oldSkill;
@@ -4764,7 +4764,7 @@ public abstract class L2Character extends L2Object implements IEffector
 						continue;
 					if (skill.isOffensive() && !skill.isNeutral())
 					{
-						if (this instanceof L2PcInstance)
+						if (isPlayer())
 						{
 							if (((L2Character) element).isInsidePeaceZone((L2PcInstance) this))
 								continue;
@@ -4915,7 +4915,7 @@ public abstract class L2Character extends L2Object implements IEffector
 						target.sendPacket(smsg);
 					}
 
-					if (this instanceof L2PcInstance && target instanceof L2Summon)
+					if (isPlayer() && target instanceof L2Summon)
 						((L2Summon) target).broadcastFullInfo();
 				}
 			}
@@ -4931,7 +4931,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				}
 			}
 
-			if (this instanceof L2PcInstance)
+			if (isPlayer())
 			{
 				L2PcInstance player = (L2PcInstance) this;
 				// Consume Charges if necessary ... L2SkillChargeDmg does the consume by itself.
@@ -5000,7 +5000,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if(_chanceSkills!=null && target!=null )
 			_chanceSkills.onAttack(target);
 
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 		{
 			L2PcInstance currPlayer = (L2PcInstance) this;
 			SkillDat queuedSkill = currPlayer.getQueuedSkill();
@@ -5025,7 +5025,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			{
 				if (((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED) != null)
 				{
-					L2PcInstance player = target.getActingPlayer();
+					L2PcInstance player = target.getPlayer();
 					for (Quest quest: ((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED))
 						quest.notifySpellFinished(((L2NpcInstance)this), player, skill);
 				}
@@ -5044,7 +5044,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 		_disabledSkills.remove(Integer.valueOf(skillId));
 
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 			removeTimeStamp(skillId);
 	}
 
@@ -5090,50 +5090,36 @@ public abstract class L2Character extends L2Object implements IEffector
 	public void callSkill(L2Skill skill, L2Character... targets)
 	{
 		L2Weapon activeWeapon = getActiveWeaponItem();
-		L2PcInstance player = getActingPlayer();
+		L2PcInstance player = getPlayer();
 
 		for (L2Object trg : targets)
 		{
 			if(trg==null)
 				continue;
-			if (Config.SIEGE_ONLY_REGISTERED && player != null && trg instanceof L2PcInstance)
+
+			if (Config.SIEGE_ONLY_REGISTERED && player != null && trg.isPlayer())
 			{
-				if (!((L2PcInstance) trg).canBeTargetedByAtSiege(player))
+				if (!trg.getPlayer().canBeTargetedByAtSiege(player))
 					return;
 			}
 
-			if (trg instanceof L2Character)
+			if (trg.isCharacter())
 			{
 				
-				L2Character target = (L2Character) trg;
+				L2Character target = trg.getCharacter();
 				if(target.isInFunEvent())
 					target.getGameEvent().onSkillHit(this, target, skill);
 
 				L2Character targetsAttackTarget = target.getAI().getAttackTarget();
 				L2Character targetsCastTarget = target.getAI().getCastTarget();
 
-				if (!Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION && ((target.isRaid() && (getLevel() > target.getLevel() + 8) && (target.getLevel() <= Config.MAX_LEVEL_RAID_CURSE))
+				if (isPlayable() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION && ((target.isRaid() && (getLevel() > target.getLevel() + 8) && (target.getLevel() <= Config.MAX_LEVEL_RAID_CURSE))
 				|| (!skill.isOffensive() && targetsAttackTarget != null && targetsAttackTarget.isRaid() && targetsAttackTarget.getAttackByList().contains(target) && (getLevel() > targetsAttackTarget.getLevel() + 8) && (targetsAttackTarget.getLevel() <= Config.MAX_LEVEL_RAID_CURSE))
 				|| (!skill.isOffensive() && targetsCastTarget != null && targetsCastTarget.isRaid() && targetsCastTarget.getAttackByList().contains(target) && (getLevel() > targetsCastTarget.getLevel() + 8) && (targetsCastTarget.getLevel() <= Config.MAX_LEVEL_RAID_CURSE) )))
 				{
-					if (skill.isMagic())
-					{
-						L2Skill tempSkill = SkillTable.getInstance().getInfo(4215, 1);
-						if (tempSkill != null) {
-							if(target!=target.getActingPlayer())
-								tempSkill.getEffects(target, this);
-							tempSkill.getEffects(target.getActingPlayer(), this);
-						}
-					}
-					else
-					{
-						L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 1);
-						if (tempSkill != null) {
-							if(target!=target.getActingPlayer())
-								tempSkill.getEffects(target, this);
-							tempSkill.getEffects(target.getActingPlayer(), this);
-						}
-					}
+					L2Skill tempSkill = SkillTable.getInstance().getInfo(skill.isMagic() ? 4215 : 4515, 1);
+					if (tempSkill != null)
+						tempSkill.getEffects(this, this);
 					return;
 				}
 
@@ -5145,7 +5131,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 				if (activeWeapon != null && !target.isDead())
 				{
-					if (activeWeapon.getSkillEffectsByCast(this, target, skill) && this instanceof L2PcInstance)
+					if (activeWeapon.getSkillEffectsByCast(this, target, skill) && isPlayer())
 						sendMessage(Message.getMessage((L2PcInstance)this, Message.MessageId.MSG_TARGET_RECIVE_SPECIAL_EFFECT));
 				}
 
@@ -5174,14 +5160,14 @@ public abstract class L2Character extends L2Object implements IEffector
 						}
 						else if (skill.isOffensive())
 						{
-							if (target instanceof L2PcInstance || target instanceof L2Summon )
+							if (target.isPlayer() || target instanceof L2Summon )
 							{
 								if (skill.getSkillType() != L2SkillType.SIGNET && skill.getSkillType() != L2SkillType.SIGNET_CASTTIME)
 								{
 									if (skill.getSkillType() != L2SkillType.AGGREDUCE && skill.getSkillType() != L2SkillType.AGGREDUCE_CHAR && skill.getSkillType() != L2SkillType.AGGREMOVE)
 										((L2Character) target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
 
-									if (target instanceof L2PcInstance)
+									if (target.isPlayer())
 										((L2PcInstance) target).getAI().clientStartAutoAttack();
 									else if (target instanceof L2Summon)
 									{
@@ -5191,7 +5177,7 @@ public abstract class L2Character extends L2Object implements IEffector
 									}
 
 									if (!(target instanceof L2Summon) || player.getPet() != target)
-										player.updatePvPStatus(target.getActingPlayer());
+										player.updatePvPStatus(target.getCharacter());
 								}
 							}
 							else if (target instanceof L2Attackable)
@@ -5212,7 +5198,7 @@ public abstract class L2Character extends L2Object implements IEffector
 						}
 						else
 						{
-							if (target instanceof L2PcInstance)
+							if (target.isPlayer())
 							{
 								if (target != this && (((L2PcInstance) target).getPvpFlag() > 0 || ((L2PcInstance) target).getKarma() > 0))
 									player.updatePvPStatus();
@@ -5600,8 +5586,8 @@ public abstract class L2Character extends L2Object implements IEffector
 
 	public void sendMessage(String message)
 	{
-		if(getActingPlayer()!=null)
-			getActingPlayer().sendPacket(SystemMessage.sendString(message));
+		if(getPlayer()!=null)
+			getPlayer().sendPacket(SystemMessage.sendString(message));
 	}
 
 	public int getLastHealAmount()

@@ -9,7 +9,7 @@ public class L2StadiumZone extends L2DefaultZone
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (character instanceof L2PcInstance && ((L2PcInstance) character).getOlympiadGameId() == -1 && !((L2PcInstance) character).isGM())
+		if (character.isPlayer() && ((L2PcInstance) character).getOlympiadGameId() == -1 && !((L2PcInstance) character).isGM())
 		{
 			character.teleToLocation(TeleportWhereType.Town);
 			return;

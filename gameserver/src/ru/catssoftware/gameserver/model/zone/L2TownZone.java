@@ -30,7 +30,7 @@ public class L2TownZone extends L2DefaultZone
 				return;
 			} 
 		} */
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 		{
 			if (((L2PcInstance) character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
 			{
@@ -48,13 +48,13 @@ public class L2TownZone extends L2DefaultZone
 			character.setInsideZone(this,FLAG_PEACE, true);
 
 		// Players must always see deco, not only inside clan hall.
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 		{
 			ClanHall[] townHalls = ClanHallManager.getInstance().getTownClanHalls(getTownId());
 			if (townHalls!=null)
 				for (ClanHall ch : townHalls)
 					if (ch.getOwnerId()>0)
-						character.getActingPlayer().sendPacket(new AgitDecoInfo(ch));
+						character.getPlayer().sendPacket(new AgitDecoInfo(ch));
 		}
 		super.onEnter(character);
 	}

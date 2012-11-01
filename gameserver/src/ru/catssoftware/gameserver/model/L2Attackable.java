@@ -508,7 +508,7 @@ public class L2Attackable extends L2NpcInstance
 		// Enhance soul crystals of the attacker if this L2Attackable had its soul absorbed
 		try
 		{
-			if (killer instanceof L2PcInstance)
+			if (killer.isPlayer())
 				levelSoulCrystals(killer);
 		}
 		catch (Exception e)
@@ -522,7 +522,7 @@ public class L2Attackable extends L2NpcInstance
 			if (killer != null)
 			{
 				L2PcInstance player = null;
-				player = killer.getActingPlayer();
+				player = killer.getPlayer();
 
 				if (player != null)
 				{
@@ -625,7 +625,7 @@ public class L2Attackable extends L2NpcInstance
 			// Manage Base, Quests and Sweep drops of the L2Attackable
 			if (getTemplate().getType().equalsIgnoreCase("L2FortSiegeGuard"))
 			{
-				if (lastAttacker instanceof L2PcInstance && ((L2PcInstance)lastAttacker).getClan() != null)
+				if (lastAttacker.isPlayer() && ((L2PcInstance)lastAttacker).getClan() != null)
 				{
 					for (FortSiege fsiege : FortSiegeManager.getInstance().getSieges())
 					{
@@ -724,13 +724,13 @@ public class L2Attackable extends L2NpcInstance
 					// If the attacker is a Pet, get the party of the owner
 					if (attacker instanceof L2PetInstance)
 						attackerParty = attacker.getParty();
-					else if (attacker instanceof L2PcInstance)
+					else if (attacker.isPlayer())
 						attackerParty = attacker.getParty();
 					else
 						return;
 
 					// If this attacker is a L2PcInstance with a summoned L2SummonInstance, get Exp Penalty applied for the current summoned L2SummonInstance
-					if (attacker instanceof L2PcInstance && attacker.getPet() instanceof L2SummonInstance)
+					if (attacker.isPlayer() && attacker.getPet() instanceof L2SummonInstance)
 						penalty = ((L2SummonInstance) ((L2PcInstance) attacker).getPet()).getExpPenalty();
 
 					// We must avoid "over damage", if any
@@ -749,15 +749,15 @@ public class L2Attackable extends L2NpcInstance
 							levelDiff = attacker.getLevel() - getLevel();
 							
 							int ps = 0;
-							if (attacker.getActingPlayer()!=null)
-								ps = attacker.getActingPlayer().getPremiumService()>0?1:0;
+							if (attacker.getPlayer()!=null)
+								ps = attacker.getPlayer().getPremiumService()>0?1:0;
 							tmp = calculateExpAndSp(levelDiff, damage, ps);
 							exp = tmp[0];
 							exp *= 1 - penalty;
 							sp = tmp[1];
 
 							// Check for an over-hit enabled strike
-							if (attacker instanceof L2PcInstance)
+							if (attacker.isPlayer())
 							{
 								L2PcInstance player = (L2PcInstance) attacker;
 								if (isOverhit() && attacker == getOverhitAttacker())
@@ -895,7 +895,7 @@ public class L2Attackable extends L2NpcInstance
 
 						// Check for an over-hit enabled strike
 						// (When in party, the over-hit exp bonus is given to the whole party and splitted proportionally through the party members)
-						if (attacker instanceof L2PcInstance)
+						if (attacker.isPlayer())
 						{
 							L2PcInstance player = (L2PcInstance) attacker;
 							if (isOverhit() && attacker == getOverhitAttacker())
@@ -965,7 +965,7 @@ public class L2Attackable extends L2NpcInstance
 			return;
 		if (this.getNpcId()==35368)
 		{
-			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!=null)
+			if (attacker.isPlayer() && ((L2PcInstance)attacker).getClan()!=null)
 			{
 				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
 			}
@@ -978,10 +978,10 @@ public class L2Attackable extends L2NpcInstance
 			ai._damage = 0;
 			ai._hate = 0;
 			getAggroListRP().put(attacker, ai);
-			if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && !attacker.isAlikeDead())
+			if ((attacker.isPlayer() || attacker instanceof L2Summon) && !attacker.isAlikeDead())
 			{
 				Quest []q = getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
-				L2PcInstance targetPlayer = (attacker instanceof L2PcInstance)? (L2PcInstance) attacker: ((L2Summon) attacker).getOwner();
+				L2PcInstance targetPlayer = (attacker.isPlayer())? (L2PcInstance) attacker: ((L2Summon) attacker).getOwner();
 				if ( q!= null)
 					for (Quest quest: q) try {
 						quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
@@ -1012,7 +1012,7 @@ public class L2Attackable extends L2NpcInstance
 		if (attacker instanceof L2PlayableInstance)
 		{
 			// attacker L2PcInstance could be the the attacker or the owner of the attacker 
-			L2PcInstance _attacker = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
+			L2PcInstance _attacker = attacker.isPlayer() ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
 			AggroInfo damageContrib = getDamageContributors().get(_attacker);
 			if (damageContrib != null)
 			{
@@ -1039,9 +1039,9 @@ public class L2Attackable extends L2NpcInstance
 
 			try
 			{
-				if (attacker instanceof L2PcInstance || attacker instanceof L2Summon)
+				if (attacker.isPlayer() || attacker instanceof L2Summon)
 				{
-					L2PcInstance player = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
+					L2PcInstance player = attacker.isPlayer() ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
 
 					if (getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK) != null)
 					{
@@ -1218,7 +1218,7 @@ public class L2Attackable extends L2NpcInstance
 		AggroInfo ai = getAggroListRP().get(target);
 		if (ai == null)
 			return 0;
-		if (ai._attacker instanceof L2PcInstance && (((L2PcInstance) ai._attacker).getAppearance().isInvisible() || ai._attacker.isInvul()))
+		if (ai._attacker.isPlayer() && (((L2PcInstance) ai._attacker).getAppearance().isInvisible() || ai._attacker.isInvul()))
 		{
 			//Remove Object Should Use This Method and Can be Blocked While Interacting
 			getAggroList().remove(target);
@@ -1321,8 +1321,8 @@ public class L2Attackable extends L2NpcInstance
 					dropChance *= Config.RATE_DROP_ITEMS;
 			}
 		}
-		if(lastAttacker!=null && lastAttacker.getActingPlayer()!=null) {
-			Float r = (Float)GameExtensionManager.getInstance().handleAction(lastAttacker.getActingPlayer(), isSweep ? Action.PC_CALCSPOIL : Action.PC_CALCDROP, dropChance);
+		if(lastAttacker!=null && lastAttacker.getPlayer()!=null) {
+			Float r = (Float)GameExtensionManager.getInstance().handleAction(lastAttacker.getPlayer(), isSweep ? Action.PC_CALCSPOIL : Action.PC_CALCDROP, dropChance);
 			if(r!=null)
 				dropChance = r;
 		}
@@ -1619,7 +1619,7 @@ public class L2Attackable extends L2NpcInstance
 		if (lastAttacker == null)
 			return;
 		
-		L2PcInstance player = lastAttacker.getActingPlayer();
+		L2PcInstance player = lastAttacker.getPlayer();
 
 		if (player == null)
 			return; // Don't drop anything if the last attacker or ownere isn't L2PcInstance
@@ -2016,7 +2016,7 @@ public class L2Attackable extends L2NpcInstance
 	public void doEventDrop(L2Character lastAttacker)
 	{
 		L2PcInstance player = null;
-		if (lastAttacker instanceof L2PcInstance)
+		if (lastAttacker.isPlayer())
 			player = (L2PcInstance) lastAttacker;
 		else if (lastAttacker instanceof L2Summon)
 			player = ((L2Summon) lastAttacker).getOwner();

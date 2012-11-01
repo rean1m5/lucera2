@@ -41,7 +41,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 		if (object == null)
 			object = L2World.getInstance().getPlayer(_id);
 
-		if (!(object instanceof L2PcInstance))
+		if (object != null && !object.isPlayer())
 			return;
 
 		L2PcInstance manufacturer = (L2PcInstance) object;

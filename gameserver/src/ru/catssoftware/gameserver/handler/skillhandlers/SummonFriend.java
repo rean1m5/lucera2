@@ -180,7 +180,7 @@ public class SummonFriend implements ISkillHandler
 	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		if (!(activeChar instanceof L2PcInstance))
+		if (!(activeChar.isPlayer()))
 			return; // currently not implemented for others
 
 		L2PcInstance activePlayer = (L2PcInstance) activeChar;
@@ -189,7 +189,7 @@ public class SummonFriend implements ISkillHandler
 
 		for (L2Character element : targets)
 		{
-			if (!(element instanceof L2PcInstance))
+			if (!(element.isPlayer()))
 				continue;
 
 			if (activeChar == element)

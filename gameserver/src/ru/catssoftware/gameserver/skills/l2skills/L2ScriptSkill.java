@@ -30,7 +30,7 @@ public class L2ScriptSkill extends L2Skill {
 			}
 			_handler.useSkill(this, caster, targets);
 		} catch(Exception e) {
-			if(caster instanceof L2PcInstance)
+			if(caster.isPlayer())
 				caster.sendMessage(String.format(Message.getMessage(((L2PcInstance) caster), Message.MessageId.MSG_SKILL_NOT_IMPLEMENTED), getId()));
 			_log.warn("Skill: Error while casting "+getId(),e);
 		}

@@ -54,7 +54,7 @@ public class ManaHeal implements ISkillHandler
 			sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
 			target.sendPacket(sump);
 
-			if (actChar instanceof L2PcInstance && actChar != target)
+			if (actChar.isPlayer() && actChar != target)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_RESTORED_BY_S1);
 				sm.addString(actChar.getName());

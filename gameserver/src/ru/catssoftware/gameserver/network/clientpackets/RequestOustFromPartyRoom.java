@@ -24,7 +24,7 @@ public class RequestOustFromPartyRoom extends L2GameClientPacket
 		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-		L2PcInstance target = L2World.getInstance().findPlayer(_objectId);
+		L2PcInstance target = L2World.getInstance().getPlayer(_objectId);
 		if (target == null || target == activeChar)
 		{
 			ActionFailed();

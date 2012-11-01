@@ -43,7 +43,7 @@ public class FortSiegeGuardKnownList extends AttackableKnownList
 		if (fort != null && fort.getSiege().getIsInProgress())
 		{
 			L2PcInstance player = null;
-			if (object instanceof L2PcInstance)
+			if (object.isPlayer())
 				player = (L2PcInstance) object;
 			else if (object instanceof L2Summon)
 				player = ((L2Summon) object).getOwner();

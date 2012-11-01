@@ -29,7 +29,7 @@ public class L2WatcherInstance extends L2MonsterInstance
     	{
 			for(L2Character ch : _watcher.getKnownList().getKnownCharactersInRadius(500))
 			{
-				if (ch instanceof L2PcInstance)
+				if (ch.isPlayer())
 				{
 					int skillRnd = Rnd.get(0,7);
 					L2Skill skill = SkillTable.getInstance().getInfo(_skillsId[skillRnd],_skillsLvl[skillRnd]);

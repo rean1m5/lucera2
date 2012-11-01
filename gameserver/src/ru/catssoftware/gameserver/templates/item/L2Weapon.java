@@ -386,7 +386,7 @@ public final class L2Weapon extends L2Equip
 				affected = true;
 				
 				// notify quests of a skill use
-				if (caster instanceof L2PcInstance)
+				if (caster.isPlayer())
 				{
 					// Mobs in range 1000 see spell
 					for (L2Object spMob : caster.getKnownList().getKnownObjects().values())

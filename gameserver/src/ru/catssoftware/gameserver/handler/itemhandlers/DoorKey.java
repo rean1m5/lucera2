@@ -35,7 +35,7 @@ public class DoorKey implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		int itemId = item.getItemId();
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable.isPlayer()))
 			return;
 
 		L2PcInstance activeChar = (L2PcInstance) playable;

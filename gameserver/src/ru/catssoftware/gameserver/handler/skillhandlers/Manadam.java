@@ -90,7 +90,7 @@ public class Manadam implements ISkillHandler
 						target.stopImmobileUntilAttacked(null);
 				}
 
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 				{
 					StatusUpdate sump = new StatusUpdate(target.getObjectId());
 					sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
@@ -102,7 +102,7 @@ public class Manadam implements ISkillHandler
 					target.sendPacket(sm);
 				}
 
-				if (activeChar instanceof L2PcInstance)
+				if (activeChar.isPlayer())
 				{
 					SystemMessage sm2 = new SystemMessage(SystemMessageId.YOUR_OPPONENTS_MP_WAS_REDUCED_BY_S1);
 					sm2.addNumber((int) mp);

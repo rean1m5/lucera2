@@ -45,7 +45,7 @@ public class SiegeGuardKnownList extends AttackableKnownList
 		if (castle != null && castle.getSiege().getIsInProgress())
 		{
 			L2PcInstance player = null;
-			if (object instanceof L2PcInstance)
+			if (object.isPlayer())
 				player = (L2PcInstance) object;
 			else if (object instanceof L2Summon)
 				player = ((L2Summon) object).getOwner();
@@ -60,7 +60,7 @@ public class SiegeGuardKnownList extends AttackableKnownList
 		else if (DevastatedCastleSiege.getInstance().getIsInProgress())
 		{
 			L2PcInstance player = null;
-			if (object instanceof L2PcInstance)
+			if (object.isPlayer())
 				player = (L2PcInstance) object;
 			else if (object instanceof L2Summon)
 				player = ((L2Summon) object).getOwner();
@@ -73,7 +73,7 @@ public class SiegeGuardKnownList extends AttackableKnownList
 		else if (FortressOfDeadSiege.getInstance().getIsInProgress())
 		{
 			L2PcInstance player = null;
-			if (object instanceof L2PcInstance)
+			if (object.isPlayer())
 				player = (L2PcInstance) object;
 			else if (object instanceof L2Summon)
 				player = ((L2Summon) object).getOwner();

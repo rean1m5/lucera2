@@ -89,7 +89,7 @@ public abstract class AbstractAI implements Ctrl
 		// TODO: fix Z axis follow support, moveToLocation needs improvements
 		// Does not allow targets to follow on infinite distance -> fix for "follow me bug".
 		// if the target is too far (maybe also teleported)
-		if (distance > (_actor instanceof L2PcInstance && _followTarget instanceof L2PcInstance ? 2000 : 3000))
+		if (distance > (_actor.isPlayer() && _followTarget.isPlayer() ? 2000 : 3000))
 		{
 			if (_actor instanceof L2Summon)
 				((L2Summon)_actor).setFollowStatus(false);
@@ -537,7 +537,7 @@ public abstract class AbstractAI implements Ctrl
 	 */
 	protected void clientActionFailed()
 	{
-		if (_actor instanceof L2PcInstance)
+		if (_actor.isPlayer())
 			_actor.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
@@ -748,7 +748,7 @@ public abstract class AbstractAI implements Ctrl
 		}
 		if (!isAutoAttacking())
 		{
-			if (_actor instanceof L2PcInstance && ((L2PcInstance) _actor).getPet() != null)
+			if (_actor.isPlayer() && ((L2PcInstance) _actor).getPet() != null)
 				((L2PcInstance) _actor).getPet().broadcastPacket(new AutoAttackStart(((L2PcInstance) _actor).getPet().getObjectId()));
 			// Send a Server->Client packet AutoAttackStart to the actor and all L2PcInstance in its _knownPlayers
 			_actor.broadcastPacket(new AutoAttackStart(_actor.getObjectId()));
@@ -772,7 +772,7 @@ public abstract class AbstractAI implements Ctrl
 				summon.getOwner().getAI().clientStopAutoAttack();
 			return;
 		}
-		if (_actor instanceof L2PcInstance)
+		if (_actor.isPlayer())
 		{
 			if (!AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor) && isAutoAttacking())
 				AttackStanceTaskManager.getInstance().addAttackStanceTask(_actor);

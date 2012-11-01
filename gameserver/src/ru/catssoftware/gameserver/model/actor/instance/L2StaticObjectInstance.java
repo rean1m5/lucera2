@@ -315,8 +315,8 @@ public class L2StaticObjectInstance extends L2Character
 		// a critical game error and throne wasn't release in a
 		// clean way to avoid that "isBusy" will be true all the
 		// way until server restarts.
-		if (actualPersonToSitOn != null && L2World.getInstance().findPlayer( // If the actual user isn't
-			actualPersonToSitOn.getObjectId()) == null) // found in the world anymore
+		if (actualPersonToSitOn != null && L2World.getInstance().getPlayer( // If the actual user isn't
+				actualPersonToSitOn.getObjectId()) == null) // found in the world anymore
 			setBusyStatus(null); // release me
 
 		if (player.getTarget() != this || // Player's target isn't me or

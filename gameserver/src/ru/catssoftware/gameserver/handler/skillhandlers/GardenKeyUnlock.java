@@ -16,7 +16,7 @@ public class GardenKeyUnlock implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		if (!(activeChar instanceof L2PcInstance))
+		if (!(activeChar.isPlayer()))
 			return;
 
 		L2Object[] targetList = skill.getTargetList(activeChar);

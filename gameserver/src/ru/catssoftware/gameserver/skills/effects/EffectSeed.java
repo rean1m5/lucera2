@@ -18,7 +18,7 @@ public class EffectSeed extends L2Effect {
 	@Override
 	protected boolean onStart()
 	{
-		L2PcInstance player = getEffected().getActingPlayer();
+		L2PcInstance player = getEffected().getPlayer();
 		if(player==null)
 			return false;
 		player._seeds[Seeds.valueOf(getStackType()).ordinal()]++;
@@ -28,7 +28,7 @@ public class EffectSeed extends L2Effect {
 	@Override
 	protected void onExit()
 	{
-		L2PcInstance player = getEffected().getActingPlayer();
+		L2PcInstance player = getEffected().getPlayer();
 		if(player==null)
 			return;
 		if(_exitEffector==null || _exitEffector==getEffector()) {
@@ -36,7 +36,7 @@ public class EffectSeed extends L2Effect {
 		}
 	}
 	public int getForce() {
-		L2PcInstance player = getEffected().getActingPlayer();
+		L2PcInstance player = getEffected().getPlayer();
 		if(player==null)
 			return 0;
 		return player._seeds[Seeds.valueOf(getStackType()).ordinal()];

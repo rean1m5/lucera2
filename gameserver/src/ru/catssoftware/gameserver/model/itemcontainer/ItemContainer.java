@@ -417,7 +417,7 @@ public abstract class ItemContainer
 				sourceitem.getAugmentation().removeBonus(actor);
 			refreshWeight();
 			actor.getInventory().refreshWeight();
-			if (reference instanceof L2PcInstance)
+			if (reference.isPlayer())
 				((L2PcInstance)reference).getInventory().refreshWeight();
 		}
 		return targetitem;

@@ -578,7 +578,7 @@ public abstract class L2Item implements FuncOwner
 
 	public boolean checkCondition(L2Character activeChar, L2Object target, boolean sendMessage)
 	{
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 		{
 			if (((L2PcInstance) activeChar).isGM() && !Config.GM_ITEM_RESTRICTION)
 				return true;
@@ -598,8 +598,8 @@ public abstract class L2Item implements FuncOwner
 					((L2SummonInstance) activeChar).getOwner().sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
 					return false;
 				}
-				else if (sendMessage && activeChar instanceof L2PcInstance)
-					preCondition.sendMessage(activeChar.getActingPlayer(), this);
+				else if (sendMessage && activeChar.isPlayer())
+					preCondition.sendMessage(activeChar.getPlayer(), this);
 				return false;
 			}
 		}

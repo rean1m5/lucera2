@@ -1702,7 +1702,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner
 		}
 		else if (itemId == 57 || itemId == 6353)
 		{
-			L2PcInstance pc = player.getActingPlayer();
+			L2PcInstance pc = player.getPlayer();
 			if (pc != null)
 			{
 				QuestState qs = pc.getQuestState("255_Tutorial");

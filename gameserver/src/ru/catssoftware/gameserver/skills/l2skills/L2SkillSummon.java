@@ -46,7 +46,7 @@ public class L2SkillSummon extends L2Skill
 	@Override
 	public boolean checkCondition(L2Character activeChar, L2Object target)
 	{
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance) activeChar;
 			if (isCubic())
@@ -82,7 +82,7 @@ public class L2SkillSummon extends L2Skill
 	@Override
 	public void useSkill(L2Character caster, L2Character... targets)
 	{
-		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
+		if (caster.isAlikeDead() || !(caster.isPlayer()))
 			return;
 
 		L2PcInstance activeChar = (L2PcInstance) caster;
@@ -102,7 +102,7 @@ public class L2SkillSummon extends L2Skill
 			{
 				for (L2Character obj : targets)
 				{
-					if (!(obj instanceof L2PcInstance))
+					if (!(obj.isPlayer()))
 						continue;
 					L2PcInstance player = ((L2PcInstance) obj);
 					int mastery = player.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);

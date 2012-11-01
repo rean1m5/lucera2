@@ -208,7 +208,7 @@ public abstract class L2Object extends L2Entity
 		if (_instanceId == instanceId)
 			return;
 
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 		{
 
 			if (_instanceId > 0)
@@ -233,7 +233,7 @@ public abstract class L2Object extends L2Entity
 
 		if (isVisible())
 		{
-			if (this instanceof L2PcInstance){}
+			if (isPlayer()){}
 			else
 			{
 				decayMe();
@@ -266,31 +266,9 @@ public abstract class L2Object extends L2Entity
 		}
 	}
 
-	public L2PcInstance getActingPlayer()
-	{
-		return null;
-	}
-
-	public final static L2PcInstance getActingPlayer(L2Object obj)
-	{
-		return (obj == null ? null : obj.getActingPlayer());
-	}
-
-	public L2Summon getActingSummon()
-	{
-		return null;
-	}
-
-	public final static L2Summon getActingSummon(L2Object obj)
-	{
-		return (obj == null ? null : obj.getActingSummon());
-	}
-
 	public boolean isInFunEvent()
 	{
-		L2PcInstance player = getActingPlayer();
-
-		return (player != null && player.isInFunEvent());
+		return false;
 	}
 
 	public Location getLoc()
@@ -327,6 +305,16 @@ public abstract class L2Object extends L2Entity
 	}
 
 	public boolean isPlayer()
+	{
+		return false;
+	}
+
+	public L2PlayableInstance getPlayable()
+	{
+		return null;
+	}
+
+	public boolean isPlayable()
 	{
 		return false;
 	}

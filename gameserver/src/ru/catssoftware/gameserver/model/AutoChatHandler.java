@@ -557,7 +557,7 @@ public class AutoChatHandler implements SpawnListener
 						FastList<L2PcInstance> nearbyPlayers = new FastList<L2PcInstance>();
 
 						for (L2Character player : chatNpc.getKnownList().getKnownCharactersInRadius(chatDef._chatRange))
-							if (player instanceof L2PcInstance && !((L2PcInstance) player).isGM())
+							if (player.isPlayer() && !((L2PcInstance) player).isGM())
 								nearbyPlayers.add((L2PcInstance) player);
 
 						int maxIndex = chatDef.getChatTexts().length;

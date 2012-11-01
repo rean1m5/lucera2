@@ -197,7 +197,7 @@ public class gmcommands extends gmHandler
 				L2Object target = admin.getTarget();
 				L2PcInstance player = null;
 
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 					player = (L2PcInstance) target;
 				else
 					player = admin;
@@ -219,7 +219,7 @@ public class gmcommands extends gmHandler
 				int numval = Integer.parseInt(params[2]);
 				L2PcInstance player = admin;
 				if (params.length == 4) {
-					if (admin.getTarget() instanceof L2PcInstance)
+					if (admin.getTarget().isPlayer())
 						player = (L2PcInstance)admin.getTarget();
 				}
 				createItem(player, idval, numval);
@@ -340,7 +340,7 @@ public class gmcommands extends gmHandler
 			return;
 		}
 
-		if (targetChar != null && targetChar instanceof L2PcInstance)
+		if (targetChar != null && targetChar.isPlayer())
 			((L2PcInstance) targetChar).restoreExp(100.0);
 		else
 			DecayTaskManager.getInstance().cancelDecayTask(targetChar);
@@ -452,7 +452,7 @@ public class gmcommands extends gmHandler
 	private void unSnoop(String command, L2PcInstance admin)
 	{
 		L2Object target = admin.getTarget();
-		if (target == null || !(target instanceof L2PcInstance))
+		if (target == null || !(target.isPlayer()))
 		{
 			admin.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;

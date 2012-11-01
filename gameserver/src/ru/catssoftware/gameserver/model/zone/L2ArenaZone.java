@@ -15,7 +15,7 @@ public class L2ArenaZone extends L2DefaultZone
 	protected void onExit(L2Character character)
 	{
 		super.onExit(character);
-/*		if(character instanceof L2PcInstance) {
+/*		if(character.isPlayer()) {
 			L2PcInstance pc = (L2PcInstance)character;
 			if(pc.getGameEvent()!=null && pc.getGameEvent().isRunning() && !pc.isTeleporting()) {
 				pc.sendMessage("Вы покинули зону эвента, и будете удалены с эвента");

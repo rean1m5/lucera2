@@ -38,7 +38,7 @@ public class Unlock implements ISkillHandler
 				{
 					door.openMe();
 					door.onOpen();
-					if(activeChar instanceof L2PcInstance)
+					if(activeChar.isPlayer())
 						((L2PcInstance) activeChar).sendMessage(Message.getMessage((L2PcInstance)activeChar, Message.MessageId.MSG_DOOR_OPEN));
 				}
 				else

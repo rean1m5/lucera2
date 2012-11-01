@@ -39,7 +39,7 @@ public final class EffectRelax extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		if (getEffected() instanceof L2PcInstance)
+		if (getEffected().isPlayer())
 		{
 			setRelax(true);
 			((L2PcInstance) getEffected()).sitDown();
@@ -68,7 +68,7 @@ public final class EffectRelax extends L2Effect
 		if (getEffected().isDead())
 			retval = false;
 
-		if (getEffected() instanceof L2PcInstance)
+		if (getEffected().isPlayer())
 		{
 			if (!((L2PcInstance) getEffected()).isSitting())
 				retval = false;
@@ -105,7 +105,7 @@ public final class EffectRelax extends L2Effect
 
 	private void setRelax(boolean val)
 	{
-		if (getEffected() instanceof L2PcInstance)
+		if (getEffected().isPlayer())
 			((L2PcInstance) getEffected()).setRelax(val);
 	}
 }

@@ -405,7 +405,7 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		if (_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isMounted())
+		if (_activeChar.isPlayer() && ((L2PcInstance)_activeChar).isMounted())
 			return getRunSpeed() * 1f / PetDataTable.getInstance().getPetData(((L2PcInstance) _activeChar).getMountNpcId(), ((L2PcInstance) _activeChar).getMountLevel()).getPetSpeed();
 
 		return getRunSpeed() * 1f / _activeChar.getTemplate().getBaseRunSpd();
@@ -513,7 +513,7 @@ public class CharStat
 		// err we should be adding TO the persons run speed
 		// not making it a constant
 		double baseRunSpd = _activeChar.getTemplate().getBaseRunSpd();
-		if (_activeChar instanceof L2PcInstance)
+		if (_activeChar.isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance)_activeChar;
 			if (player.isMounted())
@@ -555,7 +555,7 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		if (_activeChar instanceof L2PcInstance)
+		if (_activeChar.isPlayer())
 			return (getRunSpeed() * 70) / 100;
 
 		return (int) calcStat(Stats.WALK_SPEED, _activeChar.getTemplate().getBaseWalkSpd(), null, null);

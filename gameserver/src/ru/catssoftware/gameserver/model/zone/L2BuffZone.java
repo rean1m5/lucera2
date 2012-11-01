@@ -19,7 +19,7 @@ public class L2BuffZone extends L2DefaultZone implements IEffector {
 	private void buffMe(L2Character cha) {
 		for(L2Skill sk : _commonBuffs)
 			sk.getEffects(cha, cha,this);
-		if(cha.getActingPlayer().getClassId().isMage())
+		if(cha.getPlayer().getClassId().isMage())
 			for(L2Skill sk : _mageBuffs)
 				sk.getEffects(cha, cha,this);
 		else 
@@ -28,7 +28,7 @@ public class L2BuffZone extends L2DefaultZone implements IEffector {
 	}
 	@Override
 	protected void onEnter(L2Character cha) {
-		if(cha.getActingPlayer()!=null) 
+		if(cha.getPlayer()!=null)
 			buffMe(cha);
 		super.onEnter(cha);
 
@@ -47,7 +47,7 @@ public class L2BuffZone extends L2DefaultZone implements IEffector {
 
 	@Override
 	public void onReviveInside(L2Character cha) {
-		if(cha.getActingPlayer()!=null) 
+		if(cha.getPlayer()!=null)
 			buffMe(cha);
 		super.onReviveInside(cha);
 	}
@@ -82,7 +82,7 @@ public class L2BuffZone extends L2DefaultZone implements IEffector {
 	}
 	@Override
 	public void onEffectFinished(L2Character effected, L2Skill skill) {
-		if(effected.getActingPlayer() == effected && !effected.isDead())
+		if(effected.getPlayer() == effected && !effected.isDead())
 			if(_commonBuffs.contains(skill) || _mageBuffs.contains(skill) || _warriorBuff.contains(skill))
 				skill.getEffects(effected,effected,this);
 		

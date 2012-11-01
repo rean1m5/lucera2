@@ -57,7 +57,7 @@ public class L2Macro
 	{
 		id = pId;
 		icon = pIcon;
-		name = pName;
+		name = pName.length() > 40 ? pName.substring(0,39) : pName;
 		descr = pDescr;
 		acronym = pAcronym;
 		commands = pCommands;

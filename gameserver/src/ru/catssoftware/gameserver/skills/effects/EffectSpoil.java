@@ -48,7 +48,7 @@ public final class EffectSpoil extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		if (!(getEffector() instanceof L2PcInstance))
+		if (!(getEffector().isPlayer()))
 			return false;
 
 		if (!(getEffected() instanceof L2MonsterInstance))

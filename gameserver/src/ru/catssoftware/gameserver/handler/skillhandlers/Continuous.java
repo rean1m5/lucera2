@@ -56,7 +56,7 @@ public class Continuous implements ICubicSkillHandler
 		boolean bss = false;
 
 		L2PcInstance player = null;
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 			player = (L2PcInstance) activeChar;
 
 		if (skill.getEffectId() != 0)
@@ -81,7 +81,7 @@ public class Continuous implements ICubicSkillHandler
 			if((target instanceof L2RaidBossInstance || target instanceof L2GrandBossInstance) && skill.getSkillType()==L2SkillType.FEAR) {
 				continue;
 			}
-			if(target instanceof L2Summon && target.getActingPlayer()==activeChar) {
+			if(target instanceof L2Summon && target.getPlayer()==activeChar) {
 				if(skill.getSkillType()==L2SkillType.FEAR)
 					continue;
 			}
@@ -111,7 +111,7 @@ public class Continuous implements ICubicSkillHandler
 			{
 				if (target != activeChar)
 				{
-					if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
+					if (target.isPlayer() && ((L2PcInstance) target).isCursedWeaponEquipped())
 						continue;
 					else if (player != null && player.isCursedWeaponEquipped())
 						continue;
@@ -249,7 +249,7 @@ public class Continuous implements ICubicSkillHandler
 					}
 				}
 			}
-			else if (activeChar instanceof L2PcInstance)
+			else if (activeChar.isPlayer())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 				sm.addString(target.getName());
@@ -259,7 +259,7 @@ public class Continuous implements ICubicSkillHandler
 		}
 
 		// Increase Charges
-		if (activeChar instanceof L2PcInstance && skill.getGiveCharges() > 0)
+		if (activeChar.isPlayer() && skill.getGiveCharges() > 0)
 			((L2PcInstance) activeChar).increaseCharges(skill.getGiveCharges(), skill.getMaxCharges());
 
 		// self Effect :]

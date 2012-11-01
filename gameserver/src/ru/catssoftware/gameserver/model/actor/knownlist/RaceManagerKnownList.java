@@ -33,7 +33,7 @@ public class RaceManagerKnownList extends NpcKnownList
 		if (!super.removeKnownObject(object))
 			return false;
 
-		if (object instanceof L2PcInstance)
+		if (object.isPlayer())
 		{
 			DeleteObject obj = null;
 			for (int i = 0; i < 8; i++)

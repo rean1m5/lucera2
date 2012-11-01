@@ -24,7 +24,7 @@ public class RequestRecipeShopManagePrev extends L2GameClientPacket
 			return;
 		}
 
-		if (!(player.getTarget() instanceof L2PcInstance))
+		if (!(player.getTarget().isPlayer()))
 			return;
 		L2PcInstance target = (L2PcInstance) player.getTarget();
 		player.sendPacket(new RecipeShopSellList(player, target));

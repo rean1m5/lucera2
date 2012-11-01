@@ -40,9 +40,7 @@ public class RequestMakeMacro extends L2GameClientPacket
 			int d2 = readC();
 			String command = readS();
 				if (command == null)
-				{
 					return;
-				}
 
 			_commandIndex = command;
 			_commandsLenght += command.length();

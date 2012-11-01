@@ -375,7 +375,7 @@ public class effects extends gmHandler
 					admin.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 					return;
 				}
-				if ((target instanceof L2PcInstance) && (action < 2 || action > 16))
+				if ((target.isPlayer()) && (action < 2 || action > 16))
 				{
 					admin.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 					return;

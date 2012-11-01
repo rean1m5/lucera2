@@ -67,7 +67,7 @@ public class Siegeable extends Entity
 		for (L2Character player : _zoneTP.getCharactersInside().values())
 		{
 			// To random spot in defender spawn zone
-			if (player instanceof L2PcInstance)
+			if (player.isPlayer())
 				player.teleToLocation(_zoneDS.getRandomLocation(), true);
 		}
 	}

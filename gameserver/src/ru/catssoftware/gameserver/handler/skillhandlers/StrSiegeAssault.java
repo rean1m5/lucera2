@@ -17,7 +17,7 @@ public class StrSiegeAssault implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		if (!(activeChar instanceof L2PcInstance))
+		if (!(activeChar.isPlayer()))
 			return;
 
 		L2PcInstance player = (L2PcInstance) activeChar;
@@ -33,7 +33,7 @@ public class StrSiegeAssault implements ISkillHandler
 					continue;
 
 				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-				if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
+				if (activeChar.isPlayer() && target.isPlayer() && target.isFakeDeath())
 					target.stopFakeDeath(null);
 
 				else if (target.isDead())

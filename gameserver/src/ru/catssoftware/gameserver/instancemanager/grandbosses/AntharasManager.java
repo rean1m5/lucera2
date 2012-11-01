@@ -534,7 +534,7 @@ public class AntharasManager extends BossLair
 	
 	@Override
 	public void onEnter(L2Character cha) {
-		L2PcInstance pc = cha.getActingPlayer();
+		L2PcInstance pc = cha.getPlayer();
 		if(pc!=null && !pc.isGM() && Config.EPIC_REQUIRE_QUEST) 
 			if(pc.getQuestState(_questName)==null)
 				pc.teleToLocation(TeleportWhereType.Town);

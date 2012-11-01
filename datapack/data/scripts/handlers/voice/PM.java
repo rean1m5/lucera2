@@ -23,8 +23,8 @@ public class PM implements IVoicedCommandHandler {
 
 	@Override
 	public boolean useVoicedCommand(String cmd, L2PcInstance cha, String params) {
-		if(cha.getTarget()!=null && cha.getTarget().getActingPlayer()!=null) {
-			L2PcInstance pc = cha.getTarget().getActingPlayer();
+		if(cha.getTarget()!=null && cha.getTarget().getPlayer()!=null) {
+			L2PcInstance pc = cha.getTarget().getPlayer();
 			IChatHandler tell = ChatHandler.getInstance().getChatHandler(SystemChatChannelId.Chat_Tell);
 			tell.useChatHandler(cha, pc.getName(), SystemChatChannelId.Chat_Tell, params);
 		} else {

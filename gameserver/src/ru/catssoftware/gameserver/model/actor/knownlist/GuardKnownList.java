@@ -45,7 +45,7 @@ public class GuardKnownList extends AttackableKnownList
 		if (!super.addKnownObject(object, dropper))
 			return false;
 
-		if (object instanceof L2PcInstance)
+		if (object.isPlayer())
 		{
 			// Check if the object added is a L2PcInstance that owns Karma
 			L2PcInstance player = (L2PcInstance) object;

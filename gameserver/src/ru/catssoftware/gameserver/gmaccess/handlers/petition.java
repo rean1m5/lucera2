@@ -95,7 +95,7 @@ public class petition extends gmHandler
 		{
 			try
 			{
-				if (targetChar == null || !(targetChar instanceof L2PcInstance))
+				if (targetChar == null || !(targetChar.isPlayer()))
 				{
 					admin.sendPacket(SystemMessageId.TARGET_IS_INCORRECT); // incorrect target!
 					return;

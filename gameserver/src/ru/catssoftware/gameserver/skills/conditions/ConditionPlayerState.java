@@ -39,17 +39,17 @@ public final class ConditionPlayerState extends Condition
 		switch (_check)
 		{
 		case RESTING:
-			if (env.player instanceof L2PcInstance)
+			if (env.player.isPlayer())
 				return ((L2PcInstance) env.player).isSitting() == _required;
 			break;
 		case MOVING:
 			return env.player.isMoving() == _required;
 		case INPVP:
-			if(env.player.getActingPlayer()!=null)
+			if(env.player.getPlayer()!=null)
 				if(_required)
-					return env.player.getActingPlayer().getPvpFlag()>0;
+					return env.player.getPlayer().getPvpFlag()>0;
 				else 
-					return env.player.getActingPlayer().getPvpFlag() == 0;
+					return env.player.getPlayer().getPvpFlag() == 0;
 			break;
 		case RUNNING:
 			return (env.player.isMoving() && env.player.isRunning()) == _required;
@@ -60,12 +60,12 @@ public final class ConditionPlayerState extends Condition
 		case FRONT:
 			return env.player.isInFrontOfTarget() == _required;
 		case CHAOTIC:
-			player = env.player.getActingPlayer();
+			player = env.player.getPlayer();
 			if (player != null)
 				return (player.getKarma() > 0) == _required;
 			break;
 		case OLYMPIAD:
-			player = env.player.getActingPlayer();
+			player = env.player.getPlayer();
 			if (player != null)
 				return player.isInOlympiadMode() == _required;
 			break;

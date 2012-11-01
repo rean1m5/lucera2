@@ -1,11 +1,5 @@
 package ru.catssoftware.protection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-
 import ru.catssoftware.L2DatabaseFactory;
 import ru.catssoftware.gameserver.gmaccess.gmCache;
 import ru.catssoftware.gameserver.gmaccess.gmHandler;
@@ -14,6 +8,11 @@ import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.Disconnection;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
 import ru.catssoftware.gameserver.util.L2Utils;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class GatsGuardHandler extends gmHandler {
 
@@ -54,7 +53,7 @@ public class GatsGuardHandler extends gmHandler {
 		else if (command.equals("hwidban")) {
 			String hwid=null;
 			if(params.length==1) {
-				if(admin.getTarget() instanceof L2PcInstance) 
+				if(admin.getTarget().isPlayer())
 					hwid = ((L2PcInstance)admin.getTarget()).getHWid();
 			} 
 			else {

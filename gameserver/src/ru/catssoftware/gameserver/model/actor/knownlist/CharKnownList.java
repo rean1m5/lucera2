@@ -14,9 +14,6 @@
  */
 package ru.catssoftware.gameserver.model.actor.knownlist;
 
-import java.util.Map;
-
-
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2Object;
 import ru.catssoftware.gameserver.model.L2WorldRegion;
@@ -27,6 +24,8 @@ import ru.catssoftware.gameserver.model.actor.instance.L2PlayableInstance;
 import ru.catssoftware.gameserver.util.Util;
 import ru.catssoftware.util.L2Collections;
 import ru.catssoftware.util.SingletonMap;
+
+import java.util.Map;
 
 
 public class CharKnownList extends ObjectKnownList
@@ -59,7 +58,7 @@ public class CharKnownList extends ObjectKnownList
 		
 		getKnownObjects().put(object.getObjectId(), object);
 		
-		if (object instanceof L2PcInstance)
+		if (object.isPlayer())
 			getKnownPlayers().put(object.getObjectId(), (L2PcInstance)object);
 		
 		return true;
@@ -116,7 +115,7 @@ public class CharKnownList extends ObjectKnownList
 		if (getKnownObjects().remove(object.getObjectId()) == null)
 			return false;
 		
-		if (object instanceof L2PcInstance)
+		if (object.isPlayer())
 			getKnownPlayers().remove(object.getObjectId());
 		
 		// If object is targeted by the L2Character, cancel Attack or Cast
@@ -232,7 +231,7 @@ public class CharKnownList extends ObjectKnownList
 		if (obj!=null && obj.isVisible() && Util.checkIfInShortRadius(getDistanceToForgetObject(obj), getActiveChar(), obj, true) && !forced)
 			return;
 		
-		if (obj instanceof L2BoatInstance && getActiveChar() instanceof L2PcInstance)
+		if (obj instanceof L2BoatInstance && getActiveChar().isPlayer())
 		{
 			if (((L2BoatInstance)obj).getVehicleDeparture() == null)
 				return;

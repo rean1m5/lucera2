@@ -567,7 +567,7 @@ public class L2Skill implements FuncOwner
 	{
 		caster.sendPacket(ActionFailed.STATIC_PACKET);
 		
-		if (caster instanceof L2PcInstance)
+		if (caster.isPlayer())
 			caster.sendMessage(String.format(Message.getMessage((L2PcInstance) caster, Message.MessageId.MSG_SKILL_NOT_IMPLEMENTED), getId()));
 	}
 
@@ -1511,7 +1511,7 @@ public class L2Skill implements FuncOwner
 		if (preCondition.test(env))
 			return true;
 
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 			preCondition.sendMessage((L2PcInstance) activeChar, this);
 		return false;
 	}
@@ -1594,7 +1594,7 @@ public class L2Skill implements FuncOwner
 			}
 			case TARGET_HOLY:
 			{
-				if (target != null && activeChar instanceof L2PcInstance)
+				if (target != null && activeChar.isPlayer())
 				{
 					if (target instanceof L2ArtefactInstance)
 						return new L2Character[] { target };
@@ -1608,7 +1608,7 @@ public class L2Skill implements FuncOwner
 			}
 			case TARGET_COUPLE:
 			{
-				if (target != null && target instanceof L2PcInstance)
+				if (target != null && target.isPlayer())
 				{
 					int _chaid = activeChar.getObjectId();
 					int targetId = target.getObjectId();
@@ -1650,7 +1650,7 @@ public class L2Skill implements FuncOwner
 				{
 					L2Summon targetPet;
 					targetPet = (L2Summon) target;
-					if (activeChar instanceof L2PcInstance && activeChar.getPet() != targetPet && !targetPet.isDead() && targetPet.getOwner().getPvpFlag() != 0)
+					if (activeChar.isPlayer() && activeChar.getPet() != targetPet && !targetPet.isDead() && targetPet.getOwner().getPvpFlag() != 0)
 					{
 						return new L2Character[] { target };
 					}
@@ -1659,7 +1659,7 @@ public class L2Skill implements FuncOwner
 			}
 			case TARGET_CORPSE_PET:
 			{
-				if (activeChar instanceof L2PcInstance)
+				if (activeChar.isPlayer())
 				{
 					target = activeChar.getPet();
 					if (target != null && target.isDead())
@@ -1676,7 +1676,7 @@ public class L2Skill implements FuncOwner
 				int radius = getSkillRadius();
 				boolean srcInPvP = activeChar.isInsideZone(L2Zone.FLAG_PVP) && !activeChar.isInsideZone(L2Zone.FLAG_SIEGE);
 
-				L2PcInstance src = activeChar.getActingPlayer();
+				L2PcInstance src = activeChar.getPlayer();
 				
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
@@ -1738,7 +1738,7 @@ public class L2Skill implements FuncOwner
 							if (!activeChar.canSee(obj))
 								continue;
 
-							if (obj instanceof L2PcInstance)
+							if (obj.isPlayer())
 							{
 								if (!src.checkPvpSkill(obj, this))
 									continue;
@@ -1827,7 +1827,7 @@ public class L2Skill implements FuncOwner
 				boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
 				boolean srcIsSummon = (activeChar instanceof L2Summon);
 
-				L2PcInstance src = activeChar.getActingPlayer();
+				L2PcInstance src = activeChar.getPlayer();
 
 				int radius = getSkillRadius();
 
@@ -1873,7 +1873,7 @@ public class L2Skill implements FuncOwner
 									break;
 							}
 
-							if (obj instanceof L2PcInstance)
+							if (obj.isPlayer())
 							{
 								L2PcInstance trg = (L2PcInstance) obj;
 								if (trg == src)
@@ -2004,7 +2004,7 @@ public class L2Skill implements FuncOwner
 					player = ((L2Summon) activeChar).getOwner();
 					targetList.add(player);
 				}
-				else if (activeChar instanceof L2PcInstance)
+				else if (activeChar.isPlayer())
 				{
 					player = (L2PcInstance) activeChar;
 					if (activeChar.getPet() != null)
@@ -2046,8 +2046,8 @@ public class L2Skill implements FuncOwner
 			{
 				if ((target != null && target == activeChar) || (target != null && activeChar.getParty() != null && target.getParty() != null
 				&& activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID()) || (target != null
-				&& activeChar instanceof L2PcInstance && target instanceof L2Summon && activeChar.getPet() == target) || (target != null
-				&& activeChar instanceof L2Summon && target instanceof L2PcInstance && activeChar == target.getPet()))
+				&& activeChar.isPlayer() && target instanceof L2Summon && activeChar.getPet() == target) || (target != null
+				&& activeChar instanceof L2Summon && target.isPlayer() && activeChar == target.getPet()))
 				{
 					if (!target.isDead())
 						return new L2Character[] { target };
@@ -2063,7 +2063,7 @@ public class L2Skill implements FuncOwner
 				{
 					if (!target.isDead())
 					{
-						if (target instanceof L2PcInstance)
+						if (target.isPlayer())
 						{
 							L2PcInstance player = (L2PcInstance) target;
 							switch (getId())
@@ -2091,7 +2091,7 @@ public class L2Skill implements FuncOwner
 				if (activeChar instanceof L2PlayableInstance)
 				{
 					int radius = getSkillRadius();
-					L2PcInstance player = activeChar.getActingPlayer();
+					L2PcInstance player = activeChar.getPlayer();
 					if (player == null)
 						return null;
 
@@ -2122,10 +2122,10 @@ public class L2Skill implements FuncOwner
 						// Get Clan Members
 						for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 						{
-							if (obj == player || !(obj instanceof L2PlayableInstance) || obj.getActingPlayer() == null)
+							if (obj == player || !(obj instanceof L2PlayableInstance) || obj.getPlayer() == null)
 								continue;
 
-							L2PcInstance newTarget = obj.getActingPlayer();
+							L2PcInstance newTarget = obj.getPlayer();
 
 							if ((newTarget.getAllyId() == 0 || newTarget.getAllyId() != player.getAllyId()) && (newTarget.getClan() == null || newTarget.getClanId() != player.getClanId()))
 								continue;
@@ -2191,11 +2191,11 @@ public class L2Skill implements FuncOwner
 						if (!obj.isAlikeDead())
 						{
 							// Don't add this target if this is a PC->PC pvp casting and pvp condition not met
-							if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).checkPvpSkill(obj, this))
+							if (activeChar.isPlayer() && !((L2PcInstance) activeChar).checkPvpSkill(obj, this))
 								continue;
 
 							// check if both attacker and target are L2PcInstances and if they are in same party or clan
-							if ((activeChar instanceof L2PcInstance && obj instanceof L2PcInstance) && (((L2PcInstance) activeChar).getClanId() != ((L2PcInstance) obj).getClanId() || (((L2PcInstance) activeChar).getAllyId() != ((L2PcInstance) obj).getAllyId() && ((activeChar.getParty() != null && obj.getParty() != null) && activeChar.getParty().getPartyLeaderOID() != obj.getParty().getPartyLeaderOID()))))
+							if ((activeChar.isPlayer() && obj.isPlayer()) && (((L2PcInstance) activeChar).getClanId() != ((L2PcInstance) obj).getClanId() || (((L2PcInstance) activeChar).getAllyId() != ((L2PcInstance) obj).getAllyId() && ((activeChar.getParty() != null && obj.getParty() != null) && activeChar.getParty().getPartyLeaderOID() != obj.getParty().getPartyLeaderOID()))))
 								continue;
 
 							targetList.add(obj);
@@ -2210,7 +2210,7 @@ public class L2Skill implements FuncOwner
 				if (activeChar instanceof L2PlayableInstance)
 				{
 					int radius = getSkillRadius();
-					L2PcInstance player = activeChar.getActingPlayer();
+					L2PcInstance player = activeChar.getPlayer();
 					if (player == null)
 						return null;
 
@@ -2316,11 +2316,11 @@ public class L2Skill implements FuncOwner
 				{
 					L2PcInstance player = null;
 
-					if (activeChar instanceof L2PcInstance)
+					if (activeChar.isPlayer())
 						player = (L2PcInstance) activeChar;
 					L2PcInstance targetPlayer = null;
 
-					if (target instanceof L2PcInstance)
+					if (target.isPlayer())
 						targetPlayer = (L2PcInstance) target;
 					L2PetInstance targetPet = null;
 
@@ -2429,7 +2429,7 @@ public class L2Skill implements FuncOwner
 				boolean srcInArena = (activeChar.isInsideZone(L2Zone.FLAG_PVP) && !activeChar.isInsideZone(L2Zone.FLAG_SIEGE));
 
 				L2PcInstance src = null;
-				if (activeChar instanceof L2PcInstance)
+				if (activeChar.isPlayer())
 					src = (L2PcInstance) activeChar;
 				L2PcInstance trg;
 
@@ -2534,7 +2534,7 @@ public class L2Skill implements FuncOwner
 				if (target instanceof L2Summon)
 				{
 					L2Summon targetSummon = (L2Summon) target;
-					if (activeChar instanceof L2PcInstance && activeChar.getPet() != targetSummon && !targetSummon.isDead()
+					if (activeChar.isPlayer() && activeChar.getPet() != targetSummon && !targetSummon.isDead()
 							&& (targetSummon.getOwner().getPvpFlag() != 0 || targetSummon.getOwner().getKarma() > 0)
 							|| (targetSummon.getOwner().isInsideZone(L2Zone.FLAG_PVP) && activeChar.isInsideZone(L2Zone.FLAG_PVP)))
 						return new L2Character[] { targetSummon };
@@ -2639,7 +2639,7 @@ public class L2Skill implements FuncOwner
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
-				if (obj instanceof L2PcInstance)
+				if (obj.isPlayer())
 					if (((L2PcInstance)obj).inObserverMode())
 						continue;
 				if (obj instanceof L2PlayableInstance)
@@ -2658,8 +2658,8 @@ public class L2Skill implements FuncOwner
 			return targetList.moveToArray(new L2Character[targetList.size()]);
 		}
 
-		if (activeChar.getActingPlayer() != null)
-			acClan = activeChar.getActingPlayer().getClan();
+		if (activeChar.getPlayer() != null)
+			acClan = activeChar.getPlayer().getClan();
 		else
 		{
 			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
@@ -2677,7 +2677,7 @@ public class L2Skill implements FuncOwner
 				else if (isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj))
 					continue;
 
-				if (obj instanceof L2PcInstance)
+				if (obj.isPlayer())
 				{
 					if (((L2PcInstance)obj).inObserverMode())
 						continue;
@@ -2787,7 +2787,7 @@ public class L2Skill implements FuncOwner
 			{
 				if (!(obj instanceof L2Character))
 					continue;
-				if (obj instanceof L2PcInstance)
+				if (obj.isPlayer())
 					if (((L2PcInstance)obj).inObserverMode())
 						continue;
 				if (!(Util.checkIfInRange(radius, target, obj, true)))
@@ -2890,7 +2890,7 @@ public class L2Skill implements FuncOwner
 
 	public final Func[] getStatFuncs(L2Effect effect, L2Character player)
 	{
-		if (!(player instanceof L2PcInstance) && !(player instanceof L2Attackable) && !(player instanceof L2Summon))
+		if (!(player.isPlayer()) && !(player instanceof L2Attackable) && !(player instanceof L2Summon))
 			return Func.EMPTY_ARRAY;
 
 		if (_funcTemplates == null)
@@ -2953,7 +2953,7 @@ public class L2Skill implements FuncOwner
 		if(getSkillType() == L2SkillType.BUFF && getTargetType()!= SkillTargetType.TARGET_SELF && effected.isPreventedFromReceivingBuffs())
 			return L2Effect.EMPTY_ARRAY;
 		
-		if(isActive() &&  getSkillType() == L2SkillType.BUFF && effected.getActingPlayer()!=null) {
+		if(isActive() &&  getSkillType() == L2SkillType.BUFF && effected.getPlayer()!=null) {
 			int maxBuffs = effected.getMaxBuffCount();
 			
 			if (effected.getBuffCount()>=maxBuffs) {
@@ -3011,7 +3011,7 @@ public class L2Skill implements FuncOwner
 			return;
 		if ((!effector.equals(effected)) && effected.isInvul())
 			return;
-		if ((isDebuff() || isOffensive()) && effector.getOwner() == effected.getActingPlayer())
+		if ((isDebuff() || isOffensive()) && effector.getOwner() == effected.getPlayer())
 			return;
 		for (EffectTemplate et : _effectTemplates)
 		{

@@ -1,5 +1,6 @@
 package ru.catssoftware.gameserver.network;
 
+import org.apache.log4j.Logger;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.instancemanager.DuelManager;
 import ru.catssoftware.gameserver.instancemanager.InstanceManager;
@@ -15,6 +16,7 @@ import ru.catssoftware.gameserver.taskmanager.AttackStanceTaskManager;
  */
 public final class Disconnection
 {
+	private static final Logger _log = Logger.getLogger("Disconnection");
 	public static L2GameClient getClient(L2GameClient client, L2PcInstance activeChar)
 	{
 		if (client != null)
@@ -55,8 +57,10 @@ public final class Disconnection
 	{
 		_client = getClient(client, activeChar);
 		_activeChar = getActiveChar(client, activeChar);
+
 		if(_activeChar!=null)
 			store();
+
 		if (_client != null)
 			_client.setActiveChar(null);
 		

@@ -79,7 +79,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
 		}
 
 		L2Object obj = L2World.getInstance().findObject(player.getPartnerId());
-		final L2PcInstance ptarget = obj instanceof L2PcInstance ? (L2PcInstance) obj : null;
+		final L2PcInstance ptarget = obj.isPlayer() ? (L2PcInstance) obj : null;
 		if(ptarget == null || ptarget.isOnline() == 0)
 		{
 			filename = "data/html/mods/wedding/notfound.htm";

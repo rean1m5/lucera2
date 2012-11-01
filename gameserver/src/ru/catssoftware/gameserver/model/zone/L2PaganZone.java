@@ -13,7 +13,7 @@ public class L2PaganZone extends L2DefaultZone
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 		{
 			if (character.getLevel() >= 73)
 			{

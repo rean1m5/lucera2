@@ -132,7 +132,7 @@ public final class ObjectPosition
 		{
 			_log.warn(_activeObject + " at bad coords: (x: " + _x + ", y: " + _y + ", z: " + _z + ").", e);
 			
-			if (_activeObject instanceof L2PcInstance)
+			if (_activeObject.isPlayer())
 			{
 				((L2PcInstance)_activeObject).teleToLocation(0, 0, 0, false);
 				((L2PcInstance)_activeObject).sendMessage(Message.getMessage(((L2PcInstance)_activeObject), Message.MessageId.MSG_BAD_COORDINATS));

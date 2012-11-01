@@ -132,7 +132,7 @@ public  class L2Decoy extends L2Character
 	}
 
 	@Override
-	public L2PcInstance getActingPlayer()
+	public L2PcInstance getPlayer()
 	{
 		return _owner;
 	}

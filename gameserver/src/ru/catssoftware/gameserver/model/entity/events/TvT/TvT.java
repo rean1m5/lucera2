@@ -112,7 +112,7 @@ public class TvT extends GameEvent
 		L2PcInstance player;
 		for(Integer playerId: _participants.keySet())
 		{
-			player = L2World.getInstance().findPlayer(playerId);
+			player = L2World.getInstance().getPlayer(playerId);
 			if(player != null)
 			{
 				player.setGameEvent(null);
@@ -181,7 +181,7 @@ public class TvT extends GameEvent
 
 		Team killerTeam = getPlayerTeam(killer);
 		Team victimTeam = getPlayerTeam(victim);
-		L2PcInstance pk =killer.getActingPlayer();
+		L2PcInstance pk = killer.getPlayer();
 		if(killerTeam != null && victimTeam != null)
 		{
 			if(killerTeam != victimTeam)
@@ -346,7 +346,7 @@ public class TvT extends GameEvent
 				result = TVT_ALLOW_TEAM_CASTING;
 		}
 		if(!result)
-			caster.sendMessage(Message.getMessage(caster.getActingPlayer(), Message.MessageId.MSG_EVENT_SKILL_NOT_ALOWED));
+			caster.sendMessage(Message.getMessage(caster.getPlayer(), Message.MessageId.MSG_EVENT_SKILL_NOT_ALOWED));
 		return result;
 	}
 
@@ -530,7 +530,7 @@ public class TvT extends GameEvent
 		L2PcInstance player;
 		for(int charId : _participants.keySet())
 		{
-			player = L2World.getInstance().findPlayer(charId);
+			player = L2World.getInstance().getPlayer(charId);
 			if(player != null)
 			{
 				if(player.getInstanceId()!=0 || player.getLevel() < _minlvl || player.getLevel() > _maxlvl || player.inPrivateMode() || player.isDead())
@@ -675,7 +675,7 @@ public class TvT extends GameEvent
 		L2PcInstance player;
 		for(Integer playerId: _participants.keySet())
 		{
-			player = L2World.getInstance().findPlayer(playerId);
+			player = L2World.getInstance().getPlayer(playerId);
 			if(player!=null)
 			{
 				player.abortAttack();
@@ -706,7 +706,7 @@ public class TvT extends GameEvent
 
 			for(Integer playerId : _participants.keySet())
 			{
-				player = L2World.getInstance().findPlayer(playerId);
+				player = L2World.getInstance().getPlayer(playerId);
 				if(player != null)
 				{
 					if (_participants.get(player.getObjectId()) == winner)

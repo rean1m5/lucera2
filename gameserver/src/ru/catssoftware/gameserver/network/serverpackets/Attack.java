@@ -2,7 +2,6 @@ package ru.catssoftware.gameserver.network.serverpackets;
 
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 
 public class Attack extends L2GameServerPacket
 {
@@ -31,7 +30,7 @@ public class Attack extends L2GameServerPacket
 			if (crit)
 				_flags |= HITFLAG_CRIT;
 			// dirty fix for lags on olympiad
-			if (shld > 0 && !(target instanceof L2PcInstance && ((L2PcInstance)target).isInOlympiadMode()))
+			if (shld > 0 && !(target !=null && target.isPlayer() && target.getPlayer().isInOlympiadMode()))
 				_flags |= HITFLAG_SHLD;
 		}
 	}

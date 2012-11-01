@@ -127,7 +127,7 @@ public class Potions implements IItemHandler
 	{
 		L2PcInstance activeChar;
 		boolean res = false;
-		if (playable instanceof L2PcInstance)
+		if (playable.isPlayer())
 			activeChar = (L2PcInstance) playable;
 		else if (playable instanceof L2PetInstance)
 			activeChar = ((L2PetInstance) playable).getOwner();
@@ -252,7 +252,7 @@ public class Potions implements IItemHandler
 			case 8626:
 			case 8627:
 			{
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -271,7 +271,7 @@ public class Potions implements IItemHandler
 			case 8632:
 			case 8633:
 			{
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -290,7 +290,7 @@ public class Potions implements IItemHandler
 			case 8638:
 			case 8639:
 			{
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -366,7 +366,7 @@ public class Potions implements IItemHandler
 				res = usePotion(playable, 2279, 3,item);// Superior Herb of Mana
 				break;
 			case 8193: // Fisherman's Potion - Green
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -380,7 +380,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2274, 1,item);
 				break;
 			case 8194: // Fisherman's Potion - Jade
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -394,7 +394,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2274, 2,item);
 				break;
 			case 8195: // Fisherman's Potion - Blue
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -408,7 +408,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2274, 3,item);
 				break;
 			case 8196: // Fisherman's Potion - Yellow
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -422,7 +422,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2274, 4,item);
 				break;
 			case 8197: // Fisherman's Potion - Orange
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -436,7 +436,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2274, 5,item);
 				break;
 			case 8198: // Fisherman's Potion - Purple
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -450,7 +450,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2274, 6,item);
 				break;
 			case 8199: // Fisherman's Potion - Red
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -464,7 +464,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2274, 7,item);
 				break;
 			case 8200: // Fisherman's Potion - White
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -478,7 +478,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2274, 8,item);
 				break;
 			case 8201: // Fisherman's Potion - Black
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -486,7 +486,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2274, 9,item);
 				break;
 			case 8202: // Fishing Potion
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -494,7 +494,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2275, 1,item);
 				break;
 			case 4679: // Bless of Eva
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -504,7 +504,7 @@ public class Potions implements IItemHandler
 				res = usePotion(activeChar, 2076, 1,item);
 				break;
 			case 8786: // Primeval Potion
-				if (!(playable instanceof L2PcInstance))
+				if (!(playable.isPlayer()))
 				{
 					itemNotForPets(activeChar);
 					return;
@@ -593,7 +593,7 @@ public class Potions implements IItemHandler
 		if (effects == null)
 			return true;
 
-		L2PcInstance activeChar =  ((playable instanceof L2PcInstance) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
+		L2PcInstance activeChar =  ((playable.isPlayer()) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
 
 		for (L2Effect e : effects)
 		{
@@ -615,7 +615,7 @@ public class Potions implements IItemHandler
 
 	private boolean isUseable(L2PlayableInstance playable, L2ItemInstance item, int skillid)
 	{
-		L2PcInstance activeChar =  ((playable instanceof L2PcInstance) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
+		L2PcInstance activeChar =  ((playable.isPlayer()) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
 		if (activeChar.isSkillDisabled(skillid))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
@@ -650,7 +650,7 @@ public class Potions implements IItemHandler
 			if(skill.getReuseDelay()>500)
 				activeChar.sendPacket(new UseSharedGroupItem(item.getItemId(),skill.getId(),skill.getReuseDelay(),skill.getReuseDelay() ));
 
-			if (activeChar instanceof L2PcInstance)
+			if (activeChar.isPlayer())
 			{
 				L2PcInstance player = (L2PcInstance) activeChar;
 				//only for Heal potions

@@ -1,20 +1,15 @@
 package ru.catssoftware.gameserver.ai;
 
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_CAST;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Character;
+import ru.catssoftware.gameserver.model.L2Character.AIAccessor;
 import ru.catssoftware.gameserver.model.L2Object;
 import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Character.AIAccessor;
 import ru.catssoftware.gameserver.model.L2Skill.SkillTargetType;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2StaticObjectInstance;
+
+import static ru.catssoftware.gameserver.ai.CtrlIntention.*;
 
 
 public class L2PlayerAI extends L2CharacterAI
@@ -221,7 +216,7 @@ public class L2PlayerAI extends L2CharacterAI
 	{
 		L2Character target = getCastTarget();
 
-		if (_skill.getTargetType() == SkillTargetType.TARGET_GROUND && _actor instanceof L2PcInstance)
+		if (_skill.getTargetType() == SkillTargetType.TARGET_GROUND && _actor.isPlayer())
 		{
 			if (maybeMoveToPosition(((L2PcInstance) _actor).getCurrentSkillWorldPosition(), _actor.getMagicalAttackRange(_skill)))
 			{

@@ -103,7 +103,7 @@ public final class Calculator
 			{
 				removeFunc(element);
 
-				if (cha instanceof L2PcInstance)
+				if (cha.isPlayer())
 					((L2PcInstance) cha).onFuncRemoval(element);
 			}
 		}

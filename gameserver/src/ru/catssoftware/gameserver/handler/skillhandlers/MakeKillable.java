@@ -15,7 +15,7 @@ public class MakeKillable implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		if (!(activeChar instanceof L2PcInstance))
+		if (!(activeChar.isPlayer()))
 			return;
 
 		for (L2Character element : targets)

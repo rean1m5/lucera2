@@ -308,7 +308,7 @@ public class CharEffectList
 				if (e == effect)
 				{
 					effectList.remove(e);
-					if (_owner instanceof L2PcInstance)
+					if (_owner.isPlayer())
 					{
 						SystemMessage sm;
 						if (effect.getSkill().isToggle())

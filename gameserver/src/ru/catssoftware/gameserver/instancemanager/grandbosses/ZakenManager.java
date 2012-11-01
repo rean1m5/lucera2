@@ -161,8 +161,8 @@ public class ZakenManager extends BossLair
 	
 	@Override
 	public void onEnter(L2Character cha) {
-		if(cha.getActingPlayer()!=null)
-			if(MAX_LVL >0 && cha.getLevel()>MAX_LVL && !cha.getActingPlayer().isGM())
+		if(cha.getPlayer()!=null)
+			if(MAX_LVL >0 && cha.getLevel()>MAX_LVL && !cha.getPlayer().isGM())
 				cha.teleToLocation(TeleportWhereType.Town);
 			
 	}

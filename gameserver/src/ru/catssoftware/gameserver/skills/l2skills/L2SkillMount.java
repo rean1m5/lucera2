@@ -37,7 +37,7 @@ public class L2SkillMount extends L2Skill
 	@Override
 	public void useSkill(L2Character caster, L2Character... targets)
 	{
-		if (!(caster instanceof L2PcInstance))
+		if (!(caster.isPlayer()))
 			return;
 
 		L2PcInstance activePlayer = (L2PcInstance)caster;

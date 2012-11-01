@@ -45,7 +45,7 @@ public final class EffectCharmOfCourage extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		if (getEffected() instanceof L2PcInstance)
+		if (getEffected().isPlayer())
 		{
 			((L2PcInstance) getEffected()).setCharmOfCourage(true);
 			((L2PcInstance) getEffected()).setCanUseCharmOfCourageItem(false);

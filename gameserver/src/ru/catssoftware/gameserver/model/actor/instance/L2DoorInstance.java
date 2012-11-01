@@ -392,7 +392,7 @@ public class L2DoorInstance extends L2Character
 				if (clan != null && clan == getFort().getOwnerClan())
 					return false;
 			}
-			else if (attacker instanceof L2PcInstance)
+			else if (attacker.isPlayer())
 			{
 				L2Clan clan = ((L2PcInstance)attacker).getClan();
 				if (clan != null && clan == getFort().getOwnerClan())
@@ -407,7 +407,7 @@ public class L2DoorInstance extends L2Character
 				if (clan != null && clan.getClanId() == getCastle().getOwnerId())
 					return false;
 			}
-			else if (attacker instanceof L2PcInstance)
+			else if (attacker.isPlayer())
 			{
 				L2Clan clan = ((L2PcInstance)attacker).getClan();
 				if (clan != null && clan.getClanId() == getCastle().getOwnerId())
@@ -425,7 +425,7 @@ public class L2DoorInstance extends L2Character
 
 	public int getDistanceToWatchObject(L2Object object)
 	{
-		if (!(object instanceof L2PcInstance))
+		if (!(object.isPlayer()))
 			return 0;
 		return 3000;
 	}
@@ -445,7 +445,7 @@ public class L2DoorInstance extends L2Character
 	 */
 	public int getDistanceToForgetObject(L2Object object)
 	{
-		if (!(object instanceof L2PcInstance))
+		if (!(object.isPlayer()))
 			return 0;
 
 		return 4000;

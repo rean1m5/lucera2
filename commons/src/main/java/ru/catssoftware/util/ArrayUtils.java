@@ -53,9 +53,9 @@ public final class ArrayUtils
 		if (array == null)
 			return false;
 
-		for (int i = 0; i < array.length; i++)
+		for (T anArray : array)
 		{
-			if (value == array[i])
+			if (value == anArray)
 				return true;
 		}
 		return false;

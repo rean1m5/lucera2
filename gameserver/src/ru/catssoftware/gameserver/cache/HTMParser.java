@@ -1,12 +1,11 @@
 package ru.catssoftware.gameserver.cache;
 
+import javolution.util.FastMap;
+import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
+
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-
-import javolution.util.FastMap;
 
 
 public class HTMParser {
@@ -84,9 +83,9 @@ public class HTMParser {
 		if(html==null)
 			return null;
 		L2PcInstance player = null;
-		for(int i=0;i<params.length;i++)
-			if(params[i] instanceof L2PcInstance) {
-				player = (L2PcInstance)params[i];
+		for (Object param : params)
+			if (param instanceof L2PcInstance) {
+				player = (L2PcInstance) param;
 				break;
 			}
 		IncludeResult ir = parseInclude(html,player);

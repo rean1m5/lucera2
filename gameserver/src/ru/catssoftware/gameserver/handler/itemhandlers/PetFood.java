@@ -66,7 +66,7 @@ public class PetFood implements IItemHandler
 					return true;
 				}
 			}
-			else if (activeChar instanceof L2PcInstance)
+			else if (activeChar.isPlayer())
 			{
 				L2PcInstance player = ((L2PcInstance)activeChar);
 				int itemId = item.getItemId();

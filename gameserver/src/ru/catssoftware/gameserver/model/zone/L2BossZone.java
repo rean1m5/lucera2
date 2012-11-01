@@ -74,7 +74,7 @@ public class L2BossZone extends L2DefaultZone
 		if(_lair!=null)
 			_lair.onEnter(character);
 		if(_boss==Boss.QUEENANT && character instanceof L2PlayableInstance) {
-			if(!character.getActingPlayer().isGM() && character.getActingPlayer().getLevel() > QueenAntManager.SAFE_LEVEL )
+			if(!character.getPlayer().isGM() && character.getPlayer().getLevel() > QueenAntManager.SAFE_LEVEL )
 				character.teleToLocation(TeleportWhereType.Town);
 		}
 	}

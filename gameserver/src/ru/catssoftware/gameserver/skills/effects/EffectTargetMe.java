@@ -42,7 +42,7 @@ public final class EffectTargetMe extends L2Effect
 	public boolean onStart()
 	{
 		// Should only work on PC?
-		if (getEffected() instanceof L2PcInstance)
+		if (getEffected().isPlayer())
 		{
 			getEffected().setTarget(getEffector());
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getEffector());

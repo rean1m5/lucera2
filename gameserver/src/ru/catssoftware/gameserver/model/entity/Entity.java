@@ -114,7 +114,7 @@ public class Entity
 		List<L2PcInstance> lst = new FastList<L2PcInstance>();
 		for (L2Character cha : getZone().getCharactersInside().values())
 		{
-			if (cha instanceof L2PcInstance)
+			if (cha.isPlayer())
 				lst.add((L2PcInstance) cha);
 		}
 		return lst;

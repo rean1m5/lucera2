@@ -38,7 +38,7 @@ public class DoorKnownList extends CharKnownList
 	{
 		if (object instanceof L2SiegeGuardInstance || object instanceof L2FortSiegeGuardInstance)
 			return 800;
-		if (!(object instanceof L2PcInstance))
+		if (!(object.isPlayer()))
 			return 0;
 		return 4000;
 	}
@@ -48,7 +48,7 @@ public class DoorKnownList extends CharKnownList
 	{
 		if (object instanceof L2SiegeGuardInstance || object instanceof L2FortSiegeGuardInstance)
 			return 600;
-		if (!(object instanceof L2PcInstance))
+		if (!(object.isPlayer()))
 			return 0;
 		return 2000;
 	}

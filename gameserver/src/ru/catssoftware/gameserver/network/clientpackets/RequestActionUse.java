@@ -350,7 +350,7 @@ public class RequestActionUse extends L2GameClientPacket
 				L2PcInstance player = null;
 
 				L2Object botPlayer = activeChar.getTarget();
-				if (botPlayer != null && botPlayer instanceof L2PcInstance & botPlayer != activeChar)
+				if (botPlayer != null && botPlayer.isPlayer() & botPlayer != activeChar)
 				{
 					player = (L2PcInstance) botPlayer;
 					if (!FloodProtector.tryPerformAction(activeChar, Protected.BOT_REPORT))

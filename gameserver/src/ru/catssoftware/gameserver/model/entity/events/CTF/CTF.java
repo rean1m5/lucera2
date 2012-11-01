@@ -174,7 +174,7 @@ public class CTF extends GameEvent
         Integer[] players = _participicants.keySet().toArray(new Integer[_participicants.size()]);
 		for(Integer playerId: players)
 		{
-			player = L2World.getInstance().findPlayer(playerId);
+			player = L2World.getInstance().getPlayer(playerId);
 			if(player!=null)
 				remove(player);
 		}
@@ -263,8 +263,8 @@ public class CTF extends GameEvent
 			}
 			if(killer==null)
 				return;
-			L2PcInstance pk = killer.getActingPlayer();
-			L2PcInstance pv = victim.getActingPlayer();
+			L2PcInstance pk = killer.getPlayer();
+			L2PcInstance pv = victim.getPlayer();
 
 			incKills(pk);
 
@@ -304,7 +304,7 @@ public class CTF extends GameEvent
 				L2PcInstance player;
 				for(Integer playerId: talkerTeam.members)
 				{
-					player = L2World.getInstance().findPlayer(playerId);
+					player = L2World.getInstance().getPlayer(playerId);
 					if (player != null)
 						player.sendPacket(new ExShowScreenMessage("Игрок " + talkerName + " приносит 1 очко вашей команде", 5000));
 				}
@@ -324,7 +324,7 @@ public class CTF extends GameEvent
 						String talkerName = talker.getName();
 						for(Integer playerId: team.members)
 						{
-							player = L2World.getInstance().findPlayer(playerId);
+							player = L2World.getInstance().getPlayer(playerId);
 							if (player != null)
 								player.sendPacket(new ExShowScreenMessage("Игрок " + talkerName + " захватил флаг вашей команды", 5000));
 						}
@@ -483,7 +483,7 @@ public class CTF extends GameEvent
 				result = !((itemId == 3936 || itemId == 3959 || itemId == 737 || itemId == 9157 || itemId == 10150 || itemId == 13259));
 			}
 		}
-		L2PcInstance ap = actor.getActingPlayer();
+		L2PcInstance ap = actor.getPlayer();
 		if(!result)
 			ap.sendMessage(Message.getMessage(ap, Message.MessageId.MSG_EVENT_CANT_USE_ITEM));
 		return result;
@@ -504,7 +504,7 @@ public class CTF extends GameEvent
 			else if(getPlayerTeam(caster) == getPlayerTeam((L2Character)caster.getTarget()))
 				result = CTF_ALLOW_TEAM_CASTING;
 		}
-		L2PcInstance cp = caster.getActingPlayer();
+		L2PcInstance cp = caster.getPlayer();
 		if(!result)
 			cp.sendMessage(Message.getMessage(cp, Message.MessageId.MSG_EVENT_SKILL_NOT_ALOWED));
 
@@ -655,7 +655,7 @@ public class CTF extends GameEvent
             L2PcInstance player;
             for(Integer playerId: _participicants.keySet())
             {
-                player = L2World.getInstance().findPlayer(playerId);
+                player = L2World.getInstance().getPlayer(playerId);
                 if(player!=null)
                 {
                     player.abortAttack();
@@ -688,7 +688,7 @@ public class CTF extends GameEvent
 
                 for(Integer playerId: winner.members)
                 {
-                    player = L2World.getInstance().findPlayer(playerId);
+                    player = L2World.getInstance().getPlayer(playerId);
                     if(player != null && checkStatistic(player))
                     {
                         for(int i =0;i<_rewardId.length;i++)
@@ -722,7 +722,7 @@ public class CTF extends GameEvent
 		_registrationTask.cancel();
 		for(Integer playerId : _participicants.keySet())
 		{
-			player = L2World.getInstance().findPlayer(playerId);
+			player = L2World.getInstance().getPlayer(playerId);
 			if(player != null)
 			{
 				if(player.getInstanceId()!=0 || player.getLevel() < _minlvl || player.getLevel() > _maxlvl || player.inPrivateMode() || player.isDead())
@@ -810,7 +810,7 @@ public class CTF extends GameEvent
 				_canStand = false;
 				for(Integer playerId : _participicants.keySet())
 				{
-					player = L2World.getInstance().findPlayer(playerId);
+					player = L2World.getInstance().getPlayer(playerId);
 					if(player!=null) {
 						onLogin(player);
 						player.sitDown(true);
@@ -826,7 +826,7 @@ public class CTF extends GameEvent
 				_canStand =  true;
 				for(Integer playerId : _participicants.keySet())
 				{
-					player = L2World.getInstance().findPlayer(playerId);
+					player = L2World.getInstance().getPlayer(playerId);
 					if(player!=null)
 						player.standUp(true);
 				}
@@ -849,9 +849,10 @@ public class CTF extends GameEvent
 	
 	public static boolean hasFlag(L2Character player)
 	{
-		if(player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND)!=null)
-			return player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND).getItemId() == 6718;
-		return false;	
+		if (player.isPlayer())
+			if(player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND)!=null)
+				return player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND).getItemId() == 6718;
+		return false;
 	}
 	
 	private void removeFlag(L2Character player)

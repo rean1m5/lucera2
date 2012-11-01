@@ -98,7 +98,7 @@ public class cursedweapon extends gmHandler
 				else
 				{
 					L2Object target = admin.getTarget();
-					if (target != null && target instanceof L2PcInstance)
+					if (target != null && target.isPlayer())
 						((L2PcInstance) target).addItem("AdminCursedWeaponAdd", id, 1, target, true);
 					else
 						admin.addItem("AdminCursedWeaponAdd", id, 1, admin, true);

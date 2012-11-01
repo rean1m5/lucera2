@@ -33,7 +33,7 @@ public class Die extends L2GameServerPacket
 	{
 		_activeChar = cha;
 		L2Clan clan = null;
-		if (cha instanceof L2PcInstance)
+		if (cha.isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance) cha;
 			clan = player.getClan();

@@ -98,7 +98,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	@Override
 	public boolean isAutoAttackable(L2Character attacker) 
 	{
-		if(attacker instanceof L2PcInstance) {
+		if(attacker.isPlayer()) {
 			L2PcInstance pc = (L2PcInstance)attacker;
 			return _clan != pc.getClan();
 		}

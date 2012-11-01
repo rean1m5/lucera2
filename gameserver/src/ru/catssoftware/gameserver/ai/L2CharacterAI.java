@@ -1,30 +1,9 @@
 package ru.catssoftware.gameserver.ai;
 
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_CAST;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
-
-import java.util.List;
-
-import ru.catssoftware.gameserver.model.L2Attackable;
-import ru.catssoftware.gameserver.model.L2CharPosition;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2World;
+import javolution.util.FastList;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.L2ItemInstance.ItemLocation;
-import ru.catssoftware.gameserver.model.actor.instance.L2BoatInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PlayableInstance;
+import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.model.zone.L2Zone;
 import ru.catssoftware.gameserver.network.serverpackets.AutoAttackStop;
 import ru.catssoftware.gameserver.taskmanager.AttackStanceTaskManager;
@@ -34,7 +13,9 @@ import ru.catssoftware.gameserver.templates.item.L2WeaponType;
 import ru.catssoftware.tools.geometry.Point3D;
 import ru.catssoftware.tools.random.Rnd;
 
-import javolution.util.FastList;
+import java.util.List;
+
+import static ru.catssoftware.gameserver.ai.CtrlIntention.*;
 
 
 public class L2CharacterAI extends AbstractAI
@@ -195,7 +176,7 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 		//L2EMU_ADD
-		if (target instanceof L2PcInstance && _actor instanceof L2PcInstance)
+		if (target.isPlayer() && _actor.isPlayer())
 		{
 			if (((L2PcInstance) _actor).getKarma() > 0 && (_actor.getLevel() - target.getLevel()) >= 10
 					&& ((L2PlayableInstance) target).getProtectionBlessing() && !(target.isInsideZone(L2Zone.FLAG_PVP)))
@@ -263,7 +244,7 @@ public class L2CharacterAI extends AbstractAI
 		}
 
 		//L2EMU_ADD
-		if (target instanceof L2PcInstance && _actor instanceof L2PcInstance)
+		if (target.isPlayer() && _actor.isPlayer())
 		{
 			if (((L2PcInstance) _actor).getKarma() > 0 && (_actor.getLevel() - ((L2PcInstance) target).getLevel()) >= 10
 					&& ((L2PlayableInstance) target).getProtectionBlessing() && !(((L2Character) target).isInsideZone(L2Zone.FLAG_PVP)))
@@ -868,7 +849,7 @@ public class L2CharacterAI extends AbstractAI
 		// Kill the actor client side by sending Server->Client packet AutoAttackStop, StopMove/StopRotation, Die (broadcast)
 		clientNotifyDead();
 
-		if (!(_actor instanceof L2PcInstance))
+		if (!(_actor.isPlayer()))
 			_actor.setWalking();
 	}
 
@@ -1084,7 +1065,7 @@ public class L2CharacterAI extends AbstractAI
 	protected boolean checkTargetLost(L2Object target)
 	{
 		// check if player is fakedeath
-/*		if (target instanceof L2PcInstance)
+/*		if (target.isPlayer())
 		{
 			L2PcInstance target2 = (L2PcInstance) target; //convert object to chara
 

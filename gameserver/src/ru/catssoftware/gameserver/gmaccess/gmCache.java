@@ -1,22 +1,15 @@
 package ru.catssoftware.gameserver.gmaccess;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
 import ru.catssoftware.config.L2Properties;
 import ru.catssoftware.gameserver.model.L2World;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Данный класс кэширует права администраторов
@@ -46,7 +39,7 @@ public class gmCache
 		GmPlayer gm = new GmPlayer(charId);
 		gm.setRoot(true);
 		_access.put(charId, gm);
-		gmController.getInstance().checkPrivs(L2World.getInstance().findPlayer(charId));
+		gmController.getInstance().checkPrivs(L2World.getInstance().getPlayer(charId));
 		gm.setIsTemp(true);
 		
 	}

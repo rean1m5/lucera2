@@ -220,7 +220,7 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			if (env.player instanceof L2PcInstance)
+			if (env.player.isPlayer())
 			{
 				L2PcInstance p = (L2PcInstance) env.player;
 				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LFINGER) != null)
@@ -255,7 +255,7 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			if (env.player instanceof L2PcInstance)
+			if (env.player.isPlayer())
 			{
 				L2PcInstance p = (L2PcInstance) env.player;
 				boolean hasMagePDef = (p.getClassId().isMage() || p.getClassId().getId() == 0x31); // orc mystics are a special case
@@ -420,9 +420,9 @@ public final class Formulas
 			L2Character p = env.player;
 			if (p instanceof L2SummonInstance)
 				env.value = 40;
-			else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null)
+			else if (p.isPlayer() && p.getActiveWeaponInstance() == null)
 				env.value = 40 * DEXbonus[p.getStat().getDEX()];
-			else if (p instanceof L2PcInstance)
+			else if (p.isPlayer())
 			{
 				env.value *= DEXbonus[p.getStat().getDEX()];
 				env.value *= 10;
@@ -448,7 +448,7 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			if (env.player instanceof L2PcInstance && env.player.getActiveWeaponInstance() != null)
+			if (env.player.isPlayer() && env.player.getActiveWeaponInstance() != null)
 				env.value *= WITbonus[env.player.getStat().getWIT()];
 			else if (env.player instanceof L2Summon)
 				env.value = 8; // TODO: needs retail value
@@ -869,7 +869,7 @@ public final class Formulas
 	 */
 	public static void addFuncsToNewCharacter(L2Character cha)
 	{
-		if (cha instanceof L2PcInstance)
+		if (cha.isPlayer())
 		{
 			cha.addStatFunc(FuncMaxHpAdd.getInstance());
 			cha.addStatFunc(FuncMaxHpMul.getInstance());
@@ -951,9 +951,9 @@ public final class Formulas
 		/* Множители по конфигам */
 		if (cha.isRaid())
 			hpRegenMultiplier = Config.RAID_HP_REGEN_MULTIPLIER;
-		else if (cha instanceof L2PcInstance)
+		else if (cha.isPlayer())
 			hpRegenMultiplier = Config.PLAYER_HP_REGEN_MULTIPLIER;
-		else if (cha instanceof L2PcInstance)
+		else if (cha.isPlayer())
 			hpRegenMultiplier = Config.PET_HP_REGEN_MULTIPLIER;
 		else
 			hpRegenMultiplier = Config.NPC_HP_REGEN_MULTIPLIER;
@@ -963,7 +963,7 @@ public final class Formulas
 			hpRegenMultiplier *= Config.CHAMPION_HP_REGEN;
 		
 		/* Формулы для игрока */
-		if (cha instanceof L2PcInstance)
+		if (cha.isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance) cha;
 	
@@ -1091,15 +1091,15 @@ public final class Formulas
 		/* Множители по конфигам */
 		if (cha.isRaid())
 			mpRegenMultiplier = Config.RAID_MP_REGEN_MULTIPLIER;
-		else if (cha instanceof L2PcInstance)
+		else if (cha.isPlayer())
 			mpRegenMultiplier = Config.PLAYER_MP_REGEN_MULTIPLIER;
-		else if (cha instanceof L2PcInstance)
+		else if (cha.isPlayer())
 			mpRegenMultiplier = Config.PET_MP_REGEN_MULTIPLIER;
 		else
 			mpRegenMultiplier = Config.NPC_MP_REGEN_MULTIPLIER;
 
 		/* Формулы для игрока */
-		if (cha instanceof L2PcInstance)
+		if (cha.isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance) cha;
 			/* значения по уровню персонажа */
@@ -1209,7 +1209,7 @@ public final class Formulas
 		double cpRegenBonus = 0;
 
 		/* Формулы для игрока */
-		if (cha instanceof L2PcInstance)
+		if (cha.isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance) cha;
 			/* значения по уровню персонажа */
@@ -1337,7 +1337,7 @@ public final class Formulas
 			damage /= target.calcStat(Stats.PVP_PHYS_SKILL_DEF, 1, null, null);
 		}
 		
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 		{
 			L2Armor armor = ((L2PcInstance) target).getActiveChestArmorItem();
 			if (armor != null)
@@ -1414,7 +1414,7 @@ public final class Formulas
 		}
 
 		if(Config.USE_LEVEL_PENALTY && skill!=null && !skill.isItemSkill() && skill.getMagicLvl() > 40 && attacker instanceof L2PlayableInstance) {
-			int lvl = attacker.getActingPlayer().getLevel();
+			int lvl = attacker.getPlayer().getLevel();
 			int sklvl = skill.getLevel()>100?76:skill.getMagicLvl(); 
 			if(lvl - sklvl  < -2 ) { 
 				damage *= (1/(skill.getMagicLvl()-lvl));
@@ -1479,7 +1479,7 @@ public final class Formulas
 		damage *= 70. / defence;
 	
 		// Дамаг самона уменьшаем на 10%
-		if (attacker instanceof L2Summon && target instanceof L2PcInstance)
+		if (attacker instanceof L2Summon && target.isPlayer())
 			damage *= 0.9;		
 		
 		// Расчет статов
@@ -1597,7 +1597,7 @@ public final class Formulas
 		}
 		
 		// Применяем формулу арбалетов, луков от CT 2.2
-		if (Config.USE_BOW_CROSSBOW_DISTANCE_PENALTY && attacker instanceof L2PcInstance && weapon != null)
+		if (Config.USE_BOW_CROSSBOW_DISTANCE_PENALTY && attacker.isPlayer() && weapon != null)
 		{
 			switch (weapon.getItemType())
 			{
@@ -1618,7 +1618,7 @@ public final class Formulas
 		// Коректировка дамага по конфигам
 		if (skill==null)
 		{
-			if (attacker instanceof L2PcInstance)
+			if (attacker.isPlayer())
 			{
 				if (((L2PcInstance) attacker).getClassId().isMage())
 					damage *= Config.ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
@@ -1632,9 +1632,9 @@ public final class Formulas
 		}
 		else
 		{
-			if (attacker instanceof L2PcInstance)
+			if (attacker.isPlayer())
 			{
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 				{
 					L2Armor armor = ((L2PcInstance) target).getActiveChestArmorItem();
 					if (armor != null)
@@ -1697,7 +1697,7 @@ public final class Formulas
 				damage = 1;
 			}
 
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				if (skill.getSkillType() == L2SkillType.DRAIN)
 				{
@@ -1757,10 +1757,10 @@ public final class Formulas
 		double damage = 91 * Math.sqrt(mAtk) / mDef * power * calcSkillVulnerability(target, skill);
 
 		// Начиная с хроник С5, самоны теряют 10% дамага в PVP
-		if (attacker instanceof L2Summon && target instanceof L2PcInstance)
+		if (attacker instanceof L2Summon && target.isPlayer())
 			damage *= 0.9;
 		if(Config.USE_LEVEL_PENALTY && skill!=null && !skill.isItemSkill() && skill.getMagicLvl() > 40 && attacker instanceof L2PlayableInstance) {
-			int lvl = attacker.getActingPlayer().getLevel();
+			int lvl = attacker.getPlayer().getLevel();
 			int sklvl = skill.getLevel()>100?76:skill.getMagicLvl(); 
 			if(lvl - sklvl  < -2 )  
 				damage *= (1/(skill.getMagicLvl()-lvl));
@@ -1771,10 +1771,10 @@ public final class Formulas
 		if (Config.ALT_GAME_MAGICFAILURES && !calcMagicSuccess(attacker, target, skill))
 		{
 			SystemMessage sm;
-			if (attacker instanceof L2PcInstance)
+			if (attacker.isPlayer())
 			{
 			
-				L2PcInstance attOwner = attacker.getActingPlayer();
+				L2PcInstance attOwner = attacker.getPlayer();
 				if (calcMagicSuccess(attacker, target, skill) && (target.getLevel() - attacker.getLevel()) <= 9)
 				{
 					sm = new SystemMessage(SystemMessageId.S1);
@@ -1799,11 +1799,11 @@ public final class Formulas
 			}
 		
 
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				sm = new SystemMessage(SystemMessageId.S1);
 				sm.addString(target.getName()+ " успешно сопротивляется магии "+skill.getName());
-				target.getActingPlayer().sendPacket(sm);
+				target.getPlayer().sendPacket(sm);
 			}
 		}
 		if(!Config.USE_CHAR_LEVEL_MOD && attacker instanceof L2PlayableInstance && target instanceof L2PlayableInstance)
@@ -1835,7 +1835,7 @@ public final class Formulas
 		}
 
 		// Применяем множитель дамага из конфига для игроков
-		if (attacker instanceof L2PcInstance)
+		if (attacker.isPlayer())
 		{
 			if (((L2PcInstance) attacker).getClassId().isMage())
 				damage *= Config.ALT_MAGES_MAGICAL_DAMAGE_MULTI;
@@ -1849,7 +1849,7 @@ public final class Formulas
 		else if (attacker instanceof L2NpcInstance)
 			damage *= Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
 
-		if(attacker instanceof L2PcInstance && attacker.getLevel()>40) {
+		if(attacker.isPlayer() && attacker.getLevel()>40) {
 			if(skill!=null && (attacker.getLevel() - skill.getMagicLvl())>20) {
 				damage /= 50;
 				if(damage<1)
@@ -1883,7 +1883,7 @@ public final class Formulas
 		double rate = activeChar.calcStat(Stats.BLOW_RATE, chance * (1.0 + (activeChar.getStat().getDEX() - 20) / 100), target, null);
 		boolean success = rate > Rnd.get(100);
 
-		if(activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isShowSkillChance() && !Config.SHOW_DEBUFF_ONLY)
+		if(activeChar.isPlayer() && ((L2PcInstance) activeChar).isShowSkillChance() && !Config.SHOW_DEBUFF_ONLY)
 		{
 			if (rate > 100)
 				rate = 100;
@@ -1993,7 +1993,7 @@ public final class Formulas
 	public static final boolean calcCrit(L2Character attacker, L2Character target, double rate)
 	{
 		int critHit = Rnd.get(1000);
-		if (attacker instanceof L2PcInstance)
+		if (attacker.isPlayer())
 		{
 			if (attacker.isBehindTarget())
 				critHit = Rnd.get(700);
@@ -2059,7 +2059,7 @@ public final class Formulas
 	 */
 	public static final int calcPAtkSpd(L2Character attacker, L2Character target, double atkSpd, double base)
 	{
-		if (attacker instanceof L2PcInstance)
+		if (attacker.isPlayer())
 			base *= Config.ALT_ATTACK_DELAY;
 
 		if (atkSpd < 10)
@@ -2262,7 +2262,7 @@ public final class Formulas
 		else if (shldRate > Rnd.get(100))
 			shldSuccess = 1;
 
-		if (sendSysMsg && target instanceof L2PcInstance)
+		if (sendSysMsg && target.isPlayer())
 		{
 			L2PcInstance enemy = (L2PcInstance)target;
 			switch (shldSuccess)
@@ -2302,7 +2302,7 @@ public final class Formulas
 		if (skill.isActive() && skill.isOffensive() && !skill.isNeutral())
 			defence = target.getMDef(actor, skill);
 
-		if (actor instanceof L2PcInstance)
+		if (actor.isPlayer())
 			attack = 3.7 * actor.getMAtk(target, skill) * calcSkillVulnerability(target, skill);
 		else
 			attack = 2 * actor.getMAtk(target, skill) * calcSkillVulnerability(target, skill);
@@ -2616,7 +2616,7 @@ public final class Formulas
 		rate *= resmodifier * calcSkillProficiency(skill, attacker, target);
 
 		boolean success = Rnd.get(100) <= rate;
-		if(attacker instanceof L2PcInstance && ((L2PcInstance) attacker).isShowSkillChance())
+		if(attacker.isPlayer() && ((L2PcInstance) attacker).isShowSkillChance())
 			if(success)
 				((L2PcInstance) attacker).sendMessage(String.format(Message.getMessage(((L2PcInstance) attacker), Message.MessageId.MSG_SKILL_CHANS_SUCCES),(int)rate));
 			else
@@ -2632,7 +2632,7 @@ public final class Formulas
 /*	public static double calcSPRuneModifed(L2Character ch)
 	{
 		L2PcInstance player=null;
-		if (ch instanceof L2PcInstance)
+		if (ch.isPlayer())
 			player = (L2PcInstance)ch;
 		if (ch instanceof L2Summon)
 			player = ((L2Summon)ch).getOwner();
@@ -2690,7 +2690,7 @@ public final class Formulas
 /*	public static double calcExpRuneModifed(L2Character ch)
 	{
 		L2PcInstance player=null;
-		if (ch instanceof L2PcInstance)
+		if (ch.isPlayer())
 			player = (L2PcInstance)ch;
 		if (ch instanceof L2Summon)
 			player = ((L2Summon)ch).getOwner();
@@ -2748,7 +2748,7 @@ public final class Formulas
 /*	public static int calcCrystallRuneModifed(L2Character ch)
 	{
 		L2PcInstance player=null;
-		if (ch instanceof L2PcInstance)
+		if (ch.isPlayer())
 			player = (L2PcInstance)ch;
 		if (player==null)
 			return 0;
@@ -2814,12 +2814,12 @@ public final class Formulas
 	public static boolean calcMagicSuccess(L2Character attacker, L2Character target, L2Skill skill)
 	{
 		double lvlDifference = (target.getLevel() - (skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()));
-		if(!Config.USE_CHAR_LEVEL_MOD && attacker.getActingPlayer()!= null && target.getActingPlayer()!=null)
+		if(!Config.USE_CHAR_LEVEL_MOD && attacker.getPlayer()!= null && target.getPlayer()!=null)
 			lvlDifference = lvlDifference > 1 ? 1 : lvlDifference; 
 		int rate = Math.round((float) (Math.pow(1.3, lvlDifference) * 100));
 
 		boolean success = rate < Rnd.get(10000);
-		if(attacker instanceof L2PcInstance && ((L2PcInstance) attacker).isShowSkillChance() && !Config.SHOW_DEBUFF_ONLY)
+		if(attacker.isPlayer() && ((L2PcInstance) attacker).isShowSkillChance() && !Config.SHOW_DEBUFF_ONLY)
 		{
 			if (rate > 10000)
 				rate = 10000;
@@ -3057,7 +3057,7 @@ public final class Formulas
 
 		double val = actor.getStat().calcStat(Stats.SKILL_MASTERY, 0, null, null);
 
-		if (actor instanceof L2PcInstance)
+		if (actor.isPlayer())
 		{
 			if (((L2PcInstance)actor).isMageClass())
 				val *= getINTBonus(actor);

@@ -117,7 +117,7 @@ public class PcKnownList extends PlayableKnownList
 					else
 						getActiveChar().sendPacket(new NpcInfo(summon, 0));
 				}
-				else if (object instanceof L2PcInstance)
+				else if (object.isPlayer())
 				{
 					L2PcInstance otherPlayer = (L2PcInstance) object;
 	
@@ -178,7 +178,7 @@ public class PcKnownList extends PlayableKnownList
 		if (!super.removeKnownObject(object)) {
 			return false;
 		}
-		if (object instanceof L2PcInstance)
+		if (object.isPlayer())
 			getKnownRelations().remove(object.getObjectId());
 		getActiveChar().sendPacket(new DeleteObject(object));
 		return true;

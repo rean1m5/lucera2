@@ -97,7 +97,7 @@ public class DeathMatch extends GameEvent
 		L2PcInstance player;
 		for (Integer playerId: _players)
 		{
-				player = L2World.getInstance().findPlayer(playerId);
+				player = L2World.getInstance().getPlayer(playerId);
 				if(player != null)
 				{
 					remove(player);
@@ -201,7 +201,7 @@ public class DeathMatch extends GameEvent
 		if(killer==null || victim ==null)
 			return;
 		
-		if (killer instanceof L2PcInstance && victim instanceof L2PcInstance)
+		if (killer.isPlayer() && victim.isPlayer())
 		{
 			L2PcInstance plk = (L2PcInstance)killer;
 			L2PcInstance pld = (L2PcInstance)victim;
@@ -416,7 +416,7 @@ public class DeathMatch extends GameEvent
 			{
 				for (Integer playerid : _players)
 				{
-					player = L2World.getInstance().findPlayer(playerid);
+					player = L2World.getInstance().getPlayer(playerid);
 					if (player != null && player.isOnline() != 0)
 						player.sendPacket(cs);
 				}
@@ -459,7 +459,7 @@ public class DeathMatch extends GameEvent
 
 			for(Integer playerId: _players)
 			{
-				player = L2World.getInstance().findPlayer(playerId);
+				player = L2World.getInstance().getPlayer(playerId);
 				if(player!=null)
 				{
 					player.abortAttack();
@@ -498,7 +498,7 @@ public class DeathMatch extends GameEvent
 					L2PcInstance player;
 					for(Integer playerId: _players)
 					{
-						player = L2World.getInstance().findPlayer(playerId);
+						player = L2World.getInstance().getPlayer(playerId);
 						if(player!=null) 
 							player.stopAllEffects();
 					}
@@ -556,7 +556,7 @@ public class DeathMatch extends GameEvent
 
 		for(Integer playerId : _players)
 		{
-			player = L2World.getInstance().findPlayer(playerId);
+			player = L2World.getInstance().getPlayer(playerId);
 			if(player != null)
 			{
 				player.abortAttack();
@@ -605,7 +605,7 @@ public class DeathMatch extends GameEvent
 		L2PcInstance player;
 		for(Integer playerId: _players)
 		{
-			player = L2World.getInstance().findPlayer(playerId);
+			player = L2World.getInstance().getPlayer(playerId);
 			if(player!=null && player.getLevel() >= _minLvl && player.getLevel() <= _maxLvl && player.getInstanceId()==0)
 			{
 				if(!DM_RETURNORIGINAL)

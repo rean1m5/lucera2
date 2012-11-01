@@ -92,7 +92,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		// Проверка цель, если это L2PlayableInstance
 		if (target instanceof L2PlayableInstance)
 		{
-			L2PcInstance player = target.getActingPlayer();
+			L2PcInstance player = target.getPlayer();
 			if(Config.ALT_MOB_NOAGRO>0 && player!=null) {
 				if(player.getLevel()>=me.getLevel()+Config.ALT_MOB_NOAGRO)
 					return false;
@@ -104,7 +104,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 
 		// Проверка цель, если это L2PcInstance
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance) target;
 
@@ -165,7 +165,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		if (me instanceof L2GuardInstance)
 		{
 			// Гварды атакуют PK
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 				return ((L2PcInstance) target).getKarma() > 0 && me.canSee(target);
 
 			// Гварды атакуют Агров (Мобов)
@@ -173,7 +173,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				if(target instanceof L2RaidBossInstance) 
 					return false;
 				L2MonsterInstance monster = (L2MonsterInstance) target;
-				if(monster.isInCombat() && monster.getTarget().getActingPlayer()!=null)
+				if(monster.isInCombat() && monster.getTarget().getPlayer()!=null)
 					return me.canSee(target);
 			}
 
@@ -310,7 +310,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					continue;
 				L2Character target = (L2Character) obj;
 
-				if ((_actor instanceof L2FestivalMonsterInstance) && obj instanceof L2PcInstance)
+				if ((_actor instanceof L2FestivalMonsterInstance) && obj.isPlayer())
 				{
 					L2PcInstance targetPlayer = (L2PcInstance) obj;
 					if (!targetPlayer.isFestivalParticipant())
@@ -1333,7 +1333,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 						if (Math.abs(attacker.getZ() - npc.getZ()) < 600 && (!npc.isInCombat()) && _actor.canSee(npc))
 						{
-							if (attacker instanceof L2PcInstance && attacker.isInParty() && attacker.getParty().isInDimensionalRift())
+							if (attacker.isPlayer() && attacker.isInParty() && attacker.getParty().isInDimensionalRift())
 							{
 								byte riftType = attacker.getParty().getDimensionalRift().getType();
 								byte riftRoom = attacker.getParty().getDimensionalRift().getCurrentRoom();
@@ -1347,9 +1347,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							}
 							npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, attacker, 1);
 
-							if ((attacker instanceof L2PcInstance) || (attacker instanceof L2Summon))
+							if ((attacker.isPlayer()) || (attacker instanceof L2Summon))
 							{
-								L2PcInstance player = (attacker instanceof L2PcInstance) ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
+								L2PcInstance player = (attacker.isPlayer()) ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
 								if (npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL) != null)
 								{
 									for (Quest quest : npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL))

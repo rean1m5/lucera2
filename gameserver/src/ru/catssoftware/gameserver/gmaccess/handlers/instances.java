@@ -81,7 +81,7 @@ public class instances extends gmHandler
 					return;
 				}
 				target.setInstanceId(val);
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 				{
 					L2PcInstance player = (L2PcInstance) target;
 					player.sendMessage("GM отправил Вас в инстанс:" + val);

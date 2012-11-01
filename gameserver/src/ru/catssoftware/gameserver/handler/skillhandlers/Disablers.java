@@ -68,7 +68,7 @@ public class Disablers implements ICubicSkillHandler
 
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 		{
 			if (weaponInst == null && skill.isOffensive())
 			{
@@ -143,8 +143,8 @@ public class Disablers implements ICubicSkillHandler
 			if((target instanceof L2RaidBossInstance || target instanceof L2GrandBossInstance) && skill.getSkillType()!=L2SkillType.AGGDAMAGE) {
 				continue;
 			}
-			if(activeChar.getActingPlayer()!=null)
-				if(target == activeChar.getActingPlayer().getPet() && type!=L2SkillType.NEGATE)
+			if(activeChar.getPlayer()!=null)
+				if(target == activeChar.getPlayer().getPet() && type!=L2SkillType.NEGATE)
 					continue;
 					
 			// With Mystic Immunity you can't be buffed/debuffed
@@ -164,7 +164,7 @@ public class Disablers implements ICubicSkillHandler
 				target.abortAttack();
 				target.abortCast();
 				target.setTarget(null);
-				if (activeChar instanceof L2PcInstance && Rnd.get(100) < skill.getLandingPercent())
+				if (activeChar.isPlayer() && Rnd.get(100) < skill.getLandingPercent())
 				{
 					skill.getEffects(activeChar, target);
 					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -222,7 +222,7 @@ public class Disablers implements ICubicSkillHandler
 					skill.getEffects(activeChar, target);
 				else
 				{
-					if (activeChar instanceof L2PcInstance)
+					if (activeChar.isPlayer())
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 						sm.addCharName(target);
@@ -244,7 +244,7 @@ public class Disablers implements ICubicSkillHandler
 					skill.getEffects(activeChar, target);
 				else
 				{
-					if (activeChar instanceof L2PcInstance)
+					if (activeChar.isPlayer())
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 						sm.addCharName(target);
@@ -275,7 +275,7 @@ public class Disablers implements ICubicSkillHandler
 				}
 				else
 				{
-					if (activeChar instanceof L2PcInstance)
+					if (activeChar.isPlayer())
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 						sm.addCharName(target);
@@ -302,7 +302,7 @@ public class Disablers implements ICubicSkillHandler
 					}
 					else
 					{
-						if (activeChar instanceof L2PcInstance)
+						if (activeChar.isPlayer())
 						{
 							SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 							sm.addCharName(target);
@@ -317,7 +317,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case AGGDAMAGE:
 			{
-				if (skill.getId() == 51 && target instanceof L2PcInstance)
+				if (skill.getId() == 51 && target.isPlayer())
 				{
 					target.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 					break;
@@ -328,7 +328,7 @@ public class Disablers implements ICubicSkillHandler
 						target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) power);
 						break;
 				}
-				if (target instanceof L2PcInstance && Rnd.get(100) < 75)
+				if (target.isPlayer() && Rnd.get(100) < 75)
 				{
 					L2PcInstance pc = ((L2PcInstance) target);
 					if ((pc.getPvpFlag() != 0 || pc.isInOlympiadMode() || pc.isInCombat() || pc.isInsideZone(L2Zone.FLAG_PVP)))
@@ -347,14 +347,14 @@ public class Disablers implements ICubicSkillHandler
 				{
 					if (skill.getId() == 368)
 					{
-						if (target instanceof L2PcInstance)
+						if (target.isPlayer())
 						{
 							L2PcInstance pc = ((L2PcInstance) target);
 							if (pc.getPvpFlag() != 0 || pc.isInOlympiadMode() || pc.isInCombat() || pc.isInsideZone(L2Zone.FLAG_PVP))
 							{
 								target.setTarget(activeChar);
 								target.getAI().setAutoAttacking(true);
-								if (target instanceof L2PcInstance)
+								if (target.isPlayer())
 									target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
 							}
 						}
@@ -405,7 +405,7 @@ public class Disablers implements ICubicSkillHandler
 				}
 				else
 				{
-					if (activeChar instanceof L2PcInstance)
+					if (activeChar.isPlayer())
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 						sm.addString(target.getName());
@@ -426,7 +426,7 @@ public class Disablers implements ICubicSkillHandler
 						((L2Attackable) target).reduceHate(null, ((L2Attackable) target).getHating(((L2Attackable) target).getMostHated()));
 					else
 					{
-						if (activeChar instanceof L2PcInstance)
+						if (activeChar.isPlayer())
 						{
 							SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 							sm.addCharName(target);
@@ -456,7 +456,7 @@ public class Disablers implements ICubicSkillHandler
 				}
 				else
 				{
-					if (activeChar instanceof L2PcInstance)
+					if (activeChar.isPlayer())
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 						sm.addCharName(target);
@@ -474,7 +474,7 @@ public class Disablers implements ICubicSkillHandler
 
 				if (!Formulas.calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
 				{
-					if (activeChar instanceof L2PcInstance)
+					if (activeChar.isPlayer())
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 						sm.addCharName(target);
@@ -500,7 +500,7 @@ public class Disablers implements ICubicSkillHandler
 
 				if (!Formulas.calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
 				{
-					if (activeChar instanceof L2PcInstance)
+					if (activeChar.isPlayer())
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.C1_WAS_UNAFFECTED_BY_S2);
 						sm.addCharName(target);
@@ -600,7 +600,7 @@ public class Disablers implements ICubicSkillHandler
 					reflect = true;
 				}
 
-				if(target.getActingPlayer() == activeChar && !reflect)
+				if(target.getPlayer() == activeChar && !reflect)
 					continue;
 				/*if(Config.OLD_CANCEL_MODE)
 				{*/
@@ -903,7 +903,7 @@ public class Disablers implements ICubicSkillHandler
 
 			// Since there is a previous check that limits allowed effects to those which come from SkillType.BUFF,
 			// it is not needed another check for SkillType
-			if (stealer instanceof L2PcInstance && e != null)
+			if (stealer.isPlayer() && e != null)
 			{
 				SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 				smsg.addSkillName(eff);

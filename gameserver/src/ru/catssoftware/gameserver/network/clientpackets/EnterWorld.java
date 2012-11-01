@@ -58,9 +58,9 @@ public class EnterWorld extends L2GameClientPacket
 			return;
 		}
 
-		L2Object object = null;
-		object = L2World.getInstance().getPlayer(activeChar.getName());
-		if ((object instanceof L2PcInstance))
+
+		L2PcInstance player = L2World.getInstance().getPlayer(activeChar.getName());
+		if (player != null)
 		{
 			_log.warn("EnterWorld failed! duplicate caracter");
 			getClient().closeNow();

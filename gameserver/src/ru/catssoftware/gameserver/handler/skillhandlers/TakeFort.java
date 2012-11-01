@@ -19,7 +19,7 @@ public class TakeFort implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		if (!(activeChar instanceof L2PcInstance))
+		if (!(activeChar.isPlayer()))
 			return;
 
 		L2PcInstance player = (L2PcInstance) activeChar;
@@ -51,7 +51,7 @@ public class TakeFort implements ISkillHandler
 
 	public static boolean checkIfOkToCastFlagDisplay(L2Character activeChar, Fort fort, boolean isCheckOnly, L2Skill skill, L2Object target)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if (activeChar == null || !(activeChar.isPlayer()))
 			return false;
 
 		SystemMessage sm;

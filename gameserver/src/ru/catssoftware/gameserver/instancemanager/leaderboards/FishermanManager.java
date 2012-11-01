@@ -141,7 +141,7 @@ public class FishermanManager
 			return;
 		}
 
-		L2PcInstance winner = L2World.getInstance().findPlayer(idTop);
+		L2PcInstance winner = L2World.getInstance().getPlayer(idTop);
 
 		Announcements.getInstance().announceToAll("Менеджер рыбной ловли: " + arTop.name + " выигравыет текущий период " + arTop.cought + "/" + arTop.escaped + ". Следующий раунд пройдет через " + Config.FISHERMAN_INTERVAL + " минут.");
 		if (winner != null && Config.FISHERMAN_REWARD_ID > 0)

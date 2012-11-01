@@ -27,7 +27,7 @@ public class L2SkillChangeWeapon extends L2Skill
 		if (caster.isAlikeDead())
 			return;
 
-		if (!(caster instanceof L2PcInstance))
+		if (!(caster.isPlayer()))
 			return;
 
 		L2PcInstance player = (L2PcInstance) caster;

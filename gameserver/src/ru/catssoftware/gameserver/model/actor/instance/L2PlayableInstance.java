@@ -87,8 +87,8 @@ public abstract class L2PlayableInstance extends L2Character
 		if (!super.doDie(killer))
 			return false;
 
-		if (killer != null && killer.getActingPlayer() != null && this instanceof L2PcInstance)
-			killer.getActingPlayer().onKillUpdatePvPKarma(this);
+		if (killer != null && killer.getPlayer() != null && isPlayer())
+			killer.getPlayer().onKillUpdatePvPKarma(this);
 
 		return true;
 	}
@@ -103,7 +103,7 @@ public abstract class L2PlayableInstance extends L2Character
 			return false; // Target is not a L2PlayableInstance
 
 		L2PcInstance player = null;
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 			player = (L2PcInstance) this;
 		else if (this instanceof L2Summon)
 			player = ((L2Summon) this).getOwner();
@@ -114,7 +114,7 @@ public abstract class L2PlayableInstance extends L2Character
 			return false; // Active player has karma
 
 		L2PcInstance targetPlayer = null;
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 			targetPlayer = (L2PcInstance) target;
 		else if (target instanceof L2Summon)
 			targetPlayer = ((L2Summon) target).getOwner();
@@ -248,8 +248,9 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
 		// All messages are verified on retail
-		L2PcInstance attOwner = getActingPlayer();
-		L2PcInstance trgOwner = target.getActingPlayer();
+		L2PcInstance attOwner = getPlayer();
+		L2PcInstance trgOwner = target.getPlayer();
+
 		if (miss)
 		{
 			target.sendAvoidMessage(this);
@@ -257,30 +258,22 @@ public abstract class L2PlayableInstance extends L2Character
 		}
 
 		if (pcrit)
-		{
 			attOwner.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
-		}
 
 		if (mcrit)
 			sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
 
-		if (trgOwner != null && attOwner != trgOwner)
-		{
-			if (attOwner.isInOlympiadMode() && target instanceof L2PcInstance && trgOwner.isInOlympiadMode()
-				&& trgOwner.getOlympiadGameId() == attOwner.getOlympiadGameId())
-			{
-				if(this instanceof L2PcInstance || Config.ALT_OLY_INCLUDE_SUMMON_DAMAGE)
+		if (Config.ALT_OLY_INCLUDE_SUMMON_DAMAGE && trgOwner != null && trgOwner != null && attOwner != trgOwner)
+			if (trgOwner.isInOlympiadMode() && trgOwner.getOlympiadGameId() == attOwner.getOlympiadGameId())
 					Olympiad.getInstance().notifyCompetitorDamage(attOwner, damage, attOwner.getOlympiadGameId());
-			}
-		}
 
 		SystemMessage sm=null;
-		if (target.isInvul() && !(target instanceof L2NpcInstance))
+		if (target.isInvul() && !target.isNpc())
 		{
 			sm = SystemMessageId.ATTACK_WAS_BLOCKED.getSystemMessage();
 		}
 		// Still needs retail verification
-		else if (this instanceof L2PcInstance)
+		else if (isPlayer())
 		{
 			sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
 			sm.addNumber(damage);
@@ -302,7 +295,7 @@ public abstract class L2PlayableInstance extends L2Character
 /*		SystemMessage sm = new SystemMessage(SystemMessageId.C1_EVADED_C2_ATTACK);
 		sm.addCharName(this);
 		sm.addCharName(attacker);
-		getActingPlayer().sendPacket(sm); */
+		getPlayer().sendPacket(sm); */
 	}
 
 	public final void setCharmOfLuck(boolean value)
@@ -430,9 +423,21 @@ public abstract class L2PlayableInstance extends L2Character
 	public boolean isGM()
 	{
 		L2PcInstance player = null;
-		if (this instanceof L2PcInstance)
+		if (isPlayer())
 			player = (L2PcInstance) this;
 
 		return player.isGM();
+	}
+
+	@Override
+	public boolean isPlayable()
+	{
+		return true;
+	}
+
+	@Override
+	public L2PlayableInstance getPlayable()
+	{
+		return this;
 	}
 }

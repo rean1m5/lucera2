@@ -215,7 +215,7 @@ public class SiegeManager
 
 	public boolean checkIfOkToCastSealOfRule(L2Character activeChar, Castle castle, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if (activeChar == null || !(activeChar.isPlayer()))
 			return false;
 
 		SystemMessageId sm = null;

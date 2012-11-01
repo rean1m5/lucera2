@@ -1,8 +1,8 @@
 package ru.catssoftware.gameserver.mmocore;
 
-import java.nio.ByteBuffer;
-
 import javolution.util.FastList;
+
+import java.nio.ByteBuffer;
 
 
 @SuppressWarnings("unchecked")
@@ -20,6 +20,7 @@ public abstract class MMOClient<T extends MMOConnection>
 	}
 
 	public abstract Object getActiveChar();
+	public abstract void logInfo(String str);
 	public ISocket getSocket() {
 		return _connection.getSocket();
 	}

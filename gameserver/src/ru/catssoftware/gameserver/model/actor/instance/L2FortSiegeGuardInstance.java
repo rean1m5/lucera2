@@ -76,7 +76,7 @@ public class L2FortSiegeGuardInstance extends L2SiegeGuard
 		if (attacker == null)
 			return false;
 
-		L2PcInstance player = attacker.getActingPlayer();
+		L2PcInstance player = attacker.getPlayer();
 		if (player == null)
 			return false;
 		if (player.getClan() == null)
@@ -176,7 +176,7 @@ public class L2FortSiegeGuardInstance extends L2SiegeGuard
 			if (attacker instanceof L2PlayableInstance)
 			{
 				L2PcInstance player = null;
-				if (attacker instanceof L2PcInstance)
+				if (attacker.isPlayer())
 					player = ((L2PcInstance) attacker);
 				else if (attacker instanceof L2Summon)
 					player = ((L2Summon) attacker).getOwner();

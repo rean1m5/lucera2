@@ -10,7 +10,7 @@ public class L2JailZone extends L2DefaultZone
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 		{
 			character.setInsideZone(this,FLAG_JAIL, true);
 			character.setInsideZone(this,FLAG_NOCHAT, true);
@@ -27,7 +27,7 @@ public class L2JailZone extends L2DefaultZone
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 		{
 			character.setInsideZone(this,FLAG_JAIL, false);
 			character.setInsideZone(this,FLAG_NOCHAT, false);

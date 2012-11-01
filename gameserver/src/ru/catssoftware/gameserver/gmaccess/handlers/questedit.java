@@ -63,7 +63,7 @@ public class questedit extends gmHandler
 		{
 			targetObject = admin.getTarget();
 
-			if (targetObject != null && targetObject instanceof L2PcInstance)
+			if (targetObject != null && targetObject.isPlayer())
 				target = (L2PcInstance) targetObject;
 		}
 

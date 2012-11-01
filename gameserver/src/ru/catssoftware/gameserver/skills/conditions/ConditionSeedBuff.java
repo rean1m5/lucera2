@@ -18,7 +18,7 @@ public class ConditionSeedBuff extends Condition {
 	}
 	@Override
 	boolean testImpl(Env env) {
-		L2PcInstance player = env.player.getActingPlayer();
+		L2PcInstance player = env.player.getPlayer();
 		L2Effect effect = player.getFirstEffect(_type);
 		if(effect!=null) {
 			if(effect instanceof EffectSeed)  {

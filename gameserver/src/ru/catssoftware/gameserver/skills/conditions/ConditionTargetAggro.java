@@ -38,7 +38,7 @@ public class ConditionTargetAggro extends Condition
 		if (target instanceof L2MonsterInstance)
 			return ((L2MonsterInstance) target).isAggressive() == _isAggro;
 
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 			return ((L2PcInstance) target).getKarma() > 0;
 
 		return false;

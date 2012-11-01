@@ -125,7 +125,7 @@ public class skills extends gmHandler
 			if (tmp == null)
 				tmp = admin;
 
-			if (tmp instanceof L2PcInstance)
+			if (tmp.isPlayer())
 			{
 				// Переменные
 				int count = 0;
@@ -167,7 +167,7 @@ public class skills extends gmHandler
 				return;
 			}
 
-			if (object instanceof L2PcInstance)
+			if (object.isPlayer())
 			{
 				((L2PcInstance)object).resetSkillTime(true);
 				((L2PcInstance)object).sendMessage("Ваши умения вновь готовы к использованию.");
@@ -192,7 +192,7 @@ public class skills extends gmHandler
 		}
 		// Создание переменной чара
 		L2PcInstance player = null;
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 			player = (L2PcInstance) target;
 		// Проверка NPE
 		if (player == null)
@@ -211,7 +211,7 @@ public class skills extends gmHandler
 		if (target == null)
 			target = activeChar;
 		
-		if (!(target instanceof L2PcInstance))
+		if (!(target.isPlayer()))
 		{
 			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
@@ -278,7 +278,7 @@ public class skills extends gmHandler
 		if (target == null)
 			target = activeChar;
 		
-		if (!(target instanceof L2PcInstance))
+		if (!(target.isPlayer()))
 		{
 			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
@@ -300,7 +300,7 @@ public class skills extends gmHandler
 		if (target == null)
 			target = activeChar;
 		
-		if (!(target instanceof L2PcInstance))
+		if (!(target.isPlayer()))
 		{
 			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
@@ -353,7 +353,7 @@ public class skills extends gmHandler
 		if (target == null)
 			target = activeChar;
 
-		if (!(target instanceof L2PcInstance))
+		if (!(target.isPlayer()))
 		{
 			showMainPage(activeChar);
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
@@ -380,7 +380,7 @@ public class skills extends gmHandler
 	{
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 			player = (L2PcInstance) target;
 		else
 		{
@@ -405,7 +405,7 @@ public class skills extends gmHandler
 	{
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 			player = (L2PcInstance) target;
 		else
 		{

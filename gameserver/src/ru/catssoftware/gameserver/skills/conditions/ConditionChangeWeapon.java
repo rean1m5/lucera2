@@ -16,7 +16,7 @@ class ConditionChangeWeapon extends Condition
 	@Override
 	boolean testImpl(Env env)
 	{
-		if (!(env.player instanceof L2PcInstance))
+		if (!(env.player.isPlayer()))
 			return false;
 
 		if (_required)

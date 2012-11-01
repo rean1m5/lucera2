@@ -1,13 +1,7 @@
 package ru.catssoftware.gameserver.instancemanager.clanhallsiege;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
-
+import javolution.util.FastList;
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.datatables.ClanTable;
@@ -18,20 +12,10 @@ import ru.catssoftware.gameserver.idfactory.IdFactory;
 import ru.catssoftware.gameserver.instancemanager.ClanHallManager;
 import ru.catssoftware.gameserver.instancemanager.ClanHallSiege;
 import ru.catssoftware.gameserver.instancemanager.EventsDropManager;
-import ru.catssoftware.gameserver.instancemanager.MapRegionManager;
 import ru.catssoftware.gameserver.instancemanager.EventsDropManager.ruleType;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Clan;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2Party;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Spawn;
-import ru.catssoftware.gameserver.model.L2World;
-import ru.catssoftware.gameserver.model.actor.instance.L2ChestInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2HotSpringSquashInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PlayableInstance;
+import ru.catssoftware.gameserver.instancemanager.MapRegionManager;
+import ru.catssoftware.gameserver.model.*;
+import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.model.entity.ClanHall;
 import ru.catssoftware.gameserver.model.mapregion.L2MapRegion;
 import ru.catssoftware.gameserver.network.SystemChatChannelId;
@@ -42,7 +26,11 @@ import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.gameserver.threadmanager.ExclusiveTask;
 import ru.catssoftware.tools.random.Rnd;
-import javolution.util.FastList;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 
 public class RainbowSpringSiege extends ClanHallSiege
@@ -343,7 +331,7 @@ public class RainbowSpringSiege extends ClanHallSiege
 	
 	public boolean usePotion(L2PlayableInstance activeChar,int potionId)
 	{
-		if (activeChar instanceof L2PcInstance
+		if (activeChar.isPlayer()
 				&& isPlayerInArena((L2PcInstance)activeChar)
 				&& (activeChar.getTarget() instanceof L2NpcInstance)
 				&& (((L2NpcInstance)activeChar.getTarget()).getTemplate().getIdTemplate()==35596))
@@ -407,7 +395,7 @@ public class RainbowSpringSiege extends ClanHallSiege
 				}
 				for (int id : _playersOnArena)
 				{
-					L2PcInstance pl = L2World.getInstance().findPlayer(id);
+					L2PcInstance pl = L2World.getInstance().getPlayer(id);
 					if(pl!=null && pl.getClan().getName().equalsIgnoreCase(clName))
 						skillsControl(pl);
 				}
@@ -531,7 +519,7 @@ public class RainbowSpringSiege extends ClanHallSiege
 		_clansInfo.clear();
 		for (int id : _playersOnArena)
 		{
-			L2PcInstance pl = L2World.getInstance().findPlayer(id);
+			L2PcInstance pl = L2World.getInstance().getPlayer(id);
 			if (pl!=null)
 				pl.teleToLocation(150717, -124818, -2355);
 		}
@@ -696,7 +684,7 @@ public class RainbowSpringSiege extends ClanHallSiege
 		}
 		for (int id : _playersOnArena)
 		{
-			L2PcInstance pl = L2World.getInstance().findPlayer(id);
+			L2PcInstance pl = L2World.getInstance().getPlayer(id);
 			if (pl!=null)
 				pl.teleToLocation(150717, -124818, -2355);
 		}

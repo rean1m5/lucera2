@@ -29,7 +29,7 @@ public class Recall implements ISkillHandler
 			return;
 		}
 
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 		{
 			if (((L2PcInstance) activeChar).isInOlympiadMode())
 			{
@@ -43,7 +43,7 @@ public class Recall implements ISkillHandler
 			if (target == null)
 				continue;
 
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				L2PcInstance targetChar = (L2PcInstance) target;
 				if (targetChar.isInsideZone(L2Zone.FLAG_NOESCAPE))

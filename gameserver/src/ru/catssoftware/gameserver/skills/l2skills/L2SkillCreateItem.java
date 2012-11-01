@@ -59,7 +59,7 @@ public class L2SkillCreateItem extends L2Skill
 			return;
 		}
 		L2PcInstance player = (L2PcInstance) activeChar;
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar.isPlayer())
 		{
 			int rnd = Rnd.nextInt(_randomCount) + 1;
 			int count = _createItemCount * rnd;

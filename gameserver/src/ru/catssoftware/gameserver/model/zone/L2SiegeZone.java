@@ -64,7 +64,7 @@ public class L2SiegeZone extends EntityZone
 			character.setInsideZone(this,FLAG_PVP, true);
 			character.setInsideZone(this,FLAG_SIEGE, true);
 			character.setInsideZone(this,FLAG_NOSUMMON, true);
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 			{
 				character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 
@@ -97,7 +97,7 @@ public class L2SiegeZone extends EntityZone
 			character.setInsideZone(this,FLAG_PVP, false);
 			character.setInsideZone(this,FLAG_SIEGE, false);
 			character.setInsideZone(this,FLAG_NOSUMMON, false);
-			if (character instanceof L2PcInstance)
+			if (character.isPlayer())
 			{
 				character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 
@@ -115,7 +115,7 @@ public class L2SiegeZone extends EntityZone
 		}
 		if (character instanceof L2SiegeSummonInstance)
 			((L2SiegeSummonInstance) character).unSummon(((L2SiegeSummonInstance) character).getOwner());
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 		{
 			L2PcInstance activeChar = (L2PcInstance) character;
 			L2ItemInstance item = activeChar.getInventory().getItemByItemId(Config.FORTSIEGE_COMBAT_FLAG_ID);
@@ -160,7 +160,7 @@ public class L2SiegeZone extends EntityZone
 					character.setInsideZone(this,FLAG_SIEGE, false);
 					character.setInsideZone(this,FLAG_NOSUMMON, false);
 
-					if (character instanceof L2PcInstance)
+					if (character.isPlayer())
 					{
 						character.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 
@@ -184,7 +184,7 @@ public class L2SiegeZone extends EntityZone
 			Fort fort = (Fort) _entity;
 			if (fort.getSiege().getIsInProgress())
 			{
-				if (character instanceof L2PcInstance && ((L2PcInstance) character).getClan() != null)
+				if (character.isPlayer() && ((L2PcInstance) character).getClan() != null)
 				{
 					int lvl = 1;
 					for (L2Effect effect: character.getAllEffects())

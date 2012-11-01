@@ -33,7 +33,7 @@ public final class FuncSet extends FuncLambda
 	@Override
 	protected void calc(Env env)
 	{
-		if(stat==Stats.NOBLE_BLESS && env.player instanceof L2PcInstance) {
+		if(stat==Stats.NOBLE_BLESS && env.player.isPlayer()) {
 			((L2PcInstance)env.player).setIsNoblesseBlessed(true);
 			env.value = 1;
 		} else

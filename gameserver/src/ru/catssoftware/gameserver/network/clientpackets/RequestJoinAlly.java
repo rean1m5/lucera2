@@ -43,13 +43,13 @@ public class RequestJoinAlly extends L2GameClientPacket
 		if (obj == null)
 			obj = L2World.getInstance().getPlayer(_objectId);
 
-		if (!(obj instanceof L2PcInstance))
+		if (obj != null && obj.isPlayer())
 		{
 			activeChar.sendPacket(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
 			return;
 		}
 
-		L2PcInstance target = (L2PcInstance) obj;
+		L2PcInstance target = obj.getPlayer();
 		L2Clan clan = activeChar.getClan();
 		if (!clan.checkAllyJoinCondition(activeChar, target))
 			return;

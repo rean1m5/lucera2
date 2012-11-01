@@ -35,7 +35,7 @@ public class L2SkillChargeDmg extends L2Skill
 	@Override
 	public void useSkill(L2Character activeChar, L2Character... targets)
 	{
-		if (activeChar.isAlikeDead() || !(activeChar instanceof L2PcInstance))
+		if (activeChar.isAlikeDead() || !(activeChar.isPlayer()))
 			return;
 
 		L2PcInstance player = (L2PcInstance) activeChar;
@@ -65,13 +65,13 @@ public class L2SkillChargeDmg extends L2Skill
 			boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, this);
 			if (skillIsEvaded)
 			{
-				if (activeChar instanceof L2PcInstance)
+				if (activeChar.isPlayer())
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
 					sm.addCharName(target);
 					activeChar.sendPacket(sm);
 				}
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
 					sm.addCharName(activeChar);

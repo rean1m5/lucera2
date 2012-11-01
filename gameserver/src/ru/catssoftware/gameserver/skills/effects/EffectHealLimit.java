@@ -21,7 +21,7 @@ public final class EffectHealLimit extends L2Effect
 	@Override
 	public boolean onStart()
 	{
-		if (getEffected() instanceof L2PcInstance)
+		if (getEffected().isPlayer())
 			getEffected().setHealLimit((int)calc());
 		return true;
 	}

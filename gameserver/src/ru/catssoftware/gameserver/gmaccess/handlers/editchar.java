@@ -126,7 +126,7 @@ public class editchar extends gmHandler
 					L2Object target = admin.getTarget();
 					L2PcInstance player = null;
 					int classidval = 0;
-					if (!(target instanceof L2PcInstance))
+					if (!(target.isPlayer()))
 						return;
 
 					player = (L2PcInstance) target;
@@ -173,7 +173,7 @@ public class editchar extends gmHandler
 		else if(command.equals("setcolor")) {
 			try {
 				int newColor = Integer.parseInt(params[1],16);
-				if(admin.getTarget() instanceof L2PcInstance) {
+				if(admin.getTarget().isPlayer()) {
 					((L2PcInstance)admin.getTarget()).getAppearance().setNameColor(newColor);
 					((L2PcInstance)admin.getTarget()).broadcastFullInfo();
 				}
@@ -207,7 +207,7 @@ public class editchar extends gmHandler
 					target = admin;
 				String newName = params[1];
 				String oldName = null;
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 				{
 					L2PcInstance player = (L2PcInstance) target;
 					oldName = player.getName();
@@ -262,7 +262,7 @@ public class editchar extends gmHandler
 					val += (" " + params[i]);
 			}
 
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				L2PcInstance player = (L2PcInstance) target;
 				player.setTitle(val);
@@ -305,7 +305,7 @@ public class editchar extends gmHandler
 			if (target == null)
 				target = admin;
 			
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				L2PcInstance player = (L2PcInstance) target;
 				if (val == 0)
@@ -327,7 +327,7 @@ public class editchar extends gmHandler
 			if (target == null)
 				target = admin;
 			
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 			{
 				L2PcInstance player = (L2PcInstance) target;
 				player.getAppearance().setSex(player.getAppearance().getSex() ? false : true);
@@ -584,7 +584,7 @@ public class editchar extends gmHandler
 	private void adminModifyCharacter(L2PcInstance activeChar, String[] params)
 	{
 		L2Object target = activeChar.getTarget();
-		if (!(target instanceof L2PcInstance))
+		if (!(target.isPlayer()))
 			return;
 		L2PcInstance player = (L2PcInstance) target;
 
@@ -637,7 +637,7 @@ public class editchar extends gmHandler
 		if (player == null)
 		{
 			L2Object target = activeChar.getTarget();
-			if (target!= null && target instanceof L2PcInstance)
+			if (target!= null && target.isPlayer())
 				player = (L2PcInstance) target;
 			else
 				return;
@@ -654,7 +654,7 @@ public class editchar extends gmHandler
 	private void editChar(L2PcInstance activeChar)
 	{
 		L2Object target = activeChar.getTarget();
-		if (target == null || !(target instanceof L2PcInstance))
+		if (target == null || !(target.isPlayer()))
 			return;
 		sendHtml(activeChar, ((L2PcInstance) target), "charedit_menu.htm");
 	}

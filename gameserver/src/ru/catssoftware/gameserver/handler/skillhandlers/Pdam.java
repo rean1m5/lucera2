@@ -45,7 +45,7 @@ public class Pdam implements ISkillHandler
 			if (target == null)
 				continue;
 
-			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
+			if (activeChar.isPlayer() && target.isPlayer() && target.isFakeDeath())
 				target.stopFakeDeath(null);
 
 			else if (target.isDead())
@@ -111,14 +111,14 @@ public class Pdam implements ISkillHandler
 							}
 						}
 
-						if (damage > 5000 && activeChar instanceof L2PcInstance)
+						if (damage > 5000 && activeChar.isPlayer())
 						{
 							String name = "";
 							if (target instanceof L2RaidBossInstance)
 								name = "RaidBoss ";
 							if (target instanceof L2NpcInstance)
 								name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().getNpcId() + ")";
-							if (target instanceof L2PcInstance)
+							if (target.isPlayer())
 								name = target.getName() + "(" + target.getObjectId() + ") ";
 							name += target.getLevel() + " lvl";
 							if (_log.isDebugEnabled())
@@ -136,7 +136,7 @@ public class Pdam implements ISkillHandler
 
 						for (L2Character targ : ts)
 						{						
-							if (target instanceof L2PcInstance)
+							if (target.isPlayer())
 							{
 								L2PcInstance player = (L2PcInstance) targ;
 								if (!player.isInvul())
@@ -193,13 +193,13 @@ public class Pdam implements ISkillHandler
 			}
 			else
 			{
-				if (activeChar instanceof L2PcInstance)
+				if (activeChar.isPlayer())
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
 					sm.addCharName(target);
 					activeChar.sendPacket(sm);
 				}
-				if (target instanceof L2PcInstance)
+				if (target.isPlayer())
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK);
 					sm.addCharName(activeChar);
@@ -211,7 +211,7 @@ public class Pdam implements ISkillHandler
 			}
 
 			// Increase Charges
-			if (activeChar instanceof L2PcInstance && skill.getGiveCharges() > 0)
+			if (activeChar.isPlayer() && skill.getGiveCharges() > 0)
 				((L2PcInstance) activeChar).increaseCharges(skill.getGiveCharges(), skill.getMaxCharges());
 
 			//self Effect :]

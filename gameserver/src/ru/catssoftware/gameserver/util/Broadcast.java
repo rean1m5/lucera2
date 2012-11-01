@@ -62,7 +62,7 @@ public final class Broadcast
 		if (radius < 0)
 			radius = 360000;
 
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 			character.sendPacket(mov);
 
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())

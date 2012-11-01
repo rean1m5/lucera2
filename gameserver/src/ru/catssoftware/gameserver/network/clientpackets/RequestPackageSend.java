@@ -1,7 +1,6 @@
 package ru.catssoftware.gameserver.network.clientpackets;
 
-import java.util.List;
-
+import javolution.util.FastList;
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.model.L2ItemInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2FolkInstance;
@@ -14,8 +13,9 @@ import ru.catssoftware.gameserver.network.serverpackets.InventoryUpdate;
 import ru.catssoftware.gameserver.network.serverpackets.ItemList;
 import ru.catssoftware.gameserver.network.serverpackets.StatusUpdate;
 import ru.catssoftware.gameserver.templates.item.L2EtcItemType;
+import ru.catssoftware.gameserver.util.Util;
 
-import javolution.util.FastList;
+import java.util.List;
 
 public final class RequestPackageSend extends L2GameClientPacket
 {
@@ -26,18 +26,25 @@ public final class RequestPackageSend extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		_objectID = readD();
-		_count = readD();
-		if (_count < 0 || _count > 500)
+		try
 		{
-			_count = -1;
-			return;
+			_objectID = readD();
+			_count = readD();
+			if (_count < 0 || _count > 500)
+			{
+				_count = -1;
+				return;
+			}
+			for (int i = 0; i < _count; i++)
+			{
+				int id = readD(); //this is some id sent in PackageSendableList
+				int count = readD();
+				_items.add(new Item(id, count));
+			}
 		}
-		for (int i = 0; i < _count; i++)
+		catch (Exception e)
 		{
-			int id = readD(); //this is some id sent in PackageSendableList
-			int count = readD();
-			_items.add(new Item(id, count));
+			e.printStackTrace();
 		}
 	}
 
@@ -46,27 +53,36 @@ public final class RequestPackageSend extends L2GameClientPacket
 	{
 		if (_count == -1)
 			return;
+
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+
+		if (player == null || player.getObjectId() == _objectID)
+			return;
+
+		if (!getClient().haveCharOnAccount(_objectID))
+		{
+			String msgErr = "[RequestPackageSend] player " + player.getName() + " tried to send item freight to not his char, ban this player!";
+			Util.handleIllegalPlayerAction(player, msgErr, Config.DEFAULT_PUNISH);
+			return;
+		}
+
+		// Alt game - Karma punishment
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0)
+			return;
+
+		L2FolkInstance manager = player.getLastFolkNPC();
+		if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
 			return;
 
 		L2PcInstance target = L2PcInstance.load(_objectID);
+		PcFreight freight = target.getFreight();
+		player.setActiveWarehouse(freight);
+		ItemContainer warehouse = player.getActiveWarehouse();
+		if (warehouse == null)
+			return;
 
 		try
 		{
-			PcFreight freight = target.getFreight();
-			player.setActiveWarehouse(freight);
-			ItemContainer warehouse = player.getActiveWarehouse();
-			if (warehouse == null)
-				return;
-			L2FolkInstance manager = player.getLastFolkNPC();
-			if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
-				return;
-
-			// Alt game - Karma punishment
-			if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0)
-				return;
-
 			// Freight price from config or normal price per item slot (30)
 			int fee = _count * Config.ALT_GAME_FREIGHT_PRICE;
 			int currentAdena = player.getAdena();
@@ -81,7 +97,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 				L2ItemInstance item = player.checkItemManipulation(objectId, count, "deposit");
 				if (item == null)
 				{
-					_log.info("Error depositing a warehouse object for char " + player.getName() + ".");
+					_log.info("Error depositing a warehouse object for char " + player.getName() + ", item manipulation is null.");
 					i.id = 0;
 					i.count = 0;
 					continue;
@@ -161,9 +177,14 @@ public final class RequestPackageSend extends L2GameClientPacket
 			su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 			player.sendPacket(su);
 		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		finally
 		{
 			target.deleteMe();
+
 		}
 	}
 

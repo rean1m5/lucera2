@@ -64,7 +64,7 @@ public class control extends gmHandler
 			L2Object target = admin.getTarget();
 			L2PcInstance player = null;
 
-			if (target != null && target instanceof L2PcInstance)
+			if (target != null && target.isPlayer())
 				player = (L2PcInstance) target;
 			else
 				return;
@@ -85,7 +85,7 @@ public class control extends gmHandler
 				int fame = Integer.parseInt(params[1]);
 				L2Object target = admin.getTarget();
 
-				if (target != null && target instanceof L2PcInstance)
+				if (target != null && target.isPlayer())
 				{
 					L2PcInstance player = (L2PcInstance) target;
 					player.setFame(fame);
@@ -104,7 +104,7 @@ public class control extends gmHandler
 		{
 			L2Object target = admin.getTarget();
 
-			if (target != null && target instanceof L2PcInstance)
+			if (target != null && target.isPlayer())
 			{
 				L2PcInstance player = (L2PcInstance) target;
 
@@ -123,7 +123,7 @@ public class control extends gmHandler
 		{
 			L2Object target = admin.getTarget();
 
-			if (target != null && target instanceof L2PcInstance)
+			if (target != null && target.isPlayer())
 			{
 				L2PcInstance player = (L2PcInstance) target;
 				if (player.isHero())
@@ -174,7 +174,7 @@ public class control extends gmHandler
 			if (obj == null)
 				obj = admin;
 			
-			if (obj instanceof L2PcInstance)
+			if (obj.isPlayer())
 				((L2PcInstance)obj).getStatus().startHpMpRegeneration();
 			admin.sendMessage("Восстановление Hp восстановлено");
 		}
@@ -184,7 +184,7 @@ public class control extends gmHandler
 			if (obj == null)
 				obj = admin;
 			
-			if (obj instanceof L2PcInstance)
+			if (obj.isPlayer())
 				((L2PcInstance)obj).getStatus().stopHpMpRegeneration();
 			admin.sendMessage("Восстановление Hp приостановлено");
 		}
@@ -239,7 +239,7 @@ public class control extends gmHandler
 		else if (command.equals("setinvul"))
 		{
 			L2Object target = admin.getTarget();
-			if (target instanceof L2PcInstance)
+			if (target.isPlayer())
 				handleInvul((L2PcInstance) target);
 			return;
 		}
@@ -317,7 +317,7 @@ public class control extends gmHandler
 			if (player == null)
 			{
 				L2Object obj = admin.getTarget();
-				if (obj != null && obj instanceof L2PcInstance)
+				if (obj != null && obj.isPlayer())
 					player = (L2PcInstance)obj;
 			}
 
@@ -391,7 +391,7 @@ public class control extends gmHandler
 				int val = Integer.parseInt(params[1]);
 				if (command.equals("setcp"))
 				{
-					if (obj instanceof L2PcInstance)
+					if (obj.isPlayer())
 					{
 						((L2PcInstance)obj).getStatus().setCurrentCp(val);
 						admin.sendMessage("Уровень CP изменен");
@@ -422,7 +422,7 @@ public class control extends gmHandler
 	{
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
-		if (target != null && target instanceof L2PcInstance)
+		if (target != null && target.isPlayer())
 			player = (L2PcInstance) target;
 		else
 			return;
@@ -448,7 +448,7 @@ public class control extends gmHandler
 	 */
 	private void kill(L2PcInstance activeChar, L2Character target)
 	{
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 		{
 			if (!((L2PcInstance) target).isGM())
 				target.stopAllEffects();
@@ -501,7 +501,7 @@ public class control extends gmHandler
 	private void handleHeal(L2Character target)
 	{
 		target.getStatus().setCurrentHpMp(target.getMaxHp(), target.getMaxMp());
-		if (target instanceof L2PcInstance)
+		if (target.isPlayer())
 			target.getStatus().setCurrentCp(target.getMaxCp());
 	}
 

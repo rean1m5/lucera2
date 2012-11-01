@@ -9,12 +9,12 @@ public class L2WaterZone extends L2DefaultZone
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (character instanceof L2PcInstance && ((L2PcInstance) character).isInBoat())
+		if (character.isPlayer() && ((L2PcInstance) character).isInBoat())
 			return;
 
 		character.setInsideZone(this,FLAG_WATER, true);
 
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 		{
 			((L2PcInstance) character).broadcastUserInfo(true);
 		}
@@ -28,7 +28,7 @@ public class L2WaterZone extends L2DefaultZone
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(this,FLAG_WATER, false);
-		if (character instanceof L2PcInstance)
+		if (character.isPlayer())
 			((L2PcInstance) character).broadcastUserInfo(true);
 		else if (character instanceof L2NpcInstance)
 			character.broadcastFullInfo();

@@ -146,7 +146,7 @@ public class Instance
 
 	public void ejectPlayer(int objectId)
 	{
-		L2PcInstance player = L2World.getInstance().findPlayer(objectId);
+		L2PcInstance player = L2World.getInstance().getPlayer(objectId);
 		if (player != null && player.getInstanceId() !=0)
 		{
 			player.setInstanceId(0);
@@ -493,7 +493,7 @@ public class Instance
 		{
 			for (int objectId : _players)
 			{
-				L2PcInstance player = L2World.getInstance().findPlayer(objectId);
+				L2PcInstance player = L2World.getInstance().getPlayer(objectId);
 				if (player != null && player.getInstanceId() == getId())
 					player.sendPacket(cs);
 			}

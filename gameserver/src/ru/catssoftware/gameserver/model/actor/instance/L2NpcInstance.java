@@ -2621,7 +2621,7 @@ public class L2NpcInstance extends L2Character
 				if (character != null && character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
 					character.abortCast();
 
-				if(character instanceof L2PcInstance && character.getAI().getAttackTarget()==this && character.getAI().getIntention()!=CtrlIntention.AI_INTENTION_MOVE_TO)
+				if(character.isPlayer() && character.getAI().getAttackTarget()==this && character.getAI().getIntention()!=CtrlIntention.AI_INTENTION_MOVE_TO)
 					character.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
 				if(character instanceof L2Summon && character.getAI().getAttackTarget()==this && character.getAI().getIntention()!=CtrlIntention.AI_INTENTION_MOVE_TO)
 					character.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);

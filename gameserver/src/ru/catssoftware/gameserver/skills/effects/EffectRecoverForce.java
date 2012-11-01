@@ -40,7 +40,7 @@ public final class EffectRecoverForce extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getEffected() instanceof L2PcInstance)
+		if (getEffected().isPlayer())
 		{
 			L2PcInstance player = (L2PcInstance) getEffected();
 			L2Skill chargeSkill = player.getChargeSkill();

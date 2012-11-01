@@ -282,7 +282,7 @@ public abstract class L2Zone implements FuncOwner
 			if (!_characterList.containsKey(character.getObjectId()))
 			{
 				_characterList.put(character.getObjectId(), character);
-				if(character instanceof L2PcInstance) try {
+				if(character.isPlayer()) try {
 					_playersInZone.add((L2PcInstance)character);
 				} catch(Exception e) {}
 				character.ZoneEnter(this);
@@ -294,7 +294,7 @@ public abstract class L2Zone implements FuncOwner
 			if (_characterList.containsKey(character.getObjectId()))
 			{
 				_characterList.remove(character.getObjectId());
-				if(character instanceof L2PcInstance) try {
+				if(character.isPlayer()) try {
 					_playersInZone.remove(character);
 				} catch(Exception e) {}
 				character.ZoneLeave(this);
@@ -325,7 +325,7 @@ public abstract class L2Zone implements FuncOwner
 		if (_characterList.containsKey(character.getObjectId()))
 		{
 			_characterList.remove(character.getObjectId());
-			if(character instanceof L2PcInstance)
+			if(character.isPlayer())
 				_playersInZone.remove(character);
 			onExit(character);
 			
@@ -345,7 +345,7 @@ public abstract class L2Zone implements FuncOwner
 			case PLAYABLE:
 				return character instanceof L2PlayableInstance;
 			case PC:
-				return character instanceof L2PcInstance;
+				return character.isPlayer();
 			case NPC:
 				return character instanceof L2NpcInstance;
 			case ALL:
@@ -513,7 +513,7 @@ public abstract class L2Zone implements FuncOwner
 		{
 			if (character == null)
 				continue;
-			if (character instanceof L2PcInstance && ((L2PcInstance)character).isOnline() == 1)
+			if (character.isPlayer() && ((L2PcInstance)character).isOnline() == 1)
 				character.teleToLocation(x, y, z);
 		}
 	}

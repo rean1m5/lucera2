@@ -64,7 +64,7 @@ public class CpDam implements ISkillHandler
 			if (target == null)
 				continue;
 
-			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
+			if (activeChar.isPlayer() && target.isPlayer() && target.isFakeDeath())
 				target.stopFakeDeath(null);
 
 			else if (target.isDead())

@@ -35,7 +35,7 @@ final class ConditionPlayerPledgeClass extends Condition
 	@Override
 	public boolean testImpl(Env env)
 	{
-		if (!(env.player instanceof L2PcInstance))
+		if (!(env.player.isPlayer()))
 			return false;
 
 		if (((L2PcInstance)env.player).getClan() == null)
