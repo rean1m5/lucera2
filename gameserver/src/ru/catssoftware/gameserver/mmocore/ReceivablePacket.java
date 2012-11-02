@@ -1,6 +1,7 @@
 package ru.catssoftware.gameserver.mmocore;
 
 import javolution.text.TextBuilder;
+import ru.catssoftware.Config;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -38,47 +39,54 @@ public abstract class ReceivablePacket<T extends MMOClient> extends AbstractPack
 	protected void readB(byte[] dst)
 	{
 		getByteBuffer().get(dst);
-		_debugData+="|" + Arrays.toString(dst);
+		if (Config.RECIVE_PACKET_LOG)
+			_debugData+="|" + Arrays.toString(dst);
 	}
 
 	protected void readB(byte[] dst, int offset, int len)
 	{
 		getByteBuffer().get(dst, offset, len);
-		_debugData+="|" + Arrays.toString(dst);
+		if (Config.RECIVE_PACKET_LOG)
+			_debugData+="|" + Arrays.toString(dst);
 	}
 
 	protected int readC()
 	{
 		int data = getByteBuffer().get() & 0xFF;
-		_debugData+="|" + data;
+		if (Config.RECIVE_PACKET_LOG)
+			_debugData+="|" + data;
 		return data;
 	}
 
 	protected int readH()
 	{
 		int data = getByteBuffer().getShort() & 0xFFFF;
-		_debugData+="|" + data;
+		if (Config.RECIVE_PACKET_LOG)
+			_debugData+="|" + data;
 		return data;
 	}
 
 	protected int readD()
 	{
 		int data = getByteBuffer().getInt();
-		_debugData+="|" + data;
+		if (Config.RECIVE_PACKET_LOG)
+			_debugData+="|" + data;
 		return data;
 	}
 
 	protected long readQ()
 	{
 		long data = getByteBuffer().getLong();
-		_debugData+="|" + data;
+		if (Config.RECIVE_PACKET_LOG)
+			_debugData+="|" + data;
 		return data;
 	}
 
 	protected double readF()
 	{
 		double data = getByteBuffer().getDouble();
-		_debugData+="|" + data;
+		if (Config.RECIVE_PACKET_LOG)
+			_debugData+="|" + data;
 		return data;
 	}
 
@@ -92,14 +100,16 @@ public abstract class ReceivablePacket<T extends MMOClient> extends AbstractPack
 			tb.append(ch);
 		String str = tb.toString();
 		TextBuilder.recycle(tb);
-		_debugData+="|" + str;
+		if (Config.RECIVE_PACKET_LOG)
+			_debugData+="|" + str;
 		return str;
 	}
 
 	protected String readS(int Maxlen)
 	{
 		String ret = readS();
-		_debugData+="|" + (ret.length() > Maxlen ? ret.substring(0, Maxlen) : ret);
+		if (Config.RECIVE_PACKET_LOG)
+			_debugData+="|" + (ret.length() > Maxlen ? ret.substring(0, Maxlen) : ret);
 		return ret.length() > Maxlen ? ret.substring(0, Maxlen) : ret;
 	}
 

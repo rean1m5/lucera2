@@ -27,13 +27,15 @@ public class RequestJoinParty extends L2GameClientPacket
 		L2PcInstance requestor = getClient().getActiveChar();
 		L2PcInstance target = L2World.getInstance().getPlayer(_name);
 
-		if (requestor == null)
+		if (requestor == null || target == null)
 			return;
-		if (target == null || (target.isGM() && target.getAppearance().isInvisible() && !requestor.isGM()))
+
+		if (target.isGM() && target.getAppearance().isInvisible() && !requestor.isGM())
 		{
 			requestor.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
 		}
+
 		if(target.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE) {
 			requestor.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return;

@@ -2,6 +2,7 @@ package ru.catssoftware.gameserver.network.serverpackets;
 
 
 import org.apache.log4j.Logger;
+import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.mmocore.SendablePacket;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.L2GameClient;
@@ -19,7 +20,8 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 			writeImpl();
 			writeImpl(client, client.getActiveChar());
 			getClient().can_runImpl = true;
-			getClient().logInfo("server --> client [" + getClass().getSimpleName() + "] data: " + _debugData);
+			if (Config.SEND_PACKET_LOG)
+				getClient().logInfo("server --> client [" + getClass().getSimpleName() + "] data: " + _debugData);
 		}
 		catch (Exception e)
 		{

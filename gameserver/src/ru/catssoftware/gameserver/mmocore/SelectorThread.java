@@ -3,6 +3,7 @@ package ru.catssoftware.gameserver.mmocore;
 import javolution.util.FastList;
 import javolution.util.FastList.Node;
 import javolution.util.FastMap;
+import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.network.L2GameClient;
 import ru.catssoftware.gameserver.network.L2GameClient.GameClientState;
 
@@ -566,7 +567,8 @@ public class SelectorThread<T extends MMOClient> extends Thread
 				cp.setClient(client);
 				if(cp.read())
 					_pktrunner.ShedulePacket(cp);
-				client.logInfo("client --> server [" + cp.getClass().getSimpleName() + "] data: " + cp.getDebugData());
+				if (Config.RECIVE_PACKET_LOG)
+					client.logInfo("client --> server [" + cp.getClass().getSimpleName() + "] data: " + cp.getDebugData());
 				cp.setByteBuffer(null);
 			}
 			buf.limit(limit);

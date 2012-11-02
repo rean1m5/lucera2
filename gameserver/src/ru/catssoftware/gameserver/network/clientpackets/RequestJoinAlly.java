@@ -43,7 +43,7 @@ public class RequestJoinAlly extends L2GameClientPacket
 		if (obj == null)
 			obj = L2World.getInstance().getPlayer(_objectId);
 
-		if (obj != null && obj.isPlayer())
+		if (obj != null && !obj.isPlayer())
 		{
 			activeChar.sendPacket(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
 			return;
