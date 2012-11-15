@@ -845,7 +845,7 @@ public abstract class L2Summon extends L2PlayableInstance
 		getOwner().sendPacket(new PetInfo(this, val));
 		getOwner().sendPacket(new PetStatusUpdate(this));
 
-		broadcastPacket(new NpcInfo(this, val));
+		broadcastPacket(new NpcInfo(this));
 
 		updateEffectIcons();
 	}

@@ -215,8 +215,10 @@ public class RaidBossSpawnManager extends BossSpawnManager
 			{
 				con = L2DatabaseFactory.getInstance().getConnection(con);
 				L2Boss boss = _bosses.get(bossId);
+
 				if (boss == null)
 					continue;
+
 				if (boss.getRaidStatus().equals(StatusEnum.ALIVE))
 					updateStatus(boss, false);
 

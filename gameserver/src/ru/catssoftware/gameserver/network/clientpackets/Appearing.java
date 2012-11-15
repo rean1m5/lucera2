@@ -18,6 +18,7 @@ public class Appearing extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		activeChar._inWorld = true;
+
 		if (activeChar.isTeleporting())
 			activeChar.onTeleported();
 

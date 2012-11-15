@@ -311,50 +311,60 @@ public abstract class AbstractAI implements Ctrl
 	public final void setIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
 		// Stop the follow mode if necessary
-		
-		L2CharTemplate template = _actor.getTemplate();
-		if(template instanceof L2NpcTemplate) {
-			Quest[] qlst = ((L2NpcTemplate)template).getEventQuests(Quest.QuestEventType.ON_INTENTION_CHANGE);
-			if(qlst!=null)
-				for(Quest q : qlst )
-					q.notifyIntentionChange(_actor, intention);
-		}
-		if (intention != AI_INTENTION_FOLLOW && intention != AI_INTENTION_ATTACK)
-			stopFollow();
-
-		// Launch the onIntention method of the L2CharacterAI corresponding to the new Intention
-		switch (intention)
+		try
 		{
-			case AI_INTENTION_IDLE:
-				onIntentionIdle();
-				break;
-			case AI_INTENTION_ACTIVE:
-				onIntentionActive();
-				break;
-			case AI_INTENTION_REST:
-				onIntentionRest();
-				break;
-			case AI_INTENTION_ATTACK:
-				onIntentionAttack((L2Character) arg0);
-				break;
-			case AI_INTENTION_CAST:
-				onIntentionCast((L2Skill) arg0, (L2Object) arg1);
-				break;
-			case AI_INTENTION_MOVE_TO:
-				onIntentionMoveTo((L2CharPosition) arg0);
-				break;
-			case AI_INTENTION_MOVE_TO_IN_A_BOAT:
-				onIntentionMoveToInABoat((L2CharPosition) arg0, (L2CharPosition) arg1);
-				break;
-			case AI_INTENTION_FOLLOW:
-				onIntentionFollow((L2Character) arg0);
-				break;
-			case AI_INTENTION_PICK_UP:
-				onIntentionPickUp((L2Object) arg0);
-				break;
-			case AI_INTENTION_INTERACT:
-				onIntentionInteract((L2Object) arg0);
-				break;
+			L2CharTemplate template = _actor.getTemplate();
+			if(template instanceof L2NpcTemplate) {
+				Quest[] qlst = ((L2NpcTemplate)template).getEventQuests(Quest.QuestEventType.ON_INTENTION_CHANGE);
+				if(qlst!=null)
+					for(Quest q : qlst )
+						q.notifyIntentionChange(_actor, intention);
+			}
+			if (intention != AI_INTENTION_FOLLOW && intention != AI_INTENTION_ATTACK)
+				stopFollow();
+
+			// Launch the onIntention method of the L2CharacterAI corresponding to the new Intention
+			switch (intention)
+			{
+				case AI_INTENTION_IDLE:
+					onIntentionIdle();
+					break;
+				case AI_INTENTION_ACTIVE:
+					onIntentionActive();
+					break;
+				case AI_INTENTION_REST:
+					onIntentionRest();
+					break;
+				case AI_INTENTION_ATTACK:
+					onIntentionAttack((L2Character) arg0);
+					break;
+				case AI_INTENTION_CAST:
+					onIntentionCast((L2Skill) arg0, (L2Object) arg1);
+					break;
+				case AI_INTENTION_MOVE_TO:
+					onIntentionMoveTo((L2CharPosition) arg0);
+					break;
+				case AI_INTENTION_MOVE_TO_IN_A_BOAT:
+					onIntentionMoveToInABoat((L2CharPosition) arg0, (L2CharPosition) arg1);
+					break;
+				case AI_INTENTION_FOLLOW:
+					onIntentionFollow((L2Character) arg0);
+					break;
+				case AI_INTENTION_PICK_UP:
+					onIntentionPickUp((L2Object) arg0);
+					break;
+				case AI_INTENTION_INTERACT:
+					onIntentionInteract((L2Object) arg0);
+					break;
+			}
+		}
+		catch(NullPointerException e)
+		{
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 

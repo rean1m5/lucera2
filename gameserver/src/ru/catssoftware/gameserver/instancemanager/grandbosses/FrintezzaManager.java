@@ -139,7 +139,7 @@ public class FrintezzaManager extends BossLair
 		
 		switch (_state.getState()) {
 		case DEAD:
-                        long inter = Rnd.get((int)(MIN_RESPAWN*60000), (int)(MAX_RESPAWN*60000));
+            long inter = Rnd.get((int)(MIN_RESPAWN*60000), (int)(MAX_RESPAWN*60000));
 			_state.setRespawnDate(inter);
 			_state.setState(StateEnum.INTERVAL);
 		case SLEEP:	
@@ -296,7 +296,8 @@ public class FrintezzaManager extends BossLair
 		
 	}
 
-	public void start() {
+	public void start()
+	{
 		if(!ENABLED)
 			return;
 
@@ -476,21 +477,27 @@ public class FrintezzaManager extends BossLair
 		if (socialAction > 0 && socialAction < 5)
 			target.broadcastPacket(new SocialAction(target.getObjectId(), socialAction));
 	}
-	
+
 	@Override
 	public void onEnter(L2Character cha)
 	{
-		if(!ENABLED || !cha.isPlayer())
-			return;
-		L2PcInstance player = cha.getPlayer();
-		QuestState qs = player.getQuestState("654_JourneytoaSettlement");
-
-	 	if(qs != null && qs.isCompleted() && _state.getState()==StateEnum.NOTSPAWN && _startTask==null)
-			 _startTask = ThreadPoolManager.getInstance().schedule(new Runnable() {
-			 public void run() {
-				 start();
-				 _startTask = null;
-			 }
-		 }, 60000);
+		try
+		{
+			if(!ENABLED || !cha.isPlayer())
+				return;
+			L2PcInstance player = cha.getPlayer();
+			//QuestState qs = player.getQuestState("654_JourneytoaSettlement");
+			if(isEnableEnterToLair() && _startTask==null)
+				 _startTask = ThreadPoolManager.getInstance().schedule(new Runnable() {
+				 public void run() {
+					 start();
+					 _startTask = null;
+				 }
+			 }, 60000);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

@@ -198,10 +198,8 @@ public class OlympiadGame
 				if (player.getPet() != null)
 				{
 					L2Summon summon = player.getPet();
+					//summon.unSummon(player);
 					summon.stopAllEffects();
-
-					if (summon instanceof L2PetInstance)
-						summon.unSummon(player);
 				}
 
 				// Remove player from his party

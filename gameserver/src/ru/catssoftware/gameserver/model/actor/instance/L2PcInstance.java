@@ -7738,6 +7738,7 @@ public class L2PcInstance extends L2PlayableInstance
 		if (!checkUseMagicConditions(skill, forceUse, dontMove))
 		{
 			setIsCastingNow(false);
+			actionFail();
 			return;
 		}
 
@@ -7755,8 +7756,14 @@ public class L2PcInstance extends L2PlayableInstance
 				target = skill.getFirstOfTargetList(this);
 				break;
 		}
-		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, skill, target);
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		if (target != null)
+		{
+			getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, skill, target);
+			actionFail();
+		}
+		else
+			abortCast();
 	}
 
 	/**
@@ -7766,29 +7773,27 @@ public class L2PcInstance extends L2PlayableInstance
 	private boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
 		if (isOutOfControl())
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
-		}
+
 		if (isDead())
 		{
 			abortCast();
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
+
 		if (inObserverMode())
 		{
 			sendPacket(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
 			abortCast();
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
+
 		if (isSitting() && !skill.isPotion())
 		{
 			sendPacket(SystemMessageId.CANT_MOVE_SITTING);
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
+
 		if (skill.isToggle())
 		{
 			L2Effect effect = getFirstEffect(skill);
@@ -7796,13 +7801,12 @@ public class L2PcInstance extends L2PlayableInstance
 			if (effect != null)
 			{
 				effect.exit();
-				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
 			}
 		}
+
 		if (isFakeDeath())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
 
@@ -7827,10 +7831,7 @@ public class L2PcInstance extends L2PlayableInstance
 		Point3D worldPosition = getCurrentSkillWorldPosition();
 
 		if (sklTargetType == SkillTargetType.TARGET_GROUND && worldPosition == null)
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
-		}
 
 		switch (sklTargetType)
 		{
@@ -7857,7 +7858,6 @@ public class L2PcInstance extends L2PlayableInstance
 		if (target == null)
 		{
 			sendPacket(SystemMessageId.TARGET_CANT_FOUND);
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
 
@@ -7870,14 +7870,10 @@ public class L2PcInstance extends L2PlayableInstance
 				return false;
 		}
 
-		if (isInDuel())
+		if (isInDuel() && target.getPlayer() != null && getDuelId() != target.getPlayer().getDuelId())
 		{
-			if (target.getPlayer() != null && getDuelId() != target.getPlayer().getDuelId())
-			{
-				sendPacket(SystemMessageId.INCORRECT_TARGET);
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
+			sendPacket(SystemMessageId.INCORRECT_TARGET);
+			return false;
 		}
 
 
@@ -7910,15 +7906,11 @@ public class L2PcInstance extends L2PlayableInstance
 		if (skill.getGiveCharges() > 0 && _charges >= skill.getMaxCharges() && !skill.getContinueAfterMax())
 		{
 			sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
 
 		if (!skill.checkCondition(this, target))
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
-		}
 
 		if (isFishing() && (sklType != L2SkillType.PUMPING && sklType != L2SkillType.REELING && sklType != L2SkillType.FISHING))
 		{
@@ -7941,18 +7933,12 @@ public class L2PcInstance extends L2PlayableInstance
 			}
 
 			if (isInOlympiadMode() && !isOlympiadStart() && sklTargetType != SkillTargetType.TARGET_AURA)
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
-			}
 
 			if (!target.isAttackable() && !allowPeaceAttack())
 			{
 				if (!isInFunEvent() || !target.isInFunEvent() && target!=this)
-				{
-					sendPacket(ActionFailed.STATIC_PACKET);
 					return false;
-				}
 			}
 
 			if (!target.isAutoAttackable(this) && !forceUse && !isInFunEvent() && !isInDuel())
@@ -7975,7 +7961,6 @@ public class L2PcInstance extends L2PlayableInstance
 							break;
 //							|| targetPlayer.getOlympiadGameId()!= getOlympiadGameId()) {
 						} */
-						sendPacket(ActionFailed.STATIC_PACKET);
 						return false;
 						
 				}
@@ -7988,14 +7973,12 @@ public class L2PcInstance extends L2PlayableInstance
 					if (!isInsideRadius(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), skill.getCastRange() + getTemplate().getCollisionRadius(), false, false))
 					{
 						sendPacket(SystemMessageId.TARGET_TOO_FAR);
-						sendPacket(ActionFailed.STATIC_PACKET);
 						return false;
 					}
 				}
 				else if (skill.getCastRange() > 0 && !isInsideRadius(target, skill.getCastRange() + getTemplate().getCollisionRadius(), false, false))
 				{
 					sendPacket(SystemMessageId.TARGET_TOO_FAR);
-					sendPacket(ActionFailed.STATIC_PACKET);
 					return false;
 				}
 			}
@@ -8007,23 +7990,10 @@ public class L2PcInstance extends L2PlayableInstance
 			boolean srcInPvP = isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE);
 			boolean targetInPvP = ((L2PlayableInstance)target).isInsideZone(L2Zone.FLAG_PVP) && !((L2PlayableInstance)target).isInsideZone(L2Zone.FLAG_SIEGE);
 			boolean stop = false;
-			if (target.isPlayer())
+			if (target.isPlayer() || target.isSummon())
 			{
-				if ((getParty() != null && ((L2PcInstance) target).getParty() != null) && getParty().getPartyLeaderOID() == ((L2PcInstance) target).getParty().getPartyLeaderOID())
-					stop = true;
-				if (!srcInPvP && !targetInPvP)
-				{
-					if (getClanId() != 0 && getClanId() == ((L2PcInstance) target).getClanId())
-						stop = true;
-					if (getAllyId() != 0 && getAllyId() == ((L2PcInstance) target).getAllyId())
-						stop = true;
-				}
-				if ((isInFunEvent() && target.isInFunEvent()) || (isInDuel() && ((L2PcInstance) target).getDuelId() == getDuelId()))
-					stop = false;
-			}
-			else if (target instanceof L2Summon)
-			{
-				L2PcInstance trg = ((L2Summon) target).getOwner();
+				L2PcInstance trg = target.getPlayer();
+
 				if (trg == this)
 					stop = true;
 				if ((getParty() != null && trg.getParty() != null) && getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
@@ -8041,7 +8011,6 @@ public class L2PcInstance extends L2PlayableInstance
 			if (stop)
 			{
 				sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
 			}
 		}
@@ -8053,13 +8022,11 @@ public class L2PcInstance extends L2PlayableInstance
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 				sm.addSkillName(skill.getId());
 				sendPacket(sm);
-				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
 			}
 			if (isInsideZone(L2Zone.FLAG_PEACE))
 			{
 				sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
-				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
 			}
 		}
@@ -8091,7 +8058,6 @@ public class L2PcInstance extends L2PlayableInstance
 					case MAKE_KILLABLE:
 						break;
 					default:
-						sendPacket(ActionFailed.STATIC_PACKET);
 						return false;
 					}
 			}
@@ -8102,7 +8068,6 @@ public class L2PcInstance extends L2PlayableInstance
 			if (!(target instanceof L2MonsterInstance) && !(target instanceof L2ChestInstance))
 			{
 				sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
 			}
 		}
@@ -8116,14 +8081,12 @@ public class L2PcInstance extends L2PlayableInstance
 				if (!((L2Attackable) target).isSpoil())
 				{
 					sendPacket(SystemMessageId.SWEEPER_FAILED_TARGET_NOT_SPOILED);
-					sendPacket(ActionFailed.STATIC_PACKET);
 					return false;
 				}
 
 				if (getObjectId() != spoilerId && !isInLooterParty(spoilerId))
 				{
 					sendPacket(SystemMessageId.SWEEP_NOT_ALLOWED);
-					sendPacket(ActionFailed.STATIC_PACKET);
 					return false;
 				}
 			}
@@ -8134,7 +8097,6 @@ public class L2PcInstance extends L2PlayableInstance
 			if (!(target instanceof L2MonsterInstance))
 			{
 				sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
 			}
 		}
@@ -8156,7 +8118,6 @@ public class L2PcInstance extends L2PlayableInstance
 					if (!isInFunEvent() || !target.isInFunEvent())
 					{
 						sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-						sendPacket(ActionFailed.STATIC_PACKET);
 						return false;
 					}
 				}
@@ -8164,7 +8125,6 @@ public class L2PcInstance extends L2PlayableInstance
 
 		if ((sklTargetType == SkillTargetType.TARGET_HOLY && (!TakeCastle.checkIfOkToCastSealOfRule(this, false))) || (sklTargetType == SkillTargetType.TARGET_FLAGPOLE && !TakeFort.checkIfOkToCastFlagDisplay(this, false, skill, getTarget())) || (sklType == L2SkillType.SIEGEFLAG && (!SiegeManager.checkIfOkToPlaceFlag(this, false) && !FortSiegeManager.checkIfOkToPlaceFlag(this, false))) || (sklType == L2SkillType.STRSIEGEASSAULT && (!SiegeManager.checkIfOkToUseStriderSiegeAssault(this, false) && !FortSiegeManager.checkIfOkToUseStriderSiegeAssault(this, false))))
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
 			abortCast();
 			return false;
 		}
@@ -8176,14 +8136,12 @@ public class L2PcInstance extends L2PlayableInstance
 				if (!GeoData.getInstance().canSeeTarget(this, worldPosition))
 				{
 					sendPacket(SystemMessageId.CANT_SEE_TARGET);
-					sendPacket(ActionFailed.STATIC_PACKET);
 					return false;
 				}
 			}
 			else if (!this.canSee(target))
 			{
 				sendPacket(SystemMessageId.CANT_SEE_TARGET);
-				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
 			}
 		}
@@ -10280,6 +10238,27 @@ public class L2PcInstance extends L2PlayableInstance
 	{
 		return _itemExpertiseIndex;
 	}
+
+	@Override
+	public void teleToLocation(int x, int y, int z, boolean allowRandomOffset)
+	{
+		if(isPreventedFromReceivingBuffs())
+		{
+			setPreventedFromReceivingBuffs(false);
+			sendMessage("Block buff is off");
+		}
+
+		super.teleToLocation(x,y,z,allowRandomOffset);
+
+		intemediateStore();
+		if (getPet() != null)
+			getPet().decayMe();
+	}
+
+	/**
+	 * Для игрока данный метод срабатывает после телепортации в самом клиенте, т.е. после прихода клиентского пакета
+	 * Appearing.
+	 */
 	@Override
 	public final void onTeleported()
 	{
@@ -10301,11 +10280,12 @@ public class L2PcInstance extends L2PlayableInstance
 		if (getPet() != null)
 		{
 			getPet().setFollowStatus(false);
-			getPet().teleToLocation(getPosition().getX(), getPosition().getY(), getPosition().getZ(), false);
 			((L2SummonAI) getPet().getAI()).setStartFollowController(true);
+			getPet().teleToLocation(getPosition().getX(), getPosition().getY(), getPosition().getZ(), false);
 			getPet().setFollowStatus(true);
 			getPet().broadcastFullInfoImpl(0);
 		}
+
 	}
 
 	private Point3D getLastPartyPosition()
@@ -13355,16 +13335,6 @@ public class L2PcInstance extends L2PlayableInstance
 			bypasses.clear();
 	}
 	*/
-	@Override
-	public void teleToLocation(int x, int y, int z, boolean allowRandomOffset) {
-		if(isPreventedFromReceivingBuffs()) {
-			setPreventedFromReceivingBuffs(false);
-			sendMessage("Block buff is off");
-		}
-		super.teleToLocation(x,y,z,allowRandomOffset);
-		intemediateStore();
-	}
-	
 
 	public void canGainExp(boolean b) {
 		_characterData.set("CanGainExp", b);

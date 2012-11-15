@@ -41,7 +41,7 @@ public class NpcInfo extends L2GameServerPacket
 	private int					_mAtkSpd, _pAtkSpd;
 	private int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
 	@SuppressWarnings("unused")
-	private int					_rhand, _lhand, _chest, _val;;
+	private int					_rhand, _lhand, _chest;
 	private int					_collisionHeight, _collisionRadius;
 	private String				_name			= "";
 	private String				_title			= "";
@@ -90,14 +90,13 @@ public class NpcInfo extends L2GameServerPacket
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 	}
 
-	public NpcInfo(L2Summon cha, int val)
+	public NpcInfo(L2Summon cha)
 	{
 		_activeChar = cha;
 		_idTemplate = cha.getTemplate().getIdTemplate();
 		_rhand = cha.getWeapon();
 		_lhand = 0;
 		_chest = cha.getArmor();
-		_val = val;
 		_collisionHeight = _activeChar.getTemplate().getCollisionHeight();
 		_collisionRadius = _activeChar.getTemplate().getCollisionRadius();
 

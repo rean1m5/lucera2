@@ -115,7 +115,7 @@ public class PcKnownList extends PlayableKnownList
 							getActiveChar().sendPacket(new PetItemList((L2PetInstance) summon));
 					}
 					else
-						getActiveChar().sendPacket(new NpcInfo(summon, 0));
+						getActiveChar().sendPacket(new NpcInfo(summon));
 				}
 				else if (object.isPlayer())
 				{
