@@ -5151,7 +5151,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			for (L2Object target : targets)
 			{
 				// EVT_ATTACKED and PvPStatus
-				if (target instanceof L2Character)
+				if (target.isCharacter())
 				{
 					if (skill.getSkillType() != L2SkillType.AGGREMOVE && skill.getSkillType() != L2SkillType.AGGREDUCE && skill.getSkillType() != L2SkillType.AGGREDUCE_CHAR)
 					{
@@ -5176,7 +5176,7 @@ public abstract class L2Character extends L2Object implements IEffector
 											owner.getAI().clientStartAutoAttack();
 									}
 
-									if (!(target instanceof L2Summon) || player.getPet() != target)
+									if (!target.isSummon() || player.getPet() != target)
 										player.updatePvPStatus(target.getCharacter());
 								}
 							}
@@ -5200,10 +5200,10 @@ public abstract class L2Character extends L2Object implements IEffector
 						{
 							if (target.isPlayer())
 							{
-								if (target != this && (((L2PcInstance) target).getPvpFlag() > 0 || ((L2PcInstance) target).getKarma() > 0))
+								if (target != this && (target.getPlayer().getPvpFlag() > 0 || target.getPlayer().getKarma() > 0))
 									player.updatePvPStatus();
 							}
-							else if (target instanceof L2Attackable && !(skill.getSkillType() == L2SkillType.SUMMON) && !(skill.getSkillType() == L2SkillType.BEAST_FEED) && !(skill.getSkillType() == L2SkillType.UNLOCK) && !(skill.getSkillType() == L2SkillType.DELUXE_KEY_UNLOCK) && !(skill.getSkillType() == L2SkillType.HEAL_MOB) && !(skill.getSkillType() == L2SkillType.MAKE_KILLABLE) && (!(target instanceof L2Summon) || player.getPet() != target))
+							else if (target.isAttackable() && !(skill.getSkillType() == L2SkillType.SUMMON) && !(skill.getSkillType() == L2SkillType.BEAST_FEED) && !(skill.getSkillType() == L2SkillType.UNLOCK) && !(skill.getSkillType() == L2SkillType.DELUXE_KEY_UNLOCK) && !(skill.getSkillType() == L2SkillType.HEAL_MOB) && !(skill.getSkillType() == L2SkillType.MAKE_KILLABLE) && (!(target instanceof L2Summon) || player.getPet() != target))
 								player.updatePvPStatus();
 						}
 					}
@@ -5785,7 +5785,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if(cha instanceof L2Decoy)
 			return true;
 
-		if (!Config.GEODATA || checkGeo && !GeoData.getInstance().canSeeTarget(this, cha))
+		if (Config.GEODATA && checkGeo && !GeoData.getInstance().canSeeTarget(this, cha))
 			return false;
 
 		if (cha.isPlayer())

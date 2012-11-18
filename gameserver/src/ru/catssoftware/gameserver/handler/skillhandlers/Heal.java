@@ -57,7 +57,7 @@ public class Heal implements ISkillHandler
 				else if (player != null && player.isCursedWeaponEquipped())
 					continue;
 			}
-			if((target instanceof L2Boss || target instanceof L2GuardInstance) && activeChar.getPlayer()!=null )
+			if((target.isBoss() || target.isGuard()) && activeChar.getPlayer()!=null )
 				activeChar.getPlayer().updatePvPStatus();
 			double hp = skill.getPower();
 
@@ -147,7 +147,7 @@ public class Heal implements ISkillHandler
 				target.sendPacket(su);
 				L2PcInstance pc = target.getPlayer();
 				if(pc!=null && pc.getPvpFlag()>0 && activeChar.isPlayer())
-					((L2PcInstance)activeChar).updatePvPStatus();
+					activeChar.getPlayer().updatePvPStatus();
 			}
 			
 			if (target.isPlayer())

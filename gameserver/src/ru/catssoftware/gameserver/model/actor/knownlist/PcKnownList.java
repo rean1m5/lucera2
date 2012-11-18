@@ -100,9 +100,9 @@ public class PcKnownList extends PlayableKnownList
 					getActiveChar().sendPacket(new StaticObject((L2StaticObjectInstance) object));
 				else if (object instanceof L2Decoy )
 					getActiveChar().sendPacket(new CharInfo((L2Decoy) object));
-				else if (object instanceof L2NpcInstance)
+				else if (object.isNpc())
 				{
-					getActiveChar().sendPacket(new NpcInfo((L2NpcInstance) object));
+					getActiveChar().sendPacket(new NpcInfo(object.getNpc()));
 				}
 				else if (object instanceof L2Summon)
 				{

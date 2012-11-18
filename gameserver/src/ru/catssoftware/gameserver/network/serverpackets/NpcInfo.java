@@ -196,7 +196,7 @@ public class NpcInfo extends L2GameServerPacket
 	@Override
 	public boolean canBroadcast(L2PcInstance activeChar)
 	{
-		if (_activeChar instanceof L2Summon && ((L2Summon) _activeChar).getOwner() == activeChar)
+		if (_activeChar.isSummon() && _activeChar.getPlayer() == activeChar)
 			return false;
 
 		if (activeChar==null || !activeChar.canSee(_activeChar, false))

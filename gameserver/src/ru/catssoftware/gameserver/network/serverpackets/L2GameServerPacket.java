@@ -20,8 +20,8 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 			writeImpl();
 			writeImpl(client, client.getActiveChar());
 			getClient().can_runImpl = true;
-			if (Config.SEND_PACKET_LOG)
-				getClient().logInfo("server --> client [" + getClass().getSimpleName() + "] data: " + _debugData);
+			//if (Config.SEND_PACKET_LOG)
+				//getClient().logInfo("server --> client [" + getClass().getSimpleName() + "] data: " + _debugData);
 		}
 		catch (Exception e)
 		{

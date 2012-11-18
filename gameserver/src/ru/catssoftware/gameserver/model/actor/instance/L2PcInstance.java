@@ -4746,6 +4746,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 		if (isInsideZone(L2Zone.FLAG_PVP))
 			return;
+
 		setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
 
 		if (getPvpFlag() == 0)

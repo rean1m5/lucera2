@@ -1,10 +1,8 @@
 package ru.catssoftware.gameserver.mmocore;
 
 import javolution.text.TextBuilder;
-import ru.catssoftware.Config;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 
 @SuppressWarnings("unchecked")
 public abstract class ReceivablePacket<T extends MMOClient> extends AbstractPacket<T> implements Runnable
@@ -48,32 +46,27 @@ public abstract class ReceivablePacket<T extends MMOClient> extends AbstractPack
 
 	protected int readC()
 	{
-		int data = getByteBuffer().get() & 0xFF;
-		return data;
+		return getByteBuffer().get() & 0xFF;
 	}
 
 	protected int readH()
 	{
-		int data = getByteBuffer().getShort() & 0xFFFF;
-		return data;
+		return getByteBuffer().getShort() & 0xFFFF;
 	}
 
 	protected int readD()
 	{
-		int data = getByteBuffer().getInt();
-		return data;
+		return getByteBuffer().getInt();
 	}
 
 	protected long readQ()
 	{
-		long data = getByteBuffer().getLong();
-		return data;
+		return getByteBuffer().getLong();
 	}
 
 	protected double readF()
 	{
-		double data = getByteBuffer().getDouble();
-		return data;
+		return getByteBuffer().getDouble();
 	}
 
 	protected String readS()

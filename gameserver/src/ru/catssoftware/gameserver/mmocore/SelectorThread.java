@@ -567,8 +567,8 @@ public class SelectorThread<T extends MMOClient> extends Thread
 				cp.setClient(client);
 				if(cp.read())
 					_pktrunner.ShedulePacket(cp);
-				if (Config.RECIVE_PACKET_LOG)
-					client.logInfo("client --> server [" + cp.getClass().getSimpleName() + "] data: " + cp.getDebugData());
+				//if (Config.RECIVE_PACKET_LOG)
+					//client.logInfo("client --> server [" + cp.getClass().getSimpleName() + "] data: " + cp.getDebugData());
 				cp.setByteBuffer(null);
 			}
 			buf.limit(limit);

@@ -48,12 +48,14 @@ public class ValidatePosition extends L2GameClientPacket
 		double dz = _z - realZ;
 		double diffSq = (dx * dx + dy * dy);
 		double speedsq = activeChar.getStat().getMoveSpeed() * activeChar.getStat().getMoveSpeed();
-		if( diffSq <= speedsq*1.5 && dz < 1500) {
+		if( diffSq <= speedsq * 1.5 && dz < 1500)
+		{
 			activeChar.setLastServerPosition(realX, realY, realZ);
 			activeChar.getPosition().setXYZ(_x, _y, _z);
-			if(activeChar.getParty()!=null) {
-			 activeChar.setLastPartyPosition(_x, _y, _z);
-			 activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
+			if(activeChar.getParty()!=null)
+			{
+				activeChar.setLastPartyPosition(_x, _y, _z);
+				activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
 			}
 			if (activeChar.isInBoat())
 				Broadcast.toKnownPlayers(activeChar, new ValidateLocationInVehicle(activeChar));
