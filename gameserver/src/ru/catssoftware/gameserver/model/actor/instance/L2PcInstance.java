@@ -4411,7 +4411,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 	private void onDieDropItem(L2Character killer)
 	{
-		if ((_event!=null && _event.isRunning()) || killer == null)
+		if ((_event!=null && _event.isRunning()) || killer == null || getPkKills() < 6)
 			return;
 
 		L2PcInstance pk = killer.getPlayer();
