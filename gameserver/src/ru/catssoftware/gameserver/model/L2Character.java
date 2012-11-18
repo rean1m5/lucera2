@@ -4915,8 +4915,8 @@ public abstract class L2Character extends L2Object implements IEffector
 						target.sendPacket(smsg);
 					}
 
-					if (isPlayer() && target instanceof L2Summon)
-						((L2Summon) target).broadcastFullInfo();
+					if (isPlayer() && target.isSummon())
+						target.broadcastFullInfo();
 				}
 			}
 
@@ -5019,6 +5019,12 @@ public abstract class L2Character extends L2Object implements IEffector
 
 	private void notifyQuestEventSkillFinished(L2Skill skill, L2Object target)
 	{
+		if (target == null)
+		{
+			_log.info("Use skill : " + skill.getName() + " target: " + getTarget() + " target PARAM: " + target);
+			Thread.dumpStack();
+			return;
+		}
 		if (this instanceof L2NpcInstance)
 		{
 			try

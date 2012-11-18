@@ -1049,6 +1049,20 @@ public class CTF extends GameEvent
 
 	private void incKills(L2PcInstance player)
 	{
+		if (player == null)
+		{
+			_log.info("Method: incKills() param 'player' is null");
+			Thread.dumpStack();
+			return;
+		}
+
+		if (_statistics == null)
+		{
+			_log.info("Method: incKills() global variable '_statistics' is null");
+			Thread.dumpStack();
+			return;
+		}
+
 		Statistic stat = _statistics.get(player.getObjectId());
 
 		if (stat == null)

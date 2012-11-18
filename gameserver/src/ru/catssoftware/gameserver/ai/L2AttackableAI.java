@@ -10,6 +10,7 @@ import ru.catssoftware.gameserver.model.quest.Quest;
 import ru.catssoftware.gameserver.model.zone.L2Zone;
 import ru.catssoftware.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import ru.catssoftware.gameserver.taskmanager.DecayTaskManager;
+import ru.catssoftware.gameserver.util.PcAction;
 import ru.catssoftware.gameserver.util.Util;
 import ru.catssoftware.tools.random.Rnd;
 
@@ -204,11 +205,10 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			// Если AI работает на Pagan Gatekeeper, то ищем марки в инвентаре
 			if (me.getNpcId() == 22136)
 			{
-				for (L2ItemInstance item : target.getInventory().getItems())
-				{
-					if (item != null && (item.getItemId() == 8064) || (item.getItemId() == 8065) || (item.getItemId() == 8067))
+				L2PcInstance player = target.getPlayer();
+				if (player != null)
+					if (PcAction.haveItem(player, 8064, 1, false) || PcAction.haveItem(player, 8065, 1, false) || PcAction.haveItem(player, 8067, 1, false))
 						return false;
-				}
 			}
 			return (me.isAggressive() && me.canSee(target));
 		}
