@@ -195,7 +195,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 			activeChar.stopFakeDeath(null);
 			return;
 		}
-		else if (!activeChar.isDead())
+		else if (!activeChar.isDead() || !getClient().checkKeyProtection())
 			return;
 
 		Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(), activeChar.getY(), activeChar.getZ());

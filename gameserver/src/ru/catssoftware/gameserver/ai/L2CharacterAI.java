@@ -246,8 +246,9 @@ public class L2CharacterAI extends AbstractAI
 		//L2EMU_ADD
 		if (target.isPlayer() && _actor.isPlayer())
 		{
-			if (((L2PcInstance) _actor).getKarma() > 0 && (_actor.getLevel() - ((L2PcInstance) target).getLevel()) >= 10
-					&& ((L2PlayableInstance) target).getProtectionBlessing() && !(((L2Character) target).isInsideZone(L2Zone.FLAG_PVP)))
+			L2PcInstance player = _actor.getPlayer();
+			L2PcInstance pTarget = target.getPlayer();
+			if (player.getKarma() > 0 && (_actor.getLevel() - pTarget.getLevel()) >= 10 && pTarget.getProtectionBlessing() && !pTarget.isInsideZone(L2Zone.FLAG_PVP))
 			{
 				//If attacker have karma and have level >= 10 than his target and target have Newbie Protection Buff,
 				clientActionFailed();

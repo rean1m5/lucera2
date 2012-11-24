@@ -36,6 +36,12 @@ public class RequestDestroyItem extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 
+		if (!getClient().checkKeyProtection())
+		{
+			ActionFailed();
+			return;
+		}
+
 		if (_count < 0)
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Игрок " + activeChar.getName() + " пытался удалить вещи, сумма < 0",

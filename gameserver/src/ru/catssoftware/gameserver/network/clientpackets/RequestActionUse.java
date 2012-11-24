@@ -51,7 +51,7 @@ public class RequestActionUse extends L2GameClientPacket
 
 		if (activeChar == null)
 			return;
-		if (activeChar.isAlikeDead() || activeChar.isOutOfControl())
+		if (activeChar.isAlikeDead() || activeChar.isOutOfControl() || !getClient().checkKeyProtection())
 		{
 			getClient().sendPacket(ActionFailed.STATIC_PACKET);
 			return;

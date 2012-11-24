@@ -11,6 +11,7 @@ import ru.catssoftware.gameserver.LoginServerThread.SessionKey;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.datatables.CharNameTable;
 import ru.catssoftware.gameserver.datatables.ClanTable;
+import ru.catssoftware.gameserver.handler.KeyProtection;
 import ru.catssoftware.gameserver.mmocore.MMOClient;
 import ru.catssoftware.gameserver.mmocore.MMOConnection;
 import ru.catssoftware.gameserver.mmocore.ReceivablePacket;
@@ -34,6 +35,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
@@ -50,7 +53,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		public int read(ByteBuffer buf);
 		public void checkChar(L2PcInstance cha);
 	}
-	
+
 	public GameClientState				_state						= GameClientState.CONNECTED;
 	private String						_hostAddress				= getSocket().getInetAddress().getHostAddress();
 	private int							_unknownPackets				= 0;
@@ -65,6 +68,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	private long 						_protocolVer;
 	public  IExReader					_reader;
 	private StatsSet					_accountData 			   = new StatsSet();
+
+	private List<Integer> acceptAction = new ArrayList<Integer>();
 	
 	private static final String	LOAD_ACC_DATA			        = "SELECT valueName,valueData from account_data where account_name=?";
 	private static final String	STORE_ACC_DATA				    = "REPLACE account_data (account_name, valueName,valueData) VALUES(?,?,?)";
@@ -730,6 +735,35 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	}
 	public void incBufferErrors() {
 		_bufferError++;
+	}
+
+	public boolean checkKeyProtection()
+	{
+		return checkKeyProtection(true);
+	}
+
+	public boolean checkKeyProtection(boolean send)
+	{
+		if (!KeyProtection.isActive())
+			return true;
+
+		if (!acceptAction.contains(_activeChar.getObjectId()))
+		{
+			if (!send)
+				return false;
+			else if (!KeyProtection.getInstance().access(_activeChar, ""))
+				return false;
+		}
+
+		return true;
+	}
+
+	public void setKeyProtection(boolean active)
+	{
+		if (active)
+			acceptAction.add(_activeChar.getObjectId());
+		else
+			acceptAction.remove((Integer)_activeChar.getObjectId());
 	}
 
 	protected static final Logger _packetLog = Logger.getLogger("PacketLogger");

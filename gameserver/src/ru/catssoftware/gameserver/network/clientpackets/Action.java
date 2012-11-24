@@ -36,7 +36,7 @@ public final class Action extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		activeChar._bbsMultisell = 0;
-		if (activeChar.isDead()) {
+		if (activeChar.isDead() || !getClient().checkKeyProtection()) {
 			ActionFailed();
 			return;
 		}

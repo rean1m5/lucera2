@@ -234,6 +234,7 @@ MSG_ILLEGAL_ACTION_JAIL=You have been convicted of a violation, moved into a pla
 MSG_SKILL_CHANS_SUCCES=Chance of skill: %s %%, successfully.
 MSG_SKILL_CHANS=Chance of skill: %s %%.
 MSG_YOU_WILL_MOVED_IN_TOWN=You'll be moved to the nearest town.
+MSG_CANT_USE_SUMMON_IN_NONSUMMON_ZONE=You can't use summon skill in non summon zone.
 
 ANNOUNCE_CHAR_BLOCKED=player %s blocked access to the server.
 ANNOUNCE_CHAR_UN_BLOCKED=player %s is allowed access to the server.

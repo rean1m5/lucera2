@@ -68,6 +68,7 @@ import ru.catssoftware.gameserver.templates.skills.L2SkillType;
 import ru.catssoftware.gameserver.util.Broadcast;
 import ru.catssoftware.gameserver.util.FloodProtector.Protected;
 import ru.catssoftware.gameserver.util.PcAction;
+import ru.catssoftware.gameserver.util.Strings;
 import ru.catssoftware.gameserver.util.Util;
 import ru.catssoftware.tools.geometry.Point3D;
 import ru.catssoftware.tools.random.Rnd;
@@ -7884,10 +7885,11 @@ public class L2PcInstance extends L2PlayableInstance
 			TimeStamp ts = (_reuseTimeStamps == null) ? null : _reuseTimeStamps.get(skill.getId()); 
 			if (ts != null)
 			{
-/*				int remainingTime = (int)(ts.getRemaining() / 1000);
-				int hours = remainingTime / 3600;
+				int remainingTime = (int)(ts.getRemaining() / 1000);
+				/*int hours = remainingTime / 3600;
 				int minutes = (remainingTime % 3600) / 60;
-				int seconds = (remainingTime % 60); */
+				int seconds = (remainingTime % 60);*/
+				sendMessage("Скилл " + skill.getName() + " будет доступен через " + Strings.timeSuffix(remainingTime, 0) + ".");
 				sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addSkillName(skill);
 			}
@@ -8071,6 +8073,12 @@ public class L2PcInstance extends L2PlayableInstance
 				sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 				return false;
 			}
+		}
+
+		if (sklType.equals(L2SkillType.SUMMON_FRIEND) && isInsideZone(L2Zone.FLAG_NOSUMMON))
+		{
+			sendMessage(Message.getMessage(this, Message.MessageId.MSG_CANT_USE_SUMMON_IN_NONSUMMON_ZONE));
+			return false;
 		}
 
 		if (sklType == L2SkillType.SWEEP && target instanceof L2Attackable)

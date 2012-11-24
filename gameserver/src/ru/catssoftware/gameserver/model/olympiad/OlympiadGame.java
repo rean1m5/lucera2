@@ -208,6 +208,7 @@ public class OlympiadGame
 					L2Party party = player.getParty();
 					party.removePartyMember(player);
 				}
+
 				player.checkItemRestriction();
 
 				// Remove shot automation

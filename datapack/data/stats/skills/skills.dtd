@@ -158,6 +158,8 @@ bigSwordWpnVuln
 )
  #IMPLIED>
 
+<!ATTLIST cond (msgId|msg)* CDATA #REQUIRED>
+
 <!--
  the use of an item could be specified for a kind of item or a dependency with another item
 -->
@@ -176,7 +178,7 @@ bigSwordWpnVuln
 <!--
  msg gives the error message if condition (using) is not valid
 -->
-<!ATTLIST cond msg CDATA #IMPLIED>
+<!ATTLIST cond msgId CDATA #IMPLIED>
 
 <!ATTLIST enchant1 name CDATA #REQUIRED>
 <!ATTLIST enchant1 val CDATA #REQUIRED>
@@ -202,3 +204,4 @@ bigSwordWpnVuln
 <!ATTLIST player battle_force CDATA #IMPLIED>
 <!ATTLIST player behind CDATA #IMPLIED>
 <!ATTLIST player spell_force CDATA #IMPLIED>
+<!ATTLIST player olympiad CDATA #IMPLIED>

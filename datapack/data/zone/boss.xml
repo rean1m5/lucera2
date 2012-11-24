@@ -103,7 +103,7 @@
   </zone>
 
   <zone id="12" name="Lair of Scarlet van Halisha" type="Boss">
-    <settings boss="Frintezza" restart_allowed_time="1"/>
+    <settings boss="Frintezza" restart_allowed_time="1" noSummon="true"/>
     <shape type="Cylinder" radius="2000" zMin="-5200" zMax="-3000">
       <point x="174234" y="-88015"/>
     </shape>

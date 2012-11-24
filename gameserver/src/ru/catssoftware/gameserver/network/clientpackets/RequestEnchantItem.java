@@ -81,7 +81,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 			return;
 			
 		}
-		if (activeChar.isDead())
+		if (activeChar.isDead() || !getClient().checkKeyProtection())
 		{
 			activeChar.sendPacket(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
 			activeChar.sendPacket(new ExPutEnchantTargetItemResult(2, 0, 0));

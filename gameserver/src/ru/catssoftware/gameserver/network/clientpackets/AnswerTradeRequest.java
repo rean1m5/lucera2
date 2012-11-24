@@ -24,6 +24,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
+
 		if (player == null)
 			return;
 
@@ -53,7 +54,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
 			return;
 		}
 		
-		if (_response == 1 && !partner.isRequestExpired())
+		if (_response == 1 && !partner.isRequestExpired() && getClient().checkKeyProtection())
 			player.startTrade(partner);
 		else
 		{

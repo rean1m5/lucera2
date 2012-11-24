@@ -382,6 +382,8 @@ public class EnterWorld extends L2GameClientPacket
 				activeChar.addMessage(msg.replace("%name%", activeChar.getName()));
 		}
 
+		getClient().checkKeyProtection();
+
 		// Clan privilegies fix
 		if (activeChar.getClan() != null)
 		{

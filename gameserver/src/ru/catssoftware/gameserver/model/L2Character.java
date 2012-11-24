@@ -1325,7 +1325,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				}
 			}
 		}
-		else if ((this instanceof L2Summon || this instanceof L2BabyPetInstance) &&(((L2Summon)this).getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT || ((L2Summon)this).getChargedSpiritShot()==L2ItemInstance.CHARGED_SPIRITSHOT))
+		else if ((isSummon() || this instanceof L2BabyPetInstance) &&(getSummon().getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT || getSummon().getChargedSpiritShot()==L2ItemInstance.CHARGED_SPIRITSHOT))
 		{
 			hitTime = (int) (0.70 * hitTime);
 			coolTime = (int) (0.70 * coolTime);

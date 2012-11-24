@@ -13,7 +13,7 @@ public class RequestItemList extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (getClient() != null && getClient().getActiveChar() != null && !getClient().getActiveChar().isInvetoryDisabled())
+		if (getClient() != null && getClient().getActiveChar() != null && !getClient().getActiveChar().isInvetoryDisabled() && getClient().checkKeyProtection())
 		{
 			L2PcInstance pc = getClient().getActiveChar();
 			if(pc.getTrading()) {

@@ -273,6 +273,7 @@ public class Message {
 		ANNOUNCE_ADMIN_UNBLOCK_ALL_CHAT("Работа всех чатов возобновлена."),
 		ANNOUNCE_ACCOUNT_BLOCK("Забанен аккаунт %s. Нарушение правил"),
 		ANNOUNCE_ACCOUNT_UNBLOCK("Аккаунт %s разблокирован."),
+		MSG_CANT_USE_SUMMON_IN_NONSUMMON_ZONE("Вы не можете вызывать игрока, находясь в зоне с запрещенным суммоном."),
 		ANNOUNCE_CHAR_JAIL("Игрок %s отправлен в тюрьму %s"),
 		MSG_EVT_DAY1("Эвент L2Day запущен."),
 		MSG_EVT_DAY2("Соберите: Lineage II или CHRONICLE или THRONE и получите награду!"),

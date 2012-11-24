@@ -135,7 +135,7 @@ public final class UseItem extends L2GameClientPacket
 		}
 
 		// Char cannot use item when dead
-		if (activeChar.isDead())
+		if (activeChar.isDead() || !getClient().checkKeyProtection())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 			sm.addItemName(item);

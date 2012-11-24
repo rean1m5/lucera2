@@ -30,7 +30,7 @@ public class instances extends gmHandler
 
 		if (command.equals("zonelist")) {
 			for(L2Zone z : admin.getZones()) {
-				admin.sendMessage("Zone "+z.getName()+":"+z.getClass().getSimpleName());
+				admin.sendMessage("Zone "+z.getName()+": "+z.getClass().getSimpleName());
 			}
 		}
 		else if (command.startsWith("createinstance"))

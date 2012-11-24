@@ -120,6 +120,14 @@ public class Say2 extends L2GameClientPacket
 		if (_chat == SystemChatChannelId.Chat_User_Pet && activeChar.isGM())
 			_chat = SystemChatChannelId.Chat_GM_Pet;
 
+
+		if (!getClient().checkKeyProtection())
+		{
+			activeChar.sendMessage("Чат будет доступен только после ввода пароля от вашего чара.");
+			activeChar.sendMessage("Используйте voice-команду: .access");
+			return;
+		}
+
 		// Фильтр разрешенного типа чата при наличии Зарича/Акаманаха
 		if (activeChar.isCursedWeaponEquipped())
 		{

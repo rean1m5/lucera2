@@ -50,10 +50,12 @@ public class RequestBypassToServer extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 
-		if(activeChar.isDead()) {
+		if(activeChar.isDead() && !_command.startsWith("voice_access") && !getClient().checkKeyProtection()) {
 			ActionFailed();
 			return;
 		}
+
+
 
 		activeChar._bbsMultisell = 0;
 

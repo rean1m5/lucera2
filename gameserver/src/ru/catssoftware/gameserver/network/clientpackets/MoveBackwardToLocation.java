@@ -64,7 +64,7 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		if (activeChar.isFakeDeath())
 			return;
 
-		if (activeChar.isDead())
+		if (activeChar.isDead() || !getClient().checkKeyProtection())
 		{
 			ActionFailed();
 			return;

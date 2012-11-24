@@ -1,6 +1,7 @@
 package ru.catssoftware.gameserver.handler.skillhandlers;
 
 import ru.catssoftware.Config;
+import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.SevenSigns;
 import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.handler.ISkillHandler;
@@ -39,7 +40,7 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		if (summonerChar.isInsideZone(L2Zone.FLAG_NOSUMMON))
 		{
-			summonerChar.sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
+			summonerChar.sendMessage(Message.getMessage(summonerChar, Message.MessageId.MSG_CANT_USE_SUMMON_IN_NONSUMMON_ZONE));
 			return false;
 		}
 		if (summonerChar.getInstanceId() > 0)

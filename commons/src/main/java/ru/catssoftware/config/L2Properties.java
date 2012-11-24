@@ -142,4 +142,16 @@ public final class L2Properties extends Properties
 
 		return property.trim();
 	}
+
+	public boolean getProperty(String key, boolean defaultValue)
+	{
+		String var = getProperty(key, Boolean.toString(defaultValue));
+		return Boolean.parseBoolean(var);
+	}
+
+	public int getProperty(String key, int defaultValue)
+	{
+		String var = getProperty(key, Integer.toString(defaultValue));
+		return Integer.parseInt(var);
+	}
 }
