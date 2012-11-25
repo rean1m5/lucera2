@@ -946,6 +946,14 @@ public class OlympiadGame
 				player.getStatus().setCurrentCp(player.getMaxCp());
 				player.getStatus().setCurrentHp(player.getMaxHp());
 				player.getStatus().setCurrentMp(player.getMaxMp());
+
+				L2Summon summon = player.getSummon();
+				if (summon != null)
+				{
+					summon.getStatus().setCurrentCp(summon.getMaxCp());
+					summon.getStatus().setCurrentHp(summon.getMaxHp());
+					summon.getStatus().setCurrentMp(summon.getMaxMp());
+				}
 			}
 			catch(Exception e)
 			{

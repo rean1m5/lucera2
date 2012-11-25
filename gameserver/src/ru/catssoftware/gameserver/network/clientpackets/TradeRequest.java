@@ -59,17 +59,19 @@ public class TradeRequest extends L2GameClientPacket
 
 		if (partner.isInOlympiadMode() || player.isInOlympiadMode())
 		{
-			player.sendMessage("На олимпиаде трэйд запрещен");
+			player.sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
 			return;
 		}
-		if(partner.isCastingNow() || partner.isTeleporting()) {
-			player.sendMessage("Игрок занят");
+
+		if(partner.isCastingNow() || partner.isTeleporting())
+		{
+			player.sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
 			return;
 		}
 
 		if (BlockList.isBlocked(partner, player))
 		{
-			player.sendMessage("Игрок игнорирует вас");
+			player.sendPacket(SystemMessageId.YOU_ARE_BLOCKED);
 			return;
 		}
 
@@ -88,7 +90,7 @@ public class TradeRequest extends L2GameClientPacket
 		// Alt game - Karma punishment
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && (player.getKarma() > 0 || partner.getKarma() > 0))
 		{
-			player.sendMessage("Игрок ПК не может принять трэйд.");
+			player.sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
 			return;
 		}
 
@@ -114,13 +116,13 @@ public class TradeRequest extends L2GameClientPacket
 
 		if (partner.getTradeRefusal())
 		{
-			player.sendMessage("Цель не может принять трэйд.");
+			player.sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
 			return;
 		}
 
 		if (partner.isInCombat())
 		{
-			player.sendMessage("Цель находится в бою.");
+			player.sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
 			return;
 		}
 		

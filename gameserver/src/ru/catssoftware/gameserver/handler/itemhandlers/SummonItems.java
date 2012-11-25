@@ -32,10 +32,10 @@ public class SummonItems implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item, boolean par){}
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable.isPlayer()))
-			return;
+		L2PcInstance activeChar = playable.getPlayer();
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
+		if (activeChar == null)
+			return;
 
 		if (!FloodProtector.tryPerformAction(activeChar, Protected.ITEMPETSUMMON))
 			return;
@@ -98,37 +98,37 @@ public class SummonItems implements IItemHandler
 
 		switch (sitem.getType())
 		{
-		case 0: // static summons (like christmas tree)
-			try
-			{
-				L2Spawn spawn = new L2Spawn(npcTemplate);
+			case 0: // static summons (like christmas tree)
+				try
+				{
+					L2Spawn spawn = new L2Spawn(npcTemplate);
 
-				spawn.setId(IdFactory.getInstance().getNextId());
-				spawn.setLocx(activeChar.getX());
-				spawn.setLocy(activeChar.getY());
-				spawn.setLocz(activeChar.getZ());
-				L2World.getInstance().storeObject(spawn.spawnOne(true));
-				activeChar.destroyItem("Summon", item.getObjectId(), 1, null, false);
-				activeChar.sendMessage("Created " + npcTemplate.getName() + " at x: " + spawn.getLocx() + " y: " + spawn.getLocy() + " z: " + spawn.getLocz());
-			}
-			catch (Exception e)
-			{
-				activeChar.sendPacket(SystemMessageId.TARGET_CANT_FOUND);
-			}
+					spawn.setId(IdFactory.getInstance().getNextId());
+					spawn.setLocx(activeChar.getX());
+					spawn.setLocy(activeChar.getY());
+					spawn.setLocz(activeChar.getZ());
+					L2World.getInstance().storeObject(spawn.spawnOne(true));
+					activeChar.destroyItem("Summon", item.getObjectId(), 1, null, false);
+					activeChar.sendMessage("Created " + npcTemplate.getName() + " at x: " + spawn.getLocx() + " y: " + spawn.getLocy() + " z: " + spawn.getLocz());
+				}
+				catch (Exception e)
+				{
+					activeChar.sendPacket(SystemMessageId.TARGET_CANT_FOUND);
+				}
 
-			break;
-		case 1: // pet summons
-			Broadcast.toSelfAndKnownPlayers(activeChar, new MagicSkillUse(activeChar, activeChar, 2046, 1, 5000, 0, false));
-			activeChar.sendPacket(new SetupGauge(0, 5000));
-			activeChar.setSummonning(true);
-			activeChar.sendPacket(SystemMessageId.SUMMON_A_PET);
-			activeChar.setIsCastingNow(true);
+				break;
+			case 1: // pet summons
+				Broadcast.toSelfAndKnownPlayers(activeChar, new MagicSkillUse(activeChar, activeChar, 2046, 1, 5000, 0, false));
+				activeChar.sendPacket(new SetupGauge(0, 5000));
+				activeChar.setSummonning(true);
+				activeChar.sendPacket(SystemMessageId.SUMMON_A_PET);
+				activeChar.setIsCastingNow(true);
+				ThreadPoolManager.getInstance().scheduleGeneral(new PetSummonFinalizer(activeChar, npcTemplate, item), 5000);
 
-			ThreadPoolManager.getInstance().scheduleGeneral(new PetSummonFinalizer(activeChar, npcTemplate, item), 5000);
-			break;
-		case 2: // wyvern
-			activeChar.mount(sitem.getNpcId(), item.getObjectId(), true);
-			break;
+				break;
+			case 2: // wyvern
+				activeChar.mount(sitem.getNpcId(), item.getObjectId(), true);
+				break;
 		}
 	}
 

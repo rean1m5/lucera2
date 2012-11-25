@@ -4020,10 +4020,8 @@ public abstract class L2Character extends L2Object implements IEffector
 
 	public final boolean isInsideRadius(L2Object object, int radius, boolean checkZ, boolean strictCheck)
 	{
-		if (object == null)
-			return false;
+		return object != null && isInsideRadius(object.getX(), object.getY(), object.getZ(), radius, checkZ, strictCheck);
 
-		return isInsideRadius(object.getX(), object.getY(), object.getZ(), radius, checkZ, strictCheck);
 	}
 
 	public final boolean isInsideRadius(int x, int y, int radius, boolean strictCheck)
