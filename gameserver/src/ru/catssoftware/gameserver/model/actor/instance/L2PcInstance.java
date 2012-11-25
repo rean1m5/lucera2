@@ -7886,9 +7886,6 @@ public class L2PcInstance extends L2PlayableInstance
 			if (ts != null)
 			{
 				int remainingTime = (int)(ts.getRemaining() / 1000);
-				/*int hours = remainingTime / 3600;
-				int minutes = (remainingTime % 3600) / 60;
-				int seconds = (remainingTime % 60);*/
 				sendMessage("Скилл " + skill.getName() + " будет доступен через " + Strings.timeSuffix(remainingTime, 0) + ".");
 				sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addSkillName(skill);

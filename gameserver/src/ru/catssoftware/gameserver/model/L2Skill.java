@@ -2088,7 +2088,7 @@ public class L2Skill implements FuncOwner
 			case TARGET_CORPSE_ALLY:
 			case TARGET_ALLY:
 			{
-				if (activeChar instanceof L2PlayableInstance)
+				if (activeChar.isPlayable())
 				{
 					int radius = getSkillRadius();
 					L2PcInstance player = activeChar.getPlayer();
@@ -2122,7 +2122,7 @@ public class L2Skill implements FuncOwner
 						// Get Clan Members
 						for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 						{
-							if (obj == player || !(obj instanceof L2PlayableInstance) || obj.getPlayer() == null)
+							if (obj == player || !obj.isPlayer())
 								continue;
 
 							L2PcInstance newTarget = obj.getPlayer();
