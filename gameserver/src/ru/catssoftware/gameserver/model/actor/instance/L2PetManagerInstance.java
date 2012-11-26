@@ -216,7 +216,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		L2PetInstance oldSummon = L2PetInstance. spawnPet(npcTemplate, player, item);
 		player.setPet(oldSummon);
 		L2World.getInstance().storeObject(oldSummon);
-		oldSummon.spawnMe(player.getX() + 50, player.getY() + 100, player.getZ());
+		oldSummon.spawnMe();
 		
 		evolve(player,itemIdtake,itemIdgive,55);
 	}
@@ -295,7 +295,7 @@ public class L2PetManagerInstance extends L2MerchantInstance
 		player.sendPacket(new MagicSkillUse(this, 2046, 1, 1000, 600000, false));
 		player.sendPacket(SystemMessageId.SUMMON_A_PET);
 		L2World.getInstance().storeObject(petSummon);
-		petSummon.spawnMe(player.getX() + 50, player.getY() + 100, player.getZ());
+		petSummon.spawnMe();
 		petSummon.startFeed();
 		item.setEnchantLevel(petSummon.getLevel());
 

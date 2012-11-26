@@ -3425,6 +3425,9 @@ public abstract class L2Character extends L2Object implements IEffector
 				getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING);
 			broadcastPacket(new MagicSkillCanceled(getObjectId()));
 			sendPacket(ActionFailed.STATIC_PACKET);
+
+			if (isPlayer())
+				getPlayer().setSummonning(null);
 		}
 	}
 
@@ -3758,7 +3761,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				actionFail();
 				return false;
 			}
-			Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z, this.getInstanceId());
+			Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z, getInstanceId());
 			
 			// location different if destination wasn't reached (or just z coord is different)
 			x = destiny.getX();
@@ -5790,6 +5793,9 @@ public abstract class L2Character extends L2Object implements IEffector
 			return true;
 
 		if (Config.GEODATA && checkGeo && !GeoData.getInstance().canSeeTarget(this, cha))
+			return false;
+
+		if (getInstanceId() != cha.getInstanceId())
 			return false;
 
 		if (cha.isPlayer())

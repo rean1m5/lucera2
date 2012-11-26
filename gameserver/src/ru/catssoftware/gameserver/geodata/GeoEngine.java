@@ -199,7 +199,13 @@ public class GeoEngine extends GeoData
 			gm.sendMessage("GeoData bug save Failed!");
 		}
 	}
-	
+
+	@Override
+	public boolean canSeeTarget(Location loc, Location locTarget)
+	{
+		return canSee((loc.getX() - L2World.MAP_MIN_X) >> 4, (loc.getY() - L2World.MAP_MIN_Y) >> 4, loc.getZ(), (locTarget.getX() - L2World.MAP_MIN_X) >> 4, (locTarget.getY() - L2World.MAP_MIN_Y) >> 4, locTarget.getZ());
+	}
+
 	@Override
 	public boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz)
 	{
@@ -220,6 +226,11 @@ public class GeoEngine extends GeoData
 	private static void debug(String debug)
 	{
 		//_log.info("GeoEngine debug: " + debug);
+	}
+
+	public static boolean canSee(Location loc, Location locTarget)
+	{
+		return canSee(loc.getX(), loc.getY(),  loc.getZ(),  locTarget.getX(), locTarget.getY(), locTarget.getZ());
 	}
 	/**
 	 * Can see.

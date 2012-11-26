@@ -47,13 +47,23 @@ public class AnswerTradeRequest extends L2GameClientPacket
 			return;
 		}
 
-		if(!player.isInsideRadius(partner, 200, false, false)) {
+		if(!player.isInsideRadius(partner, 200, false, false))
+		{
 			player.sendPacket(new TradeDone(0));
 			player.setActiveRequester(null);
 			ActionFailed();
 			return;
 		}
-		
+
+
+		/*if(partner.isSummoning() || partner.isCastingNow() || player.isCastingNow() || player.isSummoning())
+		{
+			player.sendPacket(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
+			partner.sendPacket(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
+			ActionFailed();
+			return;
+		}*/
+
 		if (_response == 1 && !partner.isRequestExpired() && getClient().checkKeyProtection())
 			player.startTrade(partner);
 		else

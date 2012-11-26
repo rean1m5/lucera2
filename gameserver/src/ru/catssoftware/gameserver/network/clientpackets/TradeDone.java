@@ -72,7 +72,8 @@ public class TradeDone extends L2GameClientPacket
 			if (trade.getOwner().getActiveEnchantItem() != null || trade.getPartner().getActiveEnchantItem() != null)
 				return;
 
-			trade.confirm();
+			if (!trade.confirm())
+				player.cancelActiveTrade();
 		}
 		else
 			player.cancelActiveTrade();

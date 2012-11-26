@@ -55,8 +55,6 @@ public class OlympiadGame
 	private int							x1, y1, z1, x2, y2, z2;
 	public int							_stadiumID;
 	private SystemMessage				_sm;
-	private SystemMessage				_sm2;
-	private SystemMessage				_sm3;
 	private L2PcInstance				_winner;
 
 	protected OlympiadGame(int id, COMP_TYPE type, FastList<L2PcInstance> list)
@@ -117,7 +115,6 @@ public class OlympiadGame
 		{
 			_aborted = true;
 			clearPlayers();
-			return;
 		}
 	}
 
@@ -200,6 +197,10 @@ public class OlympiadGame
 					L2Summon summon = player.getPet();
 					//summon.unSummon(player);
 					summon.stopAllEffects();
+
+					summon.getStatus().setCurrentCp(summon.getMaxCp());
+					summon.getStatus().setCurrentHp(summon.getMaxHp());
+					summon.getStatus().setCurrentMp(summon.getMaxMp());
 				}
 
 				// Remove player from his party
@@ -446,7 +447,7 @@ public class OlympiadGame
 		{
 			try
 			{
-				if (player.isDead() == true)
+				if (player.isDead())
 					player.setIsDead(false);
 
 
@@ -517,10 +518,9 @@ public class OlympiadGame
 		{
 			playerTwoHp = 0;
 		}
-		if (playerTwoHp <= 0 || playerOneHp <= 0)
-			return true;
 
-		return false;
+		return playerTwoHp <= 0 || playerOneHp <= 0;
+
 	}
 
 	protected void validateWinner()
@@ -593,6 +593,7 @@ public class OlympiadGame
 		}
 
 		// Create results for players if a player crashed
+		SystemMessage _sm2;
 		if (_pOneCrash || _pTwoCrash)
 		{
 			if (_pOneCrash && !_pTwoCrash)
@@ -673,7 +674,7 @@ public class OlympiadGame
 
 		_sm = new SystemMessage(SystemMessageId.C1_HAS_WON_THE_GAME);
 		_sm2 = new SystemMessage(SystemMessageId.S1_HAS_GAINED_S2_OLYMPIAD_POINTS);
-		_sm3 = new SystemMessage(SystemMessageId.S1_HAS_LOST_S2_OLYMPIAD_POINTS);
+		SystemMessage _sm3 = new SystemMessage(SystemMessageId.S1_HAS_LOST_S2_OLYMPIAD_POINTS);
 
 		// if players crashed, search if they've relogged
 		_playerOne = L2World.getInstance().getPlayer(_playerOneName);
@@ -994,10 +995,7 @@ class OlympiadGameTask implements Runnable
 	{
 		boolean _pOneCrash = (_game._playerOne == null || _game._playerOneDisconnected);
 		boolean _pTwoCrash = (_game._playerTwo == null || _game._playerTwoDisconnected);
-		if (_pOneCrash || _pTwoCrash || _game._aborted)
-			return false;
-
-		return true;
+		return !(_pOneCrash || _pTwoCrash || _game._aborted);
 	}
 
 	@SuppressWarnings("static-access")

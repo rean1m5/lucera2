@@ -131,7 +131,9 @@ public enum L2SkillType
 	SCRIPT(L2ScriptSkill.class),
 	COREDONE,
 	CUSTOM,
+	PET_SUMMON,
 	NOTDONE;
+
 
 	private final Constructor<? extends L2Skill> _constructor;
 

@@ -89,8 +89,6 @@ public abstract class L2Summon extends L2PlayableInstance
 		_showSummonAnimation = true;
 		_owner = owner;
 		_ai = new L2SummonAI(new L2Summon.AIAccessor());
-
-		getPosition().setXYZInvisible(owner.getX() + 50, owner.getY() + 100, owner.getZ() + 100);
 	}
 
 	@Override

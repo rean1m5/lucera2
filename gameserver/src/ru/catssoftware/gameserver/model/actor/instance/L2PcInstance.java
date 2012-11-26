@@ -497,7 +497,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 	private boolean							_inCraftMode;
 
-	private boolean							_isSummoning;
+	private L2ItemInstance							_summonItem;
 	/** Current skill in use. Note that L2Character has _lastSkillCast, but this has the button presses */
 	private SkillDat						_currentSkill;
 	private SkillDat						_currentPetSkill;
@@ -1903,7 +1903,13 @@ public class L2PcInstance extends L2PlayableInstance
 	 */
 	public void setClassId(int Id)
 	{
-		academyCheck(Id);
+		if (getOnlineState() == ONLINE_STATE_DELETED)
+		{
+			_log.info("Player with charId: " + getObjectId() + " tride change class in offline.");
+			Thread.dumpStack();
+			return;
+		}
+
 		getStat().resetModifiers();
 		if (isSubClassActive())
 			getSubClasses().get(_classIndex).setClassId(Id);
@@ -1920,6 +1926,7 @@ public class L2PcInstance extends L2PlayableInstance
 			rewardSkills();
 		checkInventory();		
 		intemediateStore();
+		academyCheck(Id);
 	}
 
 	public void checkSSMatch(L2ItemInstance equipped, L2ItemInstance unequipped)
@@ -3280,6 +3287,9 @@ public class L2PcInstance extends L2PlayableInstance
 
 		// We cannot put a Weapon with Augmention in WH while casting (Possible Exploit)
 		if (item.isAugmented() && (isCastingNow() || isCastingSimultaneouslyNow()))
+			return null;
+
+		if (getSummonItem() != null && getSummonItem().equals(item))
 			return null;
 
 		return item;
@@ -5722,9 +5732,8 @@ public class L2PcInstance extends L2PlayableInstance
 			return true;
 		else if (weaponItem.getItemType() == L2WeaponType.DUALFIST)
 			return true;
-		else if (weaponItem.getItemId() == 248) // orc fighter fists
-			return true;
-		else return weaponItem.getItemId() == 252;
+		else
+			return weaponItem.getItemId() == 248 || weaponItem.getItemId() == 252;
 	}
 
 	public void setUptime(long time)
@@ -5999,7 +6008,6 @@ public class L2PcInstance extends L2PlayableInstance
 		catch (Exception e)
 		{
 			_log.error("Could not insert char data: ", e);
-			return;
 		}
 		finally
 		{
@@ -7607,24 +7615,26 @@ public class L2PcInstance extends L2PlayableInstance
 		return _hennaDEX;
 	}
 
-	public void setSummonning(boolean par)
+	public void setSummonning(L2ItemInstance par)
 	{
-		_isSummoning = par;
+		_summonItem = par;
 	}
 
 	public boolean isSummoning()
 	{
-		return _isSummoning;
+		return _summonItem != null;
+	}
+
+	public L2ItemInstance getSummonItem()
+	{
+		return _summonItem;
 	}
 
 	@Override
 	public void setIsCastingNow(boolean value)
 	{
 		if (!value)
-		{
-			_isSummoning = false;
 			_currentSkill = null;
-		}
 		super.setIsCastingNow(value);
 	}
 

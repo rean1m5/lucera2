@@ -14,9 +14,6 @@
  */
 package ru.catssoftware.gameserver.model.actor.instance;
 
-import java.text.SimpleDateFormat;
-import java.util.StringTokenizer;
-
 import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.ThreadPoolManager;
@@ -25,28 +22,17 @@ import ru.catssoftware.gameserver.datatables.SkillTable;
 import ru.catssoftware.gameserver.datatables.TeleportLocationTable;
 import ru.catssoftware.gameserver.datatables.xml.SummonItemsData;
 import ru.catssoftware.gameserver.instancemanager.ClanHallManager;
-import ru.catssoftware.gameserver.model.L2Clan;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Summon;
-import ru.catssoftware.gameserver.model.L2SummonItem;
-import ru.catssoftware.gameserver.model.L2TeleportLocation;
-import ru.catssoftware.gameserver.model.L2World;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.instance.L2PetManagerInstance.EvolveFeedWait;
 import ru.catssoftware.gameserver.model.actor.instance.L2PetManagerInstance.EvolveFinalizer;
 import ru.catssoftware.gameserver.model.entity.ClanHall;
 import ru.catssoftware.gameserver.network.SystemMessageId;
-import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
-import ru.catssoftware.gameserver.network.serverpackets.AgitDecoInfo;
-import ru.catssoftware.gameserver.network.serverpackets.ItemList;
-import ru.catssoftware.gameserver.network.serverpackets.MagicSkillUse;
-import ru.catssoftware.gameserver.network.serverpackets.MyTargetSelected;
-import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
-import ru.catssoftware.gameserver.network.serverpackets.ValidateLocation;
-import ru.catssoftware.gameserver.network.serverpackets.WareHouseDepositList;
-import ru.catssoftware.gameserver.network.serverpackets.WareHouseWithdrawalList;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.gameserver.templates.skills.L2SkillType;
+
+import java.text.SimpleDateFormat;
+import java.util.StringTokenizer;
 
 
 public class L2ClanHallManagerInstance extends L2MerchantInstance
@@ -1649,7 +1635,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
 		player.sendPacket(new MagicSkillUse(this, 2046, 1, 1000, 600000, false));
 		player.sendPacket(SystemMessageId.SUMMON_A_PET);
 		L2World.getInstance().storeObject(petSummon);
-		petSummon.spawnMe(player.getX() + 50, player.getY() + 100, player.getZ());
+		petSummon.spawnMe();
 		petSummon.startFeed();
 		item.setEnchantLevel(petSummon.getLevel());
 

@@ -23,6 +23,7 @@ import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.ItemTable;
 import ru.catssoftware.gameserver.datatables.PetDataTable;
 import ru.catssoftware.gameserver.datatables.SkillTable;
+import ru.catssoftware.gameserver.geodata.GeoEngine;
 import ru.catssoftware.gameserver.handler.IItemHandler;
 import ru.catssoftware.gameserver.handler.ItemHandler;
 import ru.catssoftware.gameserver.idfactory.IdFactory;
@@ -208,7 +209,20 @@ public class L2PetInstance extends L2Summon
 		if (L2World.getInstance().getPet(owner.getObjectId()) != null)
 			return null; // Owner has a pet listed in world
 
+
+		Location loc = GeoEngine.getInstance().moveCheck(owner.getLoc(), owner.getX() + 50, owner.getY() + 100, owner.getZ(), owner.getInstanceId());
+
+		if (!GeoEngine.canSee(owner.getLoc(), loc))
+		{
+			_log.info("Can't spawn SUMMON, coords: " + loc.toString());
+			owner.sendMessage("Неподходящие место для использования скила вызова.");
+			return null;
+		}
+
 		L2PetInstance pet = restore(control, template, owner);
+
+		pet.getPosition().setXYZInvisible(loc.getX(), loc.getY(), loc.getZ());
+
 		// Add the pet instance to world
 		if (pet != null)
 			L2World.getInstance().addPet(owner.getObjectId(), pet);

@@ -126,7 +126,20 @@ public class GeoData
 		//Don't allow casting on players on different dungeon levels etc
 		return (Math.abs(target.getZ() - cha.getZ()) < 1000);
 	}
-	
+
+	/**
+	 * Can see target.
+	 * @param cha the character
+	 * @param worldPosition the world position
+	 * @return {@code true} if the character can see the target at the given world position, {@code false} otherwise
+	 */
+	public boolean canSeeTarget(Location loc, Location locTarget)
+	{
+		// If geodata is off do simple check :]
+		// Don't allow casting on players on different dungeon levels etc
+		return Math.abs(loc.getZ() - locTarget.getZ()) < 1000;
+	}
+
 	/**
 	 * Can see target.
 	 * @param cha the character
@@ -191,7 +204,22 @@ public class GeoData
 	{
 		return (short)((z << 1) | 15);
 	}
-	
+
+	public Location moveCheck(Location loc, int x, int y, int z, int instanceId)
+	{
+		return moveCheck(loc.getX(), loc.getY(), loc.getZ(), x, y, z, instanceId);
+	}
+
+	public Location moveCheck(int x, int y, int z, Location locTarget, int instanceId)
+	{
+		return moveCheck(x, y, z, locTarget.getX(), locTarget.getY(), locTarget.getZ(), instanceId);
+	}
+
+	public Location moveCheck(Location loc, Location locTarget, int instanceId)
+	{
+		return moveCheck(loc.getX(), loc.getY(), loc.getZ(), locTarget.getX(), locTarget.getY(), locTarget.getZ(), instanceId);
+	}
+
 	/**
 	 * Move check.
 	 * @param x the x coordinate

@@ -325,7 +325,7 @@
 		<set name="target" val="TARGET_SELF"/>
 		<set name="hitTime" val="5000"/>
 		<set name="staticHitTime" val="true"/>
-		<set name="skillType" val="COREDONE"/>
+		<set name="skillType" val="PET_SUMMON" />
 		<set name="isMagic" val="true"/>
 		<set name="operateType" val="OP_ACTIVE"/>
 	</skill>

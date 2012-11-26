@@ -106,14 +106,12 @@ public final class ObjectPosition
 	public synchronized void setXYZInvisible(int x, int y, int z)
 	{
 		setWorldPosition(x, y, z);
-		
 		clearWorldRegion();
 	}
 	
 	public synchronized void setXYZ(int x, int y, int z)
 	{
 		setWorldPosition(x, y, z);
-		
 		updateWorldRegion();
 	}
 	
