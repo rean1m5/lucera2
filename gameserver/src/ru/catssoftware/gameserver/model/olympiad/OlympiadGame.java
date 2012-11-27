@@ -345,8 +345,16 @@ public class OlympiadGame
 				_playerOne.getParty().removePartyMember(_playerOne);
 			if(_playerTwo.getParty()!=null)
 				_playerTwo.getParty().removePartyMember(_playerTwo);
+
 			_playerOne.stopAllEffects();
 			_playerTwo.stopAllEffects();
+
+			if(Config.ALT_OLY_RESET_SKILL_TIME)
+			{
+				_playerOne.resetSkillTime(true);
+				_playerTwo.resetSkillTime(true);
+			}
+
 			_gamestarted = true;
 			_playerOne.teleToLocation(_stadiumPort[0] + 800, _stadiumPort[1], _stadiumPort[2], false);
 			_playerTwo.teleToLocation(_stadiumPort[0] - 800, _stadiumPort[1], _stadiumPort[2], false);
