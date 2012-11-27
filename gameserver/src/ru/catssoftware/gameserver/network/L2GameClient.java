@@ -35,8 +35,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
@@ -68,8 +66,6 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	private long 						_protocolVer;
 	public  IExReader					_reader;
 	private StatsSet					_accountData 			   = new StatsSet();
-
-	private List<Integer> acceptAction = new ArrayList<Integer>();
 	
 	private static final String	LOAD_ACC_DATA			        = "SELECT valueName,valueData from account_data where account_name=?";
 	private static final String	STORE_ACC_DATA				    = "REPLACE account_data (account_name, valueName,valueData) VALUES(?,?,?)";
@@ -744,26 +740,22 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 	public boolean checkKeyProtection(boolean send)
 	{
-		if (!KeyProtection.isActive())
+		if (!KeyProtection.isActive() && !_activeChar.isActivateChar())
+		{
+			_activeChar.setActivateChar(true);
 			return true;
+		}
 
-		if (!acceptAction.contains(_activeChar.getObjectId()))
+		if (!_activeChar.isActivateChar())
 		{
 			if (!send)
 				return false;
-			else if (!KeyProtection.getInstance().access(_activeChar, ""))
+
+			if (!KeyProtection.getInstance().access(_activeChar, ""))
 				return false;
 		}
 
 		return true;
-	}
-
-	public void setKeyProtection(boolean active)
-	{
-		if (active)
-			acceptAction.add(_activeChar.getObjectId());
-		else
-			acceptAction.remove((Integer)_activeChar.getObjectId());
 	}
 
 	protected static final Logger _packetLog = Logger.getLogger("PacketLogger");

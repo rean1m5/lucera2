@@ -79,6 +79,8 @@ public class EnterWorld extends L2GameClientPacket
 
 		FloodProtector.registerNewPlayer(activeChar);
 
+		activeChar.setActivateChar(false);
+
 		if (gmController.getInstance().checkPrivs(activeChar))
 		{
 
@@ -381,8 +383,6 @@ public class EnterWorld extends L2GameClientPacket
 			if(msg!=null)
 				activeChar.addMessage(msg.replace("%name%", activeChar.getName()));
 		}
-
-		getClient().checkKeyProtection();
 
 		// Clan privilegies fix
 		if (activeChar.getClan() != null)

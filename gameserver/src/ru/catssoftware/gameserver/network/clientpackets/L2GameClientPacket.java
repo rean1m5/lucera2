@@ -67,7 +67,8 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			IOFloodManager.getInstance().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
 		}
 		catch(NullPointerException npe) {
-			
+			_log.error("Receive "+getClass().getSimpleName()+" to "+getClient()+" failed");
+			npe.printStackTrace();
 		}
 		catch (Exception e)
 		{

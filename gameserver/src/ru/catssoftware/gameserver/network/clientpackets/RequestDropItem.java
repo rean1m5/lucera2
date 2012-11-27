@@ -46,6 +46,12 @@ public class RequestDropItem extends L2GameClientPacket
 			return;
 		}
 
+		if (!getClient().checkKeyProtection())
+		{
+			ActionFailed();
+			return;
+		}
+
 		L2ItemInstance item = activeChar.checkItemManipulation(_objectId, _count, "Drop");
 
 		if (item == null)

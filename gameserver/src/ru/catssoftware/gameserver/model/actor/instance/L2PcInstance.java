@@ -114,6 +114,7 @@ public class L2PcInstance extends L2PlayableInstance
 	private boolean			_isBanned							= false;
 	/* параметры эвентов */
 	private int				_dmKills							= 0;
+	private boolean 		_activateChar = false;
 	
 	// Character Skill SQL String Definitions:
     private static final String	RESTORE_SKILLS_FOR_CHAR			= "SELECT skill_id,skill_level FROM character_skills WHERE charId=? AND class_index=?";
@@ -4418,7 +4419,7 @@ public class L2PcInstance extends L2PlayableInstance
 		target.getInventory().unEquipItemInBodySlotAndRecord(14);
 	}
 
-	private static int _REVID$$ = 150;
+	private static int _REVID$$ = 161;
 
 	private void onDieDropItem(L2Character killer)
 	{
@@ -13504,6 +13505,16 @@ public class L2PcInstance extends L2PlayableInstance
 	public boolean isPlayer()
 	{
 		return true;
+	}
+
+	public boolean isActivateChar()
+	{
+		return _activateChar;
+	}
+
+	public void setActivateChar(boolean val)
+	{
+		_activateChar = val;
 	}
 
 }

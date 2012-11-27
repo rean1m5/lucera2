@@ -31,7 +31,7 @@
 <!--
   The document for. A item can contain "add,mull,sub and div" element
 -->
-<!ELEMENT for (effect|add|sub|div|mul|cond|using|enchant1for|enchant2for|enchant3for|enchant4for|enchant5for|set|player)*>
+<!ELEMENT for (effect|add|sub|div|mul|cond|using|enchant1for|enchant2for|enchant3for|enchant4for|enchant5for|set|player|basemul)*>
 <!ELEMENT enchant1for (effect|add|sub|div|mul|cond|using|set|player)*>
 <!ELEMENT enchant2for (effect|add|sub|div|mul|cond|using|set|player)*>
 <!ELEMENT enchant3for (effect|add|sub|div|mul|cond|using|set|player)*>
@@ -46,7 +46,7 @@
 <!ELEMENT sub (using|and)*>
 <!ELEMENT mul (using|and|player)*>
 <!ELEMENT set (using)*>
-<!ELEMENT cond (using|player|game|target|not)*>
+<!ELEMENT cond (using|player|game|target|not|and)*>
 
 <!ELEMENT and (using|not|player)*>
 <!ELEMENT not (using|player|target)*>
@@ -65,7 +65,7 @@
 <!ELEMENT using EMPTY>
 <!ELEMENT enchant1 EMPTY>
 <!ELEMENT enchant2 EMPTY>
-<!ELEMENT basemul (and)*>
+<!ELEMENT basemul (and|player)*>
 
 <!--
  id and name are mandatory for an item
@@ -102,7 +102,7 @@ effectRange|effectId|effectNpcId|effectPoint|flyCourse|killByDOT|expNeeded|giveC
 maxCharges|staticReuse|staticHitTime|bestowTriggered|triggeredLevel|activationChance|
 chanceType|bestowed|abnormalLvl|maxNegated|activationtime|activationchance|soulMaxConsumeCount|
 needCharges|consumeCharges|negatePower|pvpMulti|targetConsumeId|targetConsumeCount|triggerAnotherSkill|
-feed|continueAfterMax|referenceId|LethalType|elementPower|directHp|cubicSkillsLevel|isCancelable
+feed|continueAfterMax|referenceId|LethalType|elementPower|directHp|cubicSkillsLevel|isCancelable|neutral|attribute|isDebuf
 )
  #IMPLIED>
 <!ATTLIST set val CDATA #REQUIRED>
@@ -154,11 +154,9 @@ stunVuln|rootVuln|PhysicalMpConsumeRate|poisonVuln|MpConsume|poleWpnVuln|
 pAtk-magicCreatures|pDef-animals|pDef-dragons|pDef-insects|pDef-monsters|
 pDef-plants|pAtk-magic|bowReuse|sleepProf|poisonProf|paralyzeProf|stunProf|
 dualFistWpnVuln|bleedProf|rootProf|derangementProf|swordWpnVuln|dualWpnVuln|
-bigSwordWpnVuln
+bigSwordWpnVuln|rapierWpnVuln|darkPower
 )
  #IMPLIED>
-
-<!ATTLIST cond (msg|msgId)* #IMPLIED>
 
 <!--
  the use of an item could be specified for a kind of item or a dependency with another item
@@ -174,11 +172,14 @@ bigSwordWpnVuln
 <!ATTLIST target class_id_restriction CDATA #IMPLIED>
 <!ATTLIST target race_id CDATA #IMPLIED>
 <!ATTLIST target mindistance CDATA #IMPLIED>
+<!ATTLIST target npcId CDATA #IMPLIED>
 
 <!--
  msg gives the error message if condition (using) is not valid
 -->
 <!ATTLIST cond msgId CDATA #IMPLIED>
+<!ATTLIST cond msg CDATA #IMPLIED>
+<!ATTLIST cond addName CDATA #IMPLIED>
 
 <!ATTLIST enchant1 name CDATA #REQUIRED>
 <!ATTLIST enchant1 val CDATA #REQUIRED>
@@ -205,3 +206,10 @@ bigSwordWpnVuln
 <!ATTLIST player behind CDATA #IMPLIED>
 <!ATTLIST player spell_force CDATA #IMPLIED>
 <!ATTLIST player olympiad CDATA #IMPLIED>
+<!ATTLIST player SiegeZone CDATA #IMPLIED>
+<!ATTLIST player invSize CDATA #IMPLIED>
+<!ATTLIST player weight CDATA #IMPLIED>
+<!ATTLIST player clanHall CDATA #IMPLIED>
+<!ATTLIST player castle CDATA #IMPLIED>
+<!ATTLIST player minLevel CDATA #IMPLIED>
+<!ATTLIST player maxLevel CDATA #IMPLIED>

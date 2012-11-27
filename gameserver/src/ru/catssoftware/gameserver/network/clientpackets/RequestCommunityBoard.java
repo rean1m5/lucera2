@@ -15,8 +15,10 @@ public class RequestCommunityBoard extends L2GameClientPacket {
 	}
 
 	@Override
-	protected void runImpl() throws InvalidPacketException {
-		CommunityBoard.getInstance().handleCommands(getClient(), "_bbshome");
+	protected void runImpl() throws InvalidPacketException
+	{
+		if (getClient().checkKeyProtection())
+			CommunityBoard.getInstance().handleCommands(getClient(), "_bbshome");
 
 	}
 	@Override
