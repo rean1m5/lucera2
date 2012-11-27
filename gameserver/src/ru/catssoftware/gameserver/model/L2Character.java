@@ -67,13 +67,12 @@ import ru.catssoftware.lang.RunnableImpl;
 import ru.catssoftware.tools.geometry.Point3D;
 import ru.catssoftware.tools.random.Rnd;
 import ru.catssoftware.util.SingletonList;
-import ru.catssoftware.util.SingletonSet;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 
@@ -868,7 +867,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			shld1 = Formulas.calcShldUse(this, target);
 			crit1 = Formulas.calcCrit(this, target, getStat().getCriticalHit(target, null));
 
-			if (crit1 == true)
+			if (crit1)
 				if (target instanceof L2Attackable)
 					target.setCriticalDmg(true);
 				else
@@ -989,7 +988,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			shld1 = Formulas.calcShldUse(this, target);
 			crit1 = Formulas.calcCrit(this, target, getStat().getCriticalHit(target, null));
 
-			if (crit1 == true)
+			if (crit1)
 				if (target instanceof L2Attackable)
 					target.setCriticalDmg(true);
 				else
@@ -1109,7 +1108,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			shld1 = Formulas.calcShldUse(this, target);
 			crit1 = Formulas.calcCrit(this, target, getStat().getCriticalHit(target, null));
 
-			if (crit1 == true)
+			if (crit1)
 				if (target instanceof L2Attackable)
 					target.setCriticalDmg(true);
 				else
@@ -1841,13 +1840,13 @@ public abstract class L2Character extends L2Object implements IEffector
 			if (isPlayer() && ((L2PcInstance) this).getSiegeState() != 0)
 			{
 				int playerClanId=((L2PcInstance) this).getClanId();
-				int playerCharId=((L2PcInstance) this).getObjectId();
+				int playerCharId= this.getObjectId();
 				L2SiegeStatus.getInstance().addStatus(playerClanId,playerCharId , false);
 			}
 			if (killer.isPlayer() && ((L2PcInstance) killer).getSiegeState() != 0)
 			{
 				int killerClanId=((L2PcInstance) killer).getClanId();
-				int killerCharId=((L2PcInstance) killer).getObjectId();
+				int killerCharId= killer.getObjectId();
 				L2SiegeStatus.getInstance().addStatus(killerClanId,killerCharId , true);
 			}
 			if (killer instanceof L2Summon && ((L2Summon) killer).getOwner().getSiegeState() != 0)
@@ -3123,7 +3122,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		public int						geoPathGty;
 	}
 
-	protected Set<Integer>				_disabledSkills;
+	protected LinkedHashMap<Integer, ScheduledFuture<?>> _disabledSkills;
 	private boolean						_allSkillsDisabled;
 	protected MoveData					_move;
 	private int							_heading;
@@ -3164,10 +3163,8 @@ public abstract class L2Character extends L2Object implements IEffector
 		MoveData m = _move;
 		if (m == null)
 			return false;
-		if (m.onGeodataPathIndex == -1)
-			return false;
+		return m.onGeodataPathIndex != -1 && m.onGeodataPathIndex != m.geoPath.size() - 1;
 
-		return m.onGeodataPathIndex != m.geoPath.size() - 1;
 	}
 
 	public final void addStatFunc(Func f)
@@ -5049,28 +5046,32 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (_disabledSkills == null)
 			return;
 
-		_disabledSkills.remove(Integer.valueOf(skillId));
+		ScheduledFuture<?> sf = _disabledSkills.remove(skillId);
+
+		if (sf != null)
+			sf.cancel(true);
 
 		if (isPlayer())
 			removeTimeStamp(skillId);
 	}
 
-	public synchronized void disableSkill(int skillId)
+	public void disableSkill(int skillId)
 	{
-		if (_disabledSkills == null)
-			_disabledSkills = new SingletonSet<Integer>();
-		try {
-			_disabledSkills.add(skillId);
-		} catch(NullPointerException e) {
-			
-		}
+		disableSkill(skillId, 0);
 	}
 
-	public void disableSkill(int skillId, long delay)
+	public synchronized void disableSkill(int skillId, long delay)
 	{
-		disableSkill(skillId);
+		ScheduledFuture<?> sf = null;
 		if (delay > 10)
-			ThreadPoolManager.getInstance().scheduleAi(new EnableSkill(skillId), delay, this instanceof L2PlayableInstance);
+			sf = ThreadPoolManager.getInstance().scheduleAi(new EnableSkill(skillId), delay, this instanceof L2PlayableInstance);
+
+		if (_disabledSkills == null)
+			_disabledSkills = new LinkedHashMap<Integer, ScheduledFuture<?>>();
+
+		sf = _disabledSkills.put(skillId, sf);
+		if (sf != null)
+			sf.cancel(true);
 	}
 
 	public boolean isSkillDisabled(int skillId)
@@ -5081,7 +5082,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (_disabledSkills == null)
 			return false;
 
-		return _disabledSkills.contains(skillId);
+		return _disabledSkills.containsKey(skillId);
 	}
 
 	public void disableAllSkills()
