@@ -54,6 +54,7 @@ import ru.catssoftware.gameserver.network.serverpackets.EffectInfoPacket.EffectI
 import ru.catssoftware.gameserver.skills.Env;
 import ru.catssoftware.gameserver.skills.Formulas;
 import ru.catssoftware.gameserver.skills.Stats;
+import ru.catssoftware.gameserver.skills.TimeStamp;
 import ru.catssoftware.gameserver.skills.conditions.ConditionGameTime;
 import ru.catssoftware.gameserver.skills.conditions.ConditionPlayerHp;
 import ru.catssoftware.gameserver.skills.effects.EffectFusion;
@@ -65,11 +66,8 @@ import ru.catssoftware.gameserver.templates.chars.L2PcTemplate;
 import ru.catssoftware.gameserver.templates.item.*;
 import ru.catssoftware.gameserver.templates.skills.L2EffectType;
 import ru.catssoftware.gameserver.templates.skills.L2SkillType;
-import ru.catssoftware.gameserver.util.Broadcast;
+import ru.catssoftware.gameserver.util.*;
 import ru.catssoftware.gameserver.util.FloodProtector.Protected;
-import ru.catssoftware.gameserver.util.PcAction;
-import ru.catssoftware.gameserver.util.Strings;
-import ru.catssoftware.gameserver.util.Util;
 import ru.catssoftware.tools.geometry.Point3D;
 import ru.catssoftware.tools.random.Rnd;
 import ru.catssoftware.util.LinkedBunch;
@@ -77,10 +75,7 @@ import ru.catssoftware.util.SingletonList;
 import ru.catssoftware.util.SingletonMap;
 import ru.catssoftware.util.StatsSet;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
@@ -124,9 +119,10 @@ public class L2PcInstance extends L2PlayableInstance
 	private static final String	DELETE_CHAR_SKILLS				= "DELETE FROM character_skills WHERE charId=? AND class_index=?";
 
 	// Character Skill Save SQL String Definitions:
-	private static final String	ADD_SKILL_SAVE					= "REPLACE INTO character_skills_save (charId,skill_id,skill_level,effect_count,effect_cur_time,reuse_delay,systime,restore_type,class_index,buff_index) VALUES (?,?,?,?,?,?,?,?,?,?)";
-	private static final String	RESTORE_SKILL_SAVE				= "SELECT skill_id,skill_level,effect_count,effect_cur_time, reuse_delay,systime FROM character_skills_save WHERE charId=? AND class_index=? AND restore_type=? ORDER BY buff_index ASC";
-	private static final String	DELETE_SKILL_SAVE				= "DELETE FROM character_skills_save WHERE charId=? AND class_index=?";
+	private static final String	DELETE_SKILL_EFFECTS				= "DELETE FROM character_effects WHERE object_id = ? AND class_index=?";
+
+	// Character Skill Save SQL String Definitions:
+	private static final String	DELETE_SKILL_SAVE				= "DELETE FROM character_skills_save WHERE object_id = ? AND class_index=?";
 
 	// Character Character SQL String Definitions:
 	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,char_name=?,death_penalty_level=?, pccaffe_points=?,  isBanned=?, hwid=? WHERE charId=?";
@@ -6207,6 +6203,7 @@ public class L2PcInstance extends L2PlayableInstance
 			// buff and status icons
 			if (Config.STORE_SKILL_COOLTIME)
 				player.restoreEffects();
+			player.restoreDisableSkills();
 
 			if (player.getAllEffects() != null)
 			{
@@ -6681,27 +6678,28 @@ public class L2PcInstance extends L2PlayableInstance
 			statement.close();
 	}
 
-	private void storeEffect()
+	private void storeEffects()
 	{
 		if (!Config.STORE_SKILL_COOLTIME)
 			return;
 
 		Connection con = null;
+		PreparedStatement statement = null;
 
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
 			// Delete all current stored effects for char to avoid dupe
-			PreparedStatement statement = con.prepareStatement(DELETE_SKILL_SAVE);
+			statement = con.prepareStatement(DELETE_SKILL_EFFECTS);
 			statement.setInt(1, getObjectId());
 			statement.setInt(2, getClassIndex());
 			statement.execute();
 			statement.close();
 
-			int buff_index = 0;
+			int order = 0;
 
-			statement = con.prepareStatement(ADD_SKILL_SAVE);
+			statement = con.prepareStatement("INSERT IGNORE INTO `character_effects` (`object_id`,`skill_id`,`skill_level`,`effect_count`,`effect_cur_time`,`duration`,`order`,`class_index`) VALUES (?,?,?,?,?,?,?,?)");
 
 			Set<Integer> storedSkills = new HashSet<Integer>();
 
@@ -6722,63 +6720,115 @@ public class L2PcInstance extends L2PlayableInstance
 					statement.setInt(3, effect.getSkill().getLevel());
 					statement.setInt(4, effect.getCount());
 					statement.setInt(5, effect.getTime());
-					if (_reuseTimeStamps.containsKey(skillId))
-					{
-						TimeStamp t = _reuseTimeStamps.get(skillId);
-						statement.setLong(6, t.hasNotPassed() ? t.getReuse() : 0);
-						statement.setLong(7, t.hasNotPassed() ? t.getStamp() : 0 );
-					}
-					else
-					{
-						statement.setLong(6, 0);
-						statement.setLong(7, 0);
-					}
-					statement.setInt(8, 0);
-					statement.setInt(9, getClassIndex());
-					statement.setInt(10, ++buff_index);
+					statement.setInt(6, effect.getPeriod());
+					statement.setInt(7, ++order);
+					statement.setInt(8, getClassIndex());
 					statement.execute();
 				}
 			}
-			// Store the reuse delays of remaining skills which
-			// lost effect but still under reuse delay. 'restore_type' 1.
-			for (TimeStamp t : _reuseTimeStamps.values())
-			{
-				if (t.hasNotPassed())
-				{
-					int skillId = t.getSkill();
-					if (!storedSkills.add(skillId))
-						continue;
-
-					statement.setInt(1, getObjectId());
-					statement.setInt(2, skillId);
-					statement.setInt(3, -1);
-					statement.setInt(4, -1);
-					statement.setInt(5, -1);
-					statement.setLong(6, t.getReuse());
-					statement.setLong(7, t.getStamp());
-					statement.setInt(8, 1);
-					statement.setInt(9, getClassIndex());
-					statement.setInt(10, ++buff_index);
-					statement.execute();
-				}
-			}
-			statement.close();
 		}
 		catch (Exception e)
 		{
-			_log.error("Could not store char effect data: ", e);
+			_log.error("Could not store char effect data: ");
+			e.printStackTrace();
 		}
 		finally
 		{
-			try
+			DatabaseUtils.close(con, statement);
+		}
+	}
+
+	public void storeDisableSkills()
+	{
+		Connection con = null;
+		PreparedStatement statement = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			statement = con.prepareStatement("DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=? AND `end_time` < ?");
+			statement.setInt(1, getObjectId());
+			statement.setInt(2, getActiveClass());
+			statement.setLong(3, System.currentTimeMillis());
+			statement.execute();
+			statement.close();
+			if(getDisableSkills().isEmpty())
+				return;
+			statement = con.prepareStatement("REPLACE INTO `character_skills_save` (`char_obj_id`,`skill_id`,`skill_level`,`class_index`,`end_time`,`reuse_delay_org`) VALUES (?,?,?,?,?,?)");
+			synchronized(getDisableSkills())
 			{
-				if (con != null)
-					con.close();
+				for(TimeStamp timeStamp : getDisableSkills().values())
+				{
+					if(timeStamp.hasNotPassed())
+					{
+						statement.setInt(1, getObjectId());
+						statement.setInt(2, timeStamp.getSkillId());
+						statement.setInt(3, timeStamp.getSkillLevel());
+						statement.setInt(4, getActiveClass());
+						statement.setLong(5, timeStamp.getEndTime());
+						statement.setLong(6, timeStamp.getReuse());
+						statement.execute();
+					}
+				}
 			}
-			catch (SQLException e)
+		}
+		catch(final Exception e)
+		{
+			_log.warn("Could not store disable skills data: ");
+			e.printStackTrace();
+		}
+		finally
+		{
+			DatabaseUtils.close(con, statement);
+		}
+	}
+
+	public void restoreDisableSkills()
+	{
+		_disabledSkills.clear();
+
+		Connection con = null;
+		PreparedStatement statement = null;
+		ResultSet rset = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			statement = con.prepareStatement("SELECT skill_id,skill_level,end_time,reuse_delay_org FROM character_skills_save WHERE char_obj_id=? AND class_index=?");
+			statement.setInt(1, getObjectId());
+			statement.setInt(2, getActiveClass());
+			rset = statement.executeQuery();
+
+			while(rset.next())
 			{
-				e.printStackTrace();
+				int skillId = rset.getInt("skill_id");
+				int skillLevel = rset.getInt("skill_level");
+				long endTime = rset.getLong("end_time");
+				long rDelayOrg = rset.getLong("reuse_delay_org");
+				long curTime = System.currentTimeMillis();
+
+				L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
+				if (skill != null)
+				{
+					TimeStamp ts = new TimeStamp(skillId, skillLevel, rDelayOrg, endTime);
+					if(endTime - curTime > 500)
+						getDisableSkills().put(skill.hashCode(), ts);
+				}
 			}
+
+			DatabaseUtils.close(statement);
+
+			statement = con.prepareStatement("DELETE FROM character_skills_save WHERE char_obj_id =? AND class_index=? AND `end_time`<?");
+			statement.setInt(1, getObjectId());
+			statement.setInt(2, getActiveClass());
+			statement.setLong(3, System.currentTimeMillis());
+			statement.execute();
+		}
+		catch(Exception e)
+		{
+			_log.error("Could not restore active skills data!", e);
+		}
+		finally
+		{
+			DatabaseUtils.close(con, statement, rset);
 		}
 	}
 
@@ -7220,10 +7270,9 @@ public class L2PcInstance extends L2PlayableInstance
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement;
 			ResultSet rset;
-			statement = con.prepareStatement(RESTORE_SKILL_SAVE);
+			statement = con.prepareStatement("SELECT `skill_id`,`skill_level`,`effect_count`,`effect_cur_time`,`duration` FROM `character_effects` WHERE `object_id`=? AND `class_index`=? ORDER BY `order` ASC");
 			statement.setInt(1, getObjectId());
 			statement.setInt(2, getClassIndex());
-			statement.setInt(3, 0);
 			rset = statement.executeQuery();
 
 			while (rset.next())
@@ -7232,67 +7281,29 @@ public class L2PcInstance extends L2PlayableInstance
 				int skillLvl = rset.getInt("skill_level");
 				int effectCount = rset.getInt("effect_count");
 				int effectCurTime = rset.getInt("effect_cur_time");
-
-				long reuseDelay = rset.getLong("reuse_delay");
-				long systime = rset.getLong("systime");
-
-				long remainingTime = systime - System.currentTimeMillis();
-
-				if (skillId == -1 || effectCount == -1 || effectCurTime == -1 || reuseDelay < 0)
-					continue;
+				long duration = rset.getLong("duration");
 
 				L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
 				if (skill != null)
-					skill.getEffects(this, this);
-
-				if (remainingTime > 10)
-				{
-					disableSkill(skillId, remainingTime);
-					addTimeStamp(new TimeStamp(skillId, reuseDelay, systime));
-				}
-
-				for (L2Effect effect : getAllEffects())
-				{
-					if (effect.getSkill().getId() == skillId)
-					{
-						effect.setCount(effectCount);
-						effect.setFirstTime(effectCurTime);
-					}
-					if (effect.getEffectType() == L2EffectType.CHARMOFCOURAGE)
-					{
-						setCanUseCharmOfCourageItem(false);
-						setCanUseCharmOfCourageRes(false);
-					}
-				}
+					for(L2Effect effect : skill.getEffects(this, this))
+						if (effect.getSkill().getId() == skillId)
+						{
+							effect.setCount(effectCount);
+							effect.setFirstTime(effectCurTime);
+							if (effect.getEffectType() == L2EffectType.CHARMOFCOURAGE)
+							{
+								setCanUseCharmOfCourageItem(false);
+								setCanUseCharmOfCourageRes(false);
+							}
+						}
 			}
-			rset.close();
-			statement.close();
-			statement = con.prepareStatement(RESTORE_SKILL_SAVE);
-			statement.setInt(1, getObjectId());
-			statement.setInt(2, getClassIndex());
-			statement.setInt(3, 1);
-			rset = statement.executeQuery();
 
-			while (rset.next())
-			{
-				int skillId = rset.getInt("skill_id");
-				long reuseDelay = rset.getLong("reuse_delay");
-				long systime = rset.getLong("systime");
-				
-				long remainingTime = systime - System.currentTimeMillis();
-				
-				if (remainingTime < 10)
-					continue;
-
-				disableSkill(skillId, remainingTime);
-				addTimeStamp(new TimeStamp(skillId, reuseDelay, systime));
-			}
 			rset.close();
 			statement.close();
 
-			statement = con.prepareStatement(DELETE_SKILL_SAVE);
+			statement = con.prepareStatement("DELETE FROM character_effects WHERE object_id = ? AND class_index=?");
 			statement.setInt(1, getObjectId());
-			statement.setInt(2, getClassIndex());
+			statement.setInt(2, getActiveClass());
 			statement.executeUpdate();
 			statement.close();
 		}
@@ -7890,10 +7901,10 @@ public class L2PcInstance extends L2PlayableInstance
 		}
 
 
-		if (isSkillDisabled(skill.getId()))
+		if (isSkillDisabled(skill))
 		{
 			SystemMessage sm = null;
-			TimeStamp ts = (_reuseTimeStamps == null) ? null : _reuseTimeStamps.get(skill.getId()); 
+			TimeStamp ts = getDisableSkill(skill);
 			if (ts != null)
 			{
 				int remainingTime = (int)(ts.getRemaining() / 1000);
@@ -9549,6 +9560,13 @@ public class L2PcInstance extends L2PlayableInstance
 			statement.execute();
 			statement.close();
 
+			// Remove all effects info stored for this sub-class.
+			statement = con.prepareStatement(DELETE_SKILL_EFFECTS);
+			statement.setInt(1, getObjectId());
+			statement.setInt(2, classIndex);
+			statement.execute();
+			statement.close();
+
 			// Remove all skill info stored for this sub-class.
 			statement = con.prepareStatement(DELETE_CHAR_SKILLS);
 			statement.setInt(1, getObjectId());
@@ -9791,6 +9809,7 @@ public class L2PcInstance extends L2PlayableInstance
 	    //	if (_disabledSkills != null && !_disabledSkills.isEmpty())
 	    //		_disabledSkills.clear();
 	    	restoreEffects();
+			restoreDisableSkills();
 	    	updateEffectIcons();
 
 		//if player has quest 422: Repent Your Sins, remove it
@@ -10707,7 +10726,8 @@ public class L2PcInstance extends L2PlayableInstance
 			
 		}
 
-		storeEffect();
+		storeEffects();
+		storeDisableSkills();
 		stopAllEffects();
 
 		// Remove from world regions zones
@@ -12008,103 +12028,6 @@ public class L2PcInstance extends L2PlayableInstance
 
 	private boolean						_canFeed;
 
-	private Map<Integer, TimeStamp>	_reuseTimeStamps	= new SingletonMap<Integer, TimeStamp>().setShared();
-
-	public Map<Integer, TimeStamp> getReuseTimeStamps()
-	{
-		return _reuseTimeStamps;
-	}
-
-	/**
-	 * Simple class containing all neccessary information to maintain
-	 * valid timestamps and reuse for skills upon relog. Filter this
-	 * carefully as it becomes redundant to store reuse for small delays.
-	 * @author  Yesod
-	 */
-	public static class TimeStamp
-	{
-		private int		skill;
-		private long	reuse;
-		private long	stamp;
-
-		public TimeStamp(int _skill, long _reuse)
-		{
-			skill = _skill;
-			reuse = _reuse;
-			stamp = System.currentTimeMillis() + reuse;
-		}
-		
-		public TimeStamp(int _skill, long _reuse, long _systime)
-		{
-			skill = _skill;
-			reuse = _reuse;
-			stamp = _systime;
-		}
-		
-		public long getStamp()
-		{
-			return stamp;
-		}
-		
-		public int getSkill()
-		{
-			return skill;
-		}
-
-		public long getReuse()
-		{
-			return reuse;
-		}
-
-		public long getRemaining()
-		{
-			return Math.max(stamp - System.currentTimeMillis(), 0);
-		}
-
-		/* Check if the reuse delay has passed and
-		 * if it has not then update the stored reuse time
-		 * according to what is currently remaining on
-		 * the delay. */
-		public boolean hasNotPassed()
-		{
-			return System.currentTimeMillis() < stamp;
-		}
-	}
-
-	/**
-	 * Index according to skill id the current
-	 * timestamp of use.
-	 * @param skillid
-	 * @param reuse delay
-	 */
-	@Override
-	public void addTimeStamp(int s, int r)
-	{
-		_reuseTimeStamps.put(s, new TimeStamp(s, r));
-	}
-
-	/**
-	 * Index according to skill this TimeStamp
-	 * instance for restoration purposes only.
-	 * @param TimeStamp
-	 */
-	public void addTimeStamp(TimeStamp ts)
-	{
-		_reuseTimeStamps.put(ts.getSkill(), ts);
-	}
-
-	/**
-	 * Index according to skill id the current
-	 * timestamp of use.
-	 * @param skillid
-	 */
-	@Override
-	public void removeTimeStamp(int s)
-	{
-		_reuseTimeStamps.remove(s);
-	}
-
-
 	public boolean canOpenPrivateStore()
 	{
 		return !isAlikeDead() && !isInOlympiadMode() && !isMounted();
@@ -12853,7 +12776,7 @@ public class L2PcInstance extends L2PlayableInstance
 		{
 			if (skill != null)
 				if (skill.isActive())
-					enableSkill(skill.getId());
+					enableSkill(skill);
 		}
 		if (ssl)
 			sendSkillList();

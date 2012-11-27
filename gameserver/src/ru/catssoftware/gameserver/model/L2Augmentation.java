@@ -120,13 +120,12 @@ public final class L2Augmentation
 			player.addSkill(_skill);
 			if (_skill.isActive())
 			{
-				if (!player.getReuseTimeStamps().containsKey(_skill.getId()))
+				if (!player.isSkillDisabled(_skill))
 				{
 					int equipDelay = _skill.getEquipDelay();
 					if (equipDelay > 0)
 					{
-						player.addTimeStamp(_skill.getId(), equipDelay);
-						player.disableSkill(_skill.getId(), equipDelay);
+						player.disableSkill(_skill, equipDelay);
 						updateTimeStamp = true;
 					}
 				}

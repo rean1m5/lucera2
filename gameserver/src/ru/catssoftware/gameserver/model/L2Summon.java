@@ -620,7 +620,7 @@ public abstract class L2Summon extends L2PlayableInstance
 		//************************************* Check skill availability *******************************************
 
 		// Check if this skill is enabled (e.g. reuse time)
-		if (isSkillDisabled(skill.getId()))
+		if (isSkillDisabled(skill))
 		{
 			if (getOwner() != null)
 				getOwner().sendPacket(new SystemMessage(SystemMessageId.S1).addString("Умение не может быть использовано")); 

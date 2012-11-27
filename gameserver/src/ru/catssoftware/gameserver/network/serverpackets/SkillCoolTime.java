@@ -14,10 +14,12 @@
  */
 package ru.catssoftware.gameserver.network.serverpackets;
 
-import java.util.Collection;
-
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance.TimeStamp;
+import ru.catssoftware.gameserver.skills.TimeStamp;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -26,11 +28,15 @@ import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance.TimeStamp;
  */
 public class SkillCoolTime extends L2GameServerPacket
 {
-	public Collection<TimeStamp>	_reuseTimeStamps;
+	public List<TimeStamp> _reuseTimeStamps = Collections.emptyList();
 
 	public SkillCoolTime(L2PcInstance cha)
 	{
-		_reuseTimeStamps = cha.getReuseTimeStamps().values();
+		_reuseTimeStamps = new ArrayList<TimeStamp>();
+		for(TimeStamp ts : cha.getDisableSkills().values())
+			if (ts.getReuse() >= 1000 && ts.getRemaining() >= 1000)
+				_reuseTimeStamps.add(ts);
+
 	}
 
 	/**
@@ -52,11 +58,12 @@ public class SkillCoolTime extends L2GameServerPacket
 		writeD(_reuseTimeStamps.size()); // list size
 		for (TimeStamp ts : _reuseTimeStamps)
 		{
-			writeD(ts.getSkill());
-			writeD(0x00);
+			writeD(ts.getSkillId());
+			writeD(ts.getSkillLevel());
 			writeD((int) (ts.getReuse() / 1000));
 			writeD((int) (ts.getRemaining() / 1000));
 		}
+		_reuseTimeStamps.clear();
 	}
 
 }

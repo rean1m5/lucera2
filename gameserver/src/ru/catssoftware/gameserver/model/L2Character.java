@@ -3,6 +3,8 @@ package ru.catssoftware.gameserver.model;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import org.apache.log4j.Logger;
+import org.napile.primitive.maps.IntObjectMap;
+import org.napile.primitive.maps.impl.CHashIntObjectMap;
 import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.extension.GameExtensionManager;
@@ -43,10 +45,7 @@ import ru.catssoftware.gameserver.network.Disconnection;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.network.serverpackets.FlyToLocation.FlyType;
-import ru.catssoftware.gameserver.skills.AbnormalEffect;
-import ru.catssoftware.gameserver.skills.Calculator;
-import ru.catssoftware.gameserver.skills.Formulas;
-import ru.catssoftware.gameserver.skills.Stats;
+import ru.catssoftware.gameserver.skills.*;
 import ru.catssoftware.gameserver.skills.effects.EffectTemplate;
 import ru.catssoftware.gameserver.skills.funcs.Func;
 import ru.catssoftware.gameserver.skills.funcs.FuncOwner;
@@ -70,7 +69,6 @@ import ru.catssoftware.util.SingletonList;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -1394,9 +1392,6 @@ public abstract class L2Character extends L2Object implements IEffector
 				getPlayer().sendPacket(SystemMessageId.SKILL_READY_TO_USE_AGAIN);
 		}
 
-		if (reuseDelay > 30000)
-			addTimeStamp(skill.getId(), reuseDelay);
-
 		int initmpcons = getStat().getMpInitialConsume(skill);
 		if (initmpcons > 0)
 		{
@@ -1412,8 +1407,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 
 		// Disable the skill during the re-use delay and create a task EnableSkill with Medium priority to enable it at the end of the re-use delay
-		if (reuseDelay > 10)
-			disableSkill(skill.getId(), reuseDelay);
+		disableSkill(skill, reuseDelay);
 
 		// Make sure that char is facing selected target
 		if (target != this)
@@ -1557,7 +1551,7 @@ public abstract class L2Character extends L2Object implements IEffector
 	}
 	private boolean checkDoCastConditions(L2Skill skill,L2Object target)
 	{
-		if (skill == null || isSkillDisabled(skill.getId()))
+		if (skill == null || isSkillDisabled(skill))
 		{
 			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -1720,14 +1714,6 @@ public abstract class L2Character extends L2Object implements IEffector
 			}
 		}
 		return true;
-	}
-
-	public void addTimeStamp(int skill, int reuse)
-	{
-	}
-
-	public void removeTimeStamp(int skill)
-	{
 	}
 
 	public void startFusionSkill(L2Character target, L2Skill skill)
@@ -2429,28 +2415,6 @@ public abstract class L2Character extends L2Object implements IEffector
 			setIsRunning(false);
 	}
 
-	class EnableSkill extends RunnableImpl
-	{
-		int	_skillId;
-
-		public EnableSkill(int skillId)
-		{
-			_skillId = skillId;
-		}
-
-		public void runImpl()
-		{
-			try
-			{
-				enableSkill(_skillId);
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
-
 	class HitTask extends RunnableImpl
 	{
 		L2Character	_hitTarget;
@@ -3122,7 +3086,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		public int						geoPathGty;
 	}
 
-	protected LinkedHashMap<Integer, ScheduledFuture<?>> _disabledSkills;
+	protected IntObjectMap<TimeStamp> _disabledSkills = new CHashIntObjectMap<TimeStamp>();
 	private boolean						_allSkillsDisabled;
 	protected MoveData					_move;
 	private int							_heading;
@@ -5041,53 +5005,45 @@ public abstract class L2Character extends L2Object implements IEffector
 		}
 	}
 
-	public synchronized void enableSkill(int skillId)
+	public synchronized void enableSkill(L2Skill skill)
 	{
-		if (_disabledSkills == null)
-			return;
-
-		ScheduledFuture<?> sf = _disabledSkills.remove(skillId);
-
-		if (sf != null)
-			sf.cancel(true);
-
-		if (isPlayer())
-			removeTimeStamp(skillId);
+		_disabledSkills.remove(skill.hashCode());
 	}
 
-	public void disableSkill(int skillId)
+	public synchronized void disableSkill(L2Skill skill, long delay)
 	{
-		disableSkill(skillId, 0);
+		if (delay > 0)
+			_disabledSkills.put(skill.hashCode(), new TimeStamp(skill, delay));
 	}
 
-	public synchronized void disableSkill(int skillId, long delay)
-	{
-		ScheduledFuture<?> sf = null;
-		if (delay > 10)
-			sf = ThreadPoolManager.getInstance().scheduleAi(new EnableSkill(skillId), delay, this instanceof L2PlayableInstance);
-
-		if (_disabledSkills == null)
-			_disabledSkills = new LinkedHashMap<Integer, ScheduledFuture<?>>();
-
-		sf = _disabledSkills.put(skillId, sf);
-		if (sf != null)
-			sf.cancel(true);
-	}
-
-	public boolean isSkillDisabled(int skillId)
+	public boolean isSkillDisabled(L2Skill skill)
 	{
 		if (isAllSkillsDisabled())
 			return true;
 
-		if (_disabledSkills == null)
-			return false;
+		TimeStamp ts = _disabledSkills.get(skill.hashCode());
 
-		return _disabledSkills.containsKey(skillId);
+		if (ts != null && ts.hasNotPassed())
+			return true;
+
+		_disabledSkills.remove(skill.hashCode());
+
+		return false;
+	}
+
+	public IntObjectMap<TimeStamp> getDisableSkills()
+	{
+		return _disabledSkills;
 	}
 
 	public void disableAllSkills()
 	{
 		_allSkillsDisabled = true;
+	}
+
+	public TimeStamp getDisableSkill(L2Skill skill)
+	{
+		return _disabledSkills.get(skill.hashCode());
 	}
 
 	public void enableAllSkills()

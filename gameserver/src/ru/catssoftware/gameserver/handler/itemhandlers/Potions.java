@@ -616,7 +616,8 @@ public class Potions implements IItemHandler
 	private boolean isUseable(L2PlayableInstance playable, L2ItemInstance item, int skillid)
 	{
 		L2PcInstance activeChar =  ((playable.isPlayer()) ? ((L2PcInstance) playable) : ((L2Summon) playable).getOwner());
-		if (activeChar.isSkillDisabled(skillid))
+		L2Skill skill = SkillTable.getInstance().getInfo(skillid, 1);
+		if (activeChar.isSkillDisabled(skill))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 			sm.addItemName(item);
@@ -639,7 +640,7 @@ public class Potions implements IItemHandler
 		{
 			// Return false if potion is in reuse
 			// so is not destroyed from inventory
-			if (activeChar.isSkillDisabled(skill.getId()))
+			if (activeChar.isSkillDisabled(skill))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addSkillName(skill);

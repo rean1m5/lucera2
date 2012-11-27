@@ -3183,4 +3183,10 @@ public class L2Skill implements FuncOwner
 	{
 		return _isCancelable;
 	}
+
+	@Override
+	public int hashCode()
+	{
+		return getId() * 1023 + getLevel();
+	}
 }

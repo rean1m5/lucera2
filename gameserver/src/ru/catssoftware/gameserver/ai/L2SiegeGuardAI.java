@@ -300,7 +300,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 						{
 							if (_actor.getStatus().getCurrentMp() < sk.getMpConsume())
 								continue;
-							if (_actor.isSkillDisabled(sk.getId()))
+							if (_actor.isSkillDisabled(sk))
 								continue;
 							if (!Util.checkIfInRange(sk.getCastRange(), _actor, cha, true))
 								continue;
@@ -340,7 +340,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 					{
 						if (_actor.getStatus().getCurrentMp() < sk.getMpConsume())
 							continue;
-						if (_actor.isSkillDisabled(sk.getId()))
+						if (_actor.isSkillDisabled(sk))
 							continue;
 						if (!Util.checkIfInRange(sk.getCastRange(), _actor, npc, true))
 							continue;
@@ -413,7 +413,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			{
 				int castRange = sk.getCastRange();
 
-				if ((dist_2 <= castRange * castRange) && castRange > 70 && !_actor.isSkillDisabled(sk.getId())
+				if ((dist_2 <= castRange * castRange) && castRange > 70 && !_actor.isSkillDisabled(sk)
 						&& _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !sk.isPassive())
 				{
 
@@ -538,7 +538,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 					int castRange = sk.getCastRange();
 
 					if (castRange * castRange >= dist_2 && !sk.isPassive() && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk)
-							&& !_actor.isSkillDisabled(sk.getId()))
+							&& !_actor.isSkillDisabled(sk))
 					{
 						L2Object OldTarget = _actor.getTarget();
 						if (sk.getSkillType() == L2SkillType.BUFF || sk.getSkillType() == L2SkillType.HEAL)

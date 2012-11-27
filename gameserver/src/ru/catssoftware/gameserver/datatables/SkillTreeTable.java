@@ -14,21 +14,11 @@
  */
 package ru.catssoftware.gameserver.datatables;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import org.apache.log4j.Logger;
-
-
-import ru.catssoftware.L2DatabaseFactory;
 import ru.catssoftware.Config;
+import ru.catssoftware.L2DatabaseFactory;
 import ru.catssoftware.gameserver.model.L2EnchantSkillLearn;
 import ru.catssoftware.gameserver.model.L2PledgeSkillLearn;
 import ru.catssoftware.gameserver.model.L2Skill;
@@ -38,6 +28,13 @@ import ru.catssoftware.gameserver.model.base.ClassId;
 import ru.catssoftware.gameserver.model.quest.QuestState;
 import ru.catssoftware.util.L2Collections;
 import ru.catssoftware.util.LinkedBunch;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class ...
@@ -546,7 +543,7 @@ public class SkillTreeTable
 	{
 		int skillCost = 100000000;
 		ClassId classId = player.getSkillLearningClassId();
-		int skillHashCode = SkillTable.getSkillHashCode(skill);
+		int skillHashCode = skill.hashCode();
 
 		if (getSkillTrees().get(classId).containsKey(skillHashCode))
 		{

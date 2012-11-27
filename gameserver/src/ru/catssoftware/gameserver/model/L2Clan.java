@@ -30,6 +30,7 @@ import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.itemcontainer.ClanWarehouse;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.*;
+import ru.catssoftware.gameserver.skills.TimeStamp;
 import ru.catssoftware.util.LinkedBunch;
 
 import java.sql.Connection;
@@ -435,12 +436,15 @@ public  class L2Clan
 			SiegeManager.getInstance().addSiegeSkills(newLeader);
 
 			// Transferring siege skills TimeStamps from old leader to new leader to prevent unlimited headquarters
-			if (!exLeader.getReuseTimeStamps().isEmpty())
+			if (!exLeader.getDisableSkills().isEmpty())
 			{
 				for (L2Skill sk : SkillTable.getInstance().getSiegeSkills(newLeader.isNoble()))
 				{
-					if (exLeader.getReuseTimeStamps().containsKey(sk.getId()))
-						newLeader.addTimeStamp(exLeader.getReuseTimeStamps().get(sk.getId()));
+					if (exLeader.isSkillDisabled(sk))
+					{
+						TimeStamp ts = exLeader.getDisableSkill(sk);
+						newLeader.disableSkill(sk, ts.getReuse());
+					}
 				}
 				newLeader.sendPacket(new SkillCoolTime(newLeader));
 			}

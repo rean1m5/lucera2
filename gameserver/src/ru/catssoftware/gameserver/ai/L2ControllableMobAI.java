@@ -14,27 +14,17 @@
  */
 package ru.catssoftware.gameserver.ai;
 
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
-import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
-
-import java.util.List;
-
-import ru.catssoftware.gameserver.model.L2Attackable;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.MobGroup;
-import ru.catssoftware.gameserver.model.MobGroupTable;
+import javolution.util.FastList;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.L2Character.AIAccessor;
-import ru.catssoftware.gameserver.model.actor.instance.L2ControllableMobInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2FolkInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PlayableInstance;
+import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.util.Util;
 import ru.catssoftware.tools.random.Rnd;
 
-import javolution.util.FastList;
+import java.util.List;
+
+import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
+import static ru.catssoftware.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 
 
 /**
@@ -143,7 +133,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 
 			for (L2Skill sk : skills)
 			{
-				if (Util.checkIfInRange(sk.getCastRange(), _actor, getAttackTarget(), true) && !_actor.isSkillDisabled(sk.getId())
+				if (Util.checkIfInRange(sk.getCastRange(), _actor, getAttackTarget(), true) && !_actor.isSkillDisabled(sk)
 						&& _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk))
 				{
 					_accessor.doCast(sk);
@@ -197,7 +187,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 			{
 				int castRange = sk.getCastRange();
 
-				if (castRange * castRange >= dist2 && !_actor.isSkillDisabled(sk.getId())
+				if (castRange * castRange >= dist2 && !_actor.isSkillDisabled(sk)
 						&& _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk))
 				{
 					_accessor.doCast(sk);
@@ -247,7 +237,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 			{
 				int castRange = sk.getCastRange();
 
-				if (castRange * castRange >= dist2 && !_actor.isSkillDisabled(sk.getId())
+				if (castRange * castRange >= dist2 && !_actor.isSkillDisabled(sk)
 						&& _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk))
 				{
 					_accessor.doCast(sk);
@@ -303,7 +293,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 				{
 					int castRange = sk.getCastRange();
 
-					if (castRange * castRange >= dist2 && !_actor.isSkillDisabled(sk.getId())
+					if (castRange * castRange >= dist2 && !_actor.isSkillDisabled(sk)
 							&& _actor.getStatus().getCurrentMp() > _actor.getStat().getMpConsume(sk))
 					{
 						_accessor.doCast(sk);
@@ -340,7 +330,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 				{
 					int castRange = sk.getCastRange();
 
-					if (castRange * castRange >= dist2 && !_actor.isSkillDisabled(sk.getId())
+					if (castRange * castRange >= dist2 && !_actor.isSkillDisabled(sk)
 							&& _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk))
 					{
 						_accessor.doCast(sk);

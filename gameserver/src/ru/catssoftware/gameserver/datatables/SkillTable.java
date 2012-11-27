@@ -1,13 +1,11 @@
 package ru.catssoftware.gameserver.datatables;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.gameserver.model.L2Skill;
 import ru.catssoftware.gameserver.skills.SkillsEngine;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public final class SkillTable
@@ -71,7 +69,7 @@ public final class SkillTable
 	}
 	public static int getSkillHashCode(L2Skill skill)
 	{
-		return skill == null ? 0 : getSkillHashCode(skill.getId(), skill.getLevel());
+		return skill.hashCode();
 	}
 
 	public static int getSkillHashCode(int skillId, int skillLevel)

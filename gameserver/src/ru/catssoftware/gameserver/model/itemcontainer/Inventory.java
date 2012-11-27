@@ -299,13 +299,12 @@ public abstract class Inventory extends ItemContainer
 					if (itemSkill.isActive())
 					{
 						itemSkill.markAsItemSkill();
-						if (!player.getReuseTimeStamps().containsKey(itemSkill.getId()))
+						if (!player.isSkillDisabled(itemSkill))
 						{
 							int equipDelay = itemSkill.getEquipDelay();
 							if (equipDelay > 0)
 							{
-								player.addTimeStamp(itemSkill.getId(), equipDelay);
-								player.disableSkill(itemSkill.getId(), equipDelay);
+								player.disableSkill(itemSkill, equipDelay);
 								updateTimeStamp = true;
 							}
 						}
@@ -319,13 +318,12 @@ public abstract class Inventory extends ItemContainer
 					player.addSkill(itemSkill, false);
 					if (itemSkill.isActive())
 					{
-						if (!player.getReuseTimeStamps().containsKey(itemSkill.getId()))
+						if (!player.isSkillDisabled(itemSkill))
 						{
 							int equipDelay = itemSkill.getEquipDelay();
 							if (equipDelay > 0)
 							{
-								player.addTimeStamp(itemSkill.getId(), equipDelay);
-								player.disableSkill(itemSkill.getId(), equipDelay);
+								player.disableSkill(itemSkill, equipDelay);
 								updateTimeStamp = true;
 							}
 						}

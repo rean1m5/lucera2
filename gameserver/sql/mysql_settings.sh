@@ -1,0 +1,9 @@
+GAME_USER=root
+GAME_PASS=
+GAME_DBNAME=lucera
+GAME_DBHOST=localhost
+
+LOGIN_USER=root
+LOGIN_PASS=
+LOGIN_DBNAME=lucera
+LOGIN_DBHOST=localhost

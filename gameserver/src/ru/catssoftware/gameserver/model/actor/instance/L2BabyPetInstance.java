@@ -1,7 +1,6 @@
 package ru.catssoftware.gameserver.model.actor.instance;
 
-import java.util.concurrent.Future;
-
+import javolution.util.FastList;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.datatables.PetDataTable;
 import ru.catssoftware.gameserver.datatables.PetSkillsTable;
@@ -14,7 +13,8 @@ import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.tools.random.Rnd;
-import javolution.util.FastList;
+
+import java.util.concurrent.Future;
 
 
 public class L2BabyPetInstance extends L2PetInstance
@@ -168,7 +168,7 @@ public class L2BabyPetInstance extends L2PetInstance
 					skill = SkillTable.getInstance().getInfo(_strongHeal, PetSkillsTable.getInstance().getAvailableLevel(L2BabyPetInstance.this, _strongHeal));
 				if (((owner.getCurrentHp() / owner.getMaxHp() < 0.8) && Rnd.get(100) <= 25))
 					skill = SkillTable.getInstance().getInfo(_weakHeal, PetSkillsTable.getInstance().getAvailableLevel(L2BabyPetInstance.this, _weakHeal));
-				if (skill != null && _baby.getStatus().getCurrentMp() >= skill.getMpConsume() && !_baby.isSkillDisabled(skill.getId()))
+				if (skill != null && _baby.getStatus().getCurrentMp() >= skill.getMpConsume() && !_baby.isSkillDisabled(skill))
 					_baby.useMagic(skill, false, false);
 				if (previousFollowStatus != _baby.getFollowStatus())
 					setFollowStatus(previousFollowStatus);
@@ -196,7 +196,7 @@ public class L2BabyPetInstance extends L2PetInstance
 				if ((owner.getCurrentMp() / owner.getMaxMp() < 0.60))
 					skill = SkillTable.getInstance().getInfo(_recharge, PetSkillsTable.getInstance().getAvailableLevel(L2BabyPetInstance.this, _recharge));
 				
-				if (skill != null && _baby.getStatus().getCurrentMp() >= skill.getMpConsume() && !_baby.isSkillDisabled(skill.getId()))
+				if (skill != null && _baby.getStatus().getCurrentMp() >= skill.getMpConsume() && !_baby.isSkillDisabled(skill))
 					_baby.useMagic(skill, false, false);
 				
 				if (previousFollowStatus != _baby.getFollowStatus())
@@ -231,13 +231,9 @@ public class L2BabyPetInstance extends L2PetInstance
 					if (id == _strongHeal || id == _weakHeal)
 						continue;
 
-					//remove last used skills
-					if (_baby.isSkillDisabled(id))
-						continue;
-
 					int _lvl = PetSkillsTable.getInstance().getAvailableLevel(L2BabyPetInstance.this, id);
 					L2Skill skill = SkillTable.getInstance().getInfo(id, _lvl);
-					if (skill == null || _lvl == 0 || skill.getEffectTempate() == null)
+					if (skill == null || _lvl == 0 || skill.getEffectTempate() == null || _baby.isSkillDisabled(skill))
 						continue;
 
 					String stackType = skill.getEffectTempate()[0].stackType;
@@ -247,7 +243,7 @@ public class L2BabyPetInstance extends L2PetInstance
 					L2Effect[] effects = owner.getAllEffects();
 					for (L2Effect e : effects)
 					{
-						if (e.getStackType() == stackType && e.getStackOrder() >= stackOrder)
+						if (e.getStackType().equals(stackType) && e.getStackOrder() >= stackOrder)
 						{
 							isEffected = true;
 							break;
@@ -272,7 +268,7 @@ public class L2BabyPetInstance extends L2PetInstance
 				L2Skill skill = null;
 				skill = SkillTable.getInstance().getInfo(randomSkill, PetSkillsTable.getInstance().getAvailableLevel(L2BabyPetInstance.this, randomSkill));
 
-				if (skill != null && _baby.getStatus().getCurrentMp() >= skill.getMpConsume() && !_baby.isSkillDisabled(skill.getId()))
+				if (skill != null && _baby.getStatus().getCurrentMp() >= skill.getMpConsume() && !_baby.isSkillDisabled(skill))
 				{
 					_baby.useMagic(skill, false, false);
 					SystemMessage msg = new SystemMessage(SystemMessageId.PET_USES_S1);
