@@ -1,5 +1,20 @@
 package ru.catssoftware.gameserver;
 
+import javolution.util.FastMap;
+import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
+import ru.catssoftware.Config;
+import ru.catssoftware.gameserver.model.L2World;
+import ru.catssoftware.gameserver.network.L2GameClient;
+import ru.catssoftware.gameserver.network.L2GameClient.GameClientState;
+import ru.catssoftware.gameserver.network.gameserverpackets.*;
+import ru.catssoftware.gameserver.network.loginserverpackets.*;
+import ru.catssoftware.gameserver.network.serverpackets.CharSelectionInfo;
+import ru.catssoftware.gameserver.network.serverpackets.LoginFail;
+import ru.catssoftware.tools.random.Rnd;
+import ru.catssoftware.tools.security.BlowfishEngine;
+import ru.catssoftware.tools.security.NewCrypt;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -12,26 +27,6 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.Map;
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
-
-import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
-
-
-import ru.catssoftware.Config;
-import ru.catssoftware.gameserver.model.L2World;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.network.L2GameClient;
-import ru.catssoftware.gameserver.network.L2GameClient.GameClientState;
-import ru.catssoftware.gameserver.network.gameserverpackets.*;
-import ru.catssoftware.gameserver.network.loginserverpackets.*;
-import ru.catssoftware.gameserver.network.serverpackets.CharSelectionInfo;
-import ru.catssoftware.gameserver.network.serverpackets.LoginFail;
-import ru.catssoftware.tools.random.Rnd;
-import ru.catssoftware.tools.security.BlowfishEngine;
-import ru.catssoftware.tools.security.NewCrypt;
 
 public class LoginServerThread extends Thread
 {
@@ -227,16 +222,6 @@ public class LoginServerThread extends Thread
 							else
 								st.addAttribute(ServerStatus.SERVER_DDOS_ENABLED, ServerStatus.OFF);
 							sendPacket(st);
-							if (L2World.getInstance().getAllPlayersCount() > 0)
-							{
-								
-								FastList<String> playerList = new FastList<String>();
-								for (L2PcInstance player : L2World.getInstance().getAllPlayers()) {
-									if(!player.isOfflineTrade())
-										playerList.add(player.getAccountName());
-								}
-								sendPacket(new PlayerInGame(playerList));
-							}
 							break;
 						case 03:
 							PlayerAuthResponse par = new PlayerAuthResponse(decrypt);
@@ -247,7 +232,7 @@ public class LoginServerThread extends Thread
 								final L2GameClient client = waiting.gameClient;
 								if (par.isAuthed())
 								{
-									sendPacket(new PlayerInGame(par.getAccount()));
+									sendPacket(new PlayerInGame(par.getAccount(), (int) (L2World.getInstance().getAllPlayersCount() * Config.ONLINE_PLAYERS_MULTIPLIER)));
 									client.setState(GameClientState.AUTHED);
 									client.setSessionId(waiting.session);
 									client.setHostAddress(par.getHost());

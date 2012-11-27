@@ -18,8 +18,6 @@
  */
 package ru.catssoftware.loginserver.network.gameserverpackets;
 
-import java.util.Vector;
-
 import ru.catssoftware.loginserver.clientpackets.ClientBasePacket;
 
 
@@ -29,28 +27,29 @@ import ru.catssoftware.loginserver.clientpackets.ClientBasePacket;
  */
 public class PlayerInGame extends ClientBasePacket
 {
-	Vector<String>	_accounts;
-
+	private final String accountName;
+	private final int online;
 	/**
 	 * @param decrypt
 	 */
 	public PlayerInGame(byte[] decrypt)
 	{
 		super(decrypt);
-		_accounts = new Vector<String>();
-		int size = readH();
-		for (int i = 0; i < size; i++)
-		{
-			_accounts.add(readS());
-		}
+		online = readH();
+		accountName = readS();
 	}
 
 	/**
 	 * @return Returns the accounts.
 	 */
-	public Vector<String> getAccounts()
+	public String getAccount()
 	{
-		return _accounts;
+		return accountName;
+	}
+
+	public int getOnline()
+	{
+		return online;
 	}
 
 }

@@ -16,27 +16,17 @@ package ru.catssoftware.gameserver.network.gameserverpackets;
 
 import java.io.IOException;
 
-import javolution.util.FastList;
-
 /**
  * @author -Wooden-
  *
  */
 public class PlayerInGame extends GameServerBasePacket
 {
-	public PlayerInGame(String player)
+	public PlayerInGame(String player, int count)
 	{
 		writeC(0x02);
-		writeH(1);
+		writeH(count);
 		writeS(player);
-	}
-
-	public PlayerInGame(FastList<String> players)
-	{
-		writeC(0x02);
-		writeH(players.size());
-		for (String pc : players)
-			writeS(pc);
 	}
 
 	/* (non-Javadoc)

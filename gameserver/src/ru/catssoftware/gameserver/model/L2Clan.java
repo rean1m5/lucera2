@@ -115,7 +115,7 @@ public  class L2Clan
 	public static final int					CP_ALL						= 8388606;
 
 	// Дополнительно указываем тут ревизию.
-	public static final int					CP_CHECK					= 161;
+	public static final int					CP_CHECK					= 162;
 
 	// Sub-unit types
 	public static final int					SUBUNIT_ACADEMY				= -1;
@@ -155,6 +155,11 @@ public  class L2Clan
 		if (getNotice() == null || getNotice().equals(""))
 		//L2EMU_EDIT
 			insertNotice(); // add this line so it inserts the new clan's (blank) notice into the DB
+	}
+
+	public static int checkClass()
+	{
+		return CP_CHECK;
 	}
 
 	// at the end of the file, before the last '}' that ends the L2Clan class, add the following codes:

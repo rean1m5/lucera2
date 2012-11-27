@@ -1,12 +1,11 @@
 package ru.catssoftware;
 
+import ru.catssoftware.config.L2Properties;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
-
-import ru.catssoftware.L2Config;
-import ru.catssoftware.config.L2Properties;
 
 
 

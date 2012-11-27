@@ -1,28 +1,8 @@
 package ru.catssoftware.loginserver.thread;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.security.KeyPair;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.StringTokenizer;
-
 import javolution.util.FastList;
 import javolution.util.FastSet;
-
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
 import ru.catssoftware.loginserver.L2LoginServer;
 import ru.catssoftware.loginserver.manager.GameServerManager;
@@ -34,6 +14,18 @@ import ru.catssoftware.loginserver.network.loginserverpackets.*;
 import ru.catssoftware.loginserver.network.serverpackets.ServerBasePacket;
 import ru.catssoftware.tools.network.SubNetHost;
 import ru.catssoftware.tools.security.NewCrypt;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.security.KeyPair;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.util.*;
 
 /**
  * @author -Wooden-
@@ -59,6 +51,8 @@ public class GameServerThread extends Thread
 
 	/** Authed Clients on a GameServer*/
 	private Set<String>			_accountsOnGameServer	= new FastSet<String>();
+
+	private int _playerCount = 0;
 
 	private String				_connectionIpAddress;
 
@@ -194,11 +188,9 @@ public class GameServerThread extends Thread
 		if (isAuthed())
 		{
 			PlayerInGame pig = new PlayerInGame(data);
-			List<String> newAccounts = pig.getAccounts();
-			for (String account : newAccounts)
-			{
-				_accountsOnGameServer.add(account);
-			}
+			String account = pig.getAccount();
+			_playerCount = pig.getOnline();
+			_accountsOnGameServer.add(account);
 
 		}
 		else
@@ -459,9 +451,11 @@ public class GameServerThread extends Thread
 		sendPacket(kp);
 	}
 
-	public void removeAcc(String account) {
+	public void removeAcc(String account)
+	{
 		_accountsOnGameServer.remove(account);
 	}
+
 	public boolean hasAccountOnGameServer(String account)
 	{
 		return _accountsOnGameServer.contains(account);
@@ -469,7 +463,7 @@ public class GameServerThread extends Thread
 
 	public int getPlayerCount()
 	{
-		return _accountsOnGameServer.size();
+		return _playerCount;
 	}
 
 	public void setNetConfig(String netConfig)
