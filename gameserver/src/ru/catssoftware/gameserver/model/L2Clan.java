@@ -115,7 +115,7 @@ public  class L2Clan
 	public static final int					CP_ALL						= 8388606;
 
 	// Дополнительно указываем тут ревизию.
-	public static final int					CP_CHECK					= 162;
+	public static final int					CP_CHECK					= 165;
 
 	// Sub-unit types
 	public static final int					SUBUNIT_ACADEMY				= -1;
