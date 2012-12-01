@@ -4836,7 +4836,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				_skillCast = null;
 				setIsCastingNow(false);
 			}
-			if(targets!=null && targets.length>0)
+			if(targets!=null && targets.length>0 && targets[0] != null)
 				notifyQuestEventSkillFinished(skill, targets[0]);
 			getFusionSkill().onCastAbort();
 			return;
@@ -4856,7 +4856,7 @@ public abstract class L2Character extends L2Object implements IEffector
 				setIsCastingNow(false);
 			}
 			mog.exit();
-			if(targets!=null && targets.length>0)
+			if(targets!=null && targets.length>0 && targets[0] != null)
 				notifyQuestEventSkillFinished(skill, targets[0]);
 			return;
 		}
@@ -4942,7 +4942,8 @@ public abstract class L2Character extends L2Object implements IEffector
 		// Notify the AI of the L2Character with EVT_FINISH_CASTING
 		getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING);
 
-		notifyQuestEventSkillFinished(skill, target);
+		if (target != null)
+			notifyQuestEventSkillFinished(skill, target);
 
 		if (getAI().getIntention() != AI_INTENTION_MOVE_TO)
 		{
@@ -4987,7 +4988,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			Thread.dumpStack();
 			return;
 		}
-		if (this instanceof L2NpcInstance)
+		if (isNpc())
 		{
 			try
 			{

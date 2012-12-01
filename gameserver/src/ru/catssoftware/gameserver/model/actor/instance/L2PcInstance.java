@@ -5520,7 +5520,7 @@ public class L2PcInstance extends L2PlayableInstance
 				e.exit();
 		}
 
-		Ride mount = new Ride(this, true, pet.getTemplate().getNpcId());
+		Ride mount = new Ride(this, true, pet);
 		setMount(pet.getNpcId(), pet.getLevel(), mount.getMountType());
 		setMountObjectID(pet.getControlItemId());
 		clearPetData();

@@ -43,19 +43,24 @@ public class PcAction
 			return;
 
 		Calendar finishtime = Calendar.getInstance();
-		finishtime.setTimeInMillis(System.currentTimeMillis());
 		finishtime.set(Calendar.SECOND, 0);
 		finishtime.add(Calendar.DAY_OF_MONTH, days);
-		if(!player.getAccountName().equalsIgnoreCase(AccName)) {
+
+		if(!player.getAccountName().equalsIgnoreCase(AccName))
+		{
 			player = null;
 			for(L2PcInstance pc : L2World.getInstance().getAllPlayers())
-				if(pc.getAccountName().equalsIgnoreCase(AccName)) {
+				if(pc.getAccountName().equalsIgnoreCase(AccName))
+				{
 					player = pc;
 					break;
 				}
-			if(player==null || player.getClient()==null) {
+
+			if(player==null || player.getClient()==null)
+			{
 				Connection con  = null;
-				try {
+				try
+				{
 					con = L2DatabaseFactory.getInstance().getConnection();
 					PreparedStatement stm = con.prepareStatement("REPLACE account_data VALUES (?,'premium',?)");
 					stm.setString(1, AccName.toLowerCase());
@@ -63,10 +68,13 @@ public class PcAction
 					stm.execute();
 					stm.close();
 					con.close();
-				} catch(SQLException e) {} 
+				}
+				catch(SQLException e)
+				{}
 				return;
 			}
 		}
+
 		player.setPremiumService(finishtime.getTimeInMillis());
 		player.sendMessage(Message.getMessage(player, Message.MessageId.MSG_PREMIUM_ON));
 		player.getClient().storeData();

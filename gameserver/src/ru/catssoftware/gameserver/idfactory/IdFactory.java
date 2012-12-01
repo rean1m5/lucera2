@@ -26,7 +26,8 @@ public abstract class IdFactory
 			"UPDATE character_shortcuts   SET shortcut_id = ? WHERE shortcut_id = ? AND type = 1",
 			"UPDATE character_macroses    SET charId = ?      WHERE charId = ?",
 			"UPDATE character_skills      SET charId = ?      WHERE charId = ?",
-			"UPDATE character_skills_save SET charId = ?      WHERE charId = ?",
+			"UPDATE character_effects SET object_id = ?      WHERE object_id = ?",
+			"UPDATE character_skills_save SET char_obj_id = ?      WHERE char_obj_id = ?",
 			"UPDATE character_subclasses  SET charId = ?      WHERE charId = ?",
 			"UPDATE characters            SET charId = ?      WHERE charId = ?",
 			"UPDATE characters            SET clanid = ?      WHERE clanid = ?",
@@ -72,7 +73,8 @@ public abstract class IdFactory
 			"SELECT charId      FROM character_shortcuts   WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_macroses    WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_skills      WHERE charId >= ?      AND charId < ?",
-			"SELECT charId      FROM character_skills_save WHERE charId >= ?      AND charId < ?",
+			"SELECT charId      FROM character_effects WHERE object_id >= ?      AND object_id < ?",
+			"SELECT charId      FROM character_skills_save WHERE char_obj_id >= ?      AND char_obj_id < ?",
 			"SELECT charId      FROM character_subclasses  WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM characters            WHERE charId >= ?      AND charId < ?",
 			"SELECT clanid      FROM characters            WHERE clanid >= ?      AND clanid < ?",
@@ -157,7 +159,8 @@ public abstract class IdFactory
 			cleanCount += stmt.executeUpdate("DELETE FROM character_recipebook WHERE character_recipebook.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_shortcuts WHERE character_shortcuts.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_skills WHERE character_skills.charId NOT IN (SELECT charId FROM characters);");
-			cleanCount += stmt.executeUpdate("DELETE FROM character_skills_save WHERE character_skills_save.charId NOT IN (SELECT charId FROM characters);");
+			cleanCount += stmt.executeUpdate("DELETE FROM character_skills_save WHERE character_skills_save.char_obj_id NOT IN (SELECT charId FROM characters);");
+			cleanCount += stmt.executeUpdate("DELETE FROM character_effects WHERE character_effects.object_id NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_subclasses WHERE character_subclasses.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_raid_points WHERE charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM clan_data WHERE clan_data.leader_id NOT IN (SELECT charId FROM characters);");

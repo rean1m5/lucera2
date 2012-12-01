@@ -17,6 +17,7 @@
 package ru.catssoftware.gameserver.network.serverpackets;
 
 import ru.catssoftware.gameserver.datatables.PetDataTable;
+import ru.catssoftware.gameserver.model.L2Summon;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 
 public class Ride extends L2GameServerPacket
@@ -52,6 +53,26 @@ public class Ride extends L2GameServerPacket
 		else
 			_rideType = 0;
 	}
+
+	public Ride(L2PcInstance cha, boolean mount, L2Summon summon)
+	{
+		_id = cha.getObjectId();
+		_bRide = mount ? 1 : 0;
+		_rideClassID = summon.getNpcId() + 1000000; // npcID
+
+		_x = summon.getX();
+		_y = summon.getY();
+		_z = summon.getZ();
+
+		// 1 for Strider ; 2 for wyvern
+		if (PetDataTable.isStrider(summon.getNpcId()))
+			_rideType = 1;
+		else if (PetDataTable.isWyvern(summon.getNpcId()))
+			_rideType = 2;
+		else
+			_rideType = 0;
+	}
+
 
 	public int getMountType()
 	{
