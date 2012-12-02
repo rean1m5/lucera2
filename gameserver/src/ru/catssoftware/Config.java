@@ -2757,7 +2757,7 @@ public class Config extends L2Config
 			ALT_OLY_CLASSED = Integer.parseInt(olympiadSettings.getProperty("AltOlyClassedParticipants", "5"));
 			ALT_OLY_NONCLASSED = Integer.parseInt(olympiadSettings.getProperty("AltOlyNonClassedParticipants", "9"));
 			ALT_OLY_MATCH_HEAL_COUNTS = Boolean.parseBoolean(olympiadSettings.getProperty("AltOlyMatchHealCounts", "false"));
-//			ALT_OLY_SUMMON_DAMAGE_COUNTS = Boolean.parseBoolean(olympiadSettings.getProperty("AltOlySummonDamageCounts", "false"));
+			ALT_OLY_INCLUDE_SUMMON_DAMAGE = Boolean.parseBoolean(olympiadSettings.getProperty("AltOlySummonDamageCounts","true"));
 			ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(olympiadSettings.getProperty("AltOlyRewardItem", "6651"));
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(olympiadSettings.getProperty("AltOlyClassedRewItemCount", "50"));
 			ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(olympiadSettings.getProperty("AltOlyNonClassedRewItemCount", "30"));
@@ -2780,7 +2780,6 @@ public class Config extends L2Config
 			ALT_OLY_DURATION_TYPES = olympiadSettings.getProperty("OlympiadDurationType","Month");
 			ALT_OLY_DURATION = Integer.parseInt(olympiadSettings.getProperty("OlympiadDuration","1"));
 			ALT_OLY_REMOVE_POINTS_ON_TIE = Boolean.parseBoolean(olympiadSettings.getProperty("OlympiadRemovePointsOnTie","true"));
-			ALT_OLY_INCLUDE_SUMMON_DAMAGE = Boolean.parseBoolean(olympiadSettings.getProperty("IncludeSummonDamage","true"));
 		}
 		catch (Exception e)
 		{
