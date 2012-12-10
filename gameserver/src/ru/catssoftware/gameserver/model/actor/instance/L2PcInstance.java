@@ -75,7 +75,10 @@ import ru.catssoftware.util.SingletonList;
 import ru.catssoftware.util.SingletonMap;
 import ru.catssoftware.util.StatsSet;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
@@ -122,7 +125,7 @@ public class L2PcInstance extends L2PlayableInstance
 	private static final String	DELETE_SKILL_EFFECTS				= "DELETE FROM character_effects WHERE object_id = ? AND class_index=?";
 
 	// Character Skill Save SQL String Definitions:
-	private static final String	DELETE_SKILL_SAVE				= "DELETE FROM character_skills_save WHERE object_id = ? AND class_index=?";
+	private static final String	DELETE_SKILL_SAVE				= "DELETE FROM character_skills_save WHERE char_obj_id = ? AND class_index=?";
 
 	// Character Character SQL String Definitions:
 	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,char_name=?,death_penalty_level=?, pccaffe_points=?,  isBanned=?, hwid=? WHERE charId=?";
@@ -5520,7 +5523,7 @@ public class L2PcInstance extends L2PlayableInstance
 				e.exit();
 		}
 
-		Ride mount = new Ride(this, true, pet);
+		Ride mount = new Ride(this, true, pet.getNpcId());
 		setMount(pet.getNpcId(), pet.getLevel(), mount.getMountType());
 		setMountObjectID(pet.getControlItemId());
 		clearPetData();
@@ -5535,7 +5538,6 @@ public class L2PcInstance extends L2PlayableInstance
 	{
 		Ride dismount = new Ride(this, false, 0);
 		Ride mount = new Ride(this, true, getMountNpcId());
-
 		player.sendPacket(dismount);
 		player.sendPacket(mount);
 		return true;
@@ -5581,6 +5583,13 @@ public class L2PcInstance extends L2PlayableInstance
 				// You cannot mount a steed while petrified.
 				return false;
 			}
+			/*else if (!GeoEngine.getInstance().cheсkRadius(getLoc(), pet.getColRadius(), getInstanceId()))
+			{
+				// no message needed
+				sendMessage(Message.getMessage(this, Message.MessageId.MSG_NOT_ALLOWED_AT_THE_MOMENT));
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
+			}*/
 			else if (isDead())
 			{
 				//A strider cannot be ridden when dead
@@ -8167,7 +8176,7 @@ public class L2PcInstance extends L2PlayableInstance
 					return false;
 				}
 			}
-			else if (!this.canSee(target))
+			else if (!canSee(target))
 			{
 				sendPacket(SystemMessageId.CANT_SEE_TARGET);
 				return false;
@@ -8208,6 +8217,9 @@ public class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean checkPvpSkill(L2Object obj, L2Skill skill, boolean srcIsSummon)
 	{
+		if (obj != null)
+			return false;
+
 		// check for PC->PC Pvp status
 		if (obj != this && // target is not self and
 				obj.isPlayer() && // target is L2PcInstance and

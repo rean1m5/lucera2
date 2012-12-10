@@ -107,15 +107,7 @@ public class PcAction
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			DatabaseUtils.close(con);
 		}
 	}
 
@@ -149,15 +141,7 @@ public class PcAction
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			DatabaseUtils.close(con);
 		}
 	}
 
@@ -184,15 +168,7 @@ public class PcAction
 		}
 		finally
 		{
-			try
-			{
-				if (con != null)
-					con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
+			DatabaseUtils.close(con);
 		}
 	}
 

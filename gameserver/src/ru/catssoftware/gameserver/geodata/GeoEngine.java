@@ -23,6 +23,7 @@ import ru.catssoftware.gameserver.model.L2World;
 import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
+import ru.catssoftware.gameserver.util.RndCoord;
 import ru.catssoftware.tools.geometry.Point3D;
 
 import java.io.*;
@@ -232,6 +233,30 @@ public class GeoEngine extends GeoData
 	{
 		return canSee(loc.getX(), loc.getY(),  loc.getZ(),  locTarget.getX(), locTarget.getY(), locTarget.getZ());
 	}
+
+	public Location findAroundPosition(Location loc, int radiusmin, int radiusmax, int geoIndex)
+	{
+		return findAroundPosition(loc.getX(), loc.getY(), loc.getZ(), radiusmin, radiusmax, geoIndex);
+	}
+
+	public Location findAroundPosition(int x, int y, int z, int radiusmin, int radiusmax, int geoIndex)
+	{
+		Location pos;
+		int tempz;
+		for(int i = 0; i < 100; i++)
+		{
+			pos = RndCoord.coordsRandomize(x, y, z, 0, radiusmin, radiusmax);
+			tempz = getHeight(pos.getX(), pos.getY(), pos.getZ());
+			pos.setZ(tempz);
+			if(canMoveFromToTarget(x, y, z, pos.getX(), pos.getY(), pos.getZ(), geoIndex))
+			{
+				pos.setZ(tempz);
+				return pos;
+			}
+		}
+		return new Location(x, y, z);
+	}
+
 	/**
 	 * Can see.
 	 * @param x the x coordinate
@@ -475,6 +500,54 @@ public class GeoEngine extends GeoData
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Провреяем, есть ли в радиусе от точки недоступные позиции.
+	 * @param loc
+	 * @param radius
+	 * @param geoIndex
+	 * @return
+	 */
+	public boolean cheсkRadius(Location loc, int radius, int geoIndex)
+	{
+		int dx, dy, dz;
+		for (int i = 0; i < 360; i+=30)
+		{
+			dx = loc.getX() + (int) (radius * Math.cos(Math.toRadians(i)));
+			dy = loc.getY() + (int) (radius * Math.sin(Math.toRadians(i)));
+			dz = getHeight(dx, dy,loc.getZ());
+			boolean canMove = canMoveFromToTarget(loc.getX(), loc.getY(), loc.getZ(), dx, dy, dz, geoIndex);
+			if (!canMove)
+				return false;
+		}
+		return true;
+	}
+
+
+	/**
+	 * Получение точки, в радиусе которой нет стен.
+	 * @param loc
+	 * @param radius
+	 * @param geoIndex
+	 * @return
+	 */
+	public Location getPointInAvaliableRadius(Location loc, int radius, int geoIndex)
+	{
+		Location pos;
+		int dx, dy, dz;
+		for (int i = 360; i >= 0; i--)
+		{
+			dx = loc.getX() + (int) (radius * Math.cos(Math.toRadians(i)));
+			dy = loc.getY() + (int) (radius * Math.sin(Math.toRadians(i)));
+			dz = getHeight(dx, dy,loc.getZ());
+			pos = new Location(dx, dy, dz);
+			if (canMoveFromToTarget(loc.getX(), loc.getY(), loc.getZ(), pos.getX(), pos.getY(), pos.getZ(), geoIndex))
+				if (cheсkRadius(pos, radius, geoIndex))
+					return pos;
+		}
+
+		return loc;
 	}
 	
 	/**

@@ -210,11 +210,11 @@ public class L2PetInstance extends L2Summon
 			return null; // Owner has a pet listed in world
 
 
-		Location loc = GeoEngine.getInstance().moveCheck(owner.getLoc(), owner.getX() + 50, owner.getY() + 100, owner.getZ(), owner.getInstanceId());
+		Location loc = GeoEngine.getInstance().findAroundPosition(owner.getLoc(), 50, 100, owner.getInstanceId());
 
-		if (!GeoEngine.canSee(owner.getLoc(), loc))
+		if (loc == null || !GeoEngine.canSee(owner.getLoc(), loc))
 		{
-			_log.info("Can't spawn SUMMON, coords: " + loc.toString());
+			_log.info("Can't spawn SUMMON, coords: " + (loc != null ? loc.toString() : loc));
 			owner.sendMessage("Неподходящие место для использования скила вызова.");
 			return null;
 		}
