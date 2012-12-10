@@ -1,20 +1,15 @@
 package ru.catssoftware.loginserver;
 
-import java.nio.ByteBuffer;
-import java.util.Map;
-
 import javolution.util.FastMap;
-
 import ru.catssoftware.Config;
 import ru.catssoftware.loginserver.L2LoginClient.LoginClientState;
-import ru.catssoftware.loginserver.clientpackets.AuthGameGuard;
-import ru.catssoftware.loginserver.clientpackets.RequestAuthLogin;
-import ru.catssoftware.loginserver.clientpackets.RequestServerList;
-import ru.catssoftware.loginserver.clientpackets.RequestServerLogin;
-import ru.catssoftware.loginserver.clientpackets.SendCardCode;
+import ru.catssoftware.loginserver.clientpackets.*;
 import ru.catssoftware.loginserver.mmocore.IPacketHandler;
 import ru.catssoftware.loginserver.mmocore.ReceivablePacket;
 import ru.catssoftware.loginserver.network.serverpackets.LoginFailReason;
+
+import java.nio.ByteBuffer;
+import java.util.Map;
 
 
 
@@ -61,6 +56,7 @@ public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>
 			_connections.put(cl, System.currentTimeMillis());
 		}
 	}
+
 	public ReceivablePacket<L2LoginClient> handlePacket(ByteBuffer buf, L2LoginClient client)
 	{
 		int opcode = buf.get() & 0xFF;

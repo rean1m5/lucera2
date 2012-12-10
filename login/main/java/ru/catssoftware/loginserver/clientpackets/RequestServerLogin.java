@@ -18,12 +18,17 @@
  */
 package ru.catssoftware.loginserver.clientpackets;
 
+import org.apache.log4j.Logger;
 import ru.catssoftware.Config;
+import ru.catssoftware.loginserver.manager.GameServerManager;
 import ru.catssoftware.loginserver.manager.LoginManager;
+import ru.catssoftware.loginserver.model.GameServerInfo;
 import ru.catssoftware.loginserver.model.SessionKey;
+import ru.catssoftware.loginserver.network.loginserverpackets.pw.AcceptPlayerPW;
 import ru.catssoftware.loginserver.network.serverpackets.LoginFailReason;
 import ru.catssoftware.loginserver.network.serverpackets.PlayFailReason;
 import ru.catssoftware.loginserver.network.serverpackets.PlayOk;
+import ru.catssoftware.loginserver.thread.GameServerThread;
 
 /**
  * Fromat is ddc
@@ -37,6 +42,7 @@ public class RequestServerLogin extends L2LoginClientPacket
 	private int	_skey2;
 	private int	_serverId;
 
+	private static Logger _log = Logger.getLogger(L2LoginClientPacket.class);
 	/**
 	 * @return
 	 */
@@ -102,6 +108,22 @@ public class RequestServerLogin extends L2LoginClientPacket
 				LoginManager.getInstance().addOrUpdateAccount(getClient()._accInfo);
 				
 				LoginManager.getInstance().setAccountLastServerId(this.getClient().getAccount(), _serverId);
+
+				GameServerInfo gsi = GameServerManager.getInstance().getRegisteredGameServerById(_serverId);
+
+				GameServerThread gst = null;
+				if (gsi == null)
+					_log.error("GSI with id " + _serverId + " is null! Error!");
+				else
+				{
+					gst = gsi.getGameServerThread();
+					if (gst == null)
+						_log.error("GameServerThread with id " + _serverId + " is null! Error!");
+				}
+
+				if (gst != null)
+					gst.sendPacket(new AcceptPlayerPW(getClient().getIp()));
+
 				this.getClient().sendPacket(new PlayOk(sk));
 			}
 			else

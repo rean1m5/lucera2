@@ -75,11 +75,11 @@ public class ServerStatus extends ClientBasePacket
 					case SERVER_LIST_SQUARE_BRACKET:
 						gsi.setShowingBrackets(value == ON);
 						break;
-					case TEST_SERVER:
-						gsi.setTestServer(value == ON);
-						break;
 					case MAX_PLAYERS:
 						gsi.setMaxPlayers(value);
+						break;
+					case TEST_SERVER:
+						gsi.setTestServer(value == ON);
 						break;
 					case DDOS_PROOF:
 						if(value==ON)

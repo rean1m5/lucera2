@@ -18,20 +18,19 @@
  */
 package ru.catssoftware.loginserver.network.serverpackets;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
+import javolution.util.FastMap;
 import ru.catssoftware.Config;
 import ru.catssoftware.loginserver.L2LoginClient;
 import ru.catssoftware.loginserver.manager.GameServerManager;
 import ru.catssoftware.loginserver.model.GameServerInfo;
 import ru.catssoftware.loginserver.network.gameserverpackets.ServerStatus;
 
-import javolution.util.FastMap;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 
 /**

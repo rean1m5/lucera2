@@ -18,11 +18,6 @@
  */
 package ru.catssoftware.loginserver.network.gameserverpackets;
 
-import java.util.logging.Logger;
-
-import ru.catssoftware.loginserver.clientpackets.ClientBasePacket;
-
-
 /**
  * Format: cccddb
  * c desired ID
@@ -36,99 +31,19 @@ import ru.catssoftware.loginserver.clientpackets.ClientBasePacket;
  * @author -Wooden-
  *
  */
-public class GameServerAuth extends ClientBasePacket
+public class GameServerAuth extends GameServerAuthAbstract
 {
-	protected static Logger	_log	= Logger.getLogger(GameServerAuth.class.getName());
-	private byte[]			_hexId;
-	private int				_desiredId;
-	private boolean			_hostReserved;
-	private boolean			_acceptAlternativeId;
-	private int				_maxPlayers;
-	private int				_port;
-	private String			_gsNetConfig1;
-	private String			_gsNetConfig2;
-
-	/**
-	 * @param decrypt
-	 */
 	public GameServerAuth(byte[] decrypt)
 	{
 		super(decrypt);
 		_desiredId = readC();
-		_acceptAlternativeId = (readC() == 0 ? false : true);
-		_hostReserved = (readC() == 0 ? false : true);
+		_acceptAlternativeId = (readC() != 0);
+		_hostReserved = (readC() != 0);
 		_gsNetConfig1 = readS();
 		_gsNetConfig2 = readS();
 		_port = readH();
 		_maxPlayers = readD();
 		int size = readD();
 		_hexId = readB(size);
-	}
-
-	/**
-	 * @return
-	 */
-	public byte[] getHexID()
-	{
-		return _hexId;
-	}
-
-	public boolean getHostReserved()
-	{
-		return _hostReserved;
-	}
-
-	public int getDesiredID()
-	{
-		return _desiredId;
-	}
-
-	public boolean acceptAlternateID()
-	{
-		return _acceptAlternativeId;
-	}
-
-	/**
-	 * @return Returns the max players.
-	 */
-	public int getMaxPlayers()
-	{
-		return _maxPlayers;
-	}
-
-	/**
-	 * @return Returns the gameserver netconfig string.
-	 */
-	public String getNetConfig()
-	{
-		String _netConfig = "";
-
-		//	network configuration string formed on server
-		if (_gsNetConfig1.contains(";") || _gsNetConfig1.contains(","))
-		{
-			_netConfig = _gsNetConfig1;
-		}
-		else
-		// make network config string
-		{
-			if (_gsNetConfig2.length() > 0) // internal hostname and default internal networks
-			{
-				_netConfig = _gsNetConfig2 + "," + "10.0.0.0/8,192.168.0.0/16" + ";";
-			}
-			if (_gsNetConfig1.length() > 0) // external hostname and all avaible addresses by default
-			{
-				_netConfig += _gsNetConfig1 + "," + "0.0.0.0/0" + ";";
-			}
-		}
-
-		return _netConfig;
-	}
-
-	/**
-	 * @return Returns the port.
-	 */
-	public int getPort()
-	{
-		return _port;
 	}
 }

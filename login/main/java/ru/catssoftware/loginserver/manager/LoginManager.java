@@ -1,5 +1,25 @@
 package ru.catssoftware.loginserver.manager;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+import javolution.util.FastSet;
+import org.apache.log4j.Logger;
+import ru.catssoftware.Config;
+import ru.catssoftware.L2DatabaseFactory;
+import ru.catssoftware.loginserver.L2LoginClient;
+import ru.catssoftware.loginserver.model.Account;
+import ru.catssoftware.loginserver.model.GameServerInfo;
+import ru.catssoftware.loginserver.model.SessionKey;
+import ru.catssoftware.loginserver.network.gameserverpackets.ServerStatus;
+import ru.catssoftware.loginserver.services.exception.AccountBannedException;
+import ru.catssoftware.loginserver.services.exception.AccountModificationException;
+import ru.catssoftware.loginserver.services.exception.AccountWrongPasswordException;
+import ru.catssoftware.loginserver.thread.GameServerThread;
+import ru.catssoftware.tools.codec.Base64;
+import ru.catssoftware.tools.math.ScrambledKeyPair;
+import ru.catssoftware.tools.random.Rnd;
+
+import javax.crypto.Cipher;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.security.GeneralSecurityException;
@@ -16,31 +36,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.crypto.Cipher;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
-
-
-import org.apache.log4j.Logger;
-
-
-import ru.catssoftware.Config;
-import ru.catssoftware.L2DatabaseFactory;
-import ru.catssoftware.loginserver.L2LoginClient;
-import ru.catssoftware.loginserver.model.Account;
-import ru.catssoftware.loginserver.model.GameServerInfo;
-import ru.catssoftware.loginserver.model.SessionKey;
-import ru.catssoftware.loginserver.network.gameserverpackets.ServerStatus;
-import ru.catssoftware.loginserver.services.exception.AccountBannedException;
-import ru.catssoftware.loginserver.services.exception.AccountModificationException;
-import ru.catssoftware.loginserver.services.exception.AccountWrongPasswordException;
-import ru.catssoftware.loginserver.thread.GameServerThread;
-import ru.catssoftware.tools.codec.Base64;
-import ru.catssoftware.tools.math.ScrambledKeyPair;
-import ru.catssoftware.tools.random.Rnd;
 
 public class LoginManager
 {

@@ -429,8 +429,8 @@ public class Buffer extends Quest
 		{
 			
 			if( buffer!=null && Config.BUFFER_ANIMATION) {
-				player.sendPacket(new MagicSkillLaunched(buffer,skill.getId(),skill.getLevel(),true,target));
-				player.sendPacket(new MagicSkillUse(buffer,target,skill.getId(),skill.getLevel(),1000,0,false));
+				player.broadcastPacket(new MagicSkillLaunched(buffer,skill.getId(),skill.getLevel(),true,target), 300);
+				player.broadcastPacket(new MagicSkillUse(buffer,target,skill.getId(),skill.getLevel(),1000,0,false), 300);
 				try { Thread.sleep(1000); } catch(InterruptedException ie) { }
 			} 
 			skill.getEffects(target, target);

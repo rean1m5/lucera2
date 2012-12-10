@@ -10,7 +10,10 @@ import ru.catssoftware.loginserver.manager.LoginManager;
 import ru.catssoftware.loginserver.model.GameServerInfo;
 import ru.catssoftware.loginserver.model.SessionKey;
 import ru.catssoftware.loginserver.network.gameserverpackets.*;
+import ru.catssoftware.loginserver.network.gameserverpackets.pw.GameServerAuthPW;
 import ru.catssoftware.loginserver.network.loginserverpackets.*;
+import ru.catssoftware.loginserver.network.loginserverpackets.pw.AuthResponsePW;
+import ru.catssoftware.loginserver.network.loginserverpackets.pw.PlayerAuthResponsePW;
 import ru.catssoftware.loginserver.network.serverpackets.ServerBasePacket;
 import ru.catssoftware.tools.network.SubNetHost;
 import ru.catssoftware.tools.security.NewCrypt;
@@ -118,32 +121,73 @@ public class GameServerThread extends Thread
 				int packetType = data[0] & 0xff;
 				switch (packetType)
 				{
-					case 00:
+					case 0:
 						onReceiveBlowfishKey(data);
 						break;
-					case 01:
+					case 1:
 						onGameServerAuth(data);
 						break;
-					case 02:
+					case 2:
 						onReceivePlayerInGame(data);
 						break;
-					case 03:
+					case 3:
 						onReceivePlayerLogOut(data);
 						break;
-					case 04:
+					case 4:
 						onReceiveChangeAccessLevel(data);
 						break;
-					case 05:
+					case 5:
 						onReceivePlayerAuthRequest(data);
 						break;
-					case 06:
-						 onReceiveServerStatus(data);
+					case 6:
+						onReceiveServerStatus(data);
 						break;
-					case 07:
+					case 7:
 						onReceiveChangeAllowedIP(data);
 						break;
 					case 8:
 						onRestartRequest(data);
+						break;
+
+					/**
+					 * Дальше идет пакетка логина PW.
+					 * Перенес: Ro0TT
+					 */
+					case 0xAA:
+						pwNotUsed(data);
+						break;
+					case 0xAB:
+						pwNotUsed(data);
+						break;
+					case 0xAD:
+						onReceivePlayerAuthRequestPW(data);
+						break;
+					case 0xAC:
+						pwNotUsed(data);
+						break;
+					case 0xAE:
+						onReceiveBlowfishKey(data);
+						break;
+					case 0xAF:
+						onGameServerAuthPW(data);
+						break;
+					case 0xBA:
+						onReceivePlayerInGame(data);
+						break;
+					case 0xBB:
+						onReceivePlayerLogOut(data);
+						break;
+					case 0xBC:
+						onReceiveChangeAccessLevel(data);
+						break;
+					case 0xBD:
+						onReceiveServerStatus(data);
+						break;
+					case 0xBE:
+						pwNotUsed(data);
+						break;
+					case 0xBF:
+						pwNotUsed(data);
 						break;
 					default:
 						_log.warn("Unknown Opcode (" + Integer.toHexString(packetType).toUpperCase() + ") from GameServer, closing connection.");
@@ -169,7 +213,16 @@ public class GameServerThread extends Thread
 		}
 	}
 
-
+	private void pwNotUsed(byte data[])
+	{
+		if(isAuthed())
+		{
+			//В люцере не используется.
+		} else
+		{
+			forceClose(LoginServerFail.NOT_AUTHED);
+		}
+	}
 
 	private void onGameServerAuth(byte[] data) throws IOException
 	{
@@ -195,6 +248,18 @@ public class GameServerThread extends Thread
 		}
 		else
 			forceClose(LoginServerFail.NOT_AUTHED);
+	}
+
+	private void onGameServerAuthPW(byte[] data) throws IOException
+	{
+		GameServerAuthPW gsa = new GameServerAuthPW(data);
+		handleRegProcess(gsa);
+		if (isAuthed())
+		{
+			AuthResponsePW ar = new AuthResponsePW(getGameServerInfo().getId());
+			sendPacket(ar);
+		}
+
 	}
 
 	private void onReceivePlayerLogOut(byte[] data)
@@ -286,6 +351,33 @@ public class GameServerThread extends Thread
 			forceClose(LoginServerFail.NOT_AUTHED);
 	}
 
+	private void onReceivePlayerAuthRequestPW(byte[] data) throws IOException
+	{
+		if (isAuthed())
+		{
+			PlayerAuthRequest par = new PlayerAuthRequest(data);
+			PlayerAuthResponsePW authResponse;
+			String accName = par.getAccount();
+
+			SessionKey key = LoginManager.getInstance().getKeyForAccount(accName);
+			String host = LoginManager.getInstance().getHostForAccount(accName);
+			if (key != null && key.equals(par.getKey()))
+			{
+				LoginManager.getInstance().removeAuthedLoginClient(par.getAccount());
+				authResponse = new PlayerAuthResponsePW(par.getAccount(), true, host, false);
+			}
+			else
+			{
+				authResponse = new PlayerAuthResponsePW(par.getAccount(), false, host, false);
+			}
+			sendPacket(authResponse);
+		}
+		else
+		{
+			forceClose(LoginServerFail.NOT_AUTHED);
+		}
+	}
+
 	private void onReceiveServerStatus(byte[] data)
 	{
 		if (isAuthed())
@@ -312,7 +404,7 @@ public class GameServerThread extends Thread
 		}
 	}
 
-	private void handleRegProcess(GameServerAuth gameServerAuth)
+	private void handleRegProcess(GameServerAuthAbstract gameServerAuth)
 	{
 		GameServerManager gameServerTable = GameServerManager.getInstance();
 
@@ -380,7 +472,7 @@ public class GameServerThread extends Thread
 	 * @param gsi The GameServerInfo to be attached.
 	 * @param gameServerAuth The server info.
 	 */
-	private void attachGameServerInfo(GameServerInfo gsi, GameServerAuth gameServerAuth)
+	private void attachGameServerInfo(GameServerInfo gsi, GameServerAuthAbstract gameServerAuth)
 	{
 		setGameServerInfo(gsi);
 		gsi.setGameServerThread(this);
