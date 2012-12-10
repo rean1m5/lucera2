@@ -4,7 +4,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import org.apache.log4j.Logger;
 import ru.catssoftware.Config;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
 import ru.catssoftware.gameserver.skills.effects.EffectCharmOfCourage;
@@ -24,7 +23,7 @@ public class CharEffectList
 	private static Logger _log = Logger.getLogger(CharEffectList.class);
 	private static final L2Effect[]			EMPTY_EFFECTS	= new L2Effect[0];
 	private CopyOnWriteArrayList<L2Effect> _buffs;
-	private CopyOnWriteArrayList<L2Effect>				_debuffs;
+	private CopyOnWriteArrayList<L2Effect> _debuffs;
 	protected Map<String, List<L2Effect>>	_stackedEffects;
 	private L2Character						_owner;
 

@@ -5747,6 +5747,9 @@ public abstract class L2Character extends L2Object implements IEffector
 		if (cha == null)
 			return false;
 
+		if (equals(cha))
+			return true;
+
 		if(cha instanceof L2Decoy)
 			return true;
 

@@ -7,15 +7,10 @@ import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.SkillTable;
 import ru.catssoftware.gameserver.instancemanager.CoupleManager;
-import ru.catssoftware.gameserver.model.L2Object;
 import ru.catssoftware.gameserver.model.L2Skill;
 import ru.catssoftware.gameserver.model.L2World;
 import ru.catssoftware.gameserver.model.entity.Couple;
-import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
-import ru.catssoftware.gameserver.network.serverpackets.MagicSkillUse;
-import ru.catssoftware.gameserver.network.serverpackets.MyTargetSelected;
-import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
-import ru.catssoftware.gameserver.network.serverpackets.ValidateLocation;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2WeddingManagerInstance extends L2NpcInstance
@@ -78,8 +73,8 @@ public class L2WeddingManagerInstance extends L2NpcInstance
 			return;
 		}
 
-		L2Object obj = L2World.getInstance().findObject(player.getPartnerId());
-		final L2PcInstance ptarget = obj.isPlayer() ? (L2PcInstance) obj : null;
+		final L2PcInstance ptarget = L2World.getInstance().getPlayer(player.getPartnerId());
+
 		if(ptarget == null || ptarget.isOnline() == 0)
 		{
 			filename = "data/html/mods/wedding/notfound.htm";

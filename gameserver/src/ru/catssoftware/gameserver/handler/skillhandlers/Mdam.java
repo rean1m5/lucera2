@@ -1,16 +1,10 @@
 package ru.catssoftware.gameserver.handler.skillhandlers;
 
 import ru.catssoftware.gameserver.handler.ICubicSkillHandler;
-import ru.catssoftware.gameserver.model.L2Boss;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Effect;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Summon;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.instance.L2CubicInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PlayableInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2SummonInstance;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
@@ -172,18 +166,7 @@ public class Mdam implements ICubicSkillHandler
 		skill.getEffectsSelf(activeChar);
 
 		if (skill.isSuicideAttack())
-		{
-			L2Character target = null;
-			for (L2Character tmp : targets)
-			{
-				if (tmp != null && !(tmp instanceof L2PlayableInstance))
-				{
-					target = tmp;
-					break;
-				}
-			}
-			activeChar.doDie(target);
-		}
+			activeChar.doDie(activeChar);
 	}
 
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Character... targets)
