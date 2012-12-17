@@ -17,7 +17,7 @@ package ru.catssoftware.gameserver.model.actor.instance;
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
-import ru.catssoftware.gameserver.model.L2CharPosition;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
 import ru.catssoftware.gameserver.network.serverpackets.MyTargetSelected;
 import ru.catssoftware.gameserver.network.serverpackets.ValidateLocation;
@@ -91,7 +91,7 @@ public class L2TownPetInstance extends L2NpcInstance
 			int randomY = _spawnY + Rnd.get(-1, 1) * 50;
 
 			if (randomX != getX() || randomY != getY())
-				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(randomX, randomY, _spawnZ, 0));
+				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(randomX, randomY, _spawnZ, 0));
 		}
 	}
 }

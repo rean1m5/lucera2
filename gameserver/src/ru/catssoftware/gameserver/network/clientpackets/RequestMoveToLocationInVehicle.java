@@ -2,7 +2,7 @@ package ru.catssoftware.gameserver.network.clientpackets;
 
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.instancemanager.BoatManager;
-import ru.catssoftware.gameserver.model.L2CharPosition;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2BoatInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.templates.item.L2WeaponType;
@@ -48,8 +48,8 @@ public class RequestMoveToLocationInVehicle extends L2GameClientPacket
 			activeChar.setBoat(boat);
 			activeChar.setInBoat(true);
 			activeChar.setInBoatPosition(_pos);
-			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO_IN_A_BOAT, new L2CharPosition(_pos.getX(), _pos.getY(), _pos.getZ(), 0),
-					new L2CharPosition(_origin_pos.getX(), _origin_pos.getY(), _origin_pos.getZ(), 0));
+			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO_IN_A_BOAT, new Location(_pos.getX(), _pos.getY(), _pos.getZ(), 0),
+					new Location(_origin_pos.getX(), _origin_pos.getY(), _origin_pos.getZ(), 0));
 		}
 
 	}

@@ -16,6 +16,7 @@ import ru.catssoftware.gameserver.ai.L2SummonAI;
 import ru.catssoftware.gameserver.cache.HtmCache;
 import ru.catssoftware.gameserver.datatables.*;
 import ru.catssoftware.gameserver.geodata.GeoData;
+import ru.catssoftware.gameserver.geodata.GeoEngine;
 import ru.catssoftware.gameserver.gmaccess.handlers.editchar;
 import ru.catssoftware.gameserver.handler.IItemHandler;
 import ru.catssoftware.gameserver.handler.ItemHandler;
@@ -5500,7 +5501,7 @@ public class L2PcInstance extends L2PlayableInstance
 	 * Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return true.<BR><BR>
 	 */
 
-	public boolean mount(L2Summon pet)
+	public boolean mount(L2Summon pet, Location loc)
 	{
 		if (!isInsideRadius(pet, 80, true, false))
 		{
@@ -5523,7 +5524,7 @@ public class L2PcInstance extends L2PlayableInstance
 				e.exit();
 		}
 
-		Ride mount = new Ride(this, true, pet.getNpcId());
+		Ride mount = new Ride(this, true, pet.getNpcId(), getLoc());
 		setMount(pet.getNpcId(), pet.getLevel(), mount.getMountType());
 		setMountObjectID(pet.getControlItemId());
 		clearPetData();
@@ -5536,8 +5537,8 @@ public class L2PcInstance extends L2PlayableInstance
 
 	public boolean remount(L2PcInstance player)
 	{
-		Ride dismount = new Ride(this, false, 0);
-		Ride mount = new Ride(this, true, getMountNpcId());
+		Ride dismount = new Ride(this, false, 0, getLoc());
+		Ride mount = new Ride(this, true, getMountNpcId(), getLoc());
 		player.sendPacket(dismount);
 		player.sendPacket(mount);
 		return true;
@@ -5554,7 +5555,7 @@ public class L2PcInstance extends L2PlayableInstance
 				e.exit();
 		}
 
-		Ride mount = new Ride(this, true, npcId);
+		Ride mount = new Ride(this, true, npcId, getLoc());
 		if (setMount(npcId, getLevel(), mount.getMountType()))
 		{
 			clearPetData();
@@ -5573,6 +5574,7 @@ public class L2PcInstance extends L2PlayableInstance
 	{
 		if (pet != null && pet.isMountable() && !isMounted() && !isBetrayed() && !pet.isOutOfControl())
 		{
+			Location location = GeoEngine.getInstance().getPointInAvaliableRadius(getLoc(), pet.getTemplate().getCollisionRadius(), getInstanceId());
 			if (_event!=null && !_event.canDoAction(this, RequestActionUse.ACTION_MOUNT))
 			{
 				return false;
@@ -5583,13 +5585,13 @@ public class L2PcInstance extends L2PlayableInstance
 				// You cannot mount a steed while petrified.
 				return false;
 			}
-			/*else if (!GeoEngine.getInstance().cheсkRadius(getLoc(), pet.getColRadius(), getInstanceId()))
+			else if (getLoc().equals(location.getX(), location.getY(), location.getZ()))
 			{
 				// no message needed
 				sendMessage(Message.getMessage(this, Message.MessageId.MSG_NOT_ALLOWED_AT_THE_MOMENT));
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return false;
-			}*/
+			}
 			else if (isDead())
 			{
 				//A strider cannot be ridden when dead
@@ -5666,7 +5668,7 @@ public class L2PcInstance extends L2PlayableInstance
 				return false;
 			}
 			else if (!pet.isDead() && !isMounted())
-				mount(pet);
+				mount(pet, location);
 		}
 		else if (isRentedPet())
 			stopRentPet();
@@ -5712,7 +5714,7 @@ public class L2PcInstance extends L2PlayableInstance
 
 			if (isFlying())
 				removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-			Ride dismount = new Ride(this, false, 0);
+			Ride dismount = new Ride(this, false, 0, getLoc());
 			broadcastPacket(dismount);
 			setMountObjectID(0);
 			storePetFood(petId);
@@ -7909,7 +7911,6 @@ public class L2PcInstance extends L2PlayableInstance
 			return false;
 		}
 
-
 		if (isSkillDisabled(skill))
 		{
 			SystemMessage sm = null;
@@ -8217,7 +8218,7 @@ public class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean checkPvpSkill(L2Object obj, L2Skill skill, boolean srcIsSummon)
 	{
-		if (obj != null)
+		if (obj == null)
 			return false;
 
 		// check for PC->PC Pvp status

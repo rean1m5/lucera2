@@ -284,7 +284,7 @@ public class L2CharacterAI extends AbstractAI
 	 *
 	 */
 	@Override
-	protected void onIntentionMoveTo(L2CharPosition pos)
+	protected void onIntentionMoveTo(Location pos)
 	{
 		if (getIntention() == AI_INTENTION_REST)
 		{
@@ -314,10 +314,10 @@ public class L2CharacterAI extends AbstractAI
 	}
 
 	/* (non-Javadoc)
-	 * @see ru.catssoftware.gameserver.ai.AbstractAI#onIntentionMoveToInABoat(ru.catssoftware.gameserver.model.L2CharPosition, ru.catssoftware.gameserver.model.L2CharPosition)
+	 * @see ru.catssoftware.gameserver.ai.AbstractAI#onIntentionMoveToInABoat(ru.catssoftware.gameserver.model.Location, ru.catssoftware.gameserver.model.Location)
 	 */
 	@Override
-	protected void onIntentionMoveToInABoat(L2CharPosition destination, L2CharPosition origin)
+	protected void onIntentionMoveToInABoat(Location destination, Location origin)
 	{
 		if (getIntention() == AI_INTENTION_REST)
 		{
@@ -720,7 +720,7 @@ public class L2CharacterAI extends AbstractAI
 	 *
 	 */
 	@Override
-	protected void onEvtArrivedBlocked(L2CharPosition blocked_at_pos)
+	protected void onEvtArrivedBlocked(Location blocked_at_pos)
 	{
 		// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
 		if (getIntention() == AI_INTENTION_MOVE_TO || getIntention() == AI_INTENTION_CAST)

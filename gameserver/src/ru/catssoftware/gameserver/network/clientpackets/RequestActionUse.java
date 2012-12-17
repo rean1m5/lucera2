@@ -5,27 +5,16 @@ import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.ai.L2SummonAI;
 import ru.catssoftware.gameserver.datatables.PetSkillsTable;
 import ru.catssoftware.gameserver.datatables.SkillTable;
-import ru.catssoftware.gameserver.model.L2CharPosition;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2ManufactureList;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Summon;
-import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PetInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2SiegeFlagInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2SiegeSummonInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2StaticObjectInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2SummonInstance;
+import ru.catssoftware.gameserver.model.*;
+import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
 import ru.catssoftware.gameserver.network.serverpackets.RecipeShopManageList;
 import ru.catssoftware.gameserver.network.serverpackets.SocialAction;
 import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
 import ru.catssoftware.gameserver.util.FloodProtector;
-import ru.catssoftware.gameserver.util.PcAction;
 import ru.catssoftware.gameserver.util.FloodProtector.Protected;
+import ru.catssoftware.gameserver.util.PcAction;
 
 public class RequestActionUse extends L2GameClientPacket
 {
@@ -325,7 +314,7 @@ public class RequestActionUse extends L2GameClientPacket
 				else if (target != null && pet != null && pet != target && !pet.isMovementDisabled() && !pet.isOutOfControl())
 				{
 					pet.setFollowStatus(false);
-					pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0));
+					pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(target.getX(), target.getY(), target.getZ(), 0));
 				}
 				if(pet instanceof L2SiegeSummonInstance)
 					((L2SiegeSummonInstance)pet).resetSiegeModeChange();
@@ -334,7 +323,7 @@ public class RequestActionUse extends L2GameClientPacket
 				if (target != null && pet != null && pet != target && !pet.isMovementDisabled() && !pet.isOutOfControl())
 				{
 					pet.setFollowStatus(false);
-					pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0));
+					pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(target.getX(), target.getY(), target.getZ(), 0));
 				}
 				break;
 			case 61: // Private Store Package Sell

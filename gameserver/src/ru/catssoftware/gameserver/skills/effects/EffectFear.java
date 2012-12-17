@@ -17,7 +17,6 @@ package ru.catssoftware.gameserver.skills.effects;
 import javolution.util.FastMap;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.geodata.GeoData;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Effect;
 import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.*;
@@ -203,7 +202,7 @@ public final class EffectFear extends L2Effect
 		Location destiny = GeoData.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ, getEffected().getInstanceId());
 		if (!(getEffected() instanceof L2PetInstance))
 			getEffected().setRunning();
-		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destiny.getX(), destiny.getY(), destiny.getZ(), 0));
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(destiny.getX(), destiny.getY(), destiny.getZ(), 0));
 		
 		// Give damage if "val" > 0
 		double damage = calc();

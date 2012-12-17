@@ -1,18 +1,18 @@
 package ru.catssoftware.gameserver.model.quest.pack.ai;
 
-import java.util.List;
-
+import javolution.util.FastList;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.SkillTable;
 import ru.catssoftware.gameserver.instancemanager.grandbosses.QueenAntManager;
 import ru.catssoftware.gameserver.model.L2Attackable;
-import ru.catssoftware.gameserver.model.L2CharPosition;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.serverpackets.PlaySound;
 import ru.catssoftware.gameserver.network.serverpackets.SocialAction;
 import ru.catssoftware.tools.random.Rnd;
-import javolution.util.FastList;
+
+import java.util.List;
 
 public class QueenAnt extends L2AttackableAIScript
 {
@@ -146,7 +146,7 @@ public class QueenAnt extends L2AttackableAIScript
 						a.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
 					else
 						if(a.getAI().getIntention() != CtrlIntention.AI_INTENTION_MOVE_TO) {
-							a.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(npc.getLoc()));
+							a.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(npc.getLoc()));
 						}
 				}
 			}
@@ -159,7 +159,7 @@ public class QueenAnt extends L2AttackableAIScript
 						a.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
 					else
 						if(a.getAI().getIntention() != CtrlIntention.AI_INTENTION_MOVE_TO) {
-							a.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(npc.getLoc()));
+							a.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(npc.getLoc()));
 						}
 				}
 			}

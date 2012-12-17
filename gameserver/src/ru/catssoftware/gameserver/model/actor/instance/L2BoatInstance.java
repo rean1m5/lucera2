@@ -14,35 +14,25 @@
  */
 package ru.catssoftware.gameserver.model.actor.instance;
 
-import java.util.Collection;
-import java.util.Map;
-
 import javolution.util.FastMap;
-
 import org.apache.log4j.Logger;
-
-
 import org.w3c.dom.Node;
-
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.GameTimeController;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.L2CharacterAI;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2ItemInstance;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.knownlist.BoatKnownList;
 import ru.catssoftware.gameserver.network.SystemChatChannelId;
-import ru.catssoftware.gameserver.network.serverpackets.CreatureSay;
-import ru.catssoftware.gameserver.network.serverpackets.InventoryUpdate;
-import ru.catssoftware.gameserver.network.serverpackets.PlaySound;
-import ru.catssoftware.gameserver.network.serverpackets.VehicleCheckLocation;
-import ru.catssoftware.gameserver.network.serverpackets.VehicleDeparture;
-import ru.catssoftware.gameserver.network.serverpackets.VehicleInfo;
-import ru.catssoftware.gameserver.network.serverpackets.VehicleStarted;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.templates.chars.L2CharTemplate;
 import ru.catssoftware.gameserver.templates.item.L2Weapon;
 import ru.catssoftware.gameserver.util.Util;
+
+import java.util.Collection;
+import java.util.Map;
 
 
 /**
@@ -218,7 +208,7 @@ public class L2BoatInstance extends L2Character
 	public void stopCycle()
 	{
 		_inCycle = false;
-		stopMove(new L2CharPosition(getX(), getY(), getZ(), getPosition().getHeading()));
+		stopMove(new Location(getX(), getY(), getZ(), getPosition().getHeading()));
 	}
 
 	public void startCycle()

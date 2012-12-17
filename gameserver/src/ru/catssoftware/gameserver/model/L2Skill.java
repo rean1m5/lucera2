@@ -2616,18 +2616,18 @@ public class L2Skill implements FuncOwner
 			target = activeChar.getTarget();
 		FirstTarget = target;
 
-		if (target == null || !(target instanceof L2Character))
+		if (target == null || !target.isCharacter())
 		{
 			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return null;
 		}
 
-		int newHeading = getNewHeadingToTarget(activeChar, (L2Character) target);
+		int newHeading = getNewHeadingToTarget(activeChar, target.getCharacter());
 
 		if (target.getObjectId() != activeChar.getObjectId())
 		{
-			if (!((L2Character) target).isAlikeDead())
-				targetList.add((L2Character) target);
+			if (!target.getCharacter().isAlikeDead())
+				targetList.add(target.getCharacter());
 			else
 			{
 				activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);

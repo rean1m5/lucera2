@@ -14,20 +14,14 @@
  */
 package ru.catssoftware.gameserver.instancemanager.grandbosses;
 
-import java.util.List;
-import java.util.concurrent.ScheduledFuture;
-
+import javolution.util.FastList;
 import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.config.L2Properties;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.NpcTable;
-import ru.catssoftware.gameserver.model.L2Attackable;
-import ru.catssoftware.gameserver.model.L2Boss;
-import ru.catssoftware.gameserver.model.L2CharPosition;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Spawn;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.entity.GrandBossState;
@@ -39,7 +33,8 @@ import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.gameserver.util.Util;
 import ru.catssoftware.tools.random.Rnd;
 
-import javolution.util.FastList;
+import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 
 
 /**
@@ -327,7 +322,7 @@ public class SailrenManager extends BossLair
 	private class SailrenSpawn implements Runnable
 	{
 		private int				_npcId;
-		private L2CharPosition	_pos	= new L2CharPosition(27628, -6109, -1982, 44732);
+		private Location _pos	= new Location(27628, -6109, -1982, 44732);
 
 		public SailrenSpawn(int npcId)
 		{

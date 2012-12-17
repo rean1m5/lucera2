@@ -20,9 +20,9 @@ import ru.catssoftware.config.L2Properties;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.NpcTable;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2Spawn;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2GrandBossInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
@@ -459,7 +459,7 @@ public class ValakasManager extends BossLair
 				_state.setState(StateEnum.ALIVE);
 				_state.update();
 				_mobiliseTask = ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(_valakas), 16);
-				L2CharPosition pos = new L2CharPosition(Rnd.get(211080, 214909), Rnd.get(-115841, -112822), -1662, 0);
+				Location pos = new Location(Rnd.get(211080, 214909), Rnd.get(-115841, -112822), -1662, 0);
 				_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(_valakas, pos), 32);
 				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(), ACTIVITY_TIME * 60000);
 
@@ -556,9 +556,9 @@ public class ValakasManager extends BossLair
 	private class MoveAtRandom implements Runnable
 	{
 		private L2NpcInstance	_npc;
-		private L2CharPosition	_pos;
+		private Location	_pos;
 
-		public MoveAtRandom(L2NpcInstance npc, L2CharPosition pos)
+		public MoveAtRandom(L2NpcInstance npc, Location pos)
 		{
 			_npc = npc;
 			_pos = pos;

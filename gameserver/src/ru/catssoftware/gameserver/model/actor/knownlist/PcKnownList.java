@@ -1,37 +1,11 @@
 package ru.catssoftware.gameserver.model.actor.knownlist;
 
-import java.util.Map;
-
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Decoy;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2Summon;
-import ru.catssoftware.gameserver.model.actor.instance.L2BoatInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PetInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2StaticObjectInstance;
-import ru.catssoftware.gameserver.network.serverpackets.CharInfo;
-import ru.catssoftware.gameserver.network.serverpackets.DeleteObject;
-import ru.catssoftware.gameserver.network.serverpackets.DoorInfo;
-import ru.catssoftware.gameserver.network.serverpackets.DoorStatusUpdate;
-import ru.catssoftware.gameserver.network.serverpackets.DropItem;
-import ru.catssoftware.gameserver.network.serverpackets.GetOnVehicle;
-import ru.catssoftware.gameserver.network.serverpackets.L2GameServerPacket;
-import ru.catssoftware.gameserver.network.serverpackets.NpcInfo;
-import ru.catssoftware.gameserver.network.serverpackets.PetInfo;
-import ru.catssoftware.gameserver.network.serverpackets.PetItemList;
-import ru.catssoftware.gameserver.network.serverpackets.PrivateStoreMsgBuy;
-import ru.catssoftware.gameserver.network.serverpackets.PrivateStoreMsgSell;
-import ru.catssoftware.gameserver.network.serverpackets.RecipeShopMsg;
-import ru.catssoftware.gameserver.network.serverpackets.RelationChanged;
-import ru.catssoftware.gameserver.network.serverpackets.Ride;
-import ru.catssoftware.gameserver.network.serverpackets.SpawnItem;
-import ru.catssoftware.gameserver.network.serverpackets.StaticObject;
-import ru.catssoftware.gameserver.network.serverpackets.VehicleInfo;
+import ru.catssoftware.gameserver.model.*;
+import ru.catssoftware.gameserver.model.actor.instance.*;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.util.SingletonMap;
+
+import java.util.Map;
 
 public class PcKnownList extends PlayableKnownList
 {
@@ -142,8 +116,8 @@ public class PcKnownList extends PlayableKnownList
 					if (otherPlayer.getMountType() == 4)
 					{
 						// TODO: Remove when horse mounts fixed
-						getActiveChar().sendPacket(new Ride(otherPlayer, false, 0));
-						getActiveChar().sendPacket(new Ride(otherPlayer, true, otherPlayer.getMountNpcId()));
+						getActiveChar().sendPacket(new Ride(otherPlayer, false, 0, otherPlayer.getLoc()));
+						getActiveChar().sendPacket(new Ride(otherPlayer, true, otherPlayer.getMountNpcId(), otherPlayer.getLoc()));
 					}
 					if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL || otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)
 						getActiveChar().sendPacket(new PrivateStoreMsgSell(otherPlayer));

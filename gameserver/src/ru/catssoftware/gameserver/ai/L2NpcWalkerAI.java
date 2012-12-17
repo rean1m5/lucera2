@@ -1,14 +1,14 @@
 package ru.catssoftware.gameserver.ai;
 
-import java.util.ArrayList;
-
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.datatables.NpcWalkerRoutesTable;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2NpcWalkerNode;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcWalkerInstance;
 import ru.catssoftware.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
+
+import java.util.ArrayList;
 
 
 public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
@@ -120,7 +120,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	 * @param blocked_at_pos ignoring it
 	 */
 	@Override
-	protected void onEvtArrivedBlocked(L2CharPosition blocked_at_pos)
+	protected void onEvtArrivedBlocked(Location blocked_at_pos)
 	{
 		_log.info("NpcWalker ID: " + getActor().getNpcId() + ": Blocked at rote position [" + _currentPos + "], coords: " + blocked_at_pos.x + ", " + blocked_at_pos.y + ", " + blocked_at_pos.z + ". Teleporting to next point");
 		
@@ -184,7 +184,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 		//notify AI of MOVE_TO
 		setWalkingToNextPoint(true);
 		
-		setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destX, destY, destZ, 0));
+		setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(destX, destY, destZ, 0));
 	}
 	
 	@Override

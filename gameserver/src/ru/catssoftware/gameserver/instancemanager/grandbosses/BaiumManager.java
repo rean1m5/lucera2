@@ -299,7 +299,7 @@ public class BaiumManager extends BossLair
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(), 35500);
 
-		L2CharPosition pos = new L2CharPosition(Rnd.get(112826, 116241), Rnd.get(15575, 16375), 10078, 0);
+		Location pos = new Location(Rnd.get(112826, 116241), Rnd.get(15575, 16375), 10078, 0);
 		ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(pos), 36000);
 
 		// set delete task.
@@ -424,9 +424,9 @@ public class BaiumManager extends BossLair
 	// Move at random on after Baium appears.
 	private class MoveAtRandom implements Runnable
 	{
-		private L2CharPosition	_pos;
+		private Location	_pos;
 
-		public MoveAtRandom(L2CharPosition pos)
+		public MoveAtRandom(Location pos)
 		{
 			_pos = pos;
 		}

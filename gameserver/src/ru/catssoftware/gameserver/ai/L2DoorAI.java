@@ -1,14 +1,10 @@
 package ru.catssoftware.gameserver.ai;
 
-import ru.catssoftware.gameserver.model.L2CharPosition;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2SiegeGuard;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
-import ru.catssoftware.gameserver.threadmanager.FIFOExecutableQueue;
 import javolution.util.FastMap;
 import javolution.util.FastMap.Entry;
+import ru.catssoftware.gameserver.model.*;
+import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
+import ru.catssoftware.gameserver.threadmanager.FIFOExecutableQueue;
 
 
 public class L2DoorAI extends L2CharacterAI
@@ -45,7 +41,7 @@ public class L2DoorAI extends L2CharacterAI
 	}
 
 	@Override
-	protected void onIntentionMoveTo(L2CharPosition destination)
+	protected void onIntentionMoveTo(Location destination)
 	{
 	}
 
@@ -121,7 +117,7 @@ public class L2DoorAI extends L2CharacterAI
 	}
 
 	@Override
-	protected void onEvtArrivedBlocked(L2CharPosition blocked_at_pos)
+	protected void onEvtArrivedBlocked(Location blocked_at_pos)
 	{
 	}
 

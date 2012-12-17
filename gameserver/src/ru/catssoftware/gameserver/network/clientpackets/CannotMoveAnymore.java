@@ -1,7 +1,7 @@
 package ru.catssoftware.gameserver.network.clientpackets;
 
 import ru.catssoftware.gameserver.ai.CtrlEvent;
-import ru.catssoftware.gameserver.model.L2CharPosition;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.serverpackets.PartyMemberPosition;
 
@@ -45,7 +45,7 @@ public class CannotMoveAnymore extends L2GameClientPacket
 			return;
 		if (player.getAI() != null)
 		{
-			player.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED_BLOCKED, new L2CharPosition(_x, _y, _z, _heading));
+			player.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED_BLOCKED, new Location(_x, _y, _z, _heading));
 		}
 		if (player.getParty() != null)
 		{

@@ -17,10 +17,10 @@ package ru.catssoftware.gameserver.model.actor.instance;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.ai.L2CharacterAI;
 import ru.catssoftware.gameserver.ai.L2FortSiegeGuardAI;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2SiegeGuard;
 import ru.catssoftware.gameserver.model.L2Summon;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.knownlist.FortSiegeGuardKnownList;
 import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
 import ru.catssoftware.gameserver.network.serverpackets.MyTargetSelected;
@@ -109,7 +109,7 @@ public class L2FortSiegeGuardInstance extends L2SiegeGuard
 			clearAggroList();
 
 			if (hasAI())
-				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
+				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
 		}
 	}
 

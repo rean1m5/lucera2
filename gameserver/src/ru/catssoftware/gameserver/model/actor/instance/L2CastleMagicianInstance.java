@@ -1,6 +1,6 @@
 package ru.catssoftware.gameserver.model.actor.instance;
 
-import ru.catssoftware.gameserver.model.L2CharPosition;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.entity.Castle;
 import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -66,7 +66,7 @@ public class L2CastleMagicianInstance extends L2FolkInstance
 				return;
 			}
 			player.teleToLocation(castle.getGateX(), castle.getGateY(), castle.getGateZ());
-			player.stopMove(new L2CharPosition(castle.getGateX(), castle.getGateY(), castle.getGateZ(), player.getHeading()));
+			player.stopMove(new Location(castle.getGateX(), castle.getGateY(), castle.getGateZ(), player.getHeading()));
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else if (command.startsWith("Chat"))

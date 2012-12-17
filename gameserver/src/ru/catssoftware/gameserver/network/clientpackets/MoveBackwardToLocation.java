@@ -1,7 +1,7 @@
 package ru.catssoftware.gameserver.network.clientpackets;
 
 import ru.catssoftware.gameserver.ai.CtrlIntention;
-import ru.catssoftware.gameserver.model.L2CharPosition;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.serverpackets.PartyMemberPosition;
 import ru.catssoftware.gameserver.util.IllegalPlayerAction;
@@ -82,7 +82,7 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 				ActionFailed();
 				return;
 			}
-			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_targetX, _targetY, _targetZ, 0));
+			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(_targetX, _targetY, _targetZ, 0));
 
 			if (activeChar.getParty() != null)
 				activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));

@@ -1,10 +1,6 @@
 package ru.catssoftware.gameserver.gmaccess.handlers;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.NoSuchElementException;
-
+import javolution.text.TextBuilder;
 import ru.catssoftware.L2DatabaseFactory;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.cache.HtmCache;
@@ -12,27 +8,21 @@ import ru.catssoftware.gameserver.datatables.NpcTable;
 import ru.catssoftware.gameserver.datatables.SpawnTable;
 import ru.catssoftware.gameserver.gmaccess.gmHandler;
 import ru.catssoftware.gameserver.instancemanager.BoatManager;
-import ru.catssoftware.gameserver.instancemanager.RaidBossSpawnManager;
 import ru.catssoftware.gameserver.instancemanager.FourSepulchersManager.FourSepulchersMausoleum;
+import ru.catssoftware.gameserver.instancemanager.RaidBossSpawnManager;
 import ru.catssoftware.gameserver.instancemanager.grandbosses.BossLair;
-import ru.catssoftware.gameserver.model.L2CharPosition;
-import ru.catssoftware.gameserver.model.L2Clan;
-import ru.catssoftware.gameserver.model.L2Object;
-import ru.catssoftware.gameserver.model.L2Party;
-import ru.catssoftware.gameserver.model.L2Spawn;
-import ru.catssoftware.gameserver.model.L2World;
-import ru.catssoftware.gameserver.model.actor.instance.L2BoatInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2GrandBossInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2MinionInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.model.actor.instance.L2RaidBossInstance;
+import ru.catssoftware.gameserver.model.*;
+import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.model.mapregion.TeleportWhereType;
 import ru.catssoftware.gameserver.model.zone.L2BossZone;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
-import javolution.text.TextBuilder;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.NoSuchElementException;
 
 
 public class teleport extends gmHandler
@@ -347,7 +337,7 @@ public class teleport extends gmHandler
 			{
 				if (params.length >= 4)
 				{
-					L2CharPosition pos = new L2CharPosition(Integer.parseInt(params[1]), Integer.parseInt(params[2]), Integer.parseInt(params[3]), 0);
+					Location pos = new Location(Integer.parseInt(params[1]), Integer.parseInt(params[2]), Integer.parseInt(params[3]), 0);
 					admin.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, pos);
 				}
 				else

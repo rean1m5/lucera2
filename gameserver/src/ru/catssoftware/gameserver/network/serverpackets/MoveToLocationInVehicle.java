@@ -14,8 +14,8 @@
  */
 package ru.catssoftware.gameserver.network.serverpackets;
 
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Character;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -26,15 +26,15 @@ public class MoveToLocationInVehicle extends L2GameServerPacket
 {
 	private int				_charObjId;
 	private int				_boatId;
-	private L2CharPosition	_destination;
-	private L2CharPosition	_origin;
+	private Location	_destination;
+	private Location	_origin;
 
 	/**
 	 * @param actor
 	 * @param destination
 	 * @param origin
 	 */
-	public MoveToLocationInVehicle(L2Character actor, L2CharPosition destination, L2CharPosition origin)
+	public MoveToLocationInVehicle(L2Character actor, Location destination, Location origin)
 	{
 		if (!(actor.isPlayer()))
 			return;

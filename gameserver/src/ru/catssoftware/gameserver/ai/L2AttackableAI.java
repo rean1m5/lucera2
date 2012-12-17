@@ -716,7 +716,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				signy = 1;
 			posX += Math.round((float) ((signx * ((range / 2) + (Rnd.get(range)))) - distance));
 			posY += Math.round((float) ((signy * ((range / 2) + (Rnd.get(range)))) - distance));
-			setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, posZ, 0));
+			setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(posX, posY, posZ, 0));
 			return;
 		}
 

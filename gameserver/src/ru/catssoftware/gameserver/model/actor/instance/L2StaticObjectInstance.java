@@ -14,27 +14,18 @@
  */
 package ru.catssoftware.gameserver.model.actor.instance;
 
+import javolution.text.TextBuilder;
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.ai.L2CharacterAI;
 import ru.catssoftware.gameserver.cache.HtmCache;
 import ru.catssoftware.gameserver.instancemanager.CastleManager;
-import ru.catssoftware.gameserver.model.L2CharPosition;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2World;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.knownlist.StaticObjectKnownList;
 import ru.catssoftware.gameserver.model.actor.stat.StaticObjStat;
-import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
-import ru.catssoftware.gameserver.network.serverpackets.ChairSit;
-import ru.catssoftware.gameserver.network.serverpackets.MyTargetSelected;
-import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
-import ru.catssoftware.gameserver.network.serverpackets.ShowTownMap;
-import ru.catssoftware.gameserver.network.serverpackets.StaticObject;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.templates.chars.L2CharTemplate;
 import ru.catssoftware.gameserver.templates.item.L2Weapon;
-import javolution.text.TextBuilder;
 
 
 /**
@@ -78,7 +69,7 @@ public class L2StaticObjectInstance extends L2Character
 		}
 
 		@Override
-		public void stopMove(L2CharPosition pos)
+		public void stopMove(Location pos)
 		{
 		}
 

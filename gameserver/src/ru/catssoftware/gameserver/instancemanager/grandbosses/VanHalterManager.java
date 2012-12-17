@@ -23,9 +23,9 @@ import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.NpcTable;
 import ru.catssoftware.gameserver.datatables.SkillTable;
 import ru.catssoftware.gameserver.datatables.xml.DoorTable;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Skill;
 import ru.catssoftware.gameserver.model.L2Spawn;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2DoorInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
@@ -1137,7 +1137,7 @@ public class VanHalterManager extends BossLair
 					_vanHalter.startFear(_vanHalter);
 					if (_vanHalter.getZ() >= -10476)
 					{
-						L2CharPosition pos = new L2CharPosition(-16397, -53308, -10448, 0);
+						Location pos = new Location(-16397, -53308, -10448, 0);
 						if (_vanHalter.getX() == pos.x && _vanHalter.getY() == pos.y)
 							_vanHalter.stopFear(null);
 						else
@@ -1145,12 +1145,12 @@ public class VanHalterManager extends BossLair
 					}
 					else if (_vanHalter.getX() >= -16397)
 					{
-						L2CharPosition pos = new L2CharPosition(-15548, -54830, -10475, 0);
+						Location pos = new Location(-15548, -54830, -10475, 0);
 						_vanHalter.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, pos);
 					}
 					else
 					{
-						L2CharPosition pos = new L2CharPosition(-17248, -54830, -10475, 0);
+						Location pos = new Location(-17248, -54830, -10475, 0);
 						_vanHalter.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, pos);
 					}
 				}

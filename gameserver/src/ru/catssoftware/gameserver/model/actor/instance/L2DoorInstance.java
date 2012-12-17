@@ -111,7 +111,7 @@ public class L2DoorInstance extends L2Character
 		}
 
 		@Override
-		public void stopMove(L2CharPosition pos)
+		public void stopMove(Location pos)
 		{
 		}
 

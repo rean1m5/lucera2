@@ -45,12 +45,18 @@ public abstract class TalkNpc extends Quest
 	@Override
 	public String onEvent(String event, QuestState qs)
 	{
-		return onEvent(qs.getPlayer(), event);
+		String onEvent = onEvent(qs.getPlayer(), event);
+		if (onEvent != null)
+			onEvent = onEvent.replaceAll("%objectId%", Integer.toString(qs.getPlayer().getLastQuestNpcObject()));
+		return onEvent;
 	}
 
 	public String onTalk(L2PcInstance player, L2NpcInstance npc)
 	{
-		return onEvent(player, "main");
+		String onEvent = onEvent(player, "main");
+		if (onEvent != null)
+			onEvent = onEvent.replaceAll("%objectId%", Integer.toString(npc.getObjectId()));
+		return onEvent;
 	}
 
 	public abstract String onEvent(L2PcInstance player, String command);

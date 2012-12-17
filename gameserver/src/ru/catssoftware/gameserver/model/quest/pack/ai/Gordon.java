@@ -1,14 +1,14 @@
 package ru.catssoftware.gameserver.model.quest.pack.ai;
 
-import java.util.Collection;
-
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.SpawnTable;
 import ru.catssoftware.gameserver.model.L2Attackable;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Spawn;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
+
+import java.util.Collection;
 
 /**
  * Gordon AI
@@ -121,19 +121,19 @@ public class Gordon extends L2AttackableAIScript
 		X = WALKS[_isWalkTo - 1][0];
 		Y = WALKS[_isWalkTo - 1][1];
 		Z = WALKS[_isWalkTo - 1][2];
-		if (event == "time_isAttacked")
+		if (event.equals("time_isAttacked"))
 		{
 			_isAttacked = false;
 			if (npc.getNpcId() == GORDON)
 			{
 				npc.setWalking();
-				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(X, Y, Z, 0));
+				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(X, Y, Z, 0));
 			}
 		}
-		else if (event == "check_ai")
+		else if (event.equals("check_ai"))
 		{
 			cancelQuestTimer("check_ai", null, null);
-			if (_isSpawned == false)
+			if (!_isSpawned)
 			{
 				L2NpcInstance gordon_ai = findTemplate(GORDON);
 				if (gordon_ai != null)
@@ -144,9 +144,9 @@ public class Gordon extends L2AttackableAIScript
 				}
 			}
 		}
-		else if (event == "Start")
+		else if (event.equals("Start"))
 		{
-			if (npc != null && _isSpawned == true)
+			if (npc != null && _isSpawned)
 			{
 				// check if player have Cursed Weapon and in radius
 				if (npc.getNpcId() == GORDON)
@@ -181,7 +181,7 @@ public class Gordon extends L2AttackableAIScript
 					Y = WALKS[_isWalkTo - 1][1];
 					Z = WALKS[_isWalkTo - 1][2];
 					npc.setWalking();
-					npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(X, Y, Z, 0));
+					npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(X, Y, Z, 0));
 				}
 
 				// Test for unblock Npc
@@ -200,7 +200,7 @@ public class Gordon extends L2AttackableAIScript
 						return super.onAdvEvent(event, npc, player);
 					}
 					if (_npcBlock > 0)
-						npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(X, Y, Z, 0));
+						npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(X, Y, Z, 0));
 				}
 				// End Test unblock Npc
 			}

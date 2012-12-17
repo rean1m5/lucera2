@@ -9,11 +9,7 @@ import ru.catssoftware.gameserver.instancemanager.FortSiegeManager;
 import ru.catssoftware.gameserver.instancemanager.SiegeManager;
 import ru.catssoftware.gameserver.instancemanager.clanhallsiege.DevastatedCastleSiege;
 import ru.catssoftware.gameserver.instancemanager.clanhallsiege.FortressOfDeadSiege;
-import ru.catssoftware.gameserver.model.L2CharPosition;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Clan;
-import ru.catssoftware.gameserver.model.L2SiegeClan;
-import ru.catssoftware.gameserver.model.L2SiegeGuard;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.knownlist.SiegeGuardKnownList;
 import ru.catssoftware.gameserver.model.entity.FortSiege;
 import ru.catssoftware.gameserver.model.entity.Siege;
@@ -88,7 +84,7 @@ public class L2SiegeGuardInstance extends L2SiegeGuard
 			setisReturningToSpawnPoint(true);
 			clearAggroList();
 			if (hasAI())
-				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
+				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
 		}
 	}
 

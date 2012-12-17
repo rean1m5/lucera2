@@ -342,10 +342,10 @@ public abstract class AbstractAI implements Ctrl
 					onIntentionCast((L2Skill) arg0, (L2Object) arg1);
 					break;
 				case AI_INTENTION_MOVE_TO:
-					onIntentionMoveTo((L2CharPosition) arg0);
+					onIntentionMoveTo((Location) arg0);
 					break;
 				case AI_INTENTION_MOVE_TO_IN_A_BOAT:
-					onIntentionMoveToInABoat((L2CharPosition) arg0, (L2CharPosition) arg1);
+					onIntentionMoveToInABoat((Location) arg0, (Location) arg1);
 					break;
 				case AI_INTENTION_FOLLOW:
 					onIntentionFollow((L2Character) arg0);
@@ -461,7 +461,7 @@ public abstract class AbstractAI implements Ctrl
 					onEvtArrivedRevalidate();
 				break;
 			case EVT_ARRIVED_BLOCKED:
-				onEvtArrivedBlocked((L2CharPosition) arg0);
+				onEvtArrivedBlocked((Location) arg0);
 				break;
 			case EVT_FORGET_OBJECT:
 				onEvtForgetObject((L2Object) arg0);
@@ -491,9 +491,9 @@ public abstract class AbstractAI implements Ctrl
 
 	protected abstract void onIntentionCast(L2Skill skill, L2Object target);
 
-	protected abstract void onIntentionMoveTo(L2CharPosition destination);
+	protected abstract void onIntentionMoveTo(Location destination);
 
-	protected abstract void onIntentionMoveToInABoat(L2CharPosition destination, L2CharPosition origin);
+	protected abstract void onIntentionMoveToInABoat(Location destination, Location origin);
 
 	protected abstract void onIntentionFollow(L2Character target);
 
@@ -527,7 +527,7 @@ public abstract class AbstractAI implements Ctrl
 
 	protected abstract void onEvtArrivedRevalidate();
 
-	protected abstract void onEvtArrivedBlocked(L2CharPosition blocked_at_pos);
+	protected abstract void onEvtArrivedBlocked(Location blocked_at_pos);
 
 	protected abstract void onEvtForgetObject(L2Object object);
 
@@ -608,7 +608,7 @@ public abstract class AbstractAI implements Ctrl
 			}
 
 			// Send a Server->Client packet MoveToPawn/MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
-			if (pawn instanceof L2Character)
+			if (pawn.isCharacter())
 			{
 				if (_actor.isOnGeodataPath())
 				{
@@ -651,7 +651,7 @@ public abstract class AbstractAI implements Ctrl
 			clientActionFailed();
 	}
 
-	protected void moveToInABoat(L2CharPosition destination, L2CharPosition origin)
+	protected void moveToInABoat(Location destination, Location origin)
 	{
 		// Chek if actor can move
 		if (!_actor.isMovementDisabled())
@@ -685,7 +685,7 @@ public abstract class AbstractAI implements Ctrl
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
 	 * <BR>
 	 */
-	protected void clientStopMoving(L2CharPosition pos)
+	protected void clientStopMoving(Location pos)
 	{
 		// Stop movement of the L2Character
 		if (_actor.isMoving())

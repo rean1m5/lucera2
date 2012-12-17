@@ -1,11 +1,9 @@
 package ru.catssoftware.gameserver.model.quest.pack.ai;
 
-import java.util.Map;
-
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.SpawnTable;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Spawn;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.quest.Quest;
@@ -13,6 +11,8 @@ import ru.catssoftware.gameserver.network.serverpackets.NpcSay;
 import ru.catssoftware.gameserver.network.serverpackets.PlaySound;
 import ru.catssoftware.gameserver.network.serverpackets.SocialAction;
 import ru.catssoftware.gameserver.network.serverpackets.SpecialCamera;
+
+import java.util.Map;
 
 
 /**
@@ -80,7 +80,7 @@ public class DrChaos extends Quest
 		}
 		else if (event.equalsIgnoreCase("4"))
 		{
-			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(96055, -110759, -3312, 0));
+			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(96055, -110759, -3312, 0));
 			startQuestTimer("5", 2000, npc, player);
 		}
 		else if (event.equalsIgnoreCase("5"))
@@ -105,7 +105,7 @@ public class DrChaos extends Quest
 		if (npc.getNpcId() == DOCTER_CHAOS)
 		{
 			npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), "Как ты смееш вторгатся на мою территорию? Тебе не страшно?"));
-			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(96323,-110914,-3328,0));
+			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(96323,-110914,-3328,0));
 			this.startQuestTimer("Chat", 3000, npc, player);
 		}
 		return null;

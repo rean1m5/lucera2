@@ -20,14 +20,10 @@ import ru.catssoftware.gameserver.model.L2World;
 
 import java.util.List;
 
-/*
- * @author Ro0TT
- * @date 24.09.2012
- */
-
 /**
  * @author -Nemesiss-
  */
+
 public abstract class PathFinding
 {
 	public static PathFinding getInstance()

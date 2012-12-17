@@ -21,9 +21,9 @@ import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.datatables.NpcTable;
 import ru.catssoftware.gameserver.idfactory.IdFactory;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2Spawn;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2GrandBossInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2MonsterInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
@@ -376,7 +376,7 @@ public class AntharasManager extends BossLair
 				_mobiliseTask = ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(_antharas), 16);
 
 				// move at random.
-				L2CharPosition pos = new L2CharPosition(Rnd.get(175000, 178500), Rnd.get(112400, 116000), -7707, 0);
+				Location pos = new Location(Rnd.get(175000, 178500), Rnd.get(112400, 116000), -7707, 0);
 				_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(_antharas, pos), 32);
 				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(), ACTIVITY_TIME * 60000);
 
@@ -514,9 +514,9 @@ public class AntharasManager extends BossLair
 	private class MoveAtRandom implements Runnable
 	{
 		private L2NpcInstance	_npc;
-		private L2CharPosition	_pos;
+		private Location	_pos;
 
-		public MoveAtRandom(L2NpcInstance npc, L2CharPosition pos)
+		public MoveAtRandom(L2NpcInstance npc, Location pos)
 		{
 			_npc = npc;
 			_pos = pos;

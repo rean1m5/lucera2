@@ -16,12 +16,9 @@
  */
 package ru.catssoftware.gameserver.network.serverpackets;
 
-import ru.catssoftware.gameserver.datatables.NpcTable;
 import ru.catssoftware.gameserver.datatables.PetDataTable;
-import ru.catssoftware.gameserver.geodata.GeoEngine;
 import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
-import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 
 public class Ride extends L2GameServerPacket
 {
@@ -38,20 +35,13 @@ public class Ride extends L2GameServerPacket
 	 * 0x86 UnknownPackets         dddd
 	 * @param _
 	 */
-	public Ride(L2PcInstance cha, boolean mount, int npcId)
+	public Ride(L2PcInstance cha, boolean mount, int npcId, Location loc)
 	{
 		_id = cha.getObjectId();
 		_bRide = mount ? 1 : 0;
 		_rideClassID = npcId + 1000000; // npcID
 
-
-		if (npcId > 0 )
-		{
-			L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
-			loc = GeoEngine.getInstance().getPointInAvaliableRadius(cha.getLoc(), template.getCollisionRadius(), cha.getInstanceId());
-		}
-		else
-			loc = cha.getLoc();
+		this.loc = loc;
 
 		// 1 for Strider ; 2 for wyvern
 		if (PetDataTable.isStrider(npcId))

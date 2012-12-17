@@ -14,18 +14,14 @@
  */
 package ru.catssoftware.gameserver.model.actor.instance;
 
+import javolution.util.FastList;
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.instancemanager.FortSiegeManager;
 import ru.catssoftware.gameserver.instancemanager.FortSiegeManager.SiegeSpawn;
-import ru.catssoftware.gameserver.model.L2CharPosition;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Spawn;
-import ru.catssoftware.gameserver.model.L2Summon;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.network.serverpackets.NpcSay;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
-import javolution.util.FastList;
 
 
 public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
@@ -92,7 +88,7 @@ public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
 			setisReturningToSpawnPoint(true);
 			clearAggroList();
 			if (hasAI())
-				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
+				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
 		}
 	}
 

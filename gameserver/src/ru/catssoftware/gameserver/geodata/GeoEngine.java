@@ -516,7 +516,7 @@ public class GeoEngine extends GeoData
 		{
 			dx = loc.getX() + (int) (radius * Math.cos(Math.toRadians(i)));
 			dy = loc.getY() + (int) (radius * Math.sin(Math.toRadians(i)));
-			dz = getHeight(dx, dy,loc.getZ());
+			dz = getHeight(dx, dy, loc.getZ());
 			boolean canMove = canMoveFromToTarget(loc.getX(), loc.getY(), loc.getZ(), dx, dy, dz, geoIndex);
 			if (!canMove)
 				return false;
@@ -540,9 +540,9 @@ public class GeoEngine extends GeoData
 		{
 			dx = loc.getX() + (int) (radius * Math.cos(Math.toRadians(i)));
 			dy = loc.getY() + (int) (radius * Math.sin(Math.toRadians(i)));
-			dz = getHeight(dx, dy,loc.getZ());
+			dz = getHeight(dx, dy, loc.getZ());
 			pos = new Location(dx, dy, dz);
-			if (canMoveFromToTarget(loc.getX(), loc.getY(), loc.getZ(), pos.getX(), pos.getY(), pos.getZ(), geoIndex))
+			if (canMoveFromToTarget(loc.getX(), loc.getY(), loc.getZ(), dx, dy, dz, geoIndex))
 				if (cheсkRadius(pos, radius, geoIndex))
 					return pos;
 		}
@@ -770,8 +770,7 @@ public class GeoEngine extends GeoData
 		}
 		String fname = "geodata/" + rx + "_" + ry + ".l2j";
 		short regionoffset = (short) ((rx << 5) + ry);
-		if (Config.DEBUG)
-			_log.info("Geo Engine: - Loading: " + fname + " -> region offset: " + regionoffset + "X: " + rx + " Y: " + ry);
+		_log.info("Geo Engine: - Loading: " + fname);
 		
 		int size, index = 0, block = 0, flor = 0;
 		// Create a read-only memory-mapped file

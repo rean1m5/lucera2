@@ -27,27 +27,27 @@ import ru.catssoftware.gameserver.util.RndCoord;
  */
 public final class Location
 {
-	private int	_x;
-	private int	_y;
-	private int	_z;
-	private int	_heading;
+	public int x;
+	public int y;
+	public int z;
+	public int heading;
 
 	public Location(int x, int y, int z)
 	{
-		_x = x;
-		_y = y;
-		_z = z;
+		this.x = x;
+		this.y = y;
+		this.z = z;
 	}
 	public Location(String pos) {
 		String []v =pos.split(" ");
 		if(v.length>0)
-			_x = Integer.parseInt(v[0].trim());
+			x = Integer.parseInt(v[0].trim());
 		if(v.length>1)
-			_y = Integer.parseInt(v[1].trim());
+			y = Integer.parseInt(v[1].trim());
 		if(v.length>2)
-			_z = Integer.parseInt(v[2].trim());
+			z = Integer.parseInt(v[2].trim());
 		if(v.length>3)
-			_heading = Integer.parseInt(v[3].trim());
+			heading = Integer.parseInt(v[3].trim());
 		
 	}
 	
@@ -59,83 +59,83 @@ public final class Location
 	public Location(Node n) {
 		NamedNodeMap attr = n.getAttributes();
 		if(attr.getNamedItem("x")!=null)
-			_x = Integer.parseInt(attr.getNamedItem("x").getNodeValue());
+			x = Integer.parseInt(attr.getNamedItem("x").getNodeValue());
 		if(attr.getNamedItem("y")!=null)
-			_y = Integer.parseInt(attr.getNamedItem("y").getNodeValue());
+			y = Integer.parseInt(attr.getNamedItem("y").getNodeValue());
 		if(attr.getNamedItem("z")!=null)
-			_z = Integer.parseInt(attr.getNamedItem("z").getNodeValue());
+			z = Integer.parseInt(attr.getNamedItem("z").getNodeValue());
 		if(attr.getNamedItem("heading")!=null)
-			_heading = Integer.parseInt(attr.getNamedItem("heading").getNodeValue());
+			heading = Integer.parseInt(attr.getNamedItem("heading").getNodeValue());
 		
 	}
 	public Location(Location source) {
-		_x = source._x;
-		_y = source._y;
-		_z = source._z;
-		_heading = source._heading;
+		x = source.x;
+		y = source.y;
+		z = source.z;
+		heading = source.heading;
 	}
 	public Location(int x, int y, int z, int heading)
 	{
-		_x = x;
-		_y = y;
-		_z = z;
-		_heading = heading;
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.heading = heading;
 	}
 
 	public int getX()
 	{
-		return _x;
+		return x;
 	}
 
 	public int getY()
 	{
-		return _y;
+		return y;
 	}
 
 	public int getZ()
 	{
-		return _z;
+		return z;
 	}
 
 	public int getHeading()
 	{
-		return _heading;
+		return heading;
 	}
 	@Override
 	public String toString() {
-		return String.format("%d %d %d", _x,_y,_z);
+		return String.format("%d %d %d", x, y, z);
 	}
 
 	public void setZ(int z) {
-		_z = z;
+		this.z = z;
 		
 	}
 	public boolean equals(int x, int y, int z) {
-		return x==_x && y==_y && z==_z;
+		return x== this.x && y== this.y && z== this.z;
 	}
 
 	public Location geo2world() {
-		return new Location(_x>>4 + L2World.MAP_MIN_X, _y >> 4 + L2World.MAP_MIN_Y,_z);
+		return new Location(x >>4 + L2World.MAP_MIN_X, y >> 4 + L2World.MAP_MIN_Y, z);
 	}
 	public Location rnd(int min, int max, boolean change)
 	{
 		Location loc = RndCoord.coordsRandomize(this, min, max);
-		loc = GeoData.getInstance().moveCheck(_x, _y, _z, loc._x, loc._y, 0,0);
+		loc = GeoData.getInstance().moveCheck(x, y, z, loc.x, loc.y, 0,0);
 		if(change)
 		{
-			_x = loc._x;
-			_y = loc._y;
-			_z = loc._z;
+			x = loc.x;
+			y = loc.y;
+			z = loc.z;
 			return this;
 		}
 		return loc;
 	}
 
 	public void set(int tx, int ty, int tz, int heading) {
-		_x = tx;
-		_y = ty;
-		_z = tx;
-		_heading = heading;
+		x = tx;
+		y = ty;
+		z = tx;
+		this.heading = heading;
 		
 	}
 	

@@ -5,10 +5,10 @@ import ru.catssoftware.gameserver.communitybbs.CommunityBoard;
 import ru.catssoftware.gameserver.datatables.ClanTable;
 import ru.catssoftware.gameserver.gmaccess.gmController;
 import ru.catssoftware.gameserver.handler.*;
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2ItemInstance;
 import ru.catssoftware.gameserver.model.L2Object;
 import ru.catssoftware.gameserver.model.L2World;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.entity.events.GameEvent;
@@ -231,7 +231,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		{
 			L2NpcInstance temp = (L2NpcInstance) obj;
 			temp.setTarget(activeChar);
-			temp.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(activeChar.getX(), activeChar.getY(), activeChar.getZ(), 0));
+			temp.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ(), 0));
 		}
 	}
 

@@ -3029,15 +3029,15 @@ public abstract class L2Character extends L2Object implements IEffector
                 
 		public void moveTo(int x, int y, int z, int offset)
 		{
-                            moveToLocation(x, y, z, offset);
+			moveToLocation(x, y, z, offset);
 		}
 
 		public boolean moveTo(int x, int y, int z)
 		{
-                            return moveToLocation(x, y, z, 0);
+        	return moveToLocation(x, y, z, 0);
 		}
 
-		public void stopMove(L2CharPosition pos)
+		public void stopMove(Location pos)
 		{
                             L2Character.this.stopMove(pos);
 		}
@@ -3529,7 +3529,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		getWorldRegion().revalidateZones(this);
 	}
 
-	public void stopMove(L2CharPosition pos)
+	public void stopMove(Location pos)
 	{
 		stopMove(pos, false);
 	}
@@ -3543,13 +3543,13 @@ public abstract class L2Character extends L2Object implements IEffector
 		Broadcast.toKnownPlayers(this, new StopMove(this));
 	}
 	
-	public void stopMove(L2CharPosition pos, boolean updateKnownObjects)
+	public void stopMove(Location pos, boolean updateKnownObjects)
 	{
 		// Delete movement data of the L2Character
 		_move = null;
 		_isMoving = false;
 		// Set the current position (x,y,z), its current L2WorldRegion if necessary and its heading
-		// All data are contained in a L2CharPosition object
+		// All data are contained in a Location object
 		if (pos != null)
 		{
 			getPosition().setXYZ(pos.x, pos.y, pos.z);
@@ -3608,11 +3608,12 @@ public abstract class L2Character extends L2Object implements IEffector
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	protected Location _startLoc;
+
 	protected boolean moveToLocation(int x, int y, int z, int offset)
 	{
-		
 		_startLoc = new Location(getLoc());
 		_isMoving = true;
+
 		// Get the Move Speed of the L2Charcater
 		float speed = getStat().getMoveSpeed();
 		if (speed <= 0 || isMovementDisabled()) {
@@ -3691,11 +3692,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			int gtx = (originalX - L2World.MAP_MIN_X) >> 4;
 			int gty = (originalY - L2World.MAP_MIN_Y) >> 4;
 
-		// Movement checks:
-		// when geodata == 2, for all characters except mobs returning home (could be changed later to teleport if pathfinding fails)
-		// when geodata == 1, for l2playableinstance and l2riftinstance only
-		if ((Config.PATHFINDING  &&	!(this instanceof L2Attackable && ((L2Attackable)this).isReturningToSpawnPoint())) || isPlayer() || (this instanceof L2Summon && !(getAI().getIntention() == AI_INTENTION_FOLLOW)) || isAfraid() || this instanceof L2RiftInvaderInstance)
-		{
+
 			if (isOnGeodataPath())
 			{
 				try
@@ -3703,13 +3700,14 @@ public abstract class L2Character extends L2Object implements IEffector
 					if (gtx == _move.geoPathGtx && gty == _move.geoPathGty)
 						return false;
 					else
-						_move.onGeodataPathIndex = -1; // Set not on geodata path	
+						_move.onGeodataPathIndex = -1; // Set not on geodata path
 				}
 				catch (NullPointerException e)
-				{ 
-					// nothing
+				{
+					e.printStackTrace();
 				}
 			}
+
 			if (curX < L2World.MAP_MIN_X || curX > L2World.MAP_MAX_X || curY < L2World.MAP_MIN_Y  || curY > L2World.MAP_MAX_Y)
 			{
 				// Temporary fix for character outside world region errors
@@ -3717,29 +3715,26 @@ public abstract class L2Character extends L2Object implements IEffector
 				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 				if (isPlayer())
 					new Disconnection((L2PcInstance) this).defaultSequence(true);
-				else if (!(this instanceof L2Summon))
+				else if (!isSummon())
 					onDecay();
 				actionFail();
 				return false;
 			}
+
 			Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z, getInstanceId());
-			
+
 			// location different if destination wasn't reached (or just z coord is different)
 			x = destiny.getX();
 			y = destiny.getY();
 			z = destiny.getZ();
 			distance = Math.sqrt((x - curX) * (x - curX) + (y - curY) * (y - curY));
-		}
-		if(Config.PATHFINDING  && originalDistance-distance > 100 && distance < 2000 && !isAfraid())
-		{
 
-			// Overrides previous movement check
-//			if(this instanceof L2PlayableInstance || isInCombat() || this instanceof L2MinionInstance)
+			if(originalDistance-distance > 100 && distance < 2000 && !isAfraid())
 			{
 				m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ, this.getInstanceId(),getPlayer()!=null);
 				if (m.geoPath == null || m.geoPath.size() < 2) // No path found
 				{
-					if (isPlayer() || (!(this instanceof L2PlayableInstance) && !(this instanceof L2MinionInstance) && Math.abs(z - curZ) > 140) || (this instanceof L2Summon && !((L2Summon)this).getFollowStatus()))
+					if (isPlayer() || (!isPlayable() && !(this instanceof L2MinionInstance) && Math.abs(z - curZ) > 140) || (isSummon() && !((L2Summon)this).getFollowStatus()))
 					{
 						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 						actionFail();
@@ -3789,16 +3784,16 @@ public abstract class L2Character extends L2Object implements IEffector
 					cos = dx/distance;
 				}
 			}
-		}
-		// If no distance to go through, the movement is canceled
-		if (distance < 1 && (Config.PATHFINDING   || this instanceof L2PlayableInstance || isAfraid() || this instanceof L2RiftInvaderInstance))
-		{
-			if (this instanceof L2Summon)
-				((L2Summon) this).setFollowStatus(false);
-			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-			actionFail();
-			return false;
-		}
+
+			// If no distance to go through, the movement is canceled
+			if (distance < 1 && (isPlayable() || isAfraid() || this instanceof L2RiftInvaderInstance))
+			{
+				if (this instanceof L2Summon)
+					((L2Summon) this).setFollowStatus(false);
+				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+				actionFail();
+				return false;
+			}
 		}
 
 		int ticksToMove = 1 + (int)(GameTimeController.TICKS_PER_SECOND * distance / speed);

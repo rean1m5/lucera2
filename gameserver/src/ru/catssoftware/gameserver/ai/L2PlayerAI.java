@@ -1,11 +1,11 @@
 package ru.catssoftware.gameserver.ai;
 
-import ru.catssoftware.gameserver.model.L2CharPosition;
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2Character.AIAccessor;
 import ru.catssoftware.gameserver.model.L2Object;
 import ru.catssoftware.gameserver.model.L2Skill;
 import ru.catssoftware.gameserver.model.L2Skill.SkillTargetType;
+import ru.catssoftware.gameserver.model.Location;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2StaticObjectInstance;
 
@@ -148,7 +148,7 @@ public class L2PlayerAI extends L2CharacterAI
 	 *
 	 */
 	@Override
-	protected void onIntentionMoveTo(L2CharPosition pos)
+	protected void onIntentionMoveTo(Location pos)
 	{
 		if (getIntention() == AI_INTENTION_REST)
 		{
