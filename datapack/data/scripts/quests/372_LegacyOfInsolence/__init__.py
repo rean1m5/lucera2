@@ -81,24 +81,25 @@ def check_n_take(st,collection) :
     return result
 
 def give_reward(st,reward) :
-    luck = st.getRandom(REWARD_RATE[-1])  
-    prize = REWARD[reward]
+    luck = st.getRandom(REWARD_RATE[-1])
+    prize = []   # dirty iterated copy to avoid reference problems after lists' element deletion
+    for h in range(len(REWARD[reward])):
+        prize.append(REWARD[reward][h])
     if ALT_RP_100 != 0 :
        for i in range(len(prize)) :
-           if prize[i] in RECIPES:        # dont want to change keys materials, just recipes
-             prize[i]+=1
-    if luck < REWARD_RATE[0] :            # best reward: all items from collection
-       for j in prize :
-           st.giveItems(j,1)
+           prize[i]+=1
+    if luck < REWARD_RATE[0] :            # best reward: all mats and recipes
+       for j in range(len(prize)) :
+           st.giveItems(prize[j],1)
     elif luck < REWARD_RATE[1] :          # worst reward: 4000a
-       st.rewardItems(57,4000)
-    elif luck < REWARD_RATE[2] :          # quite nice : 2 recipes
+       st.giveItems(57,4000) 
+    elif luck < REWARD_RATE[2] :          # quite nice : 2 recipes or 2 mats
        for k in range(2) :
           l = st.getRandom(len(prize))
           st.giveItems(prize[l],1)
           del prize[l]
-    else :                                # ordinary reward: 1 recipe
-       st.giveItems(prize[st.getRandom(len(prize))],1)
+    else :                                # ordinary reward: 1 recipe or 1 material
+       st.giveItems(prize[st.getRandom(6)],1)
 
 class Quest (JQuest) :
 

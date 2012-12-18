@@ -6,7 +6,7 @@ from ru.catssoftware.gameserver.ai import CtrlIntention
 from ru.catssoftware.gameserver.model.quest import State
 from ru.catssoftware.gameserver.model.quest import QuestState
 from ru.catssoftware.gameserver.model.quest.jython import QuestJython as JQuest
-from ru.catssoftware.gameserver.model import L2CharPosition
+from ru.catssoftware.gameserver.model import Location
 from ru.catssoftware.gameserver.network.serverpackets import NpcSay
 
 qn = "21_HiddenTruth"
@@ -75,19 +75,19 @@ class Quest (JQuest) :
             loc = int(event)
             x,y,z,heading=ROUTES[loc]
             if event == "1" :
-                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, L2CharPosition(x,y,z,heading))
+                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, Location(x,y,z,heading))
                 self.startQuestTimer("2",5000,npc,player)
             elif event == "2" :
-                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, L2CharPosition(x,y,z,heading))
+                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, Location(x,y,z,heading))
                 self.startQuestTimer("3",12000,npc,player)
             elif event == "3" :
-                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, L2CharPosition(x,y,z,heading))
+                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, Location(x,y,z,heading))
                 self.startQuestTimer("4",15000,npc,player)
             elif event == "4" :
-                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, L2CharPosition(x,y,z,heading))
+                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, Location(x,y,z,heading))
                 self.startQuestTimer("5",5000,npc,player)
             elif event == "5" :
-                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, L2CharPosition(x,y,z,heading))
+                npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, Location(x,y,z,heading))
             return
         return htmltext
 
