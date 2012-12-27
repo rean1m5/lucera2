@@ -825,7 +825,7 @@ public final class Olympiad
 			currentTime.set(Calendar.DAY_OF_WEEK, 1);
 			// прибавляем указанное кол-во недель, но учитываем, что если расчет идет в первый день недели, то нужно высчитывать
 			// конец периода с учетом текущей недели, добавляем на одну неделю меньше.
-			currentTime.add(Calendar.WEEK_OF_YEAR, Config.ALT_OLY_DURATION - currentTime.get(Calendar.DAY_OF_WEEK) == 1 ? Config.ALT_OLY_DURATION : Config.ALT_OLY_DURATION - 1);
+			currentTime.add(Calendar.WEEK_OF_YEAR, Config.ALT_OLY_DURATION - currentTime.get(Calendar.DAY_OF_WEEK) == 1 ? Config.ALT_OLY_DURATION - 1 : Config.ALT_OLY_DURATION);
 		}
 		_olympiadEnd = currentTime.getTimeInMillis();
 

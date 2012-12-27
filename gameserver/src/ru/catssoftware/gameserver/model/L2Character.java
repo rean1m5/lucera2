@@ -3124,11 +3124,7 @@ public abstract class L2Character extends L2Object implements IEffector
 
 	public final boolean isOnGeodataPath()
 	{
-		MoveData m = _move;
-		if (m == null)
-			return false;
-		return m.onGeodataPathIndex != -1 && m.onGeodataPathIndex != m.geoPath.size() - 1;
-
+		return _move != null && _move.onGeodataPathIndex != -1 && _move.onGeodataPathIndex != _move.geoPath.size() - 1;
 	}
 
 	public final void addStatFunc(Func f)
@@ -3435,28 +3431,17 @@ public abstract class L2Character extends L2Object implements IEffector
 			dy = m._yDestination - m._yAccurate;
 		}
 		// Z coordinate will follow geodata or client values
-		if (Config.GEODATA && Config.COORD_SYNCHRONIZE == 2
-		&& !isFlying() && !isInsideZone(L2Zone.FLAG_WATER)
-		&& !m.disregardingGeodata
-		&& GameTimeController.getGameTicks() % 10 == 0
-		&& !(this instanceof L2BoatInstance)) // once a second to reduce possible cpu load
+		if (Config.GEODATA && Config.COORD_SYNCHRONIZE == 2 && !isFlying() && !isInsideZone(L2Zone.FLAG_WATER)	&& !m.disregardingGeodata && GameTimeController.getGameTicks() % 10 == 0 && !(this instanceof L2BoatInstance)) // once a second to reduce possible cpu load
 		{
 			short geoHeight = GeoData.getInstance().getSpawnHeight(xPrev, yPrev, zPrev-30, zPrev+30, this);
 			dz = m._zDestination - geoHeight;
 			// quite a big difference, compare to validatePosition packet
-			if (isPlayer() && Math.abs(getZ() - geoHeight) > 200
-					&& Math.abs(getZ() - geoHeight) < 1500)
-			{
+			if (isPlayer() && Math.abs(getZ() - geoHeight) > 200 && Math.abs(getZ() - geoHeight) < 1500)
 				dz = m._zDestination - zPrev; // allow diff
-			}
 			else if (isInCombat() && Math.abs(dz) > 200 && (dx*dx + dy*dy) < 40000) // allow mob to climb up to pcinstance
-			{
 				dz = m._zDestination - zPrev; // climbing
-			}
 			else
-			{
 				zPrev = geoHeight;
-			}
 		}
 		else
 			dz = m._zDestination - zPrev;
@@ -3601,13 +3586,25 @@ public abstract class L2Character extends L2Object implements IEffector
 	}
 
 	protected boolean _isMoving;
-	public void finishMovement() {
+
+	public void finishMovement()
+	{
 		_isMoving = false;
 	}
-	public void actionFail() {
+
+	public void actionFail()
+	{
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
+
 	protected Location _startLoc;
+
+	public boolean debugGEO = false;
+	private void debugGEO(Object message)
+	{
+		if (debugGEO)
+			_log.info(getName() + " [" + getObjectId() + "]: " + message.toString());
+	}
 
 	protected boolean moveToLocation(int x, int y, int z, int offset)
 	{
@@ -3616,24 +3613,29 @@ public abstract class L2Character extends L2Object implements IEffector
 
 		// Get the Move Speed of the L2Charcater
 		float speed = getStat().getMoveSpeed();
-		if (speed <= 0 || isMovementDisabled()) {
+
+		if (speed <= 0 || isMovementDisabled())
+		{
 			actionFail();
 			return false;
 		}
 
 		
-		final int curX = super.getX();
-		final int curY = super.getY();
-		final int curZ = super.getZ();
+		final int curX = getX();
+		final int curY = getY();
+		final int curZ = getZ();
 		double dx = (x - curX);
 		double dy = (y - curY);
 		double dz = (z - curZ);
 		double distance = Math.sqrt(dx*dx + dy*dy);
+
+		//debugGEO("Distance: (" + String.format("%.1f", distance) + "), coords: " + x + " " + y + " " + z);
+
 		// make water move short and use no geodata checks for swimming chars
 		// distance in a click can easily be over 3000
 		if (Config.GEODATA && isInsideZone(L2Zone.FLAG_WATER) && distance > 700) 
 		{
-			double divider = 700/distance;
+			double divider = 700 / distance;
 			x = curX + (int)(divider * dx);
 			y = curY + (int)(divider * dy);
 			z = curZ + (int)(divider * dz);
@@ -3692,6 +3694,7 @@ public abstract class L2Character extends L2Object implements IEffector
 			int gtx = (originalX - L2World.MAP_MIN_X) >> 4;
 			int gty = (originalY - L2World.MAP_MIN_Y) >> 4;
 
+			//debugGEO("isOnGeodataPath: " + isOnGeodataPath());
 
 			if (isOnGeodataPath())
 			{
@@ -3721,17 +3724,25 @@ public abstract class L2Character extends L2Object implements IEffector
 				return false;
 			}
 
+			debugGEO("Cur | Destiny: " + String.format("%d %d %d | %d %d %d", curX, curY, curZ, x, y, z));
 			Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z, getInstanceId());
 
-			// location different if destination wasn't reached (or just z coord is different)
 			x = destiny.getX();
 			y = destiny.getY();
 			z = destiny.getZ();
 			distance = Math.sqrt((x - curX) * (x - curX) + (y - curY) * (y - curY));
 
-			if(originalDistance-distance > 100 && distance < 2000 && !isAfraid())
+			debugGEO("Destiny: (" + String.format("%.1f", distance) + "): " +  destiny.toString());
+
+
+
+			if(originalDistance - distance > 100 && distance < 2000 && !isAfraid())
 			{
-				m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ, this.getInstanceId(),getPlayer()!=null);
+				m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ, getInstanceId(), isPlayable());
+				debugGEO("GeoPath: " + (m.geoPath != null ? m.geoPath.size() : "0"));
+				if (m.geoPath != null && m.geoPath.size() > 1)
+					for(AbstractNodeLoc nLoc : m.geoPath)
+						debugGEO("Path: " + nLoc.toString());
 				if (m.geoPath == null || m.geoPath.size() < 2) // No path found
 				{
 					if (isPlayer() || (!isPlayable() && !(this instanceof L2MinionInstance) && Math.abs(z - curZ) > 140) || (isSummon() && !((L2Summon)this).getFollowStatus()))
@@ -3766,9 +3777,10 @@ public abstract class L2Character extends L2Object implements IEffector
 						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 						return false;
 					}
+
 					for (int i = 0; i < m.geoPath.size()-1; i++)
 					{
-						if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath.get(i),m.geoPath.get(i+1), this.getInstanceId()))
+						if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath.get(i),m.geoPath.get(i+1), getInstanceId()))
 						{
 							m.geoPath = null;
 							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -3785,11 +3797,12 @@ public abstract class L2Character extends L2Object implements IEffector
 				}
 			}
 
+
 			// If no distance to go through, the movement is canceled
 			if (distance < 1 && (isPlayable() || isAfraid() || this instanceof L2RiftInvaderInstance))
 			{
-				if (this instanceof L2Summon)
-					((L2Summon) this).setFollowStatus(false);
+				if (isSummon())
+					getSummon().setFollowStatus(false);
 				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 				actionFail();
 				return false;
@@ -3866,8 +3879,8 @@ public abstract class L2Character extends L2Object implements IEffector
 			m._yDestination = md.geoPath.get(m.onGeodataPathIndex).getY();
 			m._zDestination = md.geoPath.get(m.onGeodataPathIndex).getZ();
 		}
-		double dx = (m._xDestination - super.getX());
-		double dy = (m._yDestination - super.getY());
+		double dx = (m._xDestination - getX());
+		double dy = (m._yDestination - getY());
 		double distance = Math.sqrt(dx * dx + dy * dy);
 		double sin = dy / distance;
 		double cos = dx / distance;
