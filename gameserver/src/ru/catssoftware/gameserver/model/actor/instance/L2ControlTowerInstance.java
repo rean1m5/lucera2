@@ -16,7 +16,6 @@ package ru.catssoftware.gameserver.model.actor.instance;
 
 import javolution.util.FastList;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
-import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2Spawn;
 import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;

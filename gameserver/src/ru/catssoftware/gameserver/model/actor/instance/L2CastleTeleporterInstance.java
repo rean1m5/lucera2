@@ -14,20 +14,16 @@
  */
 package ru.catssoftware.gameserver.model.actor.instance;
 
-import java.util.Collection;
-import java.util.StringTokenizer;
-
 import ru.catssoftware.gameserver.ThreadPoolManager;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.instancemanager.MapRegionManager;
 import ru.catssoftware.gameserver.model.L2World;
 import ru.catssoftware.gameserver.model.mapregion.L2MapRegion;
-import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
-import ru.catssoftware.gameserver.network.serverpackets.MyTargetSelected;
-import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
-import ru.catssoftware.gameserver.network.serverpackets.NpcSay;
-import ru.catssoftware.gameserver.network.serverpackets.ValidateLocation;
+import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
+
+import java.util.Collection;
+import java.util.StringTokenizer;
 
 
 /**
@@ -54,9 +50,10 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		if (actualCommand.equalsIgnoreCase("tele"))
 		{
 			int delay;
+			boolean longTime = getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0;
 			if (!getTask())
 			{
-				if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0)
+				if (longTime)
 					delay = 480000;
 				else
 					delay = 30000;
@@ -65,7 +62,7 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 				ThreadPoolManager.getInstance().scheduleGeneral(new oustAllPlayers(), delay);
 			}
 
-			String filename = "data/html/castleteleporter/MassGK-1.htm";
+			String filename = longTime ? "data/html/castleteleporter/MassGK-4.htm" : "data/html/castleteleporter/MassGK-3.htm";
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile(filename);
 			player.sendPacket(html);
@@ -78,15 +75,20 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 	public void showChatWindow(L2PcInstance player)
 	{
 		String filename;
+		boolean longTime = getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0;
+
 		if (!getTask())
 		{
-			if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0)
+			if (longTime)
 				filename = "data/html/castleteleporter/MassGK-2.htm";
 			else
-				filename = "data/html/castleteleporter/MassGK.htm";
+				filename = "data/html/castleteleporter/MassGK-1.htm";
 		}
+		else if (longTime)
+			filename = "data/html/castleteleporter/MassGK-4.htm";
 		else
-			filename = "data/html/castleteleporter/MassGK-1.htm";
+			filename = "data/html/castleteleporter/MassGK-3.htm";
+
 
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
