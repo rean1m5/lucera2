@@ -294,12 +294,14 @@ public class L2VillageMasterInstance extends L2FolkInstance
 					{
 						html.setFile("data/html/villagemaster/SubClass_Fail.htm");
 						allowAddition = false;
+						break;
 					}
 					if (player.getGameEvent()!=null)
 					{
 						player.sendMessage(Message.getMessage(player, Message.MessageId.MSG_NOT_ALLOWED_AT_THE_MOMENT));
 						return;
 					}
+
 					if (allowAddition)
 					{
 						if (!player.getSubClasses().isEmpty())
@@ -316,6 +318,9 @@ public class L2VillageMasterInstance extends L2FolkInstance
 						}
 					}
 
+					if (!allowAddition)
+						break;
+
 					if (Config.SUBCLASS_WITH_CUSTOM_ITEM && Config.SUBCLASS_WITH_CUSTOM_ITEM_COUNT>=0)
 						allowAddition = PcAction.removeItem(player,
 								Config.SUBCLASS_WITH_CUSTOM_ITEM_ID,
@@ -327,6 +332,7 @@ public class L2VillageMasterInstance extends L2FolkInstance
 						QuestState qs = player.getQuestState("235_MimirsElixir");
 						allowAddition = qs != null && qs.isCompleted();
 					}
+
 
 					if (allowAddition)
 					{
@@ -342,7 +348,7 @@ public class L2VillageMasterInstance extends L2FolkInstance
 					}
 					else
 					{
-							html.setFile("data/html/villagemaster/SubClass_Fail.htm");
+						html.setFile("data/html/villagemaster/SubClass_Fail.htm");
 					}
 
 					break;
