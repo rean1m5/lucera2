@@ -20,7 +20,6 @@ import ru.catssoftware.gameserver.datatables.SkillTable;
 import ru.catssoftware.gameserver.instancemanager.clanhallsiege.RainbowSpringSiege;
 import ru.catssoftware.gameserver.model.L2Character;
 import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.network.serverpackets.MagicSkillUse;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
 import ru.catssoftware.tools.random.Rnd;
@@ -196,5 +195,17 @@ public final class L2ChestInstance extends L2MonsterInstance
 	public boolean hasRandomAnimation()
 	{
 		return false;
+	}
+
+	@Override
+	public L2ChestInstance getChest()
+	{
+		return this;
+	}
+
+	@Override
+	public boolean isChest()
+	{
+		return true;
 	}
 }

@@ -11,7 +11,6 @@ import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.idfactory.IdFactory;
 import ru.catssoftware.gameserver.instancemanager.TownManager;
 import ru.catssoftware.gameserver.instancemanager.ZoneManager;
-import ru.catssoftware.gameserver.model.actor.instance.L2MonsterInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2NpcInstance;
 import ru.catssoftware.gameserver.model.entity.Town;
 import ru.catssoftware.gameserver.model.zone.L2Zone.ZoneType;
@@ -485,7 +484,7 @@ public class L2Spawn
 		if(Config.CHAMPION_ENABLE)
 		{
 		  if(ZoneManager.isReady && ZoneManager.getInstance().isInsideZone(ZoneType.Boss, getLocx(), getLocy())==null) 
-			if (((mob instanceof L2MonsterInstance && !(mob instanceof L2Boss)) || (mob instanceof L2Boss && Config.CHAMPION_BOSS)) && Config.CHAMPION_FREQUENCY > 0 && !mob.getTemplate().isQuestMonster() && mob.getLevel() >= Config.CHAMPION_MIN_LEVEL && mob.getLevel() <= Config.CHAMPION_MAX_LEVEL)
+			if (mob.isMonster() && (!mob.isBoss() || Config.CHAMPION_BOSS) && !mob.isChest() && Config.CHAMPION_FREQUENCY > 0 && !mob.getTemplate().isQuestMonster() && mob.getLevel() >= Config.CHAMPION_MIN_LEVEL && mob.getLevel() <= Config.CHAMPION_MAX_LEVEL)
 			{
 				int mobId=mob.getTemplate().getIdTemplate();
 				if (!((mobId>=22452 && mobId<=22484) || (mobId>=18579 && mobId<=18602) || (mobId>=18009 && mobId<=18058) || (mobId>=18109 && mobId<=18118))

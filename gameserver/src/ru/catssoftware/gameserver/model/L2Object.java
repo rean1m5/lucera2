@@ -400,4 +400,13 @@ public abstract class L2Object extends L2Entity
 		return false;
 	}
 
+	public L2ChestInstance getChest()
+	{
+		return null;
+	}
+
+	public boolean isChest()
+	{
+		return false;
+	}
 }
