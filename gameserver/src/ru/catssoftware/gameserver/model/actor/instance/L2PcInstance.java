@@ -402,9 +402,6 @@ public class L2PcInstance extends L2PlayableInstance
 	private boolean							_observerMode						= false;
 	private int								_observMode							= 0;
 
-	/** Total amount of damage dealt during a olympiad fight */
-	private int								_olyDamage							= 0;
-
 	
 	public int								_telemode							= 0;
 
@@ -8774,29 +8771,6 @@ public class L2PcInstance extends L2PlayableInstance
 		return _olympiadGameId;
 	}
 
-	public int getOlyDamage()
-	{
-		return _olyDamage;
-	}
-
-	public void setOlyDamage(int dmg)
-	{
-		_olyDamage = dmg;
-	}
-
-	public void addOlyDamage(int dmg)
-	{
-		_olyDamage = _olyDamage + dmg;
-	}
-
-	public void reduceOlyDamage(int dmg)
-	{
-		if (_olyDamage - dmg < 0)
-			_olyDamage = 0;
-		else
-			_olyDamage = _olyDamage - dmg;
-	}
-
 	public int getObsX()
 	{
 		return _obsX;
@@ -8933,9 +8907,6 @@ public class L2PcInstance extends L2PlayableInstance
 	public void setIsOlympiadStart(boolean b)
 	{
 		_olympiadStart = b;
-		// clear olympiad damage incase its not the first match since init of l2pcisntance
-		if (b)
-			setOlyDamage(0);
 	}
 
 	public boolean isOlympiadStart()

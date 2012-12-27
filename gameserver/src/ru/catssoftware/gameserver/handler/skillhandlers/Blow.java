@@ -3,14 +3,9 @@ package ru.catssoftware.gameserver.handler.skillhandlers;
 import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.handler.ISkillHandler;
-import ru.catssoftware.gameserver.model.L2Character;
-import ru.catssoftware.gameserver.model.L2Effect;
-import ru.catssoftware.gameserver.model.L2ItemInstance;
-import ru.catssoftware.gameserver.model.L2Skill;
-import ru.catssoftware.gameserver.model.L2Summon;
+import ru.catssoftware.gameserver.model.*;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2SummonInstance;
-import ru.catssoftware.gameserver.model.olympiad.Olympiad;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
 import ru.catssoftware.gameserver.skills.Env;
@@ -168,9 +163,6 @@ public class Blow implements ISkillHandler
 								player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
 								if (player.isSleeping())
 									player.stopSleeping(null);
-								// Add Olympiad damage
-								if (activeChar.isPlayer() && ((L2PcInstance) activeChar).isInOlympiadMode())
-									((L2PcInstance) activeChar).addOlyDamage((int) damage);
 							}
 						}
 						SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
@@ -205,9 +197,6 @@ public class Blow implements ISkillHandler
 					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
 					sm.addNumber((int) damage);
 					activePlayer.sendPacket(sm);
-
-					if (activePlayer.isInOlympiadMode() && target.isPlayer() && ((L2PcInstance) target).isInOlympiadMode() && ((L2PcInstance) target).getOlympiadGameId() == activePlayer.getOlympiadGameId())
-						Olympiad.getInstance().notifyCompetitorDamage(activePlayer, (int) damage, activePlayer.getOlympiadGameId());
 				}
 			}
 

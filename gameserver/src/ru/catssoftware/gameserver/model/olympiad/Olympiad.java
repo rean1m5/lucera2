@@ -687,12 +687,6 @@ public final class Olympiad
 		}
 	}
 
-	public void notifyCompetitorDamage(L2PcInstance player, int damage, int gameId)
-	{
-		if (OlympiadManager.getInstance().getOlympiadGames().get(gameId) != null)
-			OlympiadManager.getInstance().getOlympiadGames().get(gameId).addDamage(player, damage);
-	}
-
 	private Runnable _olyStart = new Runnable()
 	{
 		public void run()
@@ -1502,7 +1496,7 @@ public final class Olympiad
 	 * @param result
 	 * @param points
 	 */
-	public static synchronized void logResult(String playerOne, String playerTwo, Double p1hp, Double p2hp, int p1dmg, int p2dmg, String result, int points, String classed)
+	public static synchronized void logResult(String playerOne, String playerTwo, Double p1hp, Double p2hp, double p1dmg, double p2dmg, String result, int points, String classed)
 	{
 		if (!Config.ALT_OLY_LOG_FIGHTS)
 			return;

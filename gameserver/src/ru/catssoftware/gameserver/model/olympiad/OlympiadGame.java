@@ -1,6 +1,7 @@
 package ru.catssoftware.gameserver.model.olympiad;
 
 import javolution.util.FastList;
+import org.apache.log4j.Logger;
 import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.Message.MessageId;
@@ -22,12 +23,11 @@ import ru.catssoftware.gameserver.skills.l2skills.L2SkillSummon;
 import ru.catssoftware.util.StatsSet;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 
 public class OlympiadGame
 {
-	protected static final Logger		_log			= Logger.getLogger(OlympiadGame.class.getName());
+	protected static final Logger		_log			= Logger.getLogger(OlympiadGame.class);
 	protected COMP_TYPE					_type;
 	protected boolean					_aborted;
 	protected boolean					_gamestarted;
@@ -46,8 +46,8 @@ public class OlympiadGame
 	private static final String			COMP_LOST		= "competitions_lost";
 	private static final String			COMP_DRAWN		= "competitions_drawn";
 	protected static boolean			_battleStarted;
-	public int							_damageP1		= 0;
-	public int							_damageP2		= 0;
+	private double							_damageP1		= 0;
+	private double							_damageP2		= 0;
 	public L2PcInstance					_playerOne;
 	public L2PcInstance					_playerTwo;
 	protected FastList<L2PcInstance>	_players;
@@ -699,7 +699,7 @@ public class OlympiadGame
 			_sm = new SystemMessage(SystemMessageId.THE_GAME_ENDED_IN_A_TIE);
 			broadcastMessage(_sm, true);
 		}
-		else if (_playerTwo == null || _playerTwo.isOnline() == 0 || (playerTwoHp == 0 && playerOneHp != 0) || (_damageP1 > _damageP2 && playerTwoHp != 0 && playerOneHp != 0))
+		else if (_playerTwo == null || _playerTwo.isOnline() == 0 || playerTwoHp == 0 && playerOneHp != 0 || (_damageP1 > _damageP2 && playerTwoHp != 0 && playerOneHp != 0))
 		{
 			playerOneStat.set(POINTS, playerOnePoints + pointDiff);
 			playerTwoStat.set(POINTS, playerTwoPoints - pointDiff);
@@ -857,14 +857,14 @@ public class OlympiadGame
 		return true;
 	}
 
-	protected void addDamage(L2PcInstance player, int damage)
+	public void addDamage(L2PcInstance player, double damage)
 	{
-		if (_playerOne == null || _playerTwo == null)
+		if (player == null || _playerOne == null || _playerTwo == null)
 			return;
 
-		if (player == _playerOne)
+		if (player.getObjectId() == _playerOne.getObjectId())
 			_damageP1 += damage;
-		else if (player == _playerTwo)
+		else if (player.getObjectId() == _playerTwo.getObjectId())
 			_damageP2 += damage;
 	}
 
@@ -923,6 +923,9 @@ public class OlympiadGame
 
 	protected void additions()
 	{
+		_damageP1 = 0;
+		_damageP2 = 0;
+
 		for(L2PcInstance player : _players)
 		{
 			try
@@ -1140,8 +1143,6 @@ class OlympiadGameTask implements Runnable
 			}
 			if (i == 20)
 			{
-				_game._damageP1 = 0;
-				_game._damageP2 = 0;
 				_game.checkPet();
 				_game.sendMessageToPlayers(true, 10);
 				try

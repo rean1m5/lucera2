@@ -21,7 +21,6 @@ import ru.catssoftware.gameserver.model.L2Summon;
 import ru.catssoftware.gameserver.model.actor.knownlist.PlayableKnownList;
 import ru.catssoftware.gameserver.model.actor.stat.PcStat;
 import ru.catssoftware.gameserver.model.actor.stat.PlayableStat;
-import ru.catssoftware.gameserver.model.olympiad.Olympiad;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.SystemMessage;
 import ru.catssoftware.gameserver.skills.Stats;
@@ -262,10 +261,6 @@ public abstract class L2PlayableInstance extends L2Character
 
 		if (mcrit)
 			sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
-
-		if (Config.ALT_OLY_INCLUDE_SUMMON_DAMAGE && trgOwner != null && trgOwner != null && attOwner != trgOwner)
-			if (trgOwner.isInOlympiadMode() && trgOwner.getOlympiadGameId() == attOwner.getOlympiadGameId())
-					Olympiad.getInstance().notifyCompetitorDamage(attOwner, damage, attOwner.getOlympiadGameId());
 
 		SystemMessage sm=null;
 		if (target.isInvul() && !target.isNpc())

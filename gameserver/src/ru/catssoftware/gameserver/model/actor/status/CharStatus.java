@@ -18,6 +18,7 @@ package ru.catssoftware.gameserver.model.actor.status;
 import org.apache.log4j.Logger;
 
 
+import ru.catssoftware.Config;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
 import ru.catssoftware.gameserver.instancemanager.DuelManager;
 import ru.catssoftware.gameserver.model.L2Attackable;
@@ -26,6 +27,8 @@ import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance.ConditionListenerDependency;
 import ru.catssoftware.gameserver.model.actor.stat.CharStat;
 import ru.catssoftware.gameserver.model.entity.Duel;
+import ru.catssoftware.gameserver.model.olympiad.Olympiad;
+import ru.catssoftware.gameserver.model.olympiad.OlympiadGame;
 import ru.catssoftware.gameserver.model.quest.QuestState;
 import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
 import ru.catssoftware.gameserver.skills.Formulas;
@@ -271,10 +274,12 @@ public class CharStatus
 		if (value > 0) // Reduce Hp if any
 		{
 			// add olympiad damage
-			if (player != null && player.isInOlympiadMode() && attacker.isPlayer() && attackerPlayer.isInOlympiadMode())
-			{
-				attackerPlayer.addOlyDamage((int) value);
-			}
+			if ((getActiveChar().isPlayer() && attacker.isPlayer() || Config.ALT_OLY_INCLUDE_SUMMON_DAMAGE) && player != null && player.isInOlympiadMode() && attackerPlayer.getPlayer() != null && attackerPlayer.isInOlympiadMode())
+				if (player.getOlympiadGameId() == attackerPlayer.getOlympiadGameId())
+				{
+					OlympiadGame game = Olympiad.getInstance().getOlympiadGames().get(player.getOlympiadGameId());
+					game.addDamage(attackerPlayer, value);
+				}
 
 			// If we're dealing with an L2Attackable Instance and the attacker hit it with an over-hit enabled skill, set the over-hit values.
 			// Anything else, clear the over-hit flag
