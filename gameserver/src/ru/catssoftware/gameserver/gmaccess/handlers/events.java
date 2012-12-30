@@ -67,9 +67,9 @@ public class events extends gmHandler
 					html+="</font></td><td>";
 	
 					html+="<button width=55 height=15 back=\"sek.cbui94\" fore=\"sek.cbui94\" action=\"bypass -h admin_events ";
-					html+=(evt.getName()+" "+(evt.isState(GameEvent.State.STATE_ACTIVE)?"start":"stop"));
+					html+=(evt.getName()+" "+(evt.isState(GameEvent.State.STATE_OFFLINE)?"start":"stop"));
 					html+="\" value=\"";
-					html+=((evt.isState(GameEvent.State.STATE_ACTIVE)?"СТАРТ":"СТОП")+"\"></td>");
+					html+=((evt.isState(GameEvent.State.STATE_OFFLINE)?"СТАРТ":"СТОП")+"\"></td>");
 					html+="</tr>";
 				}
 				msg.replace("%events%", html);
