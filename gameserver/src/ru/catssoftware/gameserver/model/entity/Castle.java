@@ -1,16 +1,10 @@
 package ru.catssoftware.gameserver.model.entity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
-
+import javolution.util.FastList;
+import javolution.util.FastMap;
 import ru.catssoftware.Config;
-import ru.catssoftware.Message;
 import ru.catssoftware.L2DatabaseFactory;
+import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.CastleUpdater;
 import ru.catssoftware.gameserver.SevenSigns;
 import ru.catssoftware.gameserver.ThreadPoolManager;
@@ -18,11 +12,7 @@ import ru.catssoftware.gameserver.datatables.ClanTable;
 import ru.catssoftware.gameserver.datatables.ItemTable;
 import ru.catssoftware.gameserver.datatables.ResidentialSkillTable;
 import ru.catssoftware.gameserver.datatables.xml.DoorTable;
-import ru.catssoftware.gameserver.instancemanager.CastleManager;
-import ru.catssoftware.gameserver.instancemanager.CastleManorManager;
-import ru.catssoftware.gameserver.instancemanager.CrownManager;
-import ru.catssoftware.gameserver.instancemanager.FortManager;
-import ru.catssoftware.gameserver.instancemanager.MapRegionManager;
+import ru.catssoftware.gameserver.instancemanager.*;
 import ru.catssoftware.gameserver.instancemanager.CastleManorManager.CropProcure;
 import ru.catssoftware.gameserver.instancemanager.CastleManorManager.SeedProduction;
 import ru.catssoftware.gameserver.model.L2Clan;
@@ -35,8 +25,13 @@ import ru.catssoftware.gameserver.model.mapregion.L2MapRegionRestart;
 import ru.catssoftware.gameserver.network.serverpackets.PlaySound;
 import ru.catssoftware.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 
 public class Castle extends Siegeable
@@ -464,6 +459,7 @@ public class Castle extends Siegeable
 				CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
 
 			clan.setHasCastle(0);
+			clan.getListners().setCastle(0);
 			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 		}
 
@@ -502,7 +498,8 @@ public class Castle extends Siegeable
 				if (oldLord != null && oldLord.getMountType() == 2)
 					oldLord.dismount();
 				oldOwner.setHasCastle(0); // Unset has castle flag for old owner
-				
+				oldOwner.getListners().setCastle(0);
+
 				// remove crowns
 				CrownManager.getInstance().checkCrowns(oldOwner);
 			}
@@ -913,6 +910,7 @@ public class Castle extends Siegeable
 			if (clan != null)
 			{
 				clan.setHasCastle(getCastleId()); // Set has castle flag for new owner
+				clan.getListners().setCastle(getCastleId());
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory", 0, 0, 0, 0, 0));
 

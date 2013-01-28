@@ -53,6 +53,8 @@ public class L2ManufactureList
 	 */
 	public void setStoreName(String manufactureStoreName)
 	{
+		if (manufactureStoreName == null)
+			manufactureStoreName = "";
 		_manufactureStoreName = manufactureStoreName.length() > 16 ? manufactureStoreName.substring(0, 15) : manufactureStoreName;
 	}
 

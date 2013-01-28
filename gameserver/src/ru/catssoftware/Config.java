@@ -20,6 +20,11 @@ import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+/*
+ * @author Ro0TT
+ * @date 06.01.2013
+ */
+
 public class Config extends L2Config
 {
 	protected static Logger		_log					= Logger.getLogger(Config.class.getName());

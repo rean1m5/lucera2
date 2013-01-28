@@ -286,11 +286,10 @@ public class LoginServerThread extends Thread
 	
 	protected final void close()
 	{
-		IOUtils.closeQuietly(_in);
-		IOUtils.closeQuietly(_out);
-		
 		try
 		{
+			IOUtils.closeQuietly(_in);
+			IOUtils.closeQuietly(_out);
 			if (_connection != null)
 				_connection.close();
 		}

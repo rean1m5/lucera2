@@ -14,18 +14,8 @@
  */
 package ru.catssoftware.gameserver.model.actor.instance;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
 import javolution.util.FastMap;
-
-
 import org.apache.log4j.Logger;
-
-
 import ru.catssoftware.Config;
 import ru.catssoftware.Message;
 import ru.catssoftware.gameserver.ai.CtrlIntention;
@@ -34,15 +24,21 @@ import ru.catssoftware.gameserver.instancemanager.ClanHallManager;
 import ru.catssoftware.gameserver.instancemanager.TownManager;
 import ru.catssoftware.gameserver.model.L2Clan;
 import ru.catssoftware.gameserver.model.entity.Auction;
+import ru.catssoftware.gameserver.model.entity.Auction.Bidder;
 import ru.catssoftware.gameserver.model.entity.ClanHall;
 import ru.catssoftware.gameserver.model.entity.Town;
-import ru.catssoftware.gameserver.model.entity.Auction.Bidder;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.ActionFailed;
 import ru.catssoftware.gameserver.network.serverpackets.MyTargetSelected;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
 import ru.catssoftware.gameserver.network.serverpackets.ValidateLocation;
 import ru.catssoftware.gameserver.templates.chars.L2NpcTemplate;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public final class L2AuctioneerInstance extends L2FolkInstance
 {
@@ -237,7 +233,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 					{
 						int bid = 0;
 						if (st.countTokens() >= 1)
-							bid = Integer.parseInt(st.nextToken());
+							bid = ((Number)Double.parseDouble(st.nextToken())).intValue();
 
 						AuctionManager.getInstance().getAuction(auctionId).setBid(player, bid);
 					}

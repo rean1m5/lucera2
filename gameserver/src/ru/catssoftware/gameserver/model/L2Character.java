@@ -19,6 +19,7 @@ import ru.catssoftware.gameserver.ai.L2AttackableAI;
 import ru.catssoftware.gameserver.ai.L2CharacterAI;
 import ru.catssoftware.gameserver.datatables.SkillTable;
 import ru.catssoftware.gameserver.datatables.xml.DoorTable;
+import ru.catssoftware.gameserver.geodata.CollisionEngine;
 import ru.catssoftware.gameserver.geodata.GeoData;
 import ru.catssoftware.gameserver.geodata.pathfinding.AbstractNodeLoc;
 import ru.catssoftware.gameserver.geodata.pathfinding.PathFinding;
@@ -32,11 +33,11 @@ import ru.catssoftware.gameserver.model.L2Skill.SkillTargetType;
 import ru.catssoftware.gameserver.model.actor.instance.*;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import ru.catssoftware.gameserver.model.actor.knownlist.CharKnownList;
-import ru.catssoftware.gameserver.model.actor.listeners.CharactionListeners;
 import ru.catssoftware.gameserver.model.actor.stat.CharStat;
 import ru.catssoftware.gameserver.model.actor.status.CharStatus;
 import ru.catssoftware.gameserver.model.entity.events.GameEvent;
 import ru.catssoftware.gameserver.model.itemcontainer.Inventory;
+import ru.catssoftware.gameserver.model.listeners.CharListenerList;
 import ru.catssoftware.gameserver.model.mapregion.TeleportWhereType;
 import ru.catssoftware.gameserver.model.quest.Quest;
 import ru.catssoftware.gameserver.model.quest.QuestState;
@@ -106,9 +107,9 @@ public abstract class L2Character extends L2Object implements IEffector
 	private boolean					_isRunning							= true;
 	private boolean					_isImmobileUntilAttacked			= false;
 	private boolean					_isSleeping							= false;											// Cannot move/attack until sleep
-	private boolean 				_lastHitIsCritical;	
+	private boolean 				_lastHitIsCritical;
 
-	private CharactionListeners _listners = new CharactionListeners(this);
+	protected volatile CharListenerList listeners;
 	// Character PremiumService field
 
 	// timed out or monster is attacked
@@ -200,6 +201,16 @@ public abstract class L2Character extends L2Object implements IEffector
 		return (zone == L2Zone.FLAG_PVP) ? (_currentZones[L2Zone.FLAG_PVP] > 0 && _currentZones[L2Zone.FLAG_PEACE] == 0) : (_currentZones[zone] > 0);
 	}
 
+	public CharListenerList getListeners()
+	{
+		if(listeners == null)
+			synchronized (this)
+			{
+				if(listeners == null)
+					listeners = new CharListenerList(this);
+			}
+		return listeners;
+	}
 	
 	public List<L2Zone> getZones() {
 		return _currentZoneList;
@@ -250,6 +261,7 @@ public abstract class L2Character extends L2Object implements IEffector
 	public void onDecay()
 	{
 		GameExtensionManager.getInstance().handleAction(this, Action.CHAR_DESPAWN);
+		CollisionEngine.getInstance().remove(this);
 		L2WorldRegion reg = getWorldRegion();
 		decayMe();
 		if (reg != null)
@@ -260,6 +272,9 @@ public abstract class L2Character extends L2Object implements IEffector
 	public void onSpawn()
 	{
 		GameExtensionManager.getInstance().handleAction(this, Action.CHAR_SPAWN);
+		Point3D p3d = CollisionEngine.getInstance().check(this, getPos(), getInstanceId());
+		CollisionEngine.getInstance().register(this, p3d);
+		getPosition().setXYZ(p3d.getX(), p3d.getY(), p3d.getZ());
 		super.onSpawn();
 		revalidateZone(true);
 	}
@@ -390,8 +405,6 @@ public abstract class L2Character extends L2Object implements IEffector
 		enableAllSkills();
 		getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 		getKnownList().updateKnownObjects();
-
-		_listners.onTeleport();
 	}
 
 	public void teleToLocation(int x, int y, int z)
@@ -1737,6 +1750,11 @@ public abstract class L2Character extends L2Object implements IEffector
 			if (isFakeDeath())
 				stopFakeDeath(null);
 
+			if (killer.isSummon())
+				killer.getPlayer().getListeners().onKill(killer);
+			else
+				killer.getListeners().onKill(killer);
+
 			setIsDead(true);
 		}
 		GameExtensionManager.getInstance().handleAction(this, Action.CHAR_DIE, killer);
@@ -1864,7 +1882,7 @@ public abstract class L2Character extends L2Object implements IEffector
 		if(isInFunEvent())
 			getGameEvent().onKill(killer, this);
 
-		_listners.onDeath(killer);
+		getListeners().onDeath(killer);
 
 		return true;
 	}
@@ -3645,6 +3663,16 @@ public abstract class L2Character extends L2Object implements IEffector
 			distance = Math.sqrt(dx*dx + dy*dy);
 		}
 
+
+		// Define movement angles needed
+		// ^
+		// |     X (x,y)
+		// |   /
+		// |  /distance
+		// | /
+		// |/ angle
+		// X ---------->
+		// (curx,cury)
 		double cos;
 		double sin;
 

@@ -38,7 +38,7 @@ public class EnergyStone implements IItemHandler
 		}
 
 		L2Skill skill = activeChar.getChargeSkill();
-		if (skill == null)
+		if (skill == null || activeChar.isCastingNow())
 		{
 			// Player is not a charger class
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);

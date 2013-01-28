@@ -910,21 +910,30 @@ public class TvT extends GameEvent
 		return "Kills : "+kills;
 		
 	}
-	
-	public String getName(L2PcInstance cha, L2PcInstance other) {
-		if(cha.getGameEvent() == other.getGameEvent()) {
-			int myTeam = getTeam(cha);
-			int otherTeam = getTeam(other);
-			if(myTeam!=otherTeam && myTeam > 0)
-				return _teams.get(myTeam).name;
-		}
+
+	@Override
+	public String getName(L2PcInstance cha, L2PcInstance other)
+	{
+		if (cha != null && other != null)
+			if(cha.getGameEvent() == other.getGameEvent())
+			{
+				int myTeam = getTeam(cha);
+				int otherTeam = getTeam(other);
+				if(myTeam!=otherTeam && myTeam > 0)
+					return _teams.get(myTeam).name;
+			}
 
 		return cha.getName();
 	}
-	public int getCharTitleColor(L2PcInstance cha, L2PcInstance other) {
-		int myTeam = getTeam(cha);
-		if (myTeam > -1)
-			return _teams.get(myTeam).color;
+	@Override
+	public int getCharTitleColor(L2PcInstance cha, L2PcInstance other)
+	{
+		if (cha != null && other != null)
+		{
+			int myTeam = getTeam(cha);
+			if (myTeam > -1)
+				return _teams.get(myTeam).color;
+		}
 		return super.getCharTitleColor(cha, other);
 	}
 		

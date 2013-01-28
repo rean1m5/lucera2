@@ -37,6 +37,7 @@ import ru.catssoftware.gameserver.model.base.*;
 import ru.catssoftware.gameserver.model.entity.*;
 import ru.catssoftware.gameserver.model.entity.faction.FactionMember;
 import ru.catssoftware.gameserver.model.itemcontainer.*;
+import ru.catssoftware.gameserver.model.listeners.PlayerListenerList;
 import ru.catssoftware.gameserver.model.mapregion.TeleportWhereType;
 import ru.catssoftware.gameserver.model.olympiad.Olympiad;
 import ru.catssoftware.gameserver.model.quest.Quest;
@@ -831,6 +832,18 @@ public class L2PcInstance extends L2PlayableInstance
 			OfflineManager.getInstance().removeTrader(onlinePlayer);
 
 		new Disconnection(onlinePlayer).defaultSequence(true);
+	}
+
+	@Override
+	public PlayerListenerList getListeners()
+	{
+		if(listeners == null)
+			synchronized(this)
+			{
+				if(listeners == null)
+					listeners = new PlayerListenerList(this);
+			}
+		return (PlayerListenerList) listeners;
 	}
 	
 	@Override
@@ -2505,10 +2518,12 @@ public class L2PcInstance extends L2PlayableInstance
 	private boolean _sitWhenArrived;
 	
 	@Override
-	protected boolean moveToLocation(int x, int y, int z, int offset) {
+	protected void moveToLocation(int x, int y, int z, int offset)
+	{
 		_sitWhenArrived = false;
-		return super.moveToLocation(x, y, z, offset);
+		super.moveToLocation(x, y, z, offset);
 	}
+
 	@Override
 	public void finishMovement() {
 		super.finishMovement();
@@ -7309,7 +7324,7 @@ public class L2PcInstance extends L2PlayableInstance
 			rset.close();
 			statement.close();
 
-			statement = con.prepareStatement("DELETE FROM character_effects WHERE object_id = ? AND class_index=?");
+			statement = con.prepareStatement(DELETE_SKILL_EFFECTS);
 			statement.setInt(1, getObjectId());
 			statement.setInt(2, getActiveClass());
 			statement.executeUpdate();
@@ -9585,13 +9600,16 @@ public class L2PcInstance extends L2PlayableInstance
 				e.printStackTrace();
 			}
 		}
-		try {
+
+		try
+		{
 			L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this, getSubClasses().get(classIndex).getClassDefinition());
 			for(L2SkillLearn sk : skills)
 				removeSkill(sk.getId());
 			for(L2Effect e : getAllEffects())
 				e.exit();
-		} catch(Exception e) {
+		} catch(Exception e)
+		{
 			
 		}
 		getSubClasses().remove(classIndex);
@@ -9783,16 +9801,13 @@ public class L2PcInstance extends L2PlayableInstance
 
 		stopAllEffectsExceptThoseThatLastThroughDeath();
 	    Connection con = null;
-	    try {
+	    try
+		{
 	    	con = L2DatabaseFactory.getInstance().getConnection();
 	    	restoreDeathPenaltyBuffLevel();
 	    	restoreSkills(con);
 	    	regiveTemporarySkills();
 	    	rewardSkills();
-		// Prevents some issues when changing between subclases that shares skills  
-	    //	if (_disabledSkills != null && !_disabledSkills.isEmpty())
-	    //		_disabledSkills.clear();
-	    	restoreEffects();
 			restoreDisableSkills();
 	    	updateEffectIcons();
 
@@ -9977,6 +9992,8 @@ public class L2PcInstance extends L2PlayableInstance
 			sendMessage(Message.getMessage(this, Message.MessageId.MSG_ENTER_IN_REFUS_MODE));
 
 		revalidateZone(true);
+
+		getListeners().onEnter();
 
 	}
 
@@ -10867,6 +10884,14 @@ public class L2PcInstance extends L2PlayableInstance
 		catch (Throwable t)
 		{
 			
+		}
+
+		try {
+			getListeners().onExit();
+		}
+		catch (Throwable t)
+		{
+
 		}
 		SQLQueue.getInstance().run();
 

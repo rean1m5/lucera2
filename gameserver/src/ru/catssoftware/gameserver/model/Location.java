@@ -130,13 +130,5 @@ public final class Location
 		}
 		return loc;
 	}
-
-	public void set(int tx, int ty, int tz, int heading) {
-		x = tx;
-		y = ty;
-		z = tx;
-		this.heading = heading;
-		
-	}
 	
 }

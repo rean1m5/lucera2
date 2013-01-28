@@ -28,6 +28,7 @@ import ru.catssoftware.gameserver.instancemanager.FortManager;
 import ru.catssoftware.gameserver.instancemanager.SiegeManager;
 import ru.catssoftware.gameserver.model.actor.instance.L2PcInstance;
 import ru.catssoftware.gameserver.model.itemcontainer.ClanWarehouse;
+import ru.catssoftware.gameserver.model.listeners.ClanListenerList;
 import ru.catssoftware.gameserver.network.SystemMessageId;
 import ru.catssoftware.gameserver.network.serverpackets.*;
 import ru.catssoftware.gameserver.skills.TimeStamp;
@@ -45,7 +46,7 @@ import java.util.Map;
  *
  * @version $Revision: 1.7.2.4.2.7 $ $Date: 2005/04/06 16:13:41 $
  */
-public  class L2Clan
+public class L2Clan
 {
 	private static final Logger				_log						= Logger.getLogger(L2Clan.class.getName());
 	private String							_name;
@@ -136,6 +137,8 @@ public  class L2Clan
 	private int								_rank						= 0;
 
 	private String							_notice = "";
+
+	private ClanListenerList clanListnerList = new ClanListenerList(this);
 
 	@SuppressWarnings("unused")
 	private boolean							_noticeEnabled				= true;
@@ -2676,5 +2679,10 @@ public  class L2Clan
 				list.addAll(clan.getOnlineMembersList());
 		}
 		return list;
+	}
+
+	public ClanListenerList getListners()
+	{
+		return clanListnerList;
 	}
 }

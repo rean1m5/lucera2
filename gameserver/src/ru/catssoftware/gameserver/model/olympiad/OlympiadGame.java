@@ -334,6 +334,14 @@ public class OlympiadGame
 			if (_playerTwo.isSitting())
 				_playerTwo.standUp();
 
+
+			_playerOne.setIsInOlympiadMode(true);
+			_playerOne.setIsOlympiadStart(false);
+			_playerOne.setOlympiadSide(1);
+			_playerTwo.setIsInOlympiadMode(true);
+			_playerTwo.setIsOlympiadStart(false);
+			_playerTwo.setOlympiadSide(2);
+
 			_playerOne.setTarget(null);
 			_playerTwo.setTarget(null);
 			if(_playerOne.getPet()!=null)
@@ -345,9 +353,6 @@ public class OlympiadGame
 				_playerOne.getParty().removePartyMember(_playerOne);
 			if(_playerTwo.getParty()!=null)
 				_playerTwo.getParty().removePartyMember(_playerTwo);
-
-			_playerOne.stopAllEffects();
-			_playerTwo.stopAllEffects();
 
 			if(Config.ALT_OLY_RESET_SKILL_TIME)
 			{
@@ -362,12 +367,6 @@ public class OlympiadGame
 			_playerTwo.getStatus().restoreHpMp();
 			_playerOne.sendPacket(new ExOlympiadMode(2));
 			_playerTwo.sendPacket(new ExOlympiadMode(2));
-			_playerOne.setIsInOlympiadMode(true);
-			_playerOne.setIsOlympiadStart(false);
-			_playerOne.setOlympiadSide(1);
-			_playerTwo.setIsInOlympiadMode(true);
-			_playerTwo.setIsOlympiadStart(false);
-			_playerTwo.setOlympiadSide(2);
 			OlympiadManager.enchantUpdate(_playerOne);
 			OlympiadManager.enchantUpdate(_playerTwo);
 			OlympiadManager.checkRestrictItem(_playerOne);
