@@ -209,6 +209,7 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 			_replacement.clear();
 		}
 		String html = HTMParser.parseHTM(_html, getClient().getActiveChar(),_npc );
+		html = getClient().getActiveChar().encodeBypasses(html);
 		if (html.length() > 8192)
 		{
 			writeS("<html><body><br>Sorry, the HTML is too long!</body></html>");

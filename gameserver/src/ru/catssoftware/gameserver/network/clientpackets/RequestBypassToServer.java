@@ -17,6 +17,8 @@ import ru.catssoftware.gameserver.model.olympiad.Olympiad;
 import ru.catssoftware.gameserver.network.InvalidPacketException;
 import ru.catssoftware.gameserver.network.serverpackets.GMViewPledgeInfo;
 import ru.catssoftware.gameserver.network.serverpackets.NpcHtmlMessage;
+import ru.catssoftware.gameserver.model.BypassManager.DecodedBypass;
+
 
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -30,17 +32,20 @@ public class RequestBypassToServer extends L2GameClientPacket
 {
 	private String				_command = null;
 
-	@Override
+@Override
 	protected void readImpl()
 	{
 		_command = readS();
-/*		if(!bp.isEmpty() && getClient().getActiveChar()!=null) {
-			DecodedBypass bypass = getClient().getActiveChar().decodeBypass(bp);
+
+		//Decode bypass.
+		if(!_command.isEmpty() && getClient().getActiveChar()!=null)
+		{
+			DecodedBypass bypass = getClient().getActiveChar().decodeBypass(_command);
 			if(bypass!=null)
 				_command = bypass.bypass;
 		}
-*/
 	}
+
 
 	@Override
 	protected void runImpl() throws InvalidPacketException

@@ -1,4 +1,4 @@
-package ru.catssoftware.gameserver.model.actor.instance;
+﻿package ru.catssoftware.gameserver.model.actor.instance;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -76,6 +76,11 @@ import ru.catssoftware.util.LinkedBunch;
 import ru.catssoftware.util.SingletonList;
 import ru.catssoftware.util.SingletonMap;
 import ru.catssoftware.util.StatsSet;
+import ru.catssoftware.gameserver.model.BypassManager;
+import ru.catssoftware.gameserver.model.BypassManager.BypassType;
+import ru.catssoftware.gameserver.model.BypassManager.DecodedBypass;
+import ru.catssoftware.gameserver.model.BypassManager.EncodedBypass;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13232,6 +13237,38 @@ public class L2PcInstance extends L2PlayableInstance
 	public void setPcCaffePoints(int val) {
 		_pccaffe = val;
 	}
+	private Map<String,EncodedBypass> bypasses = null;
+	private Map<String,EncodedBypass> getStoredBypasses()
+	{
+		if(bypasses == null)
+			bypasses = new FastMap<String,EncodedBypass>();
+		return bypasses;
+	}
+	
+	public String encodeBypasses(String htmlCode)
+	{
+		Map<String,EncodedBypass> bypassStorage = getStoredBypasses();
+		synchronized (bypassStorage)
+		{
+			return BypassManager.encode(htmlCode, bypassStorage);
+		}
+	}
+
+	public DecodedBypass decodeBypass(String bypass)
+	{
+		BypassType bpType = BypassManager.getBypassType(bypass);
+
+		Map<String,EncodedBypass> bypassStorage = getStoredBypasses();
+
+		if(bpType == BypassType.ENCODED)
+			return BypassManager.decode(bypass, bypassStorage, this);
+
+		if(bpType == BypassType.SIMPLE)
+			return new DecodedBypass(bypass).trim();
+
+		_log.warn("BypasManager: Direct access to bypass! Bypass: [" + bypass + "], Player: [" + getName()+"]");
+		return null;
+	} 
 /*
 	private Map<String,EncodedBypass> bypasses = null, bypassesBbs = null;
 	private Map<String,EncodedBypass> getStoredBypasses(boolean bbs)
