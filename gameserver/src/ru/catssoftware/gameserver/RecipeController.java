@@ -46,7 +46,10 @@ public class RecipeController
 
 		try
 		{
-			loadFromXML();
+			LoadXml loadxml = new LoadXml();
+			loadxml.loadFromXml();
+			
+			
 			_log.info("RecipeController: Loaded " + _lists.size() + " recipes.");
 		}
 		catch (Exception e)
@@ -191,144 +194,7 @@ public class RecipeController
 		}
 	}
 
-	private void loadFromXML() throws SAXException, IOException, ParserConfigurationException
-	{
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setValidating(false);
-		factory.setIgnoringComments(true);
-		File file = new File(Config.DATAPACK_ROOT, "data/" + RECIPES_FILE);
-		if (file.exists())
-		{
-			Document doc = factory.newDocumentBuilder().parse(file);
-			List<L2RecipeInstance> recipePartList = new FastList<L2RecipeInstance>();
-			List<L2RecipeStatInstance> recipeStatUseList = new FastList<L2RecipeStatInstance>();
-			List<L2RecipeStatInstance> recipeAltStatChangeList = new FastList<L2RecipeStatInstance>();
-
-			for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
-			{
-				if ("list".equalsIgnoreCase(n.getNodeName()))
-				{
-					recipesFile: for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
-					{
-						if ("item".equalsIgnoreCase(d.getNodeName()))
-						{
-							recipePartList.clear();
-							recipeStatUseList.clear();
-							recipeAltStatChangeList.clear();
-							NamedNodeMap attrs = d.getAttributes();
-							Node att;
-							int id = -1;
-							StatsSet set = new StatsSet();
-
-							att = attrs.getNamedItem("id");
-							if (att == null)
-							{
-								_log.fatal("Missing id for recipe item, skipping");
-								continue;
-							}
-							id = Integer.parseInt(att.getNodeValue());
-							set.set("id", id);
-
-							att = attrs.getNamedItem("recipeId");
-							if (att == null)
-							{
-								_log.fatal("Missing recipeId for recipe item id: " + id + ", skipping");
-								continue;
-							}
-							set.set("recipeId", Integer.parseInt(att.getNodeValue()));
-
-							att = attrs.getNamedItem("name");
-							if (att == null)
-							{
-								_log.fatal("Missing name for recipe item id: " + id + ", skipping");
-								continue;
-							}
-							set.set("recipeName", att.getNodeValue());
-
-							att = attrs.getNamedItem("craftLevel");
-							if (att == null)
-							{
-								_log.fatal("Missing level for recipe item id: " + id + ", skipping");
-								continue;
-							}
-							set.set("craftLevel", Integer.parseInt(att.getNodeValue()));
-
-							att = attrs.getNamedItem("type");
-							if (att == null)
-							{
-								_log.fatal("Missing type for recipe item id: " + id + ", skipping");
-								continue;
-							}
-							set.set("isDwarvenRecipe", att.getNodeValue().equalsIgnoreCase("dwarven"));
-
-							att = attrs.getNamedItem("successRate");
-							if (att == null)
-							{
-								_log.fatal("Missing successRate for recipe item id: " + id + ", skipping");
-								continue;
-							}
-							set.set("successRate", Integer.parseInt(att.getNodeValue()));
-
-							for (Node c = d.getFirstChild(); c != null; c = c.getNextSibling())
-							{
-								if ("statUse".equalsIgnoreCase(c.getNodeName()))
-								{
-									String statName = c.getAttributes().getNamedItem("name").getNodeValue();
-									int value = Integer.parseInt(c.getAttributes().getNamedItem("value").getNodeValue());
-									try
-									{
-										recipeStatUseList.add(new L2RecipeStatInstance(statName, value));
-									}
-									catch (Exception e)
-									{
-										_log.fatal("Error in StatUse parameter for recipe item id: " + id + ", skipping");
-										continue recipesFile;
-									}
-								}
-								else if ("altStatChange".equalsIgnoreCase(c.getNodeName()))
-								{
-									String statName = c.getAttributes().getNamedItem("name").getNodeValue();
-									int value = Integer.parseInt(c.getAttributes().getNamedItem("value").getNodeValue());
-									try
-									{
-										recipeAltStatChangeList.add(new L2RecipeStatInstance(statName, value));
-									}
-									catch (Exception e)
-									{
-										_log.fatal("Error in AltStatChange parameter for recipe item id: " + id + ", skipping");
-										continue recipesFile;
-									}
-								}
-								else if ("ingredient".equalsIgnoreCase(c.getNodeName()))
-								{
-									int ingId = Integer.parseInt(c.getAttributes().getNamedItem("id").getNodeValue());
-									int ingCount = Integer.parseInt(c.getAttributes().getNamedItem("count").getNodeValue());
-									recipePartList.add(new L2RecipeInstance(ingId, ingCount));
-								}
-								else if ("production".equalsIgnoreCase(c.getNodeName()))
-								{
-									set.set("itemId", Integer.parseInt(c.getAttributes().getNamedItem("id").getNodeValue()));
-									set.set("count", Integer.parseInt(c.getAttributes().getNamedItem("count").getNodeValue()));
-								}
-							}
-
-							L2RecipeList recipeList = new L2RecipeList(set);
-							for (L2RecipeInstance recipePart : recipePartList)
-								recipeList.addRecipe(recipePart);
-							for (L2RecipeStatInstance recipeStatUse : recipeStatUseList)
-								recipeList.addStatUse(recipeStatUse);
-							for (L2RecipeStatInstance recipeAltStatChange : recipeAltStatChangeList)
-								recipeList.addAltStatChange(recipeAltStatChange);
-
-							_lists.put(id, recipeList);
-						}
-					}
-				}
-			}
-		}
-		else
-			_log.fatal("Recipes file (" + file.getAbsolutePath() + ") doesnt exists.");
-	}
+	
 
 	private class RecipeItemMaker implements Runnable
 	{
